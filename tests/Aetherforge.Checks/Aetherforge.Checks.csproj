@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../src/Aetherforge.Domain/Aetherforge.Domain.csproj" /><ProjectReference Include="../../src/Aetherforge.Persistence/Aetherforge.Persistence.csproj" /></ItemGroup>
+</Project>

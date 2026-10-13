@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Aetherforge.Api/Aetherforge.Api.csproj" />
+    <Project Path="src/Aetherforge.Client/Aetherforge.Client.csproj" />
+    <Project Path="src/Aetherforge.Domain/Aetherforge.Domain.csproj" />
+    <Project Path="src/Aetherforge.Persistence/Aetherforge.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Aetherforge.Checks/Aetherforge.Checks.csproj" />
+  </Folder>
+</Solution>

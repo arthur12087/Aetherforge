@@ -1,0 +1,34 @@
+name: Verificacoes
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar ferramentas portateis
+        run: .\scripts\Setup.ps1 -SkipAssets
+      - name: Compilar e importar assets
+        run: .\scripts\Build.ps1
+      - name: Verificar dominio, API e rede
+        run: .\scripts\Test.ps1
+      - name: Verificar integracao e persistencia
+        run: .\scripts\Test-Integration.ps1
+      - name: Guardar logs de falha
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-windows
+          path: artifacts/*.log
+          retention-days: 7

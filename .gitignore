@@ -1,0 +1,41 @@
+# Ferramentas portateis e dependencias locais
+.tools/
+**/bin/
+**/obj/
+**/.godot/
+**/node_modules/
+
+# Execucao, saves, logs e evidencias geradas neste PC
+/artifacts/
+/data/
+/outputs/
+/.qa_gdd*/
+*.log
+*.json.lock
+*.inspect.ndjson
+
+# IDEs e arquivos pessoais
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store
+
+# Segredos e configuracoes locais
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.key
+
+# Ferramentas opcionais de documentacao
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
