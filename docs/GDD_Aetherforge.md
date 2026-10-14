@@ -11,7 +11,7 @@
 Aetherforge é um projeto que combina duas experiências no mesmo universo:
 
 1. Um RPG idle completo, inspirado no formato de *The Taskbar Hero*, executado na barra de tarefas e baseado em progressão contínua por mapas.
-2. Um MMORPG inspirado na estrutura e na leitura visual de *Ragnarok Online*, com mapas 3D e personagens representados por sprites 2.5D pré-renderizados.
+2. Um MMORPG inspirado na estrutura de *Ragnarok Online*, com mapas e personagens 3D animados em tempo real.
 
 O jogador envia uma equipe para missões contínuas de caça ou mineração. A equipe avança por etapas até enfrentar o chefe final da região, evolui de nível, equipa seus próprios itens e continua participando da missão mesmo sem intervenção constante. Parte dos equipamentos, moedas e recursos obtidos alimenta o MMORPG e sua economia global.
 
@@ -38,11 +38,13 @@ A proposta não é oferecer dois jogos independentes ligados apenas por recompen
 
 ### 1.4 Direção visual
 
-- Cenários tridimensionais com câmera isométrica ou semi-isométrica.
-- Personagens em 2.5D produzidos como sprites pré-renderizados a partir de modelos 3D.
+- Tom pesado, sinistro e triste. Frostpunk e Frostpunk 2 são referências de atmosfera; Task Bar Hero continua orientando o formato do idle. A [direção artística v3](visual/Direcao_Artistica_v3.md) reúne a revisão com Taste Skill, Color Hunt e Dribbble.
+- Personagens 3D com rig e animação em tempo real nos dois jogos, conforme orientação do usuário em 13/10/2026. A representação por sprites pré-renderizados deixa de ser o alvo de produção.
+- Cenários 3D, com câmera isométrica ou semi-isométrica no MMORPG. No idle, cenário 3D leve, modular e de profundidade rasa, com câmera lateral fixa em três quartos. A exigência provisória de cenário 2D foi retirada pelo usuário.
 - Leitura visual inspirada em MMORPGs clássicos, com silhuetas claras e animações expressivas.
+- Personagens de proporções adultas, equipamento de trabalho e sobrevivência, materiais gastos e máquinas industriais opressivas. Cores frias e desbotadas, calor localizado e éter de brilho contido.
 - Cidades industriais, dirigíveis, autômatos, locomotivas, minas e ruínas movidas a éter.
-- Paleta baseada em metais escuros, latão, cobre, fuligem, vapor e energia etérea luminosa.
+- Paleta baseada em aço escuro, latão e cobre gastos, fuligem, vapor, tecidos desbotados e energia etérea de brilho contido.
 
 ### 1.5 Assets da prova de conceito
 
@@ -50,7 +52,7 @@ A POC pode usar assets prontos encontrados na internet para popular personagens,
 
 Preferir assets gratuitos com licença clara para uso no protótipo. Registrar origem, autor, licença e atribuição exigida num catálogo do projeto. Manter placeholders identificados e separar arquivos originais das adaptações, para facilitar a substituição pela direção steampunk final. Se algum asset exigir compra, escolher uma alternativa gratuita enquanto não houver orçamento definido.
 
-Mesmo com arte provisória, o teste técnico precisa validar mapas 3D e personagens em sprites pré-renderizados: modelos 3D prontos podem servir como origem de renders, e sprites prontos podem acelerar o primeiro teste da janela idle. Não é necessário produzir modelos próprios para aprovar a POC.
+Mesmo com arte provisória, a próxima validação visual precisa usar personagens 3D com rig e animações, junto a um cenário 3D simples no idle. Modelos prontos licenciados podem validar o pipeline antes de produzir arte própria. O protótipo M0 ainda usa sprites; a migração permanece pendente e deve preservar sua integração e as regras compartilhadas.
 
 ## 2. Fantasia do jogador
 
@@ -391,7 +393,8 @@ O jogador deve entender por que vale a pena participar das duas experiências e 
 | RMT | Compra de moeda premium e marketplace entre jogadores, inspirado em *Warframe* |
 | Economia | Global |
 | Movimento do MMORPG | WASD |
-| Personagens 2.5D | Sprites pré-renderizados |
+| Personagens | Modelos 3D com rig e animação em tempo real |
+| Cenário do idle | 3D leve, modular, câmera fixa e custo validado por medição |
 | PvP | Não estará presente inicialmente |
 | Durabilidade | Equipamentos perdem durabilidade, mas não quebram permanentemente |
 | Diferencial adicional | Quests bem escritas, elaboradas e memoráveis |
@@ -402,7 +405,7 @@ A direção mais segura para a primeira versão é:
 
 - MMORPG cooperativo com mapas conectados.
 - Câmera isométrica.
-- Personagens representados por sprites pré-renderizados.
+- Personagens 3D animados em tempo real e cenário 3D leve no idle.
 - Crafting como sistema central.
 - Idle completo, executado na barra de tarefas, com caça, mineração, níveis e equipamentos próprios.
 - Loop idle contínuo com avanço por etapas, chefe final e recuo ao morrer.
@@ -610,7 +613,7 @@ O cenário inicial divide as oito horas de idle por conta em quatro horas de ca�
 
 O backlog completo e suas dependências estão em [POC_Producao.md](POC_Producao.md). A prioridade atual está em [Desenvolvimento.md](Desenvolvimento.md): desenvolver o idle primeiro. A sequência abaixo registra o plano completo da POC:
 
-1. Validar a janela idle no Windows e o pipeline de sprites.
+1. Validar a janela idle no Windows e migrar a apresentação para modelos 3D animados, medindo o cenário compacto.
 2. Implementar a simulação de três integrantes, rota de caça, mineração e avanço offline.
 3. Persistir conta, carteira, equipamentos e inventário único com operações idempotentes.
 4. Construir cliente MMORPG e servidor de mapa para duas pessoas jogarem juntas.
@@ -626,9 +629,9 @@ O desenho da POC está concluído nesta versão. Nenhum sistema listado acima de
 
 A recomendação é **Godot 4 .NET + C# para os dois clientes, Godot headless para mapas online, ASP.NET Core para serviços da conta e PostgreSQL para persistência**. O detalhamento, alternativas e fontes estão em [Stack_Tecnologica.md](Stack_Tecnologica.md).
 
-Essa escolha prioriza mapas 3D com sprites 2.5D, uma base de linguagem comum e custo inicial controlável. A transparência e integração com a barra de tarefas precisam ser validadas no primeiro marco; ainda não existe benchmark do projeto que confirme consumo ou comportamento no Windows.
+Essa escolha prioriza mapas e personagens 3D, uma base de linguagem comum e custo inicial controlável. O idle usa um pequeno trecho 3D com orçamento de malhas, materiais, texturas e animações. A transparência, integração com a barra e consumo da nova apresentação precisam de validação; os conceitos gerados não constituem benchmark.
 
-Usar uma janela transparente sem bordas posicionada junto à barra de tarefas, com controles acessíveis e integração nativa quando necessário. Essa é a proposta técnica para a POC; não pressupõe que o Windows ofereça um espaço nativo para renderizar personagens dentro da barra.
+Usar uma janela transparente sem bordas posicionada junto à barra de tarefas, com controles acessíveis e integração nativa quando necessário. Essa é a proposta técnica para a POC; não pressupõe que o Windows ofereça um espaço nativo para renderizar o jogo dentro da barra.
 
 As simulações e recompensas que alimentam a economia são autoritativas no servidor. Clientes mostram animações e enviam intenções, mas não definem drops, saldos, tempo offline ou propriedade. O núcleo de regras C# não depende de cenas Godot. A compatibilidade de framework entre clientes e serviços será fixada no teste técnico inicial.
 
@@ -637,6 +640,8 @@ Para a POC, manter serviços da conta em um monólito modular, banco único e pr
 ## 17. Próximos passos de execução
 
 Os oito itens de design da versão 0.2 foram especificados nas seções 4.6 e 15, na planilha econômica e no backlog. A base do M0 já existe: cliente idle com combate animado, sprites em oito direções, cenário 3D, dois clientes conectados e compatibilidade da biblioteca C# com cliente e API. A apresentação deve mostrar movimento, ataques, projéteis, cura e impactos, conforme a referência adicional do usuário.
+
+Esse pipeline de sprites registra o estado do protótipo existente. A direção atual usa personagens e cenário 3D; validar primeiro um integrante com rig, depois o trecho de cenário e a equipe completa. A migração da apresentação ainda não foi implementada.
 
 O próximo incremento é M1: implementar as regras completas da rota de caça, XP e equipamento, chefe e recuo. A matriz de DPI, monitores e comportamento do desktop continua necessária para fechar TEC-02. O combate local demonstrativo do M0 não implementa ainda a economia persistente ou o progresso offline.
 

@@ -4,6 +4,8 @@ Referência: GDD v0.3 e Stack_Tecnologica.md. A base do M0 está implementada: f
 
 **Prioridade atual (13/10/2026): desenvolver o idle primeiro.** Executar M1 antes de ampliar o MMORPG. Persistência e offline entram depois de consolidar o ciclo idle; os marcos de MMO e marketplace permanecem como planejamento futuro. [Ordem de trabalho atual](Desenvolvimento.md).
 
+**Direção visual atual:** modelos 3D animados em tempo real; cenário idle 3D leve. A prova de sprites de M0 é histórica. A migração visual entra em ART-03/ART-04 abaixo e ainda não foi implementada. [Estudo v3](visual/Direcao_Artistica_v3.md).
+
 ## M0: provar as escolhas técnicas
 
 | ID | Tarefa | Depende de | Aceitação |
@@ -11,7 +13,7 @@ Referência: GDD v0.3 e Stack_Tecnologica.md. A base do M0 está implementada: f
 | TEC-01 | Fixar Godot .NET estável, SDK cliente, .NET 10 servidor e targets do domínio | — | Cliente e API compilam e usam a mesma biblioteca sem depender de Nodes |
 | TEC-02 | Prototipar janela idle transparente, foco e posição junto à barra | TEC-01 | Passa pela matriz Windows/DPI/monitores descrita na stack, com dados de consumo registrados |
 | ART-00 | Buscar assets gratuitos de personagens, ambiente, UI e áudio; registrar origem e licença | — | Catálogo com links, licença e atribuição; placeholders separados dos assets finais |
-| ART-01 | Renderizar modelo pronto ou importar sprites prontos de um personagem em oito direções | TEC-01, ART-00 | Câmera rotacionável mantém direção, pivô e tamanho; registrar uso de textura |
+| ART-01 | Prova histórica M0: renderizar modelo ou importar sprites de um personagem em oito direções | TEC-01, ART-00 | Evidência existente preservada; não representa o novo alvo de produção 3D |
 | NET-01 | Conectar dois clientes a um processo Godot headless | TEC-01 | Ambos veem movimento validado pelo servidor; desconexão não trava a instância |
 
 Se TEC-02 falhar após ajustes, comparar shell WPF e medir de novo. Se NET-01 falhar por incompatibilidade de runtimes, corrigir versões antes de produzir conteúdo.
@@ -26,7 +28,9 @@ Se TEC-02 falhar após ajustes, comparar shell WPF e medir de novo. Se NET-01 fa
 | IDL-04 | Construir mineração, acumuladores e emboscadas | IDL-03 | Unidades fracionárias se acumulam; troca de missão descarta apenas ciclo incompleto |
 | IDL-05 | Implementar durabilidade e reparo | IDL-02 | Item a zero perde bônus; custo por ponto/peça confere; saldo insuficiente não causa débito parcial |
 | UI-01 | Mostrar equipe, rota, etapa, recursos e ações na janela | TEC-02, IDL-04, IDL-05 | Trocar missão/equipamento entre encontros, entender derrota e abrir gerenciamento |
-| ART-02 | Adaptar assets prontos para os três integrantes e inimigos essenciais | ART-01, IDL-03 | Silhuetas legíveis no tamanho da barra; atlas no orçamento de memória |
+| ART-03 | Validar um integrante 3D com rig no idle | TEC-01, TEC-02, ART-00 | Repouso, caminhada, ataque, habilidade, dano e queda; pés e orientação consistentes; integração existente preservada |
+| ART-04 | Validar cenário 3D modular leve na faixa | ART-03 | Chão e atores legíveis em tamanho real; relatório de FPS, CPU, GPU, memória, draw calls e triângulos, com hardware e DPI |
+| ART-02 | Adaptar modelos para os três integrantes e inimigos essenciais | ART-03, ART-04, IDL-03 | Silhuetas legíveis; malhas, materiais, rigs, clips e texturas dentro do orçamento revisado por medição |
 
 Verificação significativa: simulação sem interface cobre morte do tank, falta de energia, vitória, derrota na etapa 1, bônus zerado e conservação das frações de mineração. Playtest ajusta os números para que a primeira barreira não seja um bloqueio permanente.
 
@@ -49,7 +53,7 @@ Verificação significativa: reconectar após 0, 1, 8 e 12 horas; alterar relóg
 
 | ID | Tarefa | Depende de | Aceitação |
 |---|---|---|---|
-| MMO-01 | WASD, câmera isométrica e sprites direcionais | ART-01, NET-01 | Movimento e direção coerentes ao girar câmera; colisão validada no servidor |
+| MMO-01 | WASD, câmera isométrica e personagens 3D animados | ART-03, NET-01 | Movimento e orientação do modelo coerentes ao girar câmera; colisão validada no servidor |
 | MMO-02 | Implementar Guarda e Pistoleiro jogáveis | MMO-01, IDL-01 | Duas classes concluem conteúdo solo e cooperativo; healer NPC não exige terceira classe jogável |
 | MMO-03 | Cidade, dois mapas e dungeon em greybox | MMO-02 | Brumaférrea, Trilhos Baixos, Pátio de Purga e Estação conectados; saída/retorno funcionam |
 | MMO-04 | Supervisor de Pressão e duas válvulas | MMO-03 | Avisos legíveis, interrupção por cenário e conclusão por dois jogadores |

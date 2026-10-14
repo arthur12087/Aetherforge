@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#222831">
+  <title>Aetherforge · Protótipo dos fluxos idle</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Ir para a tela</a>
+  <aside class="review-bar" aria-label="Ferramentas de revisão do protótipo">
+    <div class="review-label"><strong>Protótipo · dados fictícios</strong><span>Arte conceitual estática. 3D e animações serão produzidos no Godot. Sem salvamento.</span></div>
+    <div class="review-controls">
+      <label for="scenario">Revisar estado</label>
+      <select id="scenario"><option value="combat">Combate</option><option value="mining">Mineração</option><option value="boss">Chefe</option><option value="defeat">Derrota</option><option value="offline">Offline · M2</option><option value="poor">Sem moedas</option><option value="complete">Rota concluída</option></select>
+      <button id="load-scenario" class="small">Abrir estado</button>
+      <button id="advance" class="small">Concluir encontro</button>
+      <button id="reset" class="quiet small">Reiniciar demonstração</button>
+    </div>
+  </aside>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="wordmark" href="#expedicao">AETHERFORGE<span>Brumaférrea</span></a>
+      <nav aria-label="Telas do jogo" id="navigation"></nav>
+      <div class="sidebar-end"><span class="status-dot"></span>Equipe em expedição<p>Uma equipe. Uma atividade.</p><a href="../index.html">Estudo de direção artística ↗</a></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><div><span id="activity-label">Caça em andamento</span><strong id="route-label">Galerias da Caldeira</strong></div><div class="wallet"><span>Moedas</span><strong id="coins">640</strong><button id="compact" class="quiet" aria-pressed="false">Modo compacto</button></div></header>
+      <main id="main" tabindex="-1"></main>
+      <footer class="game-footer"><span>Habilidades automáticas · alterações entre encontros</span><span id="pending-footer">Nenhuma alteração pendente</span></footer>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="modal" aria-labelledby="modal-title"><div id="modal-content"></div></dialog>
+  <noscript><p class="noscript">Este protótipo precisa de JavaScript para navegar e demonstrar os fluxos. A demonstração funciona sem conexão; habilite JavaScript no navegador.</p></noscript>
+</body>
+</html>

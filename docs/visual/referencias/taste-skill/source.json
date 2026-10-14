@@ -1,0 +1,9 @@
+{
+  "source": "https://github.com/Leonxlnx/taste-skill/tree/main/skills/taste-skill",
+  "date": "2026-10-13",
+  "license": "MIT",
+  "sha256": "ee847084e58f5a81a46120912be9cd15f083570a6ca8f3d1a30372a720633043",
+  "direction": "page-is-the-object",
+  "seed": 1337574584,
+  "redraws": 2
+}

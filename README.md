@@ -25,6 +25,10 @@ Sem API, há apenas animação local, sem gerar itens. **Barra / janela** altern
 
 A base M0 inclui janela idle, sprites direcionais, API, persistência JSON, dois clientes de mapa e transferência de uma armadura entre idle e MMO. M1 ainda não está implementado: rotas completas, níveis e XP persistidos, mineração, durabilidade e progresso offline seguem pendentes. Login, PostgreSQL e economia comercial pertencem a etapas futuras.
 
+A direção visual atual usa **personagens 3D animados e cenário 3D leve no idle**, com tom industrial pesado, sinistro e triste. [Conceitos, referências e orçamento inicial](docs/visual/Direcao_Artistica_v3.md). Essa migração ainda está pendente; os comandos abaixo continuam executando o protótipo existente.
+
+O [protótipo navegável das telas idle](docs/visual/prototipo/index.html) funciona diretamente no navegador, sem instalar dependências; abra **Ver Prototipo Idle.cmd** na raiz. Usa dados fictícios para revisar expedição, rotas, equipe, inventário, reparos e estados de recuperação. [Mapa de fluxos e regras](docs/visual/Fluxos_Idle_Prototipo.md). É um estudo de interface separado do cliente Godot; suas ações não modificam o save do jogo.
+
 O save local fica em `data/integration-state.json` e não é enviado ao GitHub. Para levar esse progresso a outro PC, feche os clientes e a API e copie o arquivo separadamente. Sem ele, o novo PC começa com um estado novo.
 
 ## Estrutura
@@ -60,6 +64,12 @@ O primeiro script verifica domínio, API e rede; o segundo verifica combate, tra
 - [Backlog e critérios de aceitação](docs/POC_Producao.md)
 - [Game Design Document](docs/GDD_Aetherforge.md)
 - [Stack e arquitetura](docs/Stack_Tecnologica.md)
+- [Direção artística v3 e apresentação 3D leve](docs/visual/Direcao_Artistica_v3.md)
+- [Artes conceituais das telas do jogo idle](docs/visual/Artes_Telas_Idle_v4.md)
+- [Fluxo do jogador nas artes de interface](docs/visual/Fluxo_Jogador_Artes_Idle.md)
+- [Telas e fluxos do idle — protótipo navegável](docs/visual/prototipo/index.html)
+- [Mapa dos fluxos do protótipo](docs/visual/Fluxos_Idle_Prototipo.md)
+- [Como revisar as telas e resultados da verificação](docs/visual/Prototipos_Idle.md)
 - [Economia v0.3](docs/economia/Economia_Aetherforge_POC.xlsx)
 - [Validação M0 e pendências](docs/Validacao_M0.md)
 - [Teste de equipamento compartilhado](docs/Teste_Equipamento.md)

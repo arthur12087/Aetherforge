@@ -10,6 +10,7 @@
 /data/
 /outputs/
 /.qa_gdd*/
+/.taste-skill/
 *.log
 *.json.lock
 *.inspect.ndjson

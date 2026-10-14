@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Aetherforge — estudo visual v2. Direção pesada, sinistra e triste para um idle subterrâneo em faixa de taskbar.">
+<title>Aetherforge — estudo visual v2</title>
+<style>
+:root {
+--bg:oklch(0.2188 0.0072 229.22); --surface:oklch(0.2638 0.0072 229.22); --fg:oklch(0.8618 0.0136 102.05); --muted:oklch(0.7318 0.0136 102.05); --border:oklch(0.4617 0.0202 240.27); --accent:oklch(0.6563 0.0915 70.03);
+--slate:oklch(0.5417 0.0202 240.27); --canvas:oklch(0.5426 0.0227 77.17); --rust:oklch(0.4761 0.0566 48.75);
+--font-display:'Bahnschrift','Franklin Gothic Medium','Liberation Sans Narrow',sans-serif;
+--font-body:'Segoe UI',Tahoma,sans-serif; --font-mono:Consolas,'Liberation Mono',monospace;
+}
+*{box-sizing:border-box} html{scroll-behavior:auto;color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 var(--font-body)}
+a{color:var(--fg);text-underline-offset:5px;text-decoration-thickness:1px}
+a:hover{color:var(--fg);text-decoration-thickness:2px}
+button,summary{font:inherit;color:var(--fg)}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--fg);outline-offset:5px}
+::selection{color:var(--bg);background:var(--fg)}
+.shell{width:min(1440px,calc(100% - 96px));margin:auto}
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:85px;border-bottom:1px solid var(--border)}
+.wordmark{font:600 17px var(--font-display);letter-spacing:.14em;text-decoration:none}
+nav{display:flex;gap:26px;flex-wrap:wrap}
+nav a{min-height:44px;display:flex;align-items:center;font:12px var(--font-mono);text-decoration:none}
+nav a:hover{text-decoration:underline}
+.eyebrow{font:11px/1.6 var(--font-mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0}
+.hero{padding:45px 0 35px;display:grid;grid-template-columns:1.5fr 1fr;gap:50px;align-items:end}
+h1{font:600 clamp(44px,6.1vw,84px)/1.07 var(--font-display);letter-spacing:-.035em;margin:13px 0 10px}
+.direction{font:400 clamp(22px,2.1vw,29px)/1.25 var(--font-display);margin:0}
+.hero-note{max-width:480px;justify-self:end}
+.hero-note p{margin:0 0 14px}
+.status{display:inline-flex;gap:9px;align-items:center;font:11px var(--font-mono);text-transform:uppercase;letter-spacing:.07em}
+.status:before{content:"";width:6px;height:6px;background:var(--accent)}
+.section{padding:38px 0;border-top:1px solid var(--border)}
+.section-heading{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-bottom:24px}
+h2{font:500 clamp(25px,2.5vw,33px)/1.2 var(--font-display);letter-spacing:-.02em;margin:0}
+h3{font:500 21px/1.3 var(--font-display);margin:0 0 10px}
+.section-intro{max-width:560px;color:var(--muted);font-size:14px;margin:0}
+.boards{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+figure{margin:0;min-width:0}
+.figure-head{display:flex;justify-content:space-between;align-items:baseline;gap:18px;margin-bottom:14px}
+.figure-head h2{font-size:23px}
+.serial{font:11px var(--font-mono);color:var(--muted);white-space:nowrap}
+.image-button{border:1px solid var(--border);padding:0;display:block;width:100%;background:var(--surface)}
+.image-button:hover{border-color:var(--fg)}
+img{max-width:100%;height:auto;object-fit:contain;display:block}
+.image-button img{width:100%;aspect-ratio:3/2}
+figcaption{margin-top:14px;font-size:14px}
+.caption-row{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.caption-row p{margin:0;max-width:75%;color:var(--muted)}
+.text-button{background:transparent;border:0;border-bottom:1px solid var(--border);padding:0 0 2px;min-height:44px;flex-shrink:0;font:12px var(--font-mono)}
+.text-button:hover{border-color:var(--fg)}
+.observations{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:28px}
+.observation{border-top:1px solid var(--border);padding-top:17px}
+.observation h3{font-size:18px}
+.observation p{font-size:14px;color:var(--muted);margin:0}
+.correction{display:grid;grid-template-columns:190px 1fr;gap:24px;background:var(--surface);padding:22px 24px;margin-top:27px;border:1px solid var(--border)}
+.correction .eyebrow{color:var(--accent)}
+.correction p{margin:0;font-size:14px}
+.pose-notes{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+.pose-notes .line{padding-top:16px;border-top:1px solid var(--border)}
+.pose-notes p{margin:0;font-size:14px;color:var(--muted)}
+.materials{display:grid;grid-template-columns:1.1fr 1fr;gap:48px}
+.swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.swatch{height:68px;display:block;border:1px solid var(--border);margin-bottom:9px}
+.swatch-label{font:11px/1.6 var(--font-mono);display:block}
+.swatch-code{font:10px var(--font-mono);display:block;color:var(--muted);margin-top:5px}
+.material-copy p{font-size:14px;margin:0 0 13px;color:var(--muted)}
+.material-copy strong{color:var(--fg);font-weight:600}
+.scale-layout{display:grid;grid-template-columns:420px 1fr;gap:52px}
+.scale-sample{padding:23px;background:var(--surface);border:1px solid var(--border);align-self:start}
+.scale-sample img{width:360px;max-width:100%;height:auto}
+.scale-sample .eyebrow{margin-bottom:16px}
+.scale-sample figcaption{font-size:12px;color:var(--muted);margin-top:18px}
+.scale-note{font-size:13px;color:var(--muted);margin:0 0 19px}
+.reading{display:grid;grid-template-columns:130px 1fr;border-top:1px solid var(--border);gap:20px;padding:13px 0;font-size:14px}
+.reading strong{font-weight:600}
+.reading p{margin:0;color:var(--muted)}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:30px}
+.spec{border-top:1px solid var(--border);padding-top:17px}
+.spec .value{font:500 26px/1.25 var(--font-display);margin:9px 0}
+.spec p{font-size:13px;color:var(--muted);margin:0}
+.references{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.reference .image-button img{aspect-ratio:16/9}
+.reference h3{margin:16px 0 7px}
+.reference .eyebrow{font-size:10px}
+.reference p{font-size:14px;color:var(--muted);margin:9px 0}
+.source{font-size:12px;display:inline-flex;min-height:44px;align-items:center}
+.comparison{margin-top:27px}
+.compare-row{display:grid;grid-template-columns:165px 1fr 1fr;gap:28px;padding:15px 0;border-bottom:1px solid var(--border);font-size:14px}
+.compare-row:first-child{border-top:1px solid var(--border)}
+.compare-row strong{font-weight:600}
+.compare-row p{margin:0;color:var(--muted)}
+.compare-title{font:11px var(--font-mono);text-transform:uppercase;letter-spacing:.07em}
+details{border-top:1px solid var(--border);margin-top:25px}
+summary{cursor:pointer;min-height:58px;display:flex;align-items:center;gap:15px;font-size:14px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:before{content:"+";font:20px var(--font-mono);width:16px}
+details[open]>summary:before{content:"−"}
+summary:hover{background:var(--surface);color:var(--fg)}
+.secondary-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;padding:16px 0}
+.secondary-gallery p{font-size:12px;color:var(--muted);margin:12px 0 0}
+.secondary-gallery .image-button img{aspect-ratio:16/9}
+.credit{font-size:12px;color:var(--muted);margin:22px 0 0;max-width:990px}
+.history{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:14px 0 24px}
+.history .image-button{max-width:460px}
+.history figcaption{color:var(--muted);font-size:12px}
+.handoff{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;counter-reset:handoff}
+.handoff article{border-top:1px solid var(--border);padding-top:17px;counter-increment:handoff}
+.handoff article:before{content:"0" counter(handoff);font:11px var(--font-mono);color:var(--muted);display:block;margin-bottom:14px}
+.handoff p{font-size:14px;color:var(--muted);margin:0}
+.acceptance{margin-top:26px;padding:19px 0;border-top:1px solid var(--border);font-size:14px}
+.acceptance p{margin:0}
+.docs{display:flex;gap:25px;flex-wrap:wrap;margin-top:13px;font-size:12px}
+.docs a{display:flex;align-items:center;min-height:44px}
+footer{display:flex;justify-content:space-between;gap:25px;align-items:center;border-top:1px solid var(--border);padding:27px 0 40px;font:11px/1.7 var(--font-mono);color:var(--muted)}
+dialog{width:min(1600px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--border);background:var(--bg);color:var(--fg)}
+dialog::backdrop{background:oklch(0.10 0.005 229 / .94)}
+.viewer-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:10px 20px;border-bottom:1px solid var(--border)}
+.viewer-header h2{font-size:18px}
+.viewer-close{border:1px solid var(--border);background:var(--surface);padding:0 18px;min-height:44px;flex-shrink:0;font-size:13px}
+.viewer-close:hover{background:oklch(from var(--surface) calc(l + .06) c h);color:var(--fg);border-color:var(--fg)}
+.viewer-body{padding:16px;display:flex;justify-content:center}
+.viewer-body img{max-height:calc(100dvh - 165px);width:auto;max-width:100%;height:auto;object-fit:contain}
+.viewer-footer{padding:0 20px 12px;font-size:12px;color:var(--muted)}
+.viewer-footer a{display:inline-flex;align-items:center;min-height:44px}
+@media(min-width:1600px){.shell{width:min(1440px,calc(100% - 120px))}}
+@media(max-width:1050px){.shell{width:calc(100% - 48px)}.hero{gap:25px}.caption-row{display:block}.caption-row p{max-width:none}.materials{grid-template-columns:1fr;gap:28px}.scale-layout{grid-template-columns:400px 1fr;gap:28px}.reading{grid-template-columns:1fr;gap:4px}.specs{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.shell{width:calc(100% - 32px)}.masthead{align-items:flex-start;padding:19px 0;min-height:auto;flex-direction:column;gap:7px}nav{gap:20px}.hero{grid-template-columns:1fr;padding:32px 0;gap:22px}.hero-note{justify-self:start}.hero-note p{font-size:14px}.section{padding:28px 0}.section-heading{display:block}.section-intro{margin-top:13px}.boards,.pose-notes,.scale-layout,.references,.handoff{grid-template-columns:1fr;gap:28px}.observation h3{font-size:16px}.observations{grid-template-columns:1fr;gap:18px}.correction{grid-template-columns:1fr;gap:9px;padding:18px}.swatches{grid-template-columns:repeat(3,1fr);row-gap:20px}.swatch{height:55px}.specs{gap:20px}.spec .value{font-size:23px}.secondary-gallery{grid-template-columns:1fr 1fr}.compare-row{grid-template-columns:1fr;gap:8px}.history{grid-template-columns:1fr}.compare-title{display:block}.scale-sample{width:100%;max-width:408px;padding:23px}.history .image-button{max-width:none}footer{display:block}footer span{display:block;margin-top:10px}.viewer-header{padding:10px 12px}.viewer-header h2{font-size:15px}.viewer-close{padding:0 12px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+@media print{nav,button.text-button,dialog{display:none}.shell{width:100%}body{font-size:12pt}details{break-inside:avoid}.section{break-inside:avoid}.image-button{border:0}.eyebrow,.serial{font-size:10pt}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="masthead" data-od-id="cabecalho">
+<a class="wordmark" href="#inicio" data-od-id="marca-aetherforge">AETHERFORGE</a>
+<nav aria-label="Seções do estudo" data-od-id="navegacao">
+<a href="#pranchas" data-od-id="nav-pranchas">01 / Pranchas</a>
+<a href="#escala" data-od-id="nav-escala">02 / Escala</a>
+<a href="#referencias" data-od-id="nav-referencias">03 / Referências</a>
+<a href="#producao" data-od-id="nav-producao">04 / Próximo passo</a>
+</nav>
+</header>
+<main id="inicio">
+<section class="hero" data-od-id="abertura">
+<div>
+<p class="eyebrow">Caderno de direção artística · revisão 02 · 13.10.2026</p>
+<h1 data-od-id="titulo-aetherforge">Aetherforge</h1>
+<p class="direction" data-od-id="direcao-emocional">Pesado. Sinistro. Triste.</p>
+</div>
+<div class="hero-note">
+<p>Trabalhadores exaustos, ferro sem brilho e vestígios de uma indústria abandonada. O calor é escasso; continuar tem um custo.</p>
+<span class="status" data-od-id="status-v2">V2 · direção atual do estudo</span>
+</div>
+</section>
+<section id="pranchas" class="section" data-od-id="pranchas-v2">
+<div class="section-heading">
+<p class="eyebrow">01 / Conceitos fornecidos</p>
+<p class="section-intro">Arte conceitual e estudo de poses estáticos. As pranchas ainda exigem preparação para produção.</p>
+</div>
+<div class="boards">
+<figure data-od-id="prancha-cenarios-v2">
+<div class="figure-head"><h2 data-od-id="titulo-cenarios">O peso do subterrâneo</h2><span class="serial">PRANCHA 01 / V2</span></div>
+<button type="button" class="image-button" data-viewer data-od-id="ampliar-imagem-cenarios" data-title="Cenários subterrâneos · v2" aria-label="Ampliar a prancha inteira de cenários v2">
+<img src="conceitos/03-cenarios-sombrios-v2.png" width="1536" height="1024" alt="Três cenas subterrâneas: galeria industrial, mina com perfuratriz e fornalha com equipe adulta à esquerda e ameaças à direita. O topo do Capataz está cortado no último quadro.">
+</button>
+<figcaption class="caption-row"><p>Galerias da Caldeira, Veio da Chaminé Velha e Fornalha Central. Ausência, umidade e estruturas que pesam sobre a equipe.</p><button type="button" class="text-button" data-proxy="ampliar-imagem-cenarios" data-od-id="ampliar-cenarios">Ampliar ↗</button></figcaption>
+</figure>
+<figure data-od-id="prancha-equipe-v2">
+<div class="figure-head"><h2 data-od-id="titulo-equipe">Corpos sob carga</h2><span class="serial">PRANCHA 02 / V2</span></div>
+<button type="button" class="image-button" data-viewer data-od-id="ampliar-imagem-equipe" data-title="Equipe, inimigos e poses · v2" aria-label="Ampliar a prancha inteira de equipe e inimigos v2">
+<img src="conceitos/04-equipe-inimigos-sombrios-v2.png" width="1536" height="1024" alt="Guarda, Pistoleiro e Alquimista em marcha, preparação e ação. Abaixo, rato, saqueador, sentinela, drone, vigia e Capataz. Figuras adultas, roupas gastas e aço fosco.">
+</button>
+<figcaption class="caption-row"><p>O escudo recebe peso; o rifle tem direção; a cura se aproxima do aliado. A função deve sobreviver à redução da imagem.</p><button type="button" class="text-button" data-proxy="ampliar-imagem-equipe" data-od-id="ampliar-equipe">Ampliar ↗</button></figcaption>
+</figure>
+</div>
+<div class="observations">
+<article class="observation" data-od-id="nota-galerias"><h3>Galerias da Caldeira</h3><p>Armários fechados, um casaco sem dono e concreto úmido. A parede mais clara separa o trio das tubulações.</p></article>
+<article class="observation" data-od-id="nota-veio"><h3>Veio da Chaminé Velha</h3><p>Madeira cedendo, vagão vazio e perfuratriz gasta. A extração se reconhece pela máquina, com mineral discreto.</p></article>
+<article class="observation" data-od-id="nota-fornalha"><h3>Fornalha Central</h3><p>A ameaça vem da massa da prensa. Reduzir faíscas e o destaque da fornalha para preservar o gesto do ataque.</p></article>
+</div>
+<aside class="correction" data-od-id="alerta-chefe-cortado">
+<p class="eyebrow">Correção obrigatória<br>Capataz de Ferro</p>
+<p><strong>O chefe está cortado no conceito de cenário.</strong> O topo da máquina ultrapassa o último quadro. Antes da produção, reduzir e recompor a silhueta completa para a faixa, incluindo ferramenta, pés, chão e folga superior. O corte pertence à imagem original; a prancha é exibida inteira aqui.</p>
+</aside>
+<div class="pose-notes">
+<div class="line" data-od-id="nota-proporcoes"><h3>Adultos vulneráveis</h3><p>Manter proporções adultas, pescoço recolhido, pernas sob carga e equipamentos reparados. A tristeza vem da postura e dos sinais de ausência.</p></div>
+<div class="line" data-od-id="nota-poses"><h3>Poses a normalizar</h3><p>Revisar arma, escudo, mochila, direção dos inimigos e linha dos pés entre poses. O aliado na cura serve de referência de gesto; separar sua figura no desenho final. Não é um atlas animado.</p></div>
+</div>
+</section>
+<section class="section" data-od-id="paleta-materiais">
+<div class="section-heading"><h2 data-od-id="titulo-materiais">Matéria, luz e desgaste</h2><p class="section-intro">Paleta da direção v2. Grandes massas dessaturadas; cor localizada pela função.</p></div>
+<div class="materials">
+<div class="swatches" aria-label="Paleta artística">
+<div data-od-id="cor-fuligem"><span class="swatch" style="background:var(--bg)"></span><span class="swatch-label">Fuligem</span><span class="swatch-code">#171B1D</span></div>
+<div data-od-id="cor-ardosia"><span class="swatch" style="background:var(--slate)"></span><span class="swatch-label">Ardósia</span><span class="swatch-code">#65717A</span></div>
+<div data-od-id="cor-cal"><span class="swatch" style="background:var(--fg)"></span><span class="swatch-label">Cal gasta</span><span class="swatch-code">#D3D2C8</span></div>
+<div data-od-id="cor-lona"><span class="swatch" style="background:var(--canvas)"></span><span class="swatch-label">Lona</span><span class="swatch-code">#776E61</span></div>
+<div data-od-id="cor-oxido"><span class="swatch" style="background:var(--rust)"></span><span class="swatch-label">Óxido</span><span class="swatch-code">#775340</span></div>
+<div data-od-id="cor-calor"><span class="swatch" style="background:var(--accent)"></span><span class="swatch-label">Calor fraco</span><span class="swatch-code">#B58750</span></div>
+</div>
+<div class="material-copy">
+<p><strong>Ferro fosco, lona gasta, lã pesada.</strong> Ferragens pequenas, couro seco, fuligem e concreto úmido. Simplificar textura antes de aumentar brilho.</p>
+<p><strong>Luz fria difusa.</strong> Planos claros atrás de figuras escuras. Lanterna e brasa em pontos restritos; éter pálido e breve.</p>
+<p><strong>Sem verniz de aventura.</strong> Evitar dourado dominante, gradientes luminosos, engrenagens decorativas e névoa que esconda os alvos.</p>
+</div>
+</div>
+</section>
+<section id="escala" class="section" data-od-id="critica-escala">
+<div class="section-heading"><h2 data-od-id="titulo-escala">A atmosfera precisa caber na faixa.</h2><p class="section-intro">O desafio é conservar o peso adulto sem perder função, alvo e gesto em 48–64 px.</p></div>
+<div class="scale-layout">
+<figure class="scale-sample" data-od-id="amostra-reducao">
+<p class="eyebrow">Redução de avaliação · 360 × 240 px</p>
+<img src="conceitos/04-equipe-inimigos-sombrios-v2.png" width="1536" height="1024" loading="lazy" alt="Prancha v2 inteira reduzida: as figuras humanas têm aproximadamente 48 a 52 pixels de altura na amostra de desktop.">
+<figcaption>Figuras humanas ≈ 48–52 px nesta redução. Observe no desktop, com zoom do navegador em 100%. Em tela estreita, a amostra se ajusta à largura disponível. A prancha contém fundo e legendas; ainda não são sprites isolados.</figcaption>
+</figure>
+<div>
+<p class="scale-note">Crítica visual da redução, sem validação em jogo: rebites, frascos e rostos deixam de ser sinais confiáveis. A postura adulta permanece; a separação entre massas precisa melhorar.</p>
+<div class="reading" data-od-id="leitura-guarda"><strong>Guarda</strong><p>O escudo retangular é o sinal mais forte. Preservar sua borda e abrir o espaço entre pernas; peito, mochila e braço tendem a virar uma única massa.</p></div>
+<div class="reading" data-od-id="leitura-pistoleiro"><strong>Pistoleiro</strong><p>O rifle indica ação, mas o cano fino desaparece. Simplificar o casaco e reforçar a separação entre arma, tronco e braço na mira.</p></div>
+<div class="reading" data-od-id="leitura-alquimista"><strong>Alquimista</strong><p>Lona mais clara e capuz ajudam. A ampola não basta para identificar cura; priorizar bolsa e gesto dirigido ao aliado, com efeito discreto.</p></div>
+<div class="reading" data-od-id="leitura-inimigos"><strong>Inimigos</strong><p>Rato baixo, sentinela larga, drone suspenso e vigia vertical são os contrastes úteis. Saqueador e Capataz precisam perder detalhes internos; manter vazio entre membros.</p></div>
+</div>
+</div>
+<div class="specs">
+<article class="spec" data-od-id="restricao-faixa"><p class="eyebrow">Faixa de estudo</p><p class="value">800 × 180</p><p>Pixels lógicos; alternativa 960 × 216. Dimensões propostas, ainda não finais.</p></article>
+<article class="spec" data-od-id="restricao-personagens"><p class="eyebrow">Alturas propostas</p><p class="value">48–64 / 80–100</p><p>Heróis / chefe, em px. Chefe inteiro e mais largo; ferramenta e gesto dentro da área útil.</p></article>
+<article class="spec" data-od-id="restricao-composicao"><p class="eyebrow">Composição</p><p class="value">Chão livre</p><p>Fundo distante discreto, meio plano e piso contínuo. Reservar folga para efeitos e interface; nenhum número sobre rostos.</p></article>
+<article class="spec" data-od-id="restricao-dpi"><p class="eyebrow">Validação futura</p><p class="value">100 → 200%</p><p>Conferir em 100%, 125%, 150% e 200% de DPI. Dimensionar alvos interativos de pelo menos 44 px.</p></article>
+</div>
+</section>
+<section id="referencias" class="section" data-od-id="referencias">
+<div class="section-heading"><h2 data-od-id="titulo-referencias">Formato e atmosfera têm fontes distintas.</h2><p class="section-intro">Observações das imagens oficiais e sua tradução para Aetherforge. Referências de pesquisa, com direitos dos respectivos titulares.</p></div>
+<div class="references">
+<figure class="reference" data-od-id="referencia-taskbar">
+<button class="image-button" type="button" data-viewer data-title="Task Bar Hero · referência oficial de formato" data-od-id="ampliar-taskbar" aria-label="Ampliar captura oficial de Task Bar Hero"><img src="referencias/taskbar-hero-oficial-01.jpg" width="1920" height="1080" loading="lazy" alt="Task Bar Hero com arena própria próxima à barra de tarefas e painel de inventário acima."></button>
+<figcaption><p class="eyebrow">Formato / Nugem Studio</p><h3>Task Bar Hero</h3><p>Arena lateral compacta com chão próprio; gerenciamento acima da ação. O papel de parede não é o cenário da arena.</p><a class="source" href="https://www.nugemstudio.com/en/games/taskbar-hero" target="_blank" rel="noopener noreferrer" data-od-id="fonte-taskbar">Fonte oficial ↗</a></figcaption>
+</figure>
+<figure class="reference" data-od-id="referencia-frostpunk">
+<button class="image-button" type="button" data-viewer data-title="Frostpunk · referência oficial de atmosfera" data-od-id="ampliar-frostpunk" aria-label="Ampliar captura oficial de Frostpunk"><img src="referencias/frostpunk-oficial-02.jpg" width="1920" height="1080" loading="lazy" alt="Pequeno posto industrial isolado em um amplo espaço frio, com focos separados de luz quente."></button>
+<figcaption><p class="eyebrow">Atmosfera / 11 bit studios</p><h3>Frostpunk</h3><p>Vazio, dessaturação e calor em pontos isolados. Traduzir a vulnerabilidade para túneis úmidos, fuligem e sinais de ausência.</p><a class="source" href="https://store.steampowered.com/app/323190/Frostpunk/" target="_blank" rel="noopener noreferrer" data-od-id="fonte-frostpunk">Galeria oficial na Steam ↗</a></figcaption>
+</figure>
+<figure class="reference" data-od-id="referencia-frostpunk-2">
+<button class="image-button" type="button" data-viewer data-title="Frostpunk 2 · referência oficial de atmosfera" data-od-id="ampliar-frostpunk-2" aria-label="Ampliar captura oficial de Frostpunk 2"><img src="referencias/frostpunk-2-oficial-01.jpg" width="1920" height="1080" loading="lazy" alt="Grandes massas industriais e infraestrutura densa cercadas por um ambiente hostil em Frostpunk 2."></button>
+<figcaption><p class="eyebrow">Atmosfera / 11 bit studios</p><h3>Frostpunk 2</h3><p>Indústria esmagadora e massas de infraestrutura. Trazer escala opressiva às máquinas, com menos ruído na faixa.</p><a class="source" href="https://store.steampowered.com/app/1601580/Frostpunk_2/" target="_blank" rel="noopener noreferrer" data-od-id="fonte-frostpunk-2">Galeria oficial na Steam ↗</a></figcaption>
+</figure>
+</div>
+<div class="comparison" aria-label="Comparação das inspirações">
+<div class="compare-row"><strong class="compare-title">Origem</strong><strong>Task Bar Hero · formato</strong><strong>Frostpunk 1/2 · atmosfera</strong></div>
+<div class="compare-row"><strong>Aproveitar</strong><p>Palco lateral pequeno, silhuetas reconhecíveis, chão independente e painéis sob demanda.</p><p>Cor desbotada, trabalho perigoso, luz quente escassa, matéria gasta e peso da indústria.</p></div>
+<div class="compare-row"><strong>Limite</strong><p>Não herdar personagens, pixel art ou acabamento colorido automaticamente. Capturas estáticas não confirmam animações.</p><p>Não copiar logos, trajes, lore, cidade radial ou sistemas de sobrevivência. Neve e inverno global não são premissas.</p></div>
+<div class="compare-row"><strong>Em Aetherforge</strong><p>Equipe à esquerda, ameaças à direita; socorrista na retaguarda, Pistoleiro no centro, Guarda à frente.</p><p>Galerias da Caldeira, Veio da Chaminé Velha e Fornalha Central continuam sendo locais subterrâneos originais.</p></div>
+</div>
+<details data-od-id="galeria-complementar"><summary data-od-id="abrir-galeria-complementar">Referências complementares · 6 imagens oficiais</summary>
+<div class="secondary-gallery">
+<figure data-od-id="ref-frostpunk-promo"><button type="button" class="image-button" data-viewer data-title="Frostpunk · material promocional original" data-od-id="ampliar-ref-frostpunk-promo" aria-label="Ampliar material promocional oficial de Frostpunk"><img src="referencias/frostpunk-oficial-01.jpg" width="1920" height="1080" loading="lazy" alt="Material promocional original do Season Pass de Frostpunk, incluindo uma figura adulta equipada para trabalho perigoso."></button><p>Frostpunk · material promocional. Observar roupa pesada e vulnerabilidade; logos e preços são parte da referência original.</p></figure>
+<figure data-od-id="ref-frostpunk-interface"><button type="button" class="image-button" data-viewer data-title="Frostpunk · referência complementar" data-od-id="ampliar-ref-frostpunk-interface" aria-label="Ampliar referência de interface de Frostpunk"><img src="referencias/frostpunk-oficial-03.jpg" width="1920" height="1080" loading="lazy" alt="Captura de Frostpunk com edifícios industriais, ambiente frio e painel de informação à direita."></button><p>Frostpunk · separar informação legível de ambiente dessaturado, sem reproduzir a interface.</p></figure>
+<figure data-od-id="ref-frostpunk-2-termica"><button type="button" class="image-button" data-viewer data-title="Frostpunk 2 · visualização térmica" data-od-id="ampliar-ref-frostpunk-2-termica" aria-label="Ampliar visualização térmica de Frostpunk 2"><img src="referencias/frostpunk-2-oficial-02.jpg" width="1920" height="1080" loading="lazy" alt="Visualização térmica de Frostpunk 2 com cores informativas fortes sobre uma base escura."></button><p>Frostpunk 2 · cor informativa pode se destacar da atmosfera; não adicionar um sistema térmico.</p></figure>
+<figure data-od-id="ref-frostpunk-2-massas"><button type="button" class="image-button" data-viewer data-title="Frostpunk 2 · massas industriais" data-od-id="ampliar-ref-frostpunk-2-massas" aria-label="Ampliar segunda captura da cidade de Frostpunk 2"><img src="referencias/frostpunk-2-oficial-03.jpg" width="1920" height="1080" loading="lazy" alt="Cidade industrial densa de Frostpunk 2 com luzes quentes localizadas e atmosfera fria."></button><p>Frostpunk 2 · densidade e massa industrial. Reduzir a complexidade para o pequeno palco lateral.</p></figure>
+<figure data-od-id="ref-taskbar-paineis"><button type="button" class="image-button" data-viewer data-title="Task Bar Hero · painéis e arena" data-od-id="ampliar-ref-taskbar-paineis" aria-label="Ampliar captura dos painéis de Task Bar Hero"><img src="referencias/taskbar-hero-oficial-02.jpg" width="1920" height="1080" loading="lazy" alt="Captura oficial de Task Bar Hero com painéis de status, herói e portal acima da arena."></button><p>Task Bar Hero · distinguir mapa de progressão, gerenciamento e área de combate.</p></figure>
+<figure data-od-id="ref-taskbar-limite"><button type="button" class="image-button" data-viewer data-title="Task Bar Hero · limite inferior da tela" data-od-id="ampliar-ref-taskbar-limite" aria-label="Ampliar captura da posição de Task Bar Hero na tela"><img src="referencias/taskbar-hero-oficial-03.jpg" width="1920" height="1080" loading="lazy" alt="Captura oficial de Task Bar Hero junto ao limite inferior da tela."></button><p>Task Bar Hero · verificar posição junto à barra de tarefas, recorte e espaço para avisos.</p></figure>
+</div>
+</details>
+<p class="credit" data-od-id="creditos-referencias">Task Bar Hero: Nugem Studio. Frostpunk e Frostpunk 2: 11 bit studios. Imagens oficiais já presentes neste projeto, obtidas das galerias indicadas no estudo. Direitos reservados aos respectivos titulares; uso como referência de pesquisa, sem incorporação ao jogo. As traduções artísticas acima são interpretações para Aetherforge.</p>
+</section>
+<section class="section" data-od-id="historico-v1">
+<p class="eyebrow">Arquivo / direção substituída</p>
+<details data-od-id="comparacao-v1"><summary data-od-id="abrir-comparacao-v1">Comparar com v1 · direção fofa e brilhante substituída</summary>
+<div class="history">
+<figure data-od-id="prancha-cenarios-v1"><button type="button" class="image-button" data-viewer data-title="Cenários v1 · histórico, direção substituída" data-od-id="ampliar-v1-cenarios" aria-label="Ampliar prancha histórica de cenários v1"><img src="conceitos/01-cenarios-v1.png" width="1536" height="1024" loading="lazy" alt="Primeira proposta de cenários com personagens de cabeças grandes, metal dourado e efeitos ciano luminosos."></button><figcaption>Cenários v1 · arquivo original preservado.</figcaption></figure>
+<figure data-od-id="prancha-equipe-v1"><button type="button" class="image-button" data-viewer data-title="Equipe e inimigos v1 · histórico, direção substituída" data-od-id="ampliar-v1-equipe" aria-label="Ampliar prancha histórica de equipe e inimigos v1"><img src="conceitos/02-equipe-inimigos-v1.png" width="1536" height="1024" loading="lazy" alt="Primeira proposta de personagens com proporções fofas, metal brilhante e cura ciano intensa."></button><figcaption>Equipe e inimigos v1 · arquivo original preservado.</figcaption></figure>
+</div>
+<div class="compare-row"><strong>Aspecto</strong><strong>V1 · substituída</strong><strong>V2 · direção atual</strong></div>
+<div class="compare-row"><strong>Corpo</strong><p>Cabeças grandes, rostos simpáticos e armadura de brinquedo.</p><p>Adultos cansados, corpo sob carga e rosto parcialmente protegido.</p></div>
+<div class="compare-row"><strong>Matéria e luz</strong><p>Latão limpo dominante; ciano e fogo chamam atenção em toda a cena.</p><p>Aço fosco e lona gasta; brasa localizada. Conter ainda mais os efeitos na produção.</p></div>
+<div class="compare-row"><strong>Emoção</strong><p>Aventura vitoriosa, máquinas ornamentadas.</p><p>Ausência, perigo funcional, exaustão e solidariedade discreta.</p></div>
+</details>
+<p class="credit">As quatro pranchas conceituais foram geradas com GPT Images e fornecidas anteriormente. Nenhuma imagem nova foi gerada nesta revisão.</p>
+</section>
+<section id="producao" class="section" data-od-id="handoff-producao">
+<div class="section-heading"><h2 data-od-id="titulo-handoff">Próximo passo: limpar, reduzir, conferir.</h2><p class="section-intro">Encaminhamento de arte para uma revisão estática antes da produção de sprites.</p></div>
+<div class="handoff">
+<article data-od-id="handoff-recompor"><h3>Recompor o Capataz</h3><p>Redesenhar o enquadramento da fornalha na faixa proposta. Corpo, ferramenta, pés e antecipação precisam caber inteiros. Fazer o peso crescer horizontalmente.</p></article>
+<article data-od-id="handoff-simplificar"><h3>Fixar as silhuetas</h3><p>Preparar um desenho limpo por função; reduzir rebites e textura. Fixar equipamento, orientação, escala, pivô e linha dos pés entre as poses existentes.</p></article>
+<article data-od-id="handoff-verificar"><h3>Revisar em tamanho real</h3><p>Entregar uma composição estática 800 × 180 e a alternativa 960 × 216, com heróis em 48 e 64 px. Conferir também em tons de cinza e nos quatro níveis de DPI.</p></article>
+</div>
+<div class="acceptance" data-od-id="criterio-aceite"><p><strong>Critério de passagem:</strong> distinguir as três funções, pelo menos quatro silhuetas inimigas e o gesto de ameaça do chefe; manter chão, contraste e respiro para interface. Validar primeiro a leitura, depois preparar os assets.</p></div>
+<div class="docs" data-od-id="documentos-base"><a href="Direcao_Artistica_v2.md" data-od-id="doc-direcao">Direção artística v2 ↗</a><a href="Estudo_Taskbar_Hero.md" data-od-id="doc-estudo">Estudo de formato ↗</a><a href="Prompts_GPT_Images_v2.md" data-od-id="doc-prompts">Registro das pranchas v2 ↗</a></div>
+</section>
+</main>
+<footer data-od-id="rodape"><span>AETHERFORGE / ESTUDO VISUAL 02</span><span>Conceitos estáticos · sem jogo funcional, animação ou atlas<br>Escopo original preservado · nenhum código de jogo alterado</span></footer>
+</div>
+<dialog id="viewer" aria-labelledby="viewer-title" data-od-id="visualizador-pranchas">
+<div class="viewer-header"><h2 id="viewer-title" data-od-id="titulo-visualizador">Prancha</h2><button type="button" class="viewer-close" data-od-id="fechar-visualizador">Fechar ×</button></div>
+<div class="viewer-body"><img id="viewer-image" alt=""></div>
+<div class="viewer-footer">Imagem inteira, proporção preservada. <a id="viewer-original" target="_blank" rel="noopener" data-od-id="abrir-original">Abrir arquivo em resolução original ↗</a></div>
+</dialog>
+<script>
+(function(){
+'use strict';
+const viewer=document.getElementById('viewer');
+const image=document.getElementById('viewer-image');
+const title=document.getElementById('viewer-title');
+const original=document.getElementById('viewer-original');
+let opener=null;
+function openImage(button){
+ const source=button.querySelector('img');
+ opener=button;
+ title.textContent=button.dataset.title;
+ image.src=source.getAttribute('src');
+ image.alt=source.alt;
+ image.width=source.width;image.height=source.height;
+ original.href=source.getAttribute('src');
+ viewer.showModal();
+}
+document.querySelectorAll('[data-viewer]').forEach(button=>button.addEventListener('click',()=>openImage(button)));
+document.querySelectorAll('[data-proxy]').forEach(button=>button.addEventListener('click',()=>{
+ const target=document.querySelector('[data-od-id="'+button.dataset.proxy+'"]');
+ if(target){openImage(target);opener=button;}
+}));
+document.querySelector('.viewer-close').addEventListener('click',()=>viewer.close());
+viewer.addEventListener('click',event=>{
+ if(event.target===viewer){
+ const r=viewer.getBoundingClientRect();
+ if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)viewer.close();
+ }
+});
+viewer.addEventListener('close',()=>{if(opener)opener.focus({preventScroll:true});});
+})();
+</script>
+</body>
+</html>

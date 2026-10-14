@@ -4,12 +4,14 @@ Versão 0.3, 12 de outubro de 2026. A base técnica do M0 foi implementada com G
 
 Atualização de escopo em 13/10/2026: desenvolver o idle primeiro. A arquitetura abaixo preserva a visão completa; serviços de produção, MMORPG e marketplace serão retomados depois do ciclo idle. [Prioridades e ambiente de desenvolvimento](Desenvolvimento.md).
 
+Atualização visual na mesma data: personagens 3D com animação em tempo real nos dois clientes. O cenário idle também pode ser 3D, desde que leve. O pipeline de sprites do M0 permanece como implementação histórica enquanto se valida a migração. [Direção artística e orçamento inicial](visual/Direcao_Artistica_v3.md).
+
 ## Recomendação
 
 | Camada | Tecnologia proposta | Motivo e limite |
 |---|---|---|
-| Cliente MMORPG | Godot 4 estável, edição .NET, C# | Mapas 3D, câmera isométrica e sprites em planos; validar pipeline antes de produzir todo o catálogo |
-| Cliente idle | Godot 4 .NET, C#, renderizador Compatibility | Reutilizar arte e lógica de apresentação; validar janela transparente e consumo em segundo plano |
+| Cliente MMORPG | Godot 4 estável, edição .NET, C# | Mapas e personagens 3D com rig, câmera isométrica; validar pipeline antes de produzir o catálogo |
+| Cliente idle | Godot 4 .NET, C#, renderizador Compatibility | Personagens 3D animados e cenário modular 3D raso; validar janela transparente, recursos gráficos e consumo |
 | Integração Windows | APIs de janela do Godot; adaptador Win32 isolado se necessário | Posicionar próximo à barra, lidar com foco, DPI e múltiplos monitores |
 | Simulação compartilhada | Biblioteca C# sem dependência da engine, inicialmente netstandard2.1 | Regras de combate, XP, drops e mineração reutilizadas; confirmar compilação nos dois runtimes |
 | Mapas online | Godot .NET exportado para servidor dedicado headless | Reutilizar colisão e dados dos mapas; um processo por instância na POC |
@@ -18,7 +20,7 @@ Atualização de escopo em 13/10/2026: desenvolver o idle primeiro. A arquitetur
 | API de conta | HTTPS/JSON | Login, estado idle, inventário, receita e marketplace; polling curto na primeira versão |
 | Persistência | PostgreSQL, versão estável suportada fixada em M0 | Transações, constraints e bloqueios para propriedade e carteira |
 | Acesso ao banco | EF Core + Npgsql com versões compatíveis | Migrations e acesso usual; SQL explícito nas operações que exigirem locks |
-| Arte | Blender e exportação de sprites PNG com atlas e metadados | Renderizar personagens em oito direções; preservar pivôs, escala e sequência de quadros |
+| Arte | Blender, glTF/GLB, malhas, rigs, animações e texturas | Exportar modelos animados; preservar escala, orientação, pivôs e clips. Atlas de textura pode ser usado para materiais, sem converter personagens em sprites |
 | Produção local | Git, solução .NET, testes do domínio, Docker Compose para serviços | Ambiente reproduzível; exportação Godot separada do processo de build da API |
 | Hospedagem do teste | Uma máquina Linux para API, PostgreSQL e processos de mapa | Controle de custo; esta configuração não é garantia de capacidade de produção |
 
@@ -28,17 +30,17 @@ A versão exata de Godot e o target do cliente serão fixados após compilar/exp
 
 | Alternativa | Vantagem para este jogo | Custo ou dificuldade | Decisão proposta |
 |---|---|---|---|
-| Godot + C# | Engine única para idle e 3D com sprites; servidor headless disponível | Integração fina com desktop e escala de mapas exigem testes próprios | Primeira opção para a POC |
+| Godot + C# | Engine única para idle e personagens/cenários 3D; servidor headless disponível | Integração fina com desktop e escala de mapas exigem testes próprios | Primeira opção para a POC |
 | Unity + C# | Ecossistema grande de ferramentas e produção 3D | Integração Windows continua exigindo trabalho; condições comerciais precisam ser verificadas se houver migração | Reavaliar se equipe ou assets dependerem de Unity |
 | Unreal + C++ | Pipeline 3D robusto | Complexidade maior para um idle compacto e duplicação de linguagens com backend C# | Fora da primeira POC |
 | WPF + C# no idle | UI e integração Windows maduras | Segundo pipeline de renderização/animação, restrito a Windows | Plano alternativo se a janela Godot falhar nos critérios |
-| Electron/stack web no idle | UI web rápida para inventário e painéis | Outro runtime e pipeline gráfico, sem ganho comprovado para os sprites do jogo | Não adotar antes de medir uma necessidade concreta |
+| Electron/stack web no idle | UI web rápida para inventário e painéis | Outro runtime e pipeline gráfico, sem ganho comprovado para o render 3D do jogo | Não adotar antes de medir uma necessidade concreta |
 
 A comparação é julgamento de adequação ao escopo. Não representa medições de consumo ou custo de licença. Os detalhes usados para recomendar Godot, .NET e PostgreSQL foram conferidos nas fontes oficiais ao final.
 
 ## Idle na barra de tarefas
 
-O objetivo visual é manter os três integrantes visíveis junto à barra de tarefas. A abordagem inicial é uma janela transparente sem bordas, posicionada sobre ou imediatamente acima dela, configurável pelo jogador. Isso precisa ser reconhecido no produto: não existe aqui uma prova de incorporação nativa de sprites dentro da barra do Windows.
+O objetivo visual é manter os três integrantes visíveis junto à barra de tarefas. A abordagem inicial é uma janela transparente sem bordas, posicionada sobre ou imediatamente acima dela, configurável pelo jogador. Isso precisa ser reconhecido no produto: não existe aqui uma prova de incorporação nativa do render do jogo dentro da barra do Windows.
 
 O protótipo deve permitir mover o idle, recolher os controles e abrir uma janela convencional de gerenciamento. O adaptador Windows consulta geometria da área de trabalho e responde a mudanças de DPI, monitor e barra. O jogador pode desativar a permanência sobre outras janelas.
 
@@ -103,9 +105,11 @@ Na POC, banco e economia globais podem atender múltiplas instâncias. Depois, m
 
 ## Arte e câmera
 
-Usar assets prontos da internet na POC, conforme autorização do usuário. Importar um modelo 3D no Blender e renderizar oito direções e animações idle, andar, atacar, habilidade, receber dano e morrer, ou começar com sprites prontos quando disponíveis. Usar imagens com transparência, pivô no pé e escala fixa. Mapas são 3D; o cliente orienta o sprite para a câmera e escolhe a direção relativa correta quando a câmera gira.
+Usar assets prontos licenciados na POC. Preparar no Blender malhas simples, rig, materiais e clips de repouso, caminhada, ataque, habilidade, dano e queda; exportar glTF/GLB para o Godot. Os personagens são modelos 3D animados em tempo real. Normalizar escala, transformações, orientação e posição dos pés antes de exportar. [Considerações oficiais de exportação](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_3d_scenes/model_export_considerations.html).
 
-Primeiro validar um personagem com câmera rotacionável, oclusão por objetos, sombras e atlas. Depois adaptar assets para os outros dois. O custo de memória depende de quadros, resolução e direções; registrar um orçamento de textura por personagem antes de expandir classes. O catálogo de assets deve registrar origem, licença e atribuição necessária. Consistência visual final fica para a etapa de produção, após validar o ciclo de gameplay.
+Primeiro validar um personagem na câmera fixa do idle, com animação, oclusão e contato com o chão; depois o cenário modular e a equipe. No MMORPG, validar o modelo ao girar a câmera. Preservar o protótipo integrado durante essa migração. O catálogo registra origem, licença e atribuição de malhas, texturas, rigs e animações.
+
+Para o idle, começar com um trecho curto de cenário, materiais compartilhados, texturas pequenas e animação a 30 FPS, reduzível a 15. Preferir sombra de contato simples e luz pintada nas texturas; limitar luzes e sombras dinâmicas. Medir draw calls, triângulos, memória, CPU, GPU e custo de skinning. Evitar muitas superfícies transparentes. Godot documenta LOD e MultiMesh; o instancing automático não se aplica ao Compatibility. [Otimização 3D](https://docs.godotengine.org/en/stable/tutorials/performance/optimizing_3d_performance.html). Os limites propostos no estudo v3 são hipóteses de trabalho, não resultados medidos.
 
 ## Fontes oficiais verificadas
 

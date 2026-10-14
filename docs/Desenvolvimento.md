@@ -14,11 +14,15 @@ Ordem de trabalho:
 
 Os critérios detalhados continuam no [backlog](POC_Producao.md). A interface atual e o combate de integração são provas técnicas; M1 ainda precisa ser implementado.
 
+Direção visual atual: personagens 3D com rig e animação em tempo real; o idle pode usar cenário 3D desde que leve. O [estudo v3](visual/Direcao_Artistica_v3.md) define linguagem e orçamento inicial. Validar um integrante e um trecho modular em ART-03/ART-04, mantendo o protótipo integrado existente até a migração passar nas verificações. Os sprites do M0 permanecem como estado atual, não como alvo de produção.
+
+As outras telas estão propostas no [protótipo navegável do idle](visual/prototipo/index.html), com [mapa dos fluxos](visual/Fluxos_Idle_Prototipo.md). O estudo usa dados fictícios e ações de demonstração para revisar UI-01; inclui o resumo offline de UI-02 como prévia futura. Não implementa esses marcos no cliente Godot, nem altera a API ou o save.
+
 ## Organização
 
 | Caminho | Conteúdo |
 |---|---|
-| `src/Aetherforge.Client/` | Godot .NET: apresentação idle, mapa e render dos sprites |
+| `src/Aetherforge.Client/` | Godot .NET: apresentação idle e mapa; protótipo com sprites, migração para personagens 3D planejada |
 | `src/Aetherforge.Domain/` | Regras C# compartilhadas, sem dependência do Godot |
 | `src/Aetherforge.Api/` | API local e combate do protótipo integrado |
 | `src/Aetherforge.Persistence/` | Persistência JSON do protótipo |
