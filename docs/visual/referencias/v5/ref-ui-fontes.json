@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-14",
+  "files": [
+    {
+      "file": "ref-ui-dishonored-1.png",
+      "source": "https://www.gamefontlibrary.com/games/dishonored",
+      "image": "https://static.wixstatic.com/media/ad7e08_4bb408a363be4bada49bee8a9aa2fd29~mv2.png",
+      "sha256": "6a0e4b05a42b8d5ab9d1f01b8442256961337a62bf1d15129bc8876c1f6f3bab",
+      "classification": "Font identification study, attribution by GameFontLibrary; not studio confirmation; reference only"
+    },
+    {
+      "file": "ref-ui-dishonored-2.png",
+      "source": "https://www.gamefontlibrary.com/games/dishonored",
+      "image": "https://static.wixstatic.com/media/ad7e08_da36fbfee65449cf89096aa381e901d0~mv2.png",
+      "sha256": "87f1cdba22f6003fe7206ed1754bb4e399c648a65f887d5ae5ae20c4e1a188e0",
+      "classification": "Font identification study, attribution by GameFontLibrary; not studio confirmation; reference only"
+    },
+    {
+      "file": "ref-ui-dishonored-3.png",
+      "source": "https://www.gamefontlibrary.com/games/dishonored",
+      "image": "https://static.wixstatic.com/media/ad7e08_b8dd40a68b734c0eb6441f6dc26ba200~mv2.png",
+      "sha256": "575ab7a6d8d172c656f2b69ed4725c28f50989d42785c0e48e81975faf2a25d4",
+      "classification": "Font identification study, attribution by GameFontLibrary; not studio confirmation; reference only"
+    },
+    {
+      "file": "ref-ui-dishonored-4.png",
+      "source": "https://www.gamefontlibrary.com/games/dishonored",
+      "image": "https://static.wixstatic.com/media/ad7e08_be32b0fca6cf42359777f034aa1880f0~mv2.png",
+      "sha256": "d61d9097885f467d45d4c69d75121a9bc3b444152152da4209436d7a50f36c94",
+      "classification": "Font identification study, attribution by GameFontLibrary; not studio confirmation; reference only"
+    }
+  ]
+}

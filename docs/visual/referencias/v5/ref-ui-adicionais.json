@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-14",
+  "files": [
+    {
+      "file": "ref-ui-bioshock1-plasmids.jpg",
+      "source": "https://www.senscritique.com/liste/Interfaces_Notables/175348",
+      "image": "https://image.jeuxvideo.com/images/pc/b/i/bisopc059.jpg",
+      "description": "BioShock original, interface de plasmids em frances; captura reproduzida por site de critica, observacao propria",
+      "sha256": "a9e3a21a7609a5f6be2efda9bffe534031ecb7d69fb2daa09189701aa7975af1",
+      "classification": "Research reference only; no game-asset license assumed"
+    },
+    {
+      "file": "ref-ui-lies-of-p-inventory.jpeg",
+      "source": "https://www.qualbert.com/reviews/lies-of-p-review/",
+      "image": "https://wp-uploads.qualbert.com/2023/10/Lies-of-P-inventory-1.jpeg",
+      "description": "Captura de inventario da analise do autor, PS5, 2023; nao e identificacao oficial de fonte",
+      "sha256": "dc00950155b18750947c15f7ada0b5eccbcac91496d35321577bfd714f8c6101",
+      "classification": "Research reference only; no game-asset license assumed"
+    }
+  ]
+}

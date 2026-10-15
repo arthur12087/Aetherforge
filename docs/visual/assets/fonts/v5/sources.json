@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-14",
+  "files": [
+    {
+      "family": "bodonimoda",
+      "file": "BodoniModa-Variable.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/bodonimoda/BodoniModa%5Bopsz%2Cwght%5D.ttf",
+      "sha256": "550f5e34ee0a828d7941b1fe9bc58b34e5260d3f33a61532e6d0a0114e79a5cf"
+    },
+    {
+      "family": "jost",
+      "file": "Jost-Variable.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/jost/Jost%5Bwght%5D.ttf",
+      "sha256": "6343b70971000b04c5d401c96ae08ce371086135e999d5e1e1413039c0213076"
+    },
+    {
+      "family": "librecaslontext",
+      "file": "LibreCaslonText-Variable.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/librecaslontext/LibreCaslonText%5Bwght%5D.ttf",
+      "sha256": "c11809dbfd5445886293d89b32bfc2584075c80e77750cf1c284113e36b8b3f4"
+    },
+    {
+      "family": "limelight",
+      "file": "Limelight-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/limelight/Limelight-Regular.ttf",
+      "sha256": "f5bf8a9159adfc5b9c756c85d812a4fd1299b8916fefdf39ad4b24ade6d8d0cf"
+    },
+    {
+      "family": "sourcesans3",
+      "file": "SourceSans3-Variable.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/sourcesans3/SourceSans3%5Bwght%5D.ttf",
+      "sha256": "042fe2cc0b933e328410d7acbd0aa6a1873dca5aef81875f4bc214b08825c7b9"
+    }
+  ]
+}

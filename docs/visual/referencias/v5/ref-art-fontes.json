@@ -1,0 +1,101 @@
+﻿[
+    {
+        "value":  [
+                      {
+                          "game":  "BioShock™",
+                          "source":  "https://store.steampowered.com/app/7670/",
+                          "api":  "https://store.steampowered.com/api/appdetails?appids=7670\u0026l=english",
+                          "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/7670/0000002508.1920x1080.jpg?t=1730172622",
+                          "file":  "ref-art-bioshock1-1.jpg",
+                          "sha256":  "75C60274CC1180BA15F32A188B8961239E7951EC0C5C45301D85BB4B4611EAB6",
+                          "downloaded":  "2026-10-14",
+                          "classification":  "Official store screenshot; research reference only"
+                      },
+                      {
+                          "game":  "BioShock™",
+                          "source":  "https://store.steampowered.com/app/7670/",
+                          "api":  "https://store.steampowered.com/api/appdetails?appids=7670\u0026l=english",
+                          "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/7670/0000002509.1920x1080.jpg?t=1730172622",
+                          "file":  "ref-art-bioshock1-2.jpg",
+                          "sha256":  "13BF27297CEB5F302BE99A4F8C274BFD74857E6081A4455B8CDEABF55FD2BE5C",
+                          "downloaded":  "2026-10-14",
+                          "classification":  "Official store screenshot; research reference only"
+                      },
+                      {
+                          "game":  "BioShock® 2",
+                          "source":  "https://store.steampowered.com/app/8850/",
+                          "api":  "https://store.steampowered.com/api/appdetails?appids=8850\u0026l=english",
+                          "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/8850/ss_6bb369bee2bfb08d7486f39c4bb6e242375a6442.1920x1080.jpg?t=1730174099",
+                          "file":  "ref-art-bioshock2-1.jpg",
+                          "sha256":  "386CFEC9E7FB9949D5B39541CDE9C55FFE19C6582D03A07861B94290E37A82AA",
+                          "downloaded":  "2026-10-14",
+                          "classification":  "Official store screenshot; research reference only"
+                      },
+                      {
+                          "game":  "BioShock® 2",
+                          "source":  "https://store.steampowered.com/app/8850/",
+                          "api":  "https://store.steampowered.com/api/appdetails?appids=8850\u0026l=english",
+                          "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/8850/ss_c5a491a8211f060b5de8988b1fe10ecf49e53f87.1920x1080.jpg?t=1730174099",
+                          "file":  "ref-art-bioshock2-2.jpg",
+                          "sha256":  "FA148CD93BDBDD12E88735ADB36777614A08535201D4168B0628D3123810DD81",
+                          "downloaded":  "2026-10-14",
+                          "classification":  "Official store screenshot; research reference only"
+                      },
+                      {
+                          "game":  "Dishonored",
+                          "source":  "https://store.steampowered.com/app/205100/",
+                          "api":  "https://store.steampowered.com/api/appdetails?appids=205100\u0026l=english",
+                          "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/205100/ss_409bb8591d4c8278815510d9be737b57dfc57e06.1920x1080.jpg?t=1789050056",
+                          "file":  "ref-art-dishonored-1.jpg",
+                          "sha256":  "4006D839738C2BE3EBB31E45DFD3B45DE2C201602250D69F8579F630D679CA67",
+                          "downloaded":  "2026-10-14",
+                          "classification":  "Official store screenshot; research reference only"
+                      },
+                      {
+                          "game":  "Dishonored",
+                          "source":  "https://store.steampowered.com/app/205100/",
+                          "api":  "https://store.steampowered.com/api/appdetails?appids=205100\u0026l=english",
+                          "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/205100/ss_32d76a6ff4b216410b90ff2cdb7107a28a1baed2.1920x1080.jpg?t=1789050056",
+                          "file":  "ref-art-dishonored-2.jpg",
+                          "sha256":  "E93F42D84A29BFE386DC1192FA713E3D8D869311B579B34E1262A276226358B9",
+                          "downloaded":  "2026-10-14",
+                          "classification":  "Official store screenshot; research reference only"
+                      },
+                      {
+                          "game":  "Lies of P",
+                          "source":  "https://store.steampowered.com/app/1627720/",
+                          "api":  "https://store.steampowered.com/api/appdetails?appids=1627720\u0026l=english",
+                          "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1627720/ss_cef0c2964b82e2b80ab0756da08f61c27d9fa33c.1920x1080.jpg?t=1764565054",
+                          "file":  "ref-art-lies-of-p-1.jpg",
+                          "sha256":  "52386D0DB37FD4CD0A756ECC7B36B5912EFDDECBB02303C528E8D15DBAAE59EA",
+                          "downloaded":  "2026-10-14",
+                          "classification":  "Official store screenshot; research reference only"
+                      },
+                      {
+                          "game":  "Lies of P",
+                          "source":  "https://store.steampowered.com/app/1627720/",
+                          "api":  "https://store.steampowered.com/api/appdetails?appids=1627720\u0026l=english",
+                          "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1627720/ss_b510d9d65802c3cc776d1296c3daa1e9a79e3615.1920x1080.jpg?t=1764565054",
+                          "file":  "ref-art-lies-of-p-2.jpg",
+                          "sha256":  "CAE5EF09F912ADA805825DBC0545E71E4FAC63B5C48040EE8395E8E4621EAF44",
+                          "downloaded":  "2026-10-14",
+                          "classification":  "Official store screenshot; research reference only"
+                      }
+                  ],
+        "Count":  8,
+        "visually_inspected":  true,
+        "purpose":  "Pesquisa de forma, volume, cor, material e luz; sem licença de uso no jogo."
+    },
+    {
+        "game":  "Dishonored",
+        "source":  "https://store.steampowered.com/app/205100/",
+        "api":  "https://store.steampowered.com/api/appdetails?appids=205100\u0026l=english",
+        "image":  "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/205100/ss_8d26f4f83fb598eed36bdb0c6ecb41962a64ccf7.1920x1080.jpg?t=1789050056",
+        "file":  "ref-art-dishonored-4.jpg",
+        "sha256":  "5F2AC4D71B2EB9250453E954E6D89A0F8A10BB6618639F14EEA607967A9C72AB",
+        "downloaded":  "2026-10-14",
+        "classification":  "Official store screenshot; research reference only",
+        "visually_inspected":  true,
+        "purpose":  "Pesquisa de forma, volume, cor, material e luz; sem licença de uso no jogo."
+    }
+]

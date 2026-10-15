@@ -1,5 +1,7 @@
 # Aetherforge - contrato visual v3
 
+Revisão proposta em 14/10/2026: o [estudo v5](Tipografia_e_Direcao_v5.md) compara novas referências e recomenda testar Libre Caslon Text nos títulos e Jost no texto e nos números. Essa proposta já aparece nas artes de inventário e habilidades v5; o contrato abaixo descreve o painel v3 e não identifica a tipografia gerada nas imagens v4.
+
 O dossiê de expedição das Galerias da Caldeira organiza o estudo, com a faixa do escudo como acento contido. A v3 é full 3D planar fosco; imagens fornecidas são conceitos raster.
 
 Fonte principal: [Color Hunt](https://colorhunt.co/palette/222831393e46948979dfd0b8), mantida por --keep palette. Origem: #222831, #393E46, #948979, #DFD0B8.

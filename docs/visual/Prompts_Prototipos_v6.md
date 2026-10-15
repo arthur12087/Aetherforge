@@ -1,0 +1,47 @@
+# Aetherforge — prompts e composição v6
+
+Data: 14/10/2026. Modo: ferramenta integrada GPT Images, sem CLI ou chave de API. Três gerações independentes, sem imagens de entrada. Imagens originais preservadas, sem substituir as versões anteriores.
+
+## Arte gerada
+
+### Cena de combate
+
+```text
+Use case: stylized-concept. Asset: 3:1 panoramic side-view idle-combat artwork, requested resolution 2304x768. Aetherforge original dark industrial idle RPG art direction. Dishonored-inspired sculpted asymmetry and adult elongated proportions, restrained BioShock 1/2 industrial civic Art Deco, Lies of P cloth-versus-machined steel contrast, Frostpunk emotional exhaustion. This is a new original world, NOT recognizable franchise characters or logos. Mature mournful visual tone, ruthless large shapes, hand-authored faceted 3D game render with broad painterly material planes, low-cost geometry target. Cold petrol blue, blackened iron, soot wool, dirty ivory, very restrained oxidized brass and one dull amber practical light. Avoid uniform rust speckling, smooth plastic, toy chibi proportions, glowing robot eyes, abundant decorative gears, glossy bevels, gold filigree, Unreal photorealism, generic orange-and-teal fantasy, runes, text, letters, numerals, logos and watermark.
+Create a carefully art-directed side-on industrial aqueduct encounter at human scale. Three original player characters walking RIGHT to fight two different enemies; all five bodies and weapons entirely visible with generous left and right breathing room and platform under their feet. Party on left half: tired thin adult medic in ivory hooded oilcloth coat carrying a medical bottle pack, long-jawed gunner in navy long coat and railway cap with rifle, foremost guard broad shoulders but long human legs and exposed pale tired face under a steel open-face helmet. Guard wears asymmetrical blackened steel plates over dark navy wool coat, carries tall rectangular battered shield with one off-center ivory vertical stripe, small pressure cylinder. Enemies on right half: hunched gaunt salvage worker dragging a hook, and waist-high quadruped industrial crawler with asymmetric cutting claw. Action frame: gunner aims, medic reaches forward, guard braces shield against telegraphed hook swing. No gore.
+Environment: ruined municipal pumping station, massive simple architectural arch, exposed service pipe, diagonal steel walkway supports, distant tiny tall windows, wet stone floor. Silhouettes crisp and separated, background lower contrast; no busy turbine centered behind heroes. Lantern at far rear, fine gray dust rather than snowfall or heavy fog. Camera orthographic slight low angle, no perspective receding battle lane. Their heights occupy middle 60% of image. Render generous flat broad planes, visibly sculpted faces not smoothed. NO UI, NO TEXT.
+```
+
+Arquivo: [21-combate-arte-v6.png](conceitos/21-combate-arte-v6.png).
+
+### Guarda selecionado
+
+```text
+Use case: stylized-concept. Asset: full-length selected-hero illustration for game inventory and skill screens, portrait 1024x1536. Aetherforge original dark industrial idle RPG art direction. Dishonored-inspired sculpted asymmetry and adult elongated proportions, restrained BioShock 1/2 industrial civic Art Deco, Lies of P cloth-versus-machined steel contrast, Frostpunk emotional exhaustion. This is a new original world, NOT recognizable franchise characters or logos. Mature mournful visual tone, ruthless large shapes, hand-authored faceted 3D game render with broad painterly material planes, low-cost geometry target. Cold petrol blue, blackened iron, soot wool, dirty ivory, very restrained oxidized brass and one dull amber practical light. Avoid uniform rust speckling, smooth plastic, toy chibi proportions, glowing robot eyes, abundant decorative gears, glossy bevels, gold filigree, Unreal photorealism, generic orange-and-teal fantasy, runes, text, letters, numerals, logos and watermark.
+One original human adult Guard of the Boiler. Tall heavy upper body with elongated human legs, asymmetrical shoulder plates, angular exhausted pale face with crooked nose, small scar and dark under eyes. Open-face industrial helmet, NO MASK and NO glowing eyes. Navy wool coat with torn ivory cuff visible under blackened steel plate, leather harness, one small brass pressure canister on back, one glove reinforced. Holds a tall plain rectangular steel shield with ONE worn off-center ivory stripe; mechanical one-handed hammer in relaxed other hand. Weight on left leg, burdened posture, 3/4 front view facing right, head eyes visible, both feet and all shield within margins. No fantasy ornament, no medieval heraldry, no giant backpack. Artful sculptural facial planes and large cloth folds, NOT a miniature doll. Background nearly flat smoky petrol black with subtle distant workshop wall, no landscape, no text or UI; shallow warm top-right light and cool reflected fill. Full figure occupies 85 percent of height, generous 10 percent margins. Appealing but mournful original game character, readable at small size.
+```
+
+Arquivo: [22-guarda-arte-v6.png](conceitos/22-guarda-arte-v6.png).
+
+### Equipamentos
+
+```text
+Use case: stylized-concept. Asset: six equipment item illustrations on a 3-column by 2-row contact sheet, landscape 1536x1024. Aetherforge original dark industrial idle RPG art direction. Dishonored-inspired sculpted asymmetry and adult elongated proportions, restrained BioShock 1/2 industrial civic Art Deco, Lies of P cloth-versus-machined steel contrast, Frostpunk emotional exhaustion. This is a new original world, NOT recognizable franchise characters or logos. Mature mournful visual tone, ruthless large shapes, hand-authored faceted 3D game render with broad painterly material planes, low-cost geometry target. Cold petrol blue, blackened iron, soot wool, dirty ivory, very restrained oxidized brass and one dull amber practical light. Avoid uniform rust speckling, smooth plastic, toy chibi proportions, glowing robot eyes, abundant decorative gears, glossy bevels, gold filigree, Unreal photorealism, generic orange-and-teal fantasy, runes, text, letters, numerals, logos and watermark.
+Exactly six separate original equipment items, one centered in each equal rectangular cell, adequate whitespace. Flat background identical charcoal petrol #172126 across entire image, NO cell borders or dividers, NO writing anywhere. Top left: worn asymmetrical blackened steel cuirass with cream canvas underlayer, real human scale, open hollow neck and no head. Top middle: tall rectangular hammered steel shield, one off-center dirty ivory vertical stripe, NO insignia. Top right: long slender wood-stock industrial rifle. Bottom left: ivory hooded oilcloth coat on invisible mannequin, no person. Bottom middle: medical cylindrical glass vial in simple protective iron cage, muted green liquid, no glowing magic. Bottom right: small brass pressure regulator medal with plain concentric mechanism and leather strap. Handcrafted 3D sculptural prop studies with broad planes, dull steel with localized edge wear and cloth seams; consistent orthographic 3/4 views, subtle shadows, no plinths, no frames, no grit noise. Each object independent, wholly contained in its own cell and not overlapping adjacent cells. Same material and shapes as an industrial guard with asymmetrical dark coat and plain shield.
+```
+
+Arquivo: [23-equipamentos-arte-v6.png](conceitos/23-equipamentos-arte-v6.png).
+
+## Composição determinística
+
+As três artes não contêm texto. A interface, os glifos, a comparação de atributos, as linhas de conexão e os indicadores são SVG/CSS nativos. Libre Caslon Text Bold nos títulos; Jost Regular/Medium nos textos e números tabulares. Source Sans 3 é o fallback explícito dos símbolos. Os arquivos e as licenças OFL estão em [assets/fonts/v5](assets/fonts/v5/sources.json).
+
+O [gerador de composições](prototipos-v6/compose.mjs) cria quatro documentos estáticos. Executar na raiz: `node docs/visual/prototipos-v6/compose.mjs`. O [CSS](prototipos-v6/telas.css) referencia os arquivos reais. A folha de equipamentos é enquadrada com viewBoxes SVG; os recortes foram ajustados para não mostrar partes dos itens vizinhos. Não houve alteração dos pixels por script.
+
+As pranchas finais foram exportadas em Edge/Chromium headless após carregar as imagens e as fontes locais: três em 1920 × 1080 e a faixa em 1920 × 320. A inspeção confirmou Libre Caslon Text Bold e Jost como fontes personalizadas carregadas, sem texto fora dos limites e sem erros de console. A conexão da árvore foi afastada do rótulo de rank após revisão visual.
+
+## Resultado e limites observados
+
+A geração ficou mais próxima de ilustração 3D detalhada do que do facetamento econômico solicitado. O retrato deixa o rosto e o cansaço mais visíveis; a cena distingue os dois inimigos e mantém os cinco atores dentro do enquadramento. A coerência ainda é conceitual: o retrato usa martelo e o Guarda da cena tem uma arma curta diferente. A próxima etapa de produção precisa fixar uma ficha de personagem e um único equipamento antes de modelar e animar. Esta rodada testa a direção e a composição das telas; não entrega modelos, animação ou desempenho comprovado.
+
+Ranks, ponto de treino e Resistência continuam propostas para avaliação. Os conectores da árvore indicam agrupamento visual, sem estabelecer novos requisitos aprovados. Provocação e ataque básico mantêm sua natureza automática. Nenhum arquivo do runtime, regra compartilhada, backend ou save foi alterado.
