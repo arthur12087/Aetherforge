@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "nodes": {
+    "v8-direcao": {
+      "x": 96,
+      "y": 96
+    },
+    "v8-base-v7": {
+      "x": 96,
+      "y": 576
+    },
+    "v8-base-equipe": {
+      "x": 96,
+      "y": 1056
+    },
+    "v8-pesquisa-a": {
+      "x": 656,
+      "y": 96
+    },
+    "v8-pesquisa-b": {
+      "x": 656,
+      "y": 576
+    },
+    "v8-pesquisa-c": {
+      "x": 656,
+      "y": 1056
+    },
+    "v8-atlas-a": {
+      "x": 1216,
+      "y": 96
+    },
+    "v8-atlas-b": {
+      "x": 1216,
+      "y": 576
+    },
+    "v8-atlas-c": {
+      "x": 1216,
+      "y": 1056
+    },
+    "v8-prancha-a": {
+      "x": 1776,
+      "y": 96
+    },
+    "v8-prancha-b": {
+      "x": 1776,
+      "y": 576
+    },
+    "v8-prancha-c": {
+      "x": 1776,
+      "y": 1056
+    },
+    "v8-menus": {
+      "x": 2336,
+      "y": 96
+    },
+    "v8-menus-painel": {
+      "x": 2336,
+      "y": 576
+    },
+    "v8-menu-dish-1": {
+      "x": 2336,
+      "y": 1056
+    },
+    "v8-menu-dish-2": {
+      "x": 2896,
+      "y": 96
+    },
+    "v8-menu-bio-1": {
+      "x": 2896,
+      "y": 576
+    },
+    "v8-menu-frost-1": {
+      "x": 2896,
+      "y": 1056
+    },
+    "v8-menu-frost-2": {
+      "x": 3456,
+      "y": 96
+    },
+    "v9-herois-geracao": {
+      "x": 4016,
+      "y": 96
+    },
+    "v9-direcao": {
+      "x": 4576,
+      "y": 96
+    },
+    "v9-equipe-prancha": {
+      "x": 4576,
+      "y": 576
+    },
+    "v9-bestiario-prancha": {
+      "x": 4576,
+      "y": 1056
+    },
+    "v9-menus-prancha": {
+      "x": 5136,
+      "y": 96
+    },
+    "v9-assinatura-prancha": {
+      "x": 5136,
+      "y": 576
+    },
+    "v9-pesquisa": {
+      "x": 5136,
+      "y": 1056
+    },
+    "v9-pesquisa-prancha": {
+      "x": 5696,
+      "y": 96
+    },
+    "v9-ref-chassi": {
+      "x": 5696,
+      "y": 576
+    },
+    "v9-ref-icons": {
+      "x": 5696,
+      "y": 1056
+    },
+    "v9-ref-instrumentos": {
+      "x": 6256,
+      "y": 96
+    },
+    "v9-ref-personagens": {
+      "x": 6256,
+      "y": 576
+    },
+    "v9-ref-frasco": {
+      "x": 6256,
+      "y": 1056
+    },
+    "v10-equipe-gpt": {
+      "x": 6816,
+      "y": 96
+    },
+    "v10-revisao": {
+      "x": 7376,
+      "y": 96
+    },
+    "v10-cor-prancha": {
+      "x": 7376,
+      "y": 576
+    },
+    "v10-bio2-prancha": {
+      "x": 7376,
+      "y": 1056
+    },
+    "v10-ref-sister": {
+      "x": 7936,
+      "y": 96
+    },
+    "v10-ref-crawler": {
+      "x": 7936,
+      "y": 576
+    },
+    "v10-ref-hand": {
+      "x": 7936,
+      "y": 1056
+    },
+    "v10-ref-cinematic": {
+      "x": 8496,
+      "y": 96
+    },
+    "v10-bestiario-1-gpt": {
+      "x": 8496,
+      "y": 576
+    },
+    "v10-bestiario-2-gpt": {
+      "x": 8496,
+      "y": 1056
+    },
+    "v11-handoff-gpt": {
+      "x": 9056,
+      "y": 96
+    },
+    "v11-gpt-equipe": {
+      "x": 9616,
+      "y": 96
+    },
+    "v11-gpt-bestiario-1": {
+      "x": 9616,
+      "y": 576
+    },
+    "v11-gpt-bestiario-2": {
+      "x": 9616,
+      "y": 1056
+    },
+    "v11-gpt-equipe-r03-estilizada": {
+      "x": 10176,
+      "y": 96
+    },
+    "v12-gpt-equipe": {
+      "x": 10736,
+      "y": 96
+    },
+    "v12-gpt-bestiario-1": {
+      "x": 10736,
+      "y": 576
+    },
+    "v12-gpt-bestiario-2": {
+      "x": 10736,
+      "y": 1056
+    },
+    "v13-godot-entrega": {
+      "x": 11296,
+      "y": 96
+    },
+    "v13-godot-march": {
+      "x": 11296,
+      "y": 576
+    },
+    "v13-godot-boss": {
+      "x": 11296,
+      "y": 1056
+    },
+    "v13-godot-complete": {
+      "x": 11856,
+      "y": 96
+    },
+    "v13-godot-compact": {
+      "x": 12416,
+      "y": 96
+    },
+    "v14-ui-planejamento": {
+      "x": 12976,
+      "y": 96
+    },
+    "v14-hud-diagnostico": {
+      "x": 12976,
+      "y": 576
+    },
+    "v14-ui-entrega": {
+      "x": 12976,
+      "y": 1056
+    },
+    "v14-ui-typography": {
+      "x": 13536,
+      "y": 96
+    },
+    "v14-ui-compact": {
+      "x": 13536,
+      "y": 576
+    },
+    "v14-ui-combat": {
+      "x": 13536,
+      "y": 1056
+    },
+    "v14-ui-boss": {
+      "x": 14096,
+      "y": 96
+    },
+    "v14-ui-status": {
+      "x": 14096,
+      "y": 576
+    },
+    "v14-ui-hero": {
+      "x": 14096,
+      "y": 1056
+    },
+    "v14-ui-route": {
+      "x": 14656,
+      "y": 96
+    },
+    "v14-ui-compact-150": {
+      "x": 14656,
+      "y": 576
+    },
+    "v14-ui-status-150": {
+      "x": 14656,
+      "y": 1056
+    },
+    "v15-ui-entrega": {
+      "x": 15216,
+      "y": 96
+    },
+    "v15-ui-pesquisa": {
+      "x": 15216,
+      "y": 576
+    },
+    "v15-ui-propostas": {
+      "x": 15216,
+      "y": 1056
+    },
+    "v15-ui-status": {
+      "x": 15776,
+      "y": 96
+    },
+    "v15-ui-status-150": {
+      "x": 15776,
+      "y": 576
+    },
+    "v15-ui-status-damage": {
+      "x": 15776,
+      "y": 1056
+    },
+    "v15-ui-status-options": {
+      "x": 16336,
+      "y": 96
+    },
+    "v15-ui-overview": {
+      "x": 16336,
+      "y": 576
+    },
+    "v15-ui-diagnostico": {
+      "x": 16336,
+      "y": 1056
+    }
+  },
+  "viewport": {
+    "x": -4318.258303999999,
+    "y": -281.8220799999999,
+    "zoom": 1
+  },
+  "view": "canvas"
+}

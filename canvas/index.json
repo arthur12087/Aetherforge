@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "boards": [
+    {
+      "id": "ab163f7a-13a0-4f45-b5c5-ba7638f4083d",
+      "name": "Untitled"
+    }
+  ],
+  "documents": [
+    { "id": "direcao-idle-v8", "title": "Aetherforge v8 — três direções de arte para o idle 3D" },
+    { "id": "pesquisa-menus-v8", "title": "Pesquisa de menus — Dishonored, BioShock e Frostpunk" },
+    { "id": "promessa-latao-v9", "title": "Direção escolhida B — A Promessa do Latão v9" },
+    { "id": "pesquisa-bioshock-v9", "title": "BioShock v9 — pesquisa de personagens, produtos e menus" },
+    { "id": "revisao-latao-v10", "title": "V10 — nova cor, BioShock 2 e pinturas GPT pendentes" },
+    { "id": "handoff-gpt-images-v11", "title": "Handoff CLI — GPT Images / equipe e bestiário v11" },
+    { "id": "prototipo-godot-v13", "title": "Godot — primeira fatia jogável / A Promessa do Latão" },
+    { "id": "ui-v14-fontes-menus-hud", "title": "V14 — plano de fontes, menus e HUD" },
+    { "id": "ui-v14-entrega", "title": "V14 — fontes, menus e HUD implementados / capturas e testes" },
+    { "id": "ui-v15-componentes-microinteracoes", "title": "V15 — componentes com caráter / pesquisa, propostas e piloto" }
+  ]
+}

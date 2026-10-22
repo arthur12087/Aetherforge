@@ -1,0 +1,72 @@
+{
+    "version":  1,
+    "kind":  "execution-plan-not-generation-result",
+    "createdAtUtc":  "2026-10-21T00:40:32.1808489Z",
+    "workspace":  "C:\\Users\\Arthur\\Documents\\jogo poc mmorpg",
+    "sourceBoardPath":  "canvas/boards/ab163f7a-13a0-4f45-b5c5-ba7638f4083d.json",
+    "boardId":  "ab163f7a-13a0-4f45-b5c5-ba7638f4083d",
+    "handoffPath":  "canvas/documents/handoff-gpt-images-v11.md",
+    "requestedImageFamily":  "GPT Images",
+    "modelSelection":  "Use the real GPT Images tool and model available in the external CLI session; do not use editor provider aliases as CLI model flags.",
+    "editorProviderAliasIsNotCliModel":  "codex-cli/codex-image",
+    "preferredAspectRatio":  "16:9",
+    "preferredResolution":  "native up to 2K if supported; 1536x1024 landscape is acceptable without stretching",
+    "requestedOutputFormat":  "png",
+    "sharedDirectionPath":  "docs/visual/gpt-images-v11/00-direcao-comum.txt",
+    "paletteReferencePath":  "assets/concepts/brass-v10/01-menus-cor.png",
+    "researchPanelPath":  "assets/concepts/brass-v10/02-pesquisa-bioshock2.png",
+    "researchSourcesPath":  "assets/concepts/brass-v10/references/sources.json",
+    "executionPolicy":  {
+                            "runSequentially":  true,
+                            "firstJobIsCapabilityTest":  "G01",
+                            "requiredSuccessfulImages":  3,
+                            "maximumCallsIncludingTargetedRepairsBeforeAsking":  6,
+                            "generateInThisHandoffPreparation":  false,
+                            "allowProceduralSubstitute":  false,
+                            "changeGlobalPermissions":  false
+                        },
+    "jobs":  [
+                 {
+                     "id":  "G01",
+                     "sourceCanvasNodeId":  "v10-equipe-gpt",
+                     "sourcePromptSha256":  "d8a39aaccb7335dd173b23c3b58840f778a3c5c5da68c6cbe0d4622557e5aa0e",
+                     "promptPath":  "docs/visual/gpt-images-v11/01-equipe.txt",
+                     "promptSha256":  "063725892600ffcefecfa314447d8c90b1f7858311fccb149b2bdfcaae88e055",
+                     "requestedOutputPath":  "assets/concepts/brass-v11-gpt/generated/01-equipe.png",
+                     "subjects":  [
+                                      "Pistoleiro",
+                                      "Guarda da Caldeira",
+                                      "Alquimista do Eter"
+                                  ],
+                     "status":  "not-started"
+                 },
+                 {
+                     "id":  "G02",
+                     "sourceCanvasNodeId":  "v10-bestiario-1-gpt",
+                     "sourcePromptSha256":  "1575b54b6369e124e931fd377ed78b304902521ee59dfccaf614373f0ca06921",
+                     "promptPath":  "docs/visual/gpt-images-v11/02-bestiario-1.txt",
+                     "promptSha256":  "d3166d248cd4c380fbc875b644b7985f018e2b93297a3c851c0d3ade815cbb62",
+                     "requestedOutputPath":  "assets/concepts/brass-v11-gpt/generated/02-bestiario-1.png",
+                     "subjects":  [
+                                      "Rato de Fuligem",
+                                      "Saqueador Mecanico",
+                                      "Drone"
+                                  ],
+                     "status":  "not-started"
+                 },
+                 {
+                     "id":  "G03",
+                     "sourceCanvasNodeId":  "v10-bestiario-2-gpt",
+                     "sourcePromptSha256":  "3d421a00cdeb2e1b946cbc1bdfeb01313f13129176bcd627e6a4bb90fb1235e0",
+                     "promptPath":  "docs/visual/gpt-images-v11/03-bestiario-2.txt",
+                     "promptSha256":  "0fdda8735557a340b4380353ba9faaf05ad843a22a86fb19e470824f449a6617",
+                     "requestedOutputPath":  "assets/concepts/brass-v11-gpt/generated/03-bestiario-2.png",
+                     "subjects":  [
+                                      "Sentinela a Vapor",
+                                      "Vigia",
+                                      "Capataz de Ferro"
+                                  ],
+                     "status":  "not-started"
+                 }
+             ]
+}

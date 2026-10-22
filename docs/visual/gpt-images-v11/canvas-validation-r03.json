@@ -1,0 +1,33 @@
+{
+  "status": "passed-local-validation",
+  "checkedAtUtc": "2026-10-21T01:06:42.751791+00:00",
+  "editorCanvasCheckAvailable": false,
+  "boardId": "ab163f7a-13a0-4f45-b5c5-ba7638f4083d",
+  "addedAssetId": "v11-gpt-equipe-r03-estilizada",
+  "checks": [
+    "JSON sem chaves duplicadas",
+    "schemas locais index/assets/board",
+    "IDs e referências",
+    "caminhos locais",
+    "nós e assets anteriores preservados",
+    "index sem alteração"
+  ],
+  "nodeCountBefore": 46,
+  "nodeCountAfter": 47,
+  "assetCountBefore": 46,
+  "assetCountAfter": 47,
+  "files": {
+    "canvas/index.json": {
+      "beforeSha256": "a5e8590c9e80c454508a3184ea902d967bd592fa3f80d03bfdd3443bb5e2e083",
+      "afterSha256": "a5e8590c9e80c454508a3184ea902d967bd592fa3f80d03bfdd3443bb5e2e083"
+    },
+    "canvas/assets.json": {
+      "beforeSha256": "e18b4bdf3d56b3b49f1a5f7082f484d93670bded4846672172fd0066754319ba",
+      "afterSha256": "2143cae41228b0e83f63e0ffc9d7be6c6dcac7b7b2b55cdcf07b87cb7932a1c7"
+    },
+    "canvas/boards/ab163f7a-13a0-4f45-b5c5-ba7638f4083d.json": {
+      "beforeSha256": "a5b80d0edd4587ed02fce80ac60df4ddc5251182084acfa7942600b3f5a02b7e",
+      "afterSha256": "6b89a3c8765c10ec920d33079871eec9e11307bf56214c219c657404b0f035e6"
+    }
+  }
+}

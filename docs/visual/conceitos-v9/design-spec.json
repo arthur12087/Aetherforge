@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "purpose": "Original reference-free volumetric concept studies and static UI art direction, not image reconstruction or production model delivery",
+  "selectedDirection": "B / A Promessa do Latao",
+  "approval": { "baseDirection": "selected-by-user", "newDesigns": "proposed-not-approved" },
+  "coordinateSystem": { "up": "+Y", "forward": "+Z" },
+  "qualityContract": {
+    "deliverables": ["3 hero studies", "6 enemy studies", "3 floating-menu mockup", "original visual signature", "5-image cited research board"],
+    "representation": "original simplified procedural maquettes plus original SVG graphic design",
+    "allowedApproximation": ["rigid cloth", "simplified anatomy and facial features", "primitive-based volume studies", "non-final workwear and material response"],
+    "mustNotClaim": ["AAA finished painting", "animation-ready", "skinned rig", "production topology", "validated Godot performance", "native Windows UI behavior", "source-character likeness", "successful AI painting generation"],
+    "criticalChecks": ["three distinct team silhouettes", "rectangular shield and worn stripe", "no copied franchise character silhouettes", "six distinguishable enemy masses", "five route stages", "separate desktop windows and small persistent arena", "readable real font layer", "references not used as textures or UI cutouts"]
+  },
+  "visualSignature": { "name": "Arco Partido", "construction": "three nested workshop arches interrupted by a vertical seam", "use": ["shield and enamel plaques", "machine casing", "menu crown"], "notAFranchiseLogo": true },
+  "materials": {
+    "petrolEnamel": { "color": "#215157", "roughness": 0.85, "metalness": 0.3 },
+    "brass": { "color": "#B79A65", "roughness": 0.48, "metalness": 0.64 },
+    "steel": { "color": "#53646A", "roughness": 0.48, "metalness": 0.72 },
+    "ivoryCanvas": { "color": "#DFD2AD", "roughness": 0.85, "metalness": 0 },
+    "ether": { "color": "#91C6AB", "emissive": "#4F8C78", "emissiveIntensity": 0.4 }
+  },
+  "heroes": [
+    { "id": "guard", "canonicalClass": "Guarda da Caldeira", "proposedAlias": "O Porteiro", "role": "tank", "silhouette": "broad trapezoid and rectangular shield", "identityFeatures": ["one worn ochre shield stripe", "compact open human helmet", "flat rear pressure pack", "short maintenance hammer", "stepped gorget"], "forbidden": ["spherical diving helmet", "porthole face", "drill", "Big Daddy silhouette"] },
+    { "id": "gunner", "canonicalClass": "Pistoleiro", "proposedAlias": "A Inspetora dos Trilhos", "role": "DPS", "silhouette": "narrow diagonal coat and horizontal pressure rifle", "identityFeatures": ["ivory inspection sash", "split long coat", "wood-stock rifle", "visible adult face"], "biographyAndGender": "visual proposals only, not canon approval" },
+    { "id": "healer", "canonicalClass": "Alquimista do Eter", "proposedAlias": "O Socorrista", "role": "healer NPC", "silhouette": "light triangular cape and hood", "identityFeatures": ["single ether cartridge", "hand applicator", "canvas satchel", "visible adult face"], "forbidden": ["child", "Little Sister", "giant syringe", "many neon bottles"] }
+  ],
+  "enemies": [
+    { "id": "rat", "canonicalName": "Rato de fuligem", "silhouette": "low horizontal quadruped with curved tail" },
+    { "id": "scavenger", "canonicalName": "Saqueador mecanico", "silhouette": "lean asymmetrical collector with curved hook" },
+    { "id": "sentry", "canonicalName": "Sentinela a vapor", "silhouette": "wide pressure boiler on short pistons" },
+    { "id": "drone", "canonicalName": "Drone", "silhouette": "suspended inverted bell and paired fan shrouds" },
+    { "id": "watcher", "canonicalName": "Vigia", "silhouette": "tall porcelain head and narrow tripod" },
+    { "id": "foreman", "canonicalName": "Capataz de Ferro", "silhouette": "wide walking press with oversized hammer arm" }
+  ],
+  "menuInstruments": [
+    { "id": "hero", "name": "Estojo de Expedicao", "features": ["arched portrait opening", "three equipment slots", "three team selectors", "seven-column drawer inventory"] },
+    { "id": "status", "name": "Mesa de Regulagem", "features": ["porcelain value displays", "original action medallions", "selected-skill printed slip"], "skills": ["Escudo de Pressao", "Provocacao", "Ataque basico"], "inventedHeatSystem": false },
+    { "id": "expedition", "name": "Telegrafo de Rotas", "features": ["paper route roll", "five station nodes", "current-stage ticket", "two-position Hunt/Mining selector"] }
+  ],
+  "evidence": { "heroAndBossAnglesDegrees": [22, 110, 200, 290], "isolatedPNGAlphaBounds": "assets/concepts/brass-v9/crops.json", "renderQA": "artifacts/concepts-v9/qa-volumes.json", "pageQA": "artifacts/concepts-v9/qa-pages.json", "nativeWindowOrGameplayTests": "not applicable, runtime unchanged" }
+}

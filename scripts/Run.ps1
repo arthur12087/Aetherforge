@@ -1,4 +1,4 @@
-param([ValidateSet('Idle','Server','Map','Api','Demo')][string]$Mode='Idle')
+param([ValidateSet('Expedition','Idle','Server','Map','Api','Demo','Typography')][string]$Mode='Expedition', [switch]$Overview, [ValidateRange(1,1.5)][float]$UiScale=1, [switch]$HudDetails)
 $ErrorActionPreference = 'Stop'
 . "$PSScriptRoot\Environment.ps1"
 Push-Location $projectRoot
@@ -19,6 +19,11 @@ try {
     } else {
         $arguments = @('--path',$clientDir)
         if ($Mode -eq 'Server') { $arguments = @('--headless') + $arguments }
-        & $godotExe @arguments -- "--mode=$($Mode.ToLowerInvariant())"
+        $runtimeMode = if ($Mode -eq 'Typography') { 'ui-proof' } else { $Mode.ToLowerInvariant() }
+        $userArguments = @("--mode=$runtimeMode")
+        if ($Mode -in @('Expedition','Typography')) { $userArguments += '--ui-scale='+$UiScale.ToString([Globalization.CultureInfo]::InvariantCulture) }
+        if ($Overview -and $Mode -eq 'Expedition') { $userArguments += '--overview' }
+        if ($HudDetails -and $Mode -eq 'Expedition') { $userArguments += '--hud-details' }
+        & $godotExe @arguments -- @userArguments
     }
 } finally { Pop-Location }

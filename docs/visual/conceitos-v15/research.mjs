@@ -1,0 +1,19 @@
+// Research only: third-party images remain credited and never enter client resources.
+import fs from 'node:fs/promises';import path from 'node:path';import {fileURLToPath} from 'node:url';
+const dir=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(dir,'../../..');
+const font=(await fs.readFile(path.join(root,'docs/visual/assets/fonts/v5/SourceSans3-Variable.ttf'))).toString('base64');
+const esc=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;');
+let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="950" viewBox="0 0 1440 950"><defs><style>@font-face{font-family:Source;src:url('data:font/ttf;base64,${font}');font-weight:200 900}text{font-family:Source;fill:#241F1A}.b{font-weight:600}</style></defs><rect width="1440" height="950" fill="#BFB49E"/>`;
+const t=(x,y,s,size=16,b=false)=>svg+=`<text x="${x}" y="${y}" font-size="${size}" class="${b?'b':''}">${esc(s)}</text>`;
+t(52,48,'PESQUISA V15 / COMPONENTES DE INTERFACE / 3 JOGOS',14,true);t(52,93,'Estudar a construção, não copiar o desenho.',32,true);
+t(52,128,'Imagens de terceiros, direitos dos titulares. Não são assets Aetherforge, licenças de runtime ou novos conceitos do projeto.',16);
+const refs=[
+{title:'BioShock · The Collection',credit:'UI remaster / portfólio de Shelby Tang',file:'assets/concepts/brass-v9/references/shelby-gene-bank.png',w:400,h:300,source:'shelbypeterson.com/bioshock-the-collection',learn:['Estudar: encaixe, sombra de assento e','separação entre carcaça e superfície de leitura.','O atlas tem material e volume, não só borda.'],adapt:['No piloto: placa chanfrada e três sockets','claros. Latão restrito aos contatos.','Sem recortar atlas ou copiar ornamentos.']},
+{title:'Frostpunk · Livro de Leis',credit:'11 bit studios / catálogo Interface In Game',file:'assets/concepts/idle-v8/references/menus/frostpunk-livro-de-leis.jpg',w:400,h:225,source:'interfaceingame.com / Frostpunk / Book of laws',learn:['Estudar: títulos bem hierarquizados e','ornamento concentrado nos pontos de decisão.','O miolo escuro não recebe molduras iguais.'],adapt:['No piloto: menos ruído no centro; identidade','fica nos encaixes e no Arco Partido.','Não adotar ciano, frio, leis ou temperatura.']},
+{title:'Darkest Dungeon II · ficha',credit:'Red Hook / imagem de guia Fextralife',file:'assets/concepts/brass-v15-ui/references/darkest-dungeon2-hero-sheet.png',w:300,h:168,source:'darkestdungeon2.wiki.fextralife.com / New Player Help',learn:['Estudar: ficha organizada por identidade,','atributos e símbolos funcionais. A imagem','é pequena: não prova tipografia ou detalhes.'],adapt:['No piloto: símbolo de profissão + nome +','vida sempre escrita. Não depender de hover','para revelar HP ou copiar tokens do jogo.']}
+];
+for(let i=0;i<3;i++){const x=52+i*454,r=refs[i];t(x,187,r.title,23,true);t(x,214,r.credit,14);svg+=`<rect x="${x}" y="236" width="428" height="328" fill="#40332B"/>`;const bytes=await fs.readFile(path.join(root,r.file)),mime=bytes[0]===0x89?'image/png':'image/jpeg';svg+=`<image x="${x+(428-r.w)/2}" y="${236+(328-r.h)/2}" width="${r.w}" height="${r.h}" href="data:${mime};base64,${bytes.toString('base64')}"/>`;t(x,588,r.source,12);r.learn.forEach((s,j)=>t(x,626+j*22,s,16));r.adapt.forEach((s,j)=>t(x,727+j*22,s,16,j===0));}
+t(52,842,'Leitura preservada: Limelight na identidade; Source Sans 3 400/600 nos dados. Paleta quente B continua escolhida.',16,true);
+t(52,876,'Pesquisa visual estática. Os tempos de microinteração são decisões do nosso piloto, não medições das animações desses jogos.',15);
+t(52,905,'BioShock/Frostpunk: arquivos locais históricos reexaminados com fontes web. Darkest Dungeon II: nova referência baixada, 300 × 168, sem upscale.',14);
+svg+='</svg>';await fs.writeFile(path.join(dir,'pesquisa.svg'),svg);console.log('RESEARCH SVG / 1440x950 / credited reference only');

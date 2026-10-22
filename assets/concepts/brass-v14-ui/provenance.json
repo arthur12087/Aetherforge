@@ -1,0 +1,82 @@
+﻿{
+    "version":  1,
+    "capturedFrom":  "Godot 4.7.2 .NET runtime; Expedition / ui-proof",
+    "recordedAt":  "2026-10-22T01:43:57.7046041Z",
+    "purpose":  "Review evidence only; these screenshots are not new paintings or runtime textures",
+    "overviewNotice":  "combat/boss show embedded instruments for review, not normal native-window layout",
+    "fontNotice":  "Source Sans 3 real 400/600 verified at TextServer RID cache through numeric OpenType axis; base font name ExtraLight is metadata only",
+    "captures":  [
+                     {
+                         "file":  "typography.png",
+                         "source":  "artifacts/ui-v14/qa/typography.png",
+                         "width":  1120,
+                         "height":  760,
+                         "sha256":  "cae651a1b2cfa9f8a75aa5b5d5563d2ad785202bee29a4c6143da91a2a6caff7",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     },
+                     {
+                         "file":  "compact.png",
+                         "source":  "artifacts/ui-v14/qa/compact.png",
+                         "width":  1000,
+                         "height":  320,
+                         "sha256":  "38d6fb3857ee1de802643744006ab71bf362b707b1f21ca53a2a9451fb64248f",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     },
+                     {
+                         "file":  "combat.png",
+                         "source":  "artifacts/ui-v14/qa/combat.png",
+                         "width":  1160,
+                         "height":  880,
+                         "sha256":  "2ad877c158c7d4fe0db13a721f3f25164937b5c7388dc0bcd0a33b1c1c4fd098",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     },
+                     {
+                         "file":  "boss.png",
+                         "source":  "artifacts/ui-v14/qa/boss.png",
+                         "width":  1160,
+                         "height":  880,
+                         "sha256":  "e986a84f62e7a490365e5016d6e0b5e7285f5e44dc65331bca3c2fb0a88b80dc",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     },
+                     {
+                         "file":  "status.png",
+                         "source":  "artifacts/ui-v14/qa/native-menus/status.png",
+                         "width":  380,
+                         "height":  620,
+                         "sha256":  "10addfce8d5c1bbad4bb7cae3b64aff38327593a38ed5d8ac02637148bbdb6e5",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     },
+                     {
+                         "file":  "hero.png",
+                         "source":  "artifacts/ui-v14/qa/native-menus/hero.png",
+                         "width":  380,
+                         "height":  620,
+                         "sha256":  "a7ad5564a07fed07bcc3687e85efe51bfd5d3dc708bd684253f3c7135724ad9a",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     },
+                     {
+                         "file":  "route.png",
+                         "source":  "artifacts/ui-v14/qa/native-menus/route.png",
+                         "width":  380,
+                         "height":  620,
+                         "sha256":  "ac1f2a67af88bb7ee0d5f6d8227830ccaad36661f93fb7bf345fea3e5ea80a8f",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     },
+                     {
+                         "file":  "compact-150.png",
+                         "source":  "artifacts/ui-v14/qa/compact-150.png",
+                         "width":  1000,
+                         "height":  320,
+                         "sha256":  "16effa18885a832f4a75c2fd28d32388fbb25067bdb0cf10355a8506d77909a4",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     },
+                     {
+                         "file":  "status-150.png",
+                         "source":  "artifacts/ui-v14/qa/native-menus-1-5/status.png",
+                         "width":  570,
+                         "height":  664,
+                         "sha256":  "e779f6bedc45b00149b958f2b23cfb2b46cd85d472c0bc20c2859cb4870f9b5d",
+                         "transformation":  "none; byte-for-byte Godot viewport capture, no crop/upscale/image generation"
+                     }
+                 ]
+}

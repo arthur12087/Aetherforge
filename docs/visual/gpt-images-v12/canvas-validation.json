@@ -1,0 +1,33 @@
+{
+  "status": "passed-local-validation",
+  "checkedAtUtc": "2026-10-21T01:16:33.278444+00:00",
+  "editorCanvasCheckAvailable": false,
+  "boardId": "ab163f7a-13a0-4f45-b5c5-ba7638f4083d",
+  "nodeCountBefore": 47,
+  "nodeCountAfter": 50,
+  "assetCountBefore": 47,
+  "assetCountAfter": 50,
+  "checks": [
+    "JSON sem chaves duplicadas",
+    "schemas locais index/assets/board",
+    "IDs únicos e referências",
+    "todos os caminhos locais",
+    "conteúdo anterior preservado",
+    "index sem alteração",
+    "PNG e hashes reais"
+  ],
+  "files": {
+    "canvas/index.json": {
+      "beforeSha256": "a5e8590c9e80c454508a3184ea902d967bd592fa3f80d03bfdd3443bb5e2e083",
+      "afterSha256": "a5e8590c9e80c454508a3184ea902d967bd592fa3f80d03bfdd3443bb5e2e083"
+    },
+    "canvas/assets.json": {
+      "beforeSha256": "2143cae41228b0e83f63e0ffc9d7be6c6dcac7b7b2b55cdcf07b87cb7932a1c7",
+      "afterSha256": "03deb97f188e8ac44487d9d9d519211c7f8baea364b2bcc5df71fb7e56d260be"
+    },
+    "canvas/boards/ab163f7a-13a0-4f45-b5c5-ba7638f4083d.json": {
+      "beforeSha256": "6b89a3c8765c10ec920d33079871eec9e11307bf56214c219c657404b0f035e6",
+      "afterSha256": "008948a4e9add7bcf4829177ca08c1339c221f6719e94c66bfd51959db13b35f"
+    }
+  }
+}

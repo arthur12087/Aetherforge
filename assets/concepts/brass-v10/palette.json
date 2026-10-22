@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "scope": "v10 proposed color correction; no generated character art",
+  "background": {
+    "name": "papel de arquivo / pedra quente",
+    "hex": "#BFB49E"
+  },
+  "colors": {
+    "soot": "#241F1A",
+    "tobacco": "#40332B",
+    "oxblood": "#6C3A32",
+    "brass": "#B99B63",
+    "porcelain": "#E4D8B7",
+    "etherAccent": "#97A581"
+  },
+  "dominantBlueRemoved": true,
+  "generatedCharactersProduced": false
+}

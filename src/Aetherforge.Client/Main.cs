@@ -23,6 +23,16 @@ public partial class Main : Node
     private bool _invalidSnapshot, _wallReached;
     private readonly Dictionary<long, Vector3> _firstSeen = new();
     private IdleView? _idle;
+    private ExpeditionView? _expedition;
+    private bool _expeditionLayoutOk, _sawMarch, _sawCombat, _sawLoot, _sawHeal, _sawDamage, _distanceMovedInCombat;
+    private double _lastExpeditionDistance;
+    private ExpeditionPhase _lastExpeditionPhase = ExpeditionPhase.March;
+    private readonly HashSet<string> _encounterKinds = new();
+    private double _sceneMinX = double.PositiveInfinity, _sceneMaxX = double.NegativeInfinity;
+    private double _cameraMinX = double.PositiveInfinity, _cameraMaxX = double.NegativeInfinity;
+    private bool _sawWalkPose, _sawAttackPose;
+    private int _maxHudFeedback, _maxHudPerActor, _maxHudVitals, _maxHudNames;
+    private bool _sawHudDamage, _sawHudHealing;
     private IntegrationClient _integration = null!;
     private IntegrationSnapshot? _inventory;
     private Label _inventoryText = null!, _itemMessage = null!;
@@ -35,8 +45,54 @@ public partial class Main : Node
     {
         foreach (var argument in OS.GetCmdlineUserArgs())
             if (argument.StartsWith("--")) { var parts = argument[2..].Split('=', 2); _options[parts[0]] = parts.Length > 1 ? parts[1] : "true"; }
-        _mode = Option("mode", "idle");
+        _mode = Option("mode", "expedition");
         if (_mode == "bake") { AddChild(new SpriteBaker()); return; }
+        if (_mode is "expedition" or "ui-proof")
+        {
+            BrassMotion.Reduced = _options.ContainsKey("reduce-ui-motion");
+            if (float.TryParse(Option("ui-scale", "1"), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var uiScale) && float.IsFinite(uiScale))
+                BrassUi.Scale = Math.Clamp(uiScale, 1, 1.5f);
+        }
+        if (_mode == "ui-proof")
+        {
+            Engine.MaxFps = 30;
+            GetWindow().Size = new Vector2I(1120, 760);
+            AddChild(new BrassTypeProof());
+            return;
+        }
+        if (_mode == "expedition")
+        {
+            Engine.MaxFps = 30;
+            if (_options.TryGetValue("time-scale", out var scale) && double.TryParse(scale, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var speed))
+                Engine.TimeScale = Math.Clamp(speed, .1, 16);
+            _expedition = new ExpeditionView { Overview = _options.ContainsKey("overview") || DisplayServer.GetName() == "headless" };
+            AddChild(_expedition);
+            _expedition.DetailedHud = _options.ContainsKey("hud-details");
+            if (_options.ContainsKey("ui-check"))
+            {
+                if (_options.TryGetValue("qa-size", out var qaSize))
+                {
+                    var dimensions = qaSize.Split('x', 2);
+                    if (dimensions.Length == 2 && int.TryParse(dimensions[0], out var width) && int.TryParse(dimensions[1], out var height))
+                        GetWindow().Size = new Vector2I(Math.Clamp(width, 1000, 2560), Math.Clamp(height, 320, 1440));
+                }
+                var uiCheck = new UiV14Check { EvidencePath = Option("ui-evidence", ""), CaptureDirectory = Option("ui-captures", "") };
+                uiCheck.Bind(_expedition); AddChild(uiCheck);
+            }
+            if (_options.ContainsKey("component-check"))
+            {
+                var componentCheck = new UiV15Check { EvidencePath = Option("ui-evidence", ""), CaptureDirectory = Option("ui-captures", "") };
+                componentCheck.Bind(_expedition); AddChild(componentCheck);
+            }
+            var audio = new ExpeditionAudio(); audio.Bind(_expedition.Simulation); AddChild(audio);
+            if (_options.ContainsKey("layout-check") || _options.ContainsKey("expedition-smoke")) VerifyExpedition(_expedition);
+            if (_options.ContainsKey("interaction-check"))
+            {
+                var interactionCheck = new ExpeditionInteractionCheck(); interactionCheck.Bind(_expedition); AddChild(interactionCheck);
+            }
+            GD.Print($"EXPEDITION READY — Brass v12 / UI v15 / scale {BrassUi.Scale:0.##}; legacy modes unchanged");
+            return;
+        }
         if (_mode == "idle")
         {
             Engine.MaxFps = 30;
@@ -98,7 +154,7 @@ public partial class Main : Node
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_mode is "idle" or "bake") return;
+        if (_mode is "idle" or "bake" or "expedition" or "ui-proof") return;
         _sendClock += delta;
         if (_mode == "server")
         {
@@ -164,6 +220,37 @@ public partial class Main : Node
     public override void _Process(double delta)
     {
         _elapsed += delta;
+        if (_expedition != null)
+        {
+            var simulation = _expedition.Simulation;
+            var hud = _expedition.Stage.Hud;
+            _maxHudFeedback = Math.Max(_maxHudFeedback, hud.ActiveFeedbackCount);
+            _maxHudPerActor = Math.Max(_maxHudPerActor, hud.MaxFeedbackPerActor);
+            _maxHudVitals = Math.Max(_maxHudVitals, hud.VisibleVitalCount);
+            _maxHudNames = Math.Max(_maxHudNames, hud.VisibleNameCount);
+            _sawHudDamage |= hud.VisibleDamage; _sawHudHealing |= hud.VisibleHealing;
+            _sawMarch |= simulation.Phase == ExpeditionPhase.March && simulation.Distance > .1;
+            _sawCombat |= simulation.Phase == ExpeditionPhase.Combat;
+            _sawLoot |= simulation.Phase == ExpeditionPhase.Loot;
+            _sawHeal |= simulation.Events.Any(e => e.Kind == "heal");
+            _sawDamage |= simulation.Party.Any(p => p.Health < p.MaxHealth);
+            if (_lastExpeditionPhase == ExpeditionPhase.Combat && simulation.Phase == ExpeditionPhase.Combat && Math.Abs(simulation.Distance - _lastExpeditionDistance) > .001)
+                _distanceMovedInCombat = true;
+            _lastExpeditionDistance = simulation.Distance; _lastExpeditionPhase = simulation.Phase;
+            foreach (var enemy in simulation.Enemies) _encounterKinds.Add(enemy.Kind);
+            var world = _expedition.Stage.GetNodeOrNull<Node3D>("ExpeditionViewport/ServiceGallery");
+            if (world != null)
+            {
+                var guard = world.GetNodeOrNull<ExpeditionActor>("Party_guard");
+                var camera = world.GetNodeOrNull<Camera3D>("TrackingOrthographicCamera");
+                if (guard != null)
+                {
+                    _sceneMinX = Math.Min(_sceneMinX, guard.Position.X); _sceneMaxX = Math.Max(_sceneMaxX, guard.Position.X);
+                    _sawWalkPose |= guard.CurrentPose == "walk"; _sawAttackPose |= guard.CurrentPose == "attack";
+                }
+                if (camera != null) { _cameraMinX = Math.Min(_cameraMinX, camera.Position.X); _cameraMaxX = Math.Max(_cameraMaxX, camera.Position.X); }
+            }
+        }
         if (_mode == "map")
         {
             if (_elapsed >= _nextInventory && !_readingInventory) { _nextInventory = _elapsed + .4; ReadInventory(); }
@@ -190,7 +277,13 @@ public partial class Main : Node
             _finished = true;
             Finish();
         }
-        if (Input.IsPhysicalKeyPressed(Key.Escape) && _mode != "bake") GetTree().Quit();
+        if (Input.IsPhysicalKeyPressed(Key.Escape) && _mode is not ("bake" or "expedition")) GetTree().Quit();
+    }
+
+    public override void _UnhandledKeyInput(InputEvent input)
+    {
+        if (_mode == "expedition" && input is InputEventKey { Pressed: true, Echo: false, Keycode: Key.Escape })
+            GetTree().Quit();
     }
 
     private async void Finish()
@@ -201,7 +294,32 @@ public partial class Main : Node
             var result = GetViewport().GetTexture().GetImage().SavePng(file);
             GD.Print("SCREENSHOT " + result + " " + file);
         }
-        if (_options.ContainsKey("integration-smoke"))
+        if (_mode == "expedition" && _expedition != null)
+        {
+            var simulation = _expedition.Simulation;
+            var passed = _expeditionLayoutOk && _sawMarch && _sawCombat && _sawLoot && _sawHeal && _sawDamage && !_distanceMovedInCombat
+                && simulation.Phase == ExpeditionPhase.Complete && simulation.Victories == 5 && _encounterKinds.Count == 6
+                && _sceneMaxX - _sceneMinX > 100 && _cameraMaxX - _cameraMinX > 100 && _sawWalkPose && _sawAttackPose;
+            var evidence = new { phase = simulation.Phase.ToString(), simulation.Victories, simulation.Distance, simulation.Elapsed,
+                kinds = _encounterKinds.OrderBy(k => k).ToArray(), layout = _expeditionLayoutOk, march = _sawMarch, combat = _sawCombat, loot = _sawLoot,
+                healing = _sawHeal, damage = _sawDamage, distanceMovedInCombat = _distanceMovedInCombat,
+                sceneTravel = double.IsFinite(_sceneMaxX - _sceneMinX) ? _sceneMaxX - _sceneMinX : 0,
+                cameraTravel = double.IsFinite(_cameraMaxX - _cameraMinX) ? _cameraMaxX - _cameraMinX : 0,
+                walkPose = _sawWalkPose, attackPose = _sawAttackPose,
+                ui = new { scale = BrassUi.Scale, maxActiveFeedback = _maxHudFeedback, maxFeedbackPerActor = _maxHudPerActor,
+                    maxVisibleVitals = _maxHudVitals, maxVisibleNames = _maxHudNames, damageNumber = _sawHudDamage, healNumber = _sawHudHealing,
+                    boundedFeedback = _maxHudFeedback <= 10 && _maxHudPerActor <= 2 },
+                party = simulation.Party.Select(p => new { p.Name, p.Health, p.MaxHealth }).ToArray(), passed };
+            if (_options.TryGetValue("evidence", out var evidenceFile))
+            {
+                var directory = System.IO.Path.GetDirectoryName(evidenceFile);
+                if (!string.IsNullOrEmpty(directory)) System.IO.Directory.CreateDirectory(directory);
+                System.IO.File.WriteAllText(evidenceFile, JsonSerializer.Serialize(evidence, new JsonSerializerOptions { WriteIndented = true }));
+            }
+            GD.Print("EXPEDITION " + (passed ? "PASS" : "REVIEW") + " " + JsonSerializer.Serialize(evidence));
+            GetTree().Quit(_options.ContainsKey("expedition-smoke") && !passed ? 1 : 0);
+        }
+        else if (_options.ContainsKey("integration-smoke"))
         {
             var item = _mode == "idle" ? _idle?.InventoryState?.Items.SingleOrDefault() : _inventory?.Items.SingleOrDefault();
             var passed = _mode == "idle" ? _idle?.SentItemId == item?.Id && item != null && item.Scope != EquipmentScope.Idle
@@ -216,6 +334,12 @@ public partial class Main : Node
             GetTree().Quit(passed ? 0 : 1);
         }
         else GetTree().Quit();
+    }
+
+    private async void VerifyExpedition(ExpeditionView view)
+    {
+        try { await view.VerifyLayouts(); _expeditionLayoutOk = true; GD.Print("EXPEDITION LAYOUT PASS"); }
+        catch (Exception error) { GD.PrintErr(error); GetTree().Quit(1); }
     }
 
     private async void VerifyIdle(IdleView idle)

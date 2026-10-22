@@ -1,0 +1,110 @@
+{
+  "guard": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      112,
+      94,
+      599,
+      1016
+    ],
+    "opaquePixels": 352256,
+    "clipped": false
+  },
+  "gunner": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      74,
+      101,
+      672,
+      1005
+    ],
+    "opaquePixels": 230813,
+    "clipped": false
+  },
+  "healer": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      221,
+      81,
+      460,
+      1020
+    ],
+    "opaquePixels": 242310,
+    "clipped": false
+  },
+  "rat": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      59,
+      435,
+      752,
+      355
+    ],
+    "opaquePixels": 97248,
+    "clipped": false
+  },
+  "scavenger": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      141,
+      107,
+      595,
+      1006
+    ],
+    "opaquePixels": 215087,
+    "clipped": false
+  },
+  "sentry": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      66,
+      175,
+      738,
+      867
+    ],
+    "opaquePixels": 314020,
+    "clipped": false
+  },
+  "drone": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      92,
+      447,
+      716,
+      285
+    ],
+    "opaquePixels": 66696,
+    "clipped": false
+  },
+  "watcher": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      275,
+      101,
+      470,
+      1017
+    ],
+    "opaquePixels": 117109,
+    "clipped": false
+  },
+  "foreman": {
+    "width": 900,
+    "height": 1200,
+    "crop": [
+      73,
+      203,
+      722,
+      792
+    ],
+    "opaquePixels": 299906,
+    "clipped": false
+  }
+}

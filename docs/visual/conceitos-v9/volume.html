@@ -1,0 +1,19 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Aetherforge · maquete de conceito v9</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent}canvas{display:block;width:100%;height:100%}</style><body><script type="module">
+import * as THREE from '/deps/three.module.min.js';
+import {createModel,createStage,countGeometry} from './models.js';
+try {
+ const q=new URLSearchParams(location.search), id=q.get('model')||'guard',stage=id==='stage';
+ const scene=new THREE.Scene();
+ const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+ renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(devicePixelRatio);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;renderer.setClearColor(0x000000,0);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.append(renderer.domElement);
+ scene.add(new THREE.HemisphereLight(0xc5dfdc,0x344147,2.1));
+ const key=new THREE.DirectionalLight(0xffdfad,3.7);key.position.set(-3,6,5);key.castShadow=true;key.shadow.mapSize.set(2048,2048);Object.assign(key.shadow.camera,{left:-7,right:7,top:6,bottom:-6,near:.1,far:30});key.shadow.bias=-.0003;key.shadow.normalBias=.02;scene.add(key);
+ const rim=new THREE.DirectionalLight(0x77adb8,2.7);rim.position.set(4,3,-4);scene.add(rim);
+ const fill=new THREE.DirectionalLight(0xd3ebe8,1.1);fill.position.set(3,2,5);scene.add(fill);
+ let root,fitRoot;if(stage){const s=createStage();root=s.root;fitRoot=s.actors;scene.background=new THREE.Color(0x10282d)}else{root=createModel(id);fitRoot=root;const floor=new THREE.Mesh(new THREE.PlaneGeometry(25,25),new THREE.ShadowMaterial({opacity:.26}));floor.rotation.x=-Math.PI/2;floor.position.y=-.018;floor.receiveShadow=true;scene.add(floor)}scene.add(root);
+ const bounds=new THREE.Box3().setFromObject(fitRoot),size=bounds.getSize(new THREE.Vector3()),center=bounds.getCenter(new THREE.Vector3());
+ const aspect=innerWidth/innerHeight;const height=stage?3.4:Math.max(size.y,size.x/aspect)*1.24;const camera=new THREE.OrthographicCamera(-height*aspect/2,height*aspect/2,height/2,-height/2,.01,100);
+ const angle=(Number(q.get('angle')||'20')/180)*Math.PI;const radius=8;camera.position.set(center.x+Math.sin(angle)*radius,center.y+(stage?2.2:1.1),center.z+Math.cos(angle)*radius);camera.lookAt(center.x,center.y,center.z);camera.updateProjectionMatrix();renderer.render(scene,camera);await new Promise(r=>setTimeout(r,150));renderer.render(scene,camera);
+ const gl=renderer.getContext();window.__evidence={id,angle:Number(q.get('angle')||20),bounds:{min:bounds.min.toArray(),max:bounds.max.toArray()},...countGeometry(root),webgl:gl.getParameter(gl.VERSION),contextLost:gl.isContextLost(),canvas:{width:renderer.domElement.width,height:renderer.domElement.height}};window.__ready=true;
+} catch(e){window.__error=String(e);console.error(e);}
+</script></body></html>

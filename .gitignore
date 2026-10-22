@@ -9,6 +9,11 @@
 /artifacts/
 /data/
 /outputs/
+
+# Anexos/metadados do editor e historico local de execucao com contexto de sessao
+# Copias selecionadas e suas proveniencias permanecem em assets/ e canvas/documents/.
+/.data/
+/canvas/jobs.json
 /.qa_gdd*/
 /.taste-skill/
 *.log

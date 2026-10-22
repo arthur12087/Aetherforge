@@ -1,0 +1,358 @@
+{
+  "version": 1,
+  "status": "gerado e inspecionado",
+  "userApproval": "pendente",
+  "executionPlanPath": "docs/visual/gpt-images-v11/execution-plan.json",
+  "toolCalls": 6,
+  "modelVersionExposed": false,
+  "referencePolicy": "Referências v10 consultadas visualmente; nenhuma imagem v6/v9 ou de terceiros anexada às gerações. Somente os originais próprios foram anexados às respectivas correções. G01-r03 foi gerada do zero com prompt revisado e sem anexos raster.",
+  "consultedImagePaths": [
+    "assets/concepts/brass-v10/01-menus-cor.png",
+    "assets/concepts/brass-v10/02-pesquisa-bioshock2.png",
+    "assets/concepts/brass-v10/references/colin-fix-big-sister.jpg",
+    "assets/concepts/brass-v10/references/colin-fix-crawler.jpg",
+    "assets/concepts/brass-v10/references/colin-fix-mao.jpg",
+    "assets/concepts/brass-v10/references/james-ku-big-sister.jpg"
+  ],
+  "consultedReferenceSourcesPath": "assets/concepts/brass-v10/references/sources.json",
+  "requests": [
+    {
+      "job": "G01",
+      "variant": "r01",
+      "tool": "image_gen.imagegen",
+      "toolBinding": "image_gen__imagegen",
+      "provider": "OpenAI",
+      "family": "GPT Images",
+      "model": null,
+      "modelDisclosure": "A ferramenta não expôs identificador ou versão do modelo; não inferido.",
+      "providerRequestId": null,
+      "returnedArtifactFilename": "exec-d3dc6bd9-2ff6-45e7-9d11-6aff351523aa.png",
+      "returnedIdentifierType": "Nome de arquivo retornado; não é um request ID exposto pelo provedor.",
+      "origin": "geração externa na CLI",
+      "startedAtUtc": "2026-10-21 00:51:03 UTC",
+      "finishedAtUtc": "2026-10-21 00:52:55 UTC",
+      "promptPath": "docs/visual/gpt-images-v11/01-equipe.txt",
+      "submittedPrompt": "AETHERFORGE — THE BRASS PROMISE / V11 GPT IMAGES CONCEPT PAINTINGS\n\nMake original professional production concept illustration intended to guide future stylized 3D game assets. Painted believable volume, expressive mature faces or purposeful machine anatomy, functional material thickness, deliberate large readable forms, quiet surfaces between details. The world is Brumaferrea, an original terrestrial industrial fantasy city, mournful, adult and slightly sinister. BioShock and BioShock 2 inform occupational silhouettes, failed Art Deco institutional design and repaired industrial equipment, NOT copied franchise characters or Rapture.\n\nThe user accepted the NEW WARM PALETTE. Approximate color/value targets: archive paper / warm putty #BFB49E; soot charcoal #241F1A; tobacco casing #40332B; oxidized oxblood enamel #6C3A32; aged brass #B99B63; old linen / porcelain #E4D8B7; restrained ether accent #97A581. These are art-direction guides, not a demand for exact flat hex fills. Keep material variation, but NO dominant blue or petroleum/teal background, no cyan/gold gradient, no blue luminous fog, no glowing vignette. Small jade ether accents only where justified. No shiny all-gold armor.\n\nThis request is for genuine GPT Images concept PAINTINGS. Do not emulate blocky procedural figures, low-poly maquettes, primitive Three.js models, plastic toys, chibi, photoreal cosplay or a generic polished superhero poster. Use purposeful painterly edges and material separation, without noisy texture on every surface. Any exposed person is an adult with practical work equipment, visible human character and a burdened grounded stance.\n\nHorizontal source-art sheet, preferably 16:9 at a supported native high resolution. If the model's actual native landscape output is 1536x1024, keep that native format rather than stretching/cropping actors to imitate 16:9 or claiming an upscale is native 2K. Generous margins around heads, feet, tools, tails, rotors and weapons. Exactly the subjects described by the specific job, no extra figures. No lettering, captions, labels, numbers, brand logos, UI windows or decorative poster border. Typesetting belongs in a separate later composition, not in the generated painting.\n\nOriginal split-arch workshop motif may be used very sparingly: three arch ribs interrupted by one vertical seam. It is an Aetherforge design proposal, not a BioShock logo. Avoid ornamental gear wallpaper, random tubes and copied franchise weapons, diving faces, drills, bird masks, giant syringes or recognizable Big Daddy / Big Sister / Little Sister silhouettes.\n\nSPECIFIC JOB G01:\n\nCreate a beautiful professional hand-painted character CONCEPT ART lineup for AETHERFORGE, an original mournful industrial steampunk fantasy RPG. Three NEW original full-body adult expedition members, equally spaced, head to boots entirely visible, anatomically credible weight-bearing poses and expressive mature imperfect human faces. This is polished evocative production illustration with painterly edges, intentional design, believable material thickness and strong readable large shapes, NOT a low-poly render, NOT primitive geometry, NOT a procedural maquette, NOT toy proportions, NOT photoreal cosplay. Quiet matte warm smoke-brown and putty-gray paper studio background, soft grounded shadows, NO BLUE OR TEAL background, no cyan/gold gradient, no glowing vignette. Palette: soot charcoal, tobacco brown, oxidized iron, oxblood enamel, old linen, muted ochre and aged brass. Only a single very small jade ether accent on the healer. Study the mature occupational silhouettes, industrial repair and failed Art Deco institutional design of BioShock and BioShock 2, but make original terrestrial Brumaferrea characters, not underwater Rapture and no recognizable franchise characters. LEFT: the GUNSLINGER, an adult woman railway inspector with cropped dark hair, a tired exposed face, a narrow long tobacco-brown coat split into two large panels and an ivory diagonal inspection sash; holds a practical horizontal wood-stock pressure rifle with one thick stepped brass receiver, no random gears. CENTER: the BOILER GUARD, older broad-shouldered worker, visible worn human face below a compact angular protective helmet, grounded asymmetrical burdened stance; soot-black pressure work armor, dark oxblood enamel breastplate, flat rear pressure pack and short maintenance hammer; large RECTANGULAR SHIELD with ONE chipped ochre vertical stripe, no circular diving face, no portholes, no drill. Shield is a practical beveled rectangular slab, not a coffin or medieval heraldic kite. RIGHT: the ETHER ALCHEMIST, adult field medic with an exhausted kind face framed by a weathered old-linen hood, folded triangular canvas cape, dark warm-gray work trousers, one canvas medical satchel and ONE small jade cartridge feeding a compact brass hand applicator, not a giant syringe. Restrained original split-arch workshop motif on at most one plaque per character. Art Deco is in stepped seams, enamel tags, careful rib rhythm and purposeful work tools, not luxury gold armor or ornamental gear wallpaper. Rich material distinctions: repaired cloth, scuffed leather, dull steel, rubbed brass only at contacts. Adult somber slightly sinister survival mood, no smiling superheroes, no chibi, no generic adventurer leather suits. Hands and tools make functional contact; clear separate limbs, no merged bodies or duplicate accessories. No lettering, labels, logos, numbers, UI or ornamental borders. No Big Daddy, Big Sister, Little Sister, Subject Delta, diving helmet, drill, bathysphere, masks or copied franchise weapons. Deliver three memorable painterly original character concepts, not recolors of prior blocky models.",
+      "attachedImagePaths": [],
+      "transparentBackground": false,
+      "path": "assets/concepts/brass-v11-gpt/generated/01-equipe.png",
+      "chosen": false,
+      "inspection": {
+        "performed": true,
+        "method": "Saída da ferramenta aberta na conversa; arquivo local aberto com view_image; cópia QA recodificada com System.Drawing, quando necessária para visualizar o PNG completo.",
+        "issuesAtThisVersion": [
+          "Cápsulas extras no Alquimista; reservatório cilíndrico no Guarda; arcos grandes no fundo."
+        ]
+      },
+      "processing": "Cópia binária do PNG nativo, sem resize, recorte ou retoque local.",
+      "format": "png",
+      "width": 1536,
+      "height": 1024,
+      "byteLength": 2738340,
+      "sha256": "f104adc73efe76690027cb429cf8887bd93f827d99ba46326dee51930bef6b71",
+      "promptFileSha256": "063725892600ffcefecfa314447d8c90b1f7858311fccb149b2bdfcaae88e055",
+      "submittedPromptUtf8Sha256": "ecb3286c73cdd20595955a187f2b8fc337e0b8a1801c8d2dea541bb946caf499"
+    },
+    {
+      "job": "G01",
+      "variant": "r02",
+      "tool": "image_gen.imagegen",
+      "toolBinding": "image_gen__imagegen",
+      "provider": "OpenAI",
+      "family": "GPT Images",
+      "model": null,
+      "modelDisclosure": "A ferramenta não expôs identificador ou versão do modelo; não inferido.",
+      "providerRequestId": null,
+      "returnedArtifactFilename": "exec-013a9101-c25e-44e1-8ad9-8ed3128e414b.png",
+      "returnedIdentifierType": "Nome de arquivo retornado; não é um request ID exposto pelo provedor.",
+      "origin": "geração externa na CLI",
+      "startedAtUtc": "2026-10-21 00:53:25 UTC",
+      "finishedAtUtc": "2026-10-21 00:54:16 UTC",
+      "promptPath": "docs/visual/gpt-images-v11/01-equipe-r02.txt",
+      "submittedPrompt": "TARGETED CORRECTION TO THE ATTACHED G01 PAINTING. Preserve the three original adult designs, left-to-right order, faces, full-body framing, poses, warm v10 palette, painterly materials, the rifle and rectangular single-ochre-stripe shield. Make only these functional corrections: (1) The medic must carry exactly ONE small muted jade cartridge total, integrated with the compact hand applicator. Remove every extra green vial/cylinder from the belt and satchel, leaving ordinary canvas/leather pouches instead. (2) Replace the guard's tall round cylindrical tanks behind his shoulders with a FLAT low-profile rectangular rear pressure pack, whose thin side profile is visible; no cylindrical tanks or tall chimney. (3) Remove faint lettering/pseudo-lettering from equipment, and remove the oversized decorative arch outlines from the background, keeping a quiet plain warm putty/smoke-brown paper studio background. Do not add accessories or figures. Keep one restrained original split-arch plaque at most per character, no text. Do not crop, stretch, recolor blue, or change the illustration into a render. The original complete brief follows for invariants:\n\nAETHERFORGE — THE BRASS PROMISE / V11 GPT IMAGES CONCEPT PAINTINGS\n\nMake original professional production concept illustration intended to guide future stylized 3D game assets. Painted believable volume, expressive mature faces or purposeful machine anatomy, functional material thickness, deliberate large readable forms, quiet surfaces between details. The world is Brumaferrea, an original terrestrial industrial fantasy city, mournful, adult and slightly sinister. BioShock and BioShock 2 inform occupational silhouettes, failed Art Deco institutional design and repaired industrial equipment, NOT copied franchise characters or Rapture.\n\nThe user accepted the NEW WARM PALETTE. Approximate color/value targets: archive paper / warm putty #BFB49E; soot charcoal #241F1A; tobacco casing #40332B; oxidized oxblood enamel #6C3A32; aged brass #B99B63; old linen / porcelain #E4D8B7; restrained ether accent #97A581. These are art-direction guides, not a demand for exact flat hex fills. Keep material variation, but NO dominant blue or petroleum/teal background, no cyan/gold gradient, no blue luminous fog, no glowing vignette. Small jade ether accents only where justified. No shiny all-gold armor.\n\nThis request is for genuine GPT Images concept PAINTINGS. Do not emulate blocky procedural figures, low-poly maquettes, primitive Three.js models, plastic toys, chibi, photoreal cosplay or a generic polished superhero poster. Use purposeful painterly edges and material separation, without noisy texture on every surface. Any exposed person is an adult with practical work equipment, visible human character and a burdened grounded stance.\n\nHorizontal source-art sheet, preferably 16:9 at a supported native high resolution. If the model's actual native landscape output is 1536x1024, keep that native format rather than stretching/cropping actors to imitate 16:9 or claiming an upscale is native 2K. Generous margins around heads, feet, tools, tails, rotors and weapons. Exactly the subjects described by the specific job, no extra figures. No lettering, captions, labels, numbers, brand logos, UI windows or decorative poster border. Typesetting belongs in a separate later composition, not in the generated painting.\n\nOriginal split-arch workshop motif may be used very sparingly: three arch ribs interrupted by one vertical seam. It is an Aetherforge design proposal, not a BioShock logo. Avoid ornamental gear wallpaper, random tubes and copied franchise weapons, diving faces, drills, bird masks, giant syringes or recognizable Big Daddy / Big Sister / Little Sister silhouettes.\n\nSPECIFIC JOB G01:\n\nCreate a beautiful professional hand-painted character CONCEPT ART lineup for AETHERFORGE, an original mournful industrial steampunk fantasy RPG. Three NEW original full-body adult expedition members, equally spaced, head to boots entirely visible, anatomically credible weight-bearing poses and expressive mature imperfect human faces. This is polished evocative production illustration with painterly edges, intentional design, believable material thickness and strong readable large shapes, NOT a low-poly render, NOT primitive geometry, NOT a procedural maquette, NOT toy proportions, NOT photoreal cosplay. Quiet matte warm smoke-brown and putty-gray paper studio background, soft grounded shadows, NO BLUE OR TEAL background, no cyan/gold gradient, no glowing vignette. Palette: soot charcoal, tobacco brown, oxidized iron, oxblood enamel, old linen, muted ochre and aged brass. Only a single very small jade ether accent on the healer. Study the mature occupational silhouettes, industrial repair and failed Art Deco institutional design of BioShock and BioShock 2, but make original terrestrial Brumaferrea characters, not underwater Rapture and no recognizable franchise characters. LEFT: the GUNSLINGER, an adult woman railway inspector with cropped dark hair, a tired exposed face, a narrow long tobacco-brown coat split into two large panels and an ivory diagonal inspection sash; holds a practical horizontal wood-stock pressure rifle with one thick stepped brass receiver, no random gears. CENTER: the BOILER GUARD, older broad-shouldered worker, visible worn human face below a compact angular protective helmet, grounded asymmetrical burdened stance; soot-black pressure work armor, dark oxblood enamel breastplate, flat rear pressure pack and short maintenance hammer; large RECTANGULAR SHIELD with ONE chipped ochre vertical stripe, no circular diving face, no portholes, no drill. Shield is a practical beveled rectangular slab, not a coffin or medieval heraldic kite. RIGHT: the ETHER ALCHEMIST, adult field medic with an exhausted kind face framed by a weathered old-linen hood, folded triangular canvas cape, dark warm-gray work trousers, one canvas medical satchel and ONE small jade cartridge feeding a compact brass hand applicator, not a giant syringe. Restrained original split-arch workshop motif on at most one plaque per character. Art Deco is in stepped seams, enamel tags, careful rib rhythm and purposeful work tools, not luxury gold armor or ornamental gear wallpaper. Rich material distinctions: repaired cloth, scuffed leather, dull steel, rubbed brass only at contacts. Adult somber slightly sinister survival mood, no smiling superheroes, no chibi, no generic adventurer leather suits. Hands and tools make functional contact; clear separate limbs, no merged bodies or duplicate accessories. No lettering, labels, logos, numbers, UI or ornamental borders. No Big Daddy, Big Sister, Little Sister, Subject Delta, diving helmet, drill, bathysphere, masks or copied franchise weapons. Deliver three memorable painterly original character concepts, not recolors of prior blocky models.",
+      "attachedImagePaths": [
+        "assets/concepts/brass-v11-gpt/generated/01-equipe.png"
+      ],
+      "transparentBackground": false,
+      "path": "assets/concepts/brass-v11-gpt/generated/01-equipe-r02.png",
+      "chosen": false,
+      "inspection": {
+        "performed": true,
+        "method": "Saída da ferramenta aberta na conversa; arquivo local aberto com view_image; cópia QA recodificada com System.Drawing, quando necessária para visualizar o PNG completo.",
+        "issuesAtThisVersion": []
+      },
+      "processing": "Cópia binária do PNG nativo, sem resize, recorte ou retoque local.",
+      "format": "png",
+      "width": 1536,
+      "height": 1024,
+      "byteLength": 2587324,
+      "sha256": "4c70c1fb78ac2ee66bc50d9162831cfd8ebb3ecb48e952dda8f6d2a0be639640",
+      "promptFileSha256": "d2c75b1617ab5f7c1334eee83061a2b1d89680645c0b8dfa088824504262d926",
+      "submittedPromptUtf8Sha256": "3d4411f5e7989a03dfced7e4e762c22b5e65c4fc14bc8002b54f09fcc286f474"
+    },
+    {
+      "job": "G02",
+      "variant": "r01",
+      "tool": "image_gen.imagegen",
+      "toolBinding": "image_gen__imagegen",
+      "provider": "OpenAI",
+      "family": "GPT Images",
+      "model": null,
+      "modelDisclosure": "A ferramenta não expôs identificador ou versão do modelo; não inferido.",
+      "providerRequestId": null,
+      "returnedArtifactFilename": "exec-8f77027b-e554-40de-bd78-570b93fee8ab.png",
+      "returnedIdentifierType": "Nome de arquivo retornado; não é um request ID exposto pelo provedor.",
+      "origin": "geração externa na CLI",
+      "startedAtUtc": "2026-10-21 00:54:35 UTC",
+      "finishedAtUtc": "2026-10-21 00:55:07 UTC",
+      "promptPath": "docs/visual/gpt-images-v11/02-bestiario-1.txt",
+      "submittedPrompt": "AETHERFORGE — THE BRASS PROMISE / V11 GPT IMAGES CONCEPT PAINTINGS\n\nMake original professional production concept illustration intended to guide future stylized 3D game assets. Painted believable volume, expressive mature faces or purposeful machine anatomy, functional material thickness, deliberate large readable forms, quiet surfaces between details. The world is Brumaferrea, an original terrestrial industrial fantasy city, mournful, adult and slightly sinister. BioShock and BioShock 2 inform occupational silhouettes, failed Art Deco institutional design and repaired industrial equipment, NOT copied franchise characters or Rapture.\n\nThe user accepted the NEW WARM PALETTE. Approximate color/value targets: archive paper / warm putty #BFB49E; soot charcoal #241F1A; tobacco casing #40332B; oxidized oxblood enamel #6C3A32; aged brass #B99B63; old linen / porcelain #E4D8B7; restrained ether accent #97A581. These are art-direction guides, not a demand for exact flat hex fills. Keep material variation, but NO dominant blue or petroleum/teal background, no cyan/gold gradient, no blue luminous fog, no glowing vignette. Small jade ether accents only where justified. No shiny all-gold armor.\n\nThis request is for genuine GPT Images concept PAINTINGS. Do not emulate blocky procedural figures, low-poly maquettes, primitive Three.js models, plastic toys, chibi, photoreal cosplay or a generic polished superhero poster. Use purposeful painterly edges and material separation, without noisy texture on every surface. Any exposed person is an adult with practical work equipment, visible human character and a burdened grounded stance.\n\nHorizontal source-art sheet, preferably 16:9 at a supported native high resolution. If the model's actual native landscape output is 1536x1024, keep that native format rather than stretching/cropping actors to imitate 16:9 or claiming an upscale is native 2K. Generous margins around heads, feet, tools, tails, rotors and weapons. Exactly the subjects described by the specific job, no extra figures. No lettering, captions, labels, numbers, brand logos, UI windows or decorative poster border. Typesetting belongs in a separate later composition, not in the generated painting.\n\nOriginal split-arch workshop motif may be used very sparingly: three arch ribs interrupted by one vertical seam. It is an Aetherforge design proposal, not a BioShock logo. Avoid ornamental gear wallpaper, random tubes and copied franchise weapons, diving faces, drills, bird masks, giant syringes or recognizable Big Daddy / Big Sister / Little Sister silhouettes.\n\nSPECIFIC JOB G02:\n\nPaint a professional production MONSTER CONCEPT lineup for AETHERFORGE, original mournful terrestrial industrial steampunk fantasy RPG. Exactly THREE entirely new and sharply distinct creatures/machines, side by side with clear separation, full bodies and all extremities inside frame on a quiet warm putty / smoke-brown paper background. NO blue or teal background, cyan-gold gradient, neon haze or glowing vignette. Painterly production illustration with believable volume, art-directed silhouettes and tactile material distinctions, not low-poly, not primitive maquettes, not toys, not a photograph. BioShock 2 is a reference for industrial repair, failed institutional work equipment and asymmetrical threatening gesture; do not copy any franchise character, weapon, diving helmet or bird mask. LEFT: SOOT RAT, a sinister real rodent-shaped low horizontal quadruped, soot-matted dark fur, pointed wedge snout, thin long curved tail, strong hind limbs with a small tense pre-leap posture and very few dull mineral ether deposits breaking the spine; NOT a cute rat, boar, hedgehog, cartoon mascot or rat in knight armor. CENTER: MECHANICAL SCAVENGER, a decommissioned salvage automaton, narrow bent ribbed torso under a short patched work apron of overlapping pressure plates, sloping head and one long curved workshop salvage hook, asymmetrical low carrying arm, angular functional limbs with believable joints and broad feet. Faded oxblood enamel, black iron, battered tobacco leather and restrained brass; unsettling former-worker gesture, not a masked human Splicer. RIGHT: PATROL DRONE, an inverted compact industrial warning bell body with two clearly readable lateral shrouded rotors and a single small downward lens, suspended above its ground shadow; silhouette broad and horizontal with a hanging center. Thick protective casings, dark iron and worn ochre labels without lettering, not a flying eye, cute robot or quadcopter. A single original interrupted workshop arch rib may occur on a casing. Palette soot charcoal, warm steel, tobacco brown, oxblood enamel, muted ochre and aged brass, only tiny jade ether where needed. Material wear localized to impacts and handling, quiet large surfaces, no gear wallpaper or excessive greebling. Clear functional contact of attachments, purposeful negative space, serious adult survival mood. Paint all three at comparable illustration prominence, not necessarily the same world scale. No letters, labels, captions, numbers, logos, UI or frames. Original high quality concept PAINTING, not a recolor of any prior blocky model.",
+      "attachedImagePaths": [],
+      "transparentBackground": false,
+      "path": "assets/concepts/brass-v11-gpt/generated/02-bestiario-1.png",
+      "chosen": false,
+      "inspection": {
+        "performed": true,
+        "method": "Saída da ferramenta aberta na conversa; arquivo local aberto com view_image; cópia QA recodificada com System.Drawing, quando necessária para visualizar o PNG completo.",
+        "issuesAtThisVersion": [
+          "Rato excessivamente alto, com muitos depósitos dorsais; margens curtas."
+        ]
+      },
+      "processing": "Cópia binária do PNG nativo, sem resize, recorte ou retoque local.",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "byteLength": 2652744,
+      "sha256": "ef12bcd5419a4b9eff6b00a45f002b3a2d80b71179bb0d62d371177a3fe0104f",
+      "promptFileSha256": "d3166d248cd4c380fbc875b644b7985f018e2b93297a3c851c0d3ade815cbb62",
+      "submittedPromptUtf8Sha256": "450c1a724ffb71f57656be1deb94468da8978eecd3d9f9c16eea4f2cd7713918"
+    },
+    {
+      "job": "G02",
+      "variant": "r02",
+      "tool": "image_gen.imagegen",
+      "toolBinding": "image_gen__imagegen",
+      "provider": "OpenAI",
+      "family": "GPT Images",
+      "model": null,
+      "modelDisclosure": "A ferramenta não expôs identificador ou versão do modelo; não inferido.",
+      "providerRequestId": null,
+      "returnedArtifactFilename": "exec-2062b31d-ab55-447c-bab4-2152c0516775.png",
+      "returnedIdentifierType": "Nome de arquivo retornado; não é um request ID exposto pelo provedor.",
+      "origin": "geração externa na CLI",
+      "startedAtUtc": "2026-10-21 00:55:43 UTC",
+      "finishedAtUtc": "2026-10-21 00:56:11 UTC",
+      "promptPath": "docs/visual/gpt-images-v11/02-bestiario-1-r02.txt",
+      "submittedPrompt": "TARGETED CORRECTION TO THE ATTACHED G02 CONCEPT PAINTING. Preserve the existing Mechanical Scavenger and Patrol Drone designs, the warm v10 palette and painterly material finish. Correct only the Soot Rat anatomy/silhouette and overall framing: make the rat's torso noticeably LOW and HORIZONTAL, a longer lean rodent body with wedge snout, small rat ears, tension in bent hind legs and a long thin curved tail. It must read immediately as a sinister real rat, not a hunched boar or hedgehog. Replace the row of large dorsal crystals/spikes with ONLY TWO OR THREE tiny dull mineral deposits mostly buried in soot-matted fur. No spiny mane. Increase clear paper margins at the outer left and right edges so whiskers, tail and drone rotor shrouds are safely inside the picture. Keep exactly these three subjects. Do not add labels, figures, extra rotors or equipment. Retain the automaton's curved asymmetrical salvage hook and hanging plate apron and the drone's bell body, two shrouded lateral rotors, small lower lens and floating ground shadow. Keep the original native aspect without stretching. Original complete brief for invariants:\n\nAETHERFORGE — THE BRASS PROMISE / V11 GPT IMAGES CONCEPT PAINTINGS\n\nMake original professional production concept illustration intended to guide future stylized 3D game assets. Painted believable volume, expressive mature faces or purposeful machine anatomy, functional material thickness, deliberate large readable forms, quiet surfaces between details. The world is Brumaferrea, an original terrestrial industrial fantasy city, mournful, adult and slightly sinister. BioShock and BioShock 2 inform occupational silhouettes, failed Art Deco institutional design and repaired industrial equipment, NOT copied franchise characters or Rapture.\n\nThe user accepted the NEW WARM PALETTE. Approximate color/value targets: archive paper / warm putty #BFB49E; soot charcoal #241F1A; tobacco casing #40332B; oxidized oxblood enamel #6C3A32; aged brass #B99B63; old linen / porcelain #E4D8B7; restrained ether accent #97A581. These are art-direction guides, not a demand for exact flat hex fills. Keep material variation, but NO dominant blue or petroleum/teal background, no cyan/gold gradient, no blue luminous fog, no glowing vignette. Small jade ether accents only where justified. No shiny all-gold armor.\n\nThis request is for genuine GPT Images concept PAINTINGS. Do not emulate blocky procedural figures, low-poly maquettes, primitive Three.js models, plastic toys, chibi, photoreal cosplay or a generic polished superhero poster. Use purposeful painterly edges and material separation, without noisy texture on every surface. Any exposed person is an adult with practical work equipment, visible human character and a burdened grounded stance.\n\nHorizontal source-art sheet, preferably 16:9 at a supported native high resolution. If the model's actual native landscape output is 1536x1024, keep that native format rather than stretching/cropping actors to imitate 16:9 or claiming an upscale is native 2K. Generous margins around heads, feet, tools, tails, rotors and weapons. Exactly the subjects described by the specific job, no extra figures. No lettering, captions, labels, numbers, brand logos, UI windows or decorative poster border. Typesetting belongs in a separate later composition, not in the generated painting.\n\nOriginal split-arch workshop motif may be used very sparingly: three arch ribs interrupted by one vertical seam. It is an Aetherforge design proposal, not a BioShock logo. Avoid ornamental gear wallpaper, random tubes and copied franchise weapons, diving faces, drills, bird masks, giant syringes or recognizable Big Daddy / Big Sister / Little Sister silhouettes.\n\nSPECIFIC JOB G02:\n\nPaint a professional production MONSTER CONCEPT lineup for AETHERFORGE, original mournful terrestrial industrial steampunk fantasy RPG. Exactly THREE entirely new and sharply distinct creatures/machines, side by side with clear separation, full bodies and all extremities inside frame on a quiet warm putty / smoke-brown paper background. NO blue or teal background, cyan-gold gradient, neon haze or glowing vignette. Painterly production illustration with believable volume, art-directed silhouettes and tactile material distinctions, not low-poly, not primitive maquettes, not toys, not a photograph. BioShock 2 is a reference for industrial repair, failed institutional work equipment and asymmetrical threatening gesture; do not copy any franchise character, weapon, diving helmet or bird mask. LEFT: SOOT RAT, a sinister real rodent-shaped low horizontal quadruped, soot-matted dark fur, pointed wedge snout, thin long curved tail, strong hind limbs with a small tense pre-leap posture and very few dull mineral ether deposits breaking the spine; NOT a cute rat, boar, hedgehog, cartoon mascot or rat in knight armor. CENTER: MECHANICAL SCAVENGER, a decommissioned salvage automaton, narrow bent ribbed torso under a short patched work apron of overlapping pressure plates, sloping head and one long curved workshop salvage hook, asymmetrical low carrying arm, angular functional limbs with believable joints and broad feet. Faded oxblood enamel, black iron, battered tobacco leather and restrained brass; unsettling former-worker gesture, not a masked human Splicer. RIGHT: PATROL DRONE, an inverted compact industrial warning bell body with two clearly readable lateral shrouded rotors and a single small downward lens, suspended above its ground shadow; silhouette broad and horizontal with a hanging center. Thick protective casings, dark iron and worn ochre labels without lettering, not a flying eye, cute robot or quadcopter. A single original interrupted workshop arch rib may occur on a casing. Palette soot charcoal, warm steel, tobacco brown, oxblood enamel, muted ochre and aged brass, only tiny jade ether where needed. Material wear localized to impacts and handling, quiet large surfaces, no gear wallpaper or excessive greebling. Clear functional contact of attachments, purposeful negative space, serious adult survival mood. Paint all three at comparable illustration prominence, not necessarily the same world scale. No letters, labels, captions, numbers, logos, UI or frames. Original high quality concept PAINTING, not a recolor of any prior blocky model.",
+      "attachedImagePaths": [
+        "assets/concepts/brass-v11-gpt/generated/02-bestiario-1.png"
+      ],
+      "transparentBackground": false,
+      "path": "assets/concepts/brass-v11-gpt/generated/02-bestiario-1-r02.png",
+      "chosen": true,
+      "inspection": {
+        "performed": true,
+        "method": "Saída da ferramenta aberta na conversa; arquivo local aberto com view_image; cópia QA recodificada com System.Drawing, quando necessária para visualizar o PNG completo.",
+        "issuesAtThisVersion": []
+      },
+      "processing": "Cópia binária do PNG nativo, sem resize, recorte ou retoque local.",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "byteLength": 2515647,
+      "sha256": "0dafaf18c696c8c3f6c46297cbcefeb5f84e7ea39330e5b3f77d2965b2159f96",
+      "promptFileSha256": "7a8e33bc960d104cf12fe847fbfc208132dbce532e07ea81d11acffb401e65d3",
+      "submittedPromptUtf8Sha256": "ecf88f1228718c72fb3f42aab9e9c38e2c318eb3ec817e05aa99da2194e7ddc6"
+    },
+    {
+      "job": "G03",
+      "variant": "r01",
+      "tool": "image_gen.imagegen",
+      "toolBinding": "image_gen__imagegen",
+      "provider": "OpenAI",
+      "family": "GPT Images",
+      "model": null,
+      "modelDisclosure": "A ferramenta não expôs identificador ou versão do modelo; não inferido.",
+      "providerRequestId": null,
+      "returnedArtifactFilename": "exec-ca1f2e34-6611-41c6-a99f-3346a5252b13.png",
+      "returnedIdentifierType": "Nome de arquivo retornado; não é um request ID exposto pelo provedor.",
+      "origin": "geração externa na CLI",
+      "startedAtUtc": "2026-10-21 00:56:27 UTC",
+      "finishedAtUtc": "2026-10-21 00:57:08 UTC",
+      "promptPath": "docs/visual/gpt-images-v11/03-bestiario-2.txt",
+      "submittedPrompt": "AETHERFORGE — THE BRASS PROMISE / V11 GPT IMAGES CONCEPT PAINTINGS\n\nMake original professional production concept illustration intended to guide future stylized 3D game assets. Painted believable volume, expressive mature faces or purposeful machine anatomy, functional material thickness, deliberate large readable forms, quiet surfaces between details. The world is Brumaferrea, an original terrestrial industrial fantasy city, mournful, adult and slightly sinister. BioShock and BioShock 2 inform occupational silhouettes, failed Art Deco institutional design and repaired industrial equipment, NOT copied franchise characters or Rapture.\n\nThe user accepted the NEW WARM PALETTE. Approximate color/value targets: archive paper / warm putty #BFB49E; soot charcoal #241F1A; tobacco casing #40332B; oxidized oxblood enamel #6C3A32; aged brass #B99B63; old linen / porcelain #E4D8B7; restrained ether accent #97A581. These are art-direction guides, not a demand for exact flat hex fills. Keep material variation, but NO dominant blue or petroleum/teal background, no cyan/gold gradient, no blue luminous fog, no glowing vignette. Small jade ether accents only where justified. No shiny all-gold armor.\n\nThis request is for genuine GPT Images concept PAINTINGS. Do not emulate blocky procedural figures, low-poly maquettes, primitive Three.js models, plastic toys, chibi, photoreal cosplay or a generic polished superhero poster. Use purposeful painterly edges and material separation, without noisy texture on every surface. Any exposed person is an adult with practical work equipment, visible human character and a burdened grounded stance.\n\nHorizontal source-art sheet, preferably 16:9 at a supported native high resolution. If the model's actual native landscape output is 1536x1024, keep that native format rather than stretching/cropping actors to imitate 16:9 or claiming an upscale is native 2K. Generous margins around heads, feet, tools, tails, rotors and weapons. Exactly the subjects described by the specific job, no extra figures. No lettering, captions, labels, numbers, brand logos, UI windows or decorative poster border. Typesetting belongs in a separate later composition, not in the generated painting.\n\nOriginal split-arch workshop motif may be used very sparingly: three arch ribs interrupted by one vertical seam. It is an Aetherforge design proposal, not a BioShock logo. Avoid ornamental gear wallpaper, random tubes and copied franchise weapons, diving faces, drills, bird masks, giant syringes or recognizable Big Daddy / Big Sister / Little Sister silhouettes.\n\nSPECIFIC JOB G03:\n\nCreate a professional hand-painted production ENEMY CONCEPT lineup for AETHERFORGE, a mournful original terrestrial industrial steampunk fantasy RPG. Exactly THREE new original machines, clearly separated side by side, entire bodies, supports and weapons within frame, quiet neutral warm putty and smoke-brown paper studio background. NO BLUE OR TEAL BACKGROUND, no teal-gold gradient, no glowing blue fog. Mature sinister character design with painterly edges, credible large sculptural masses and functional industrial articulation; NOT a low-poly render, procedural primitive maquette, shiny toy, cute robot or photoreal photograph. Use BioShock and BioShock 2 only as influences for the story of once-purposeful equipment, industrial repair and asymmetrical threats. Do not reproduce franchise characters, spherical diving helmets, portholed faces, drills, bird masks or franchise weapons. LEFT: STEAM SENTRY, a wide squat pressure-boiler torso, dark iron and faded oxblood enamel, deliberate horizontal pressure louvres, two short sturdy piston supports and heavy compact striking fists. Its broad low boiler mass differs clearly from a human guard and from the boss. No shield. CENTER: THE WATCHER, a narrow tall industrial inspection automaton with a vertical chipped porcelain head and a small dark sight slit, long thin mechanical column and THREE articulated supports forming a clear tripod. One quiet institutional plaque, no human diving helmet. Its unusually tall thin silhouette must remain legible at miniature scale, not another humanoid robot. RIGHT: IRON FOREMAN, a menacing walking industrial press, very broad torso and rail-like stepped shoulders, small signal head, one massive asymmetrical press-hammer arm and another compact manipulator, wide planted stance on short robust legs, a small warm furnace opening in the torso. Boss grows primarily in width, not an impossibly tall tower. The tool and body shape establish danger before ornament. Soot-black steel, tobacco work leather, worn oxblood enamel, chipped old-linen porcelain on the Watcher and restrained aged brass at contacts. Only a tiny solid amber glow inside the Foreman's small furnace, no orange fire everywhere. One simple original interrupted-arch manufacturer rib may unify the casings without plastering a logo on every surface. Large calm matte surfaces, wear at contact points, working joints and attachments, varied credible load-bearing poses. Rich original PAINTING with readable silhouette and material design, not a recolor of prior block models. No lettering, labels, numbers, logos, UI, borders, copied Big Daddies, Big Sisters or Rapture machines. Figures need not be at the same world scale; all three must be equally readable on the sheet.",
+      "attachedImagePaths": [],
+      "transparentBackground": false,
+      "path": "assets/concepts/brass-v11-gpt/generated/03-bestiario-2.png",
+      "chosen": true,
+      "inspection": {
+        "performed": true,
+        "method": "Saída da ferramenta aberta na conversa; arquivo local aberto com view_image; cópia QA recodificada com System.Drawing, quando necessária para visualizar o PNG completo.",
+        "issuesAtThisVersion": []
+      },
+      "processing": "Cópia binária do PNG nativo, sem resize, recorte ou retoque local.",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "byteLength": 2744927,
+      "sha256": "66f61a6712f13ba569b4eaf54f5a6641a295a0751070fd5af435fb2f5d59b148",
+      "promptFileSha256": "0fdda8735557a340b4380353ba9faaf05ad843a22a86fb19e470824f449a6617",
+      "submittedPromptUtf8Sha256": "a52ef3d8094b17d07ef5ea88c6cafc35298739ddf392d220ac712436c3772d05"
+    },
+    {
+      "job": "G01",
+      "variant": "r03-estilizada",
+      "tool": "image_gen.imagegen",
+      "toolBinding": "image_gen__imagegen",
+      "provider": "OpenAI",
+      "family": "GPT Images",
+      "model": null,
+      "modelDisclosure": "A ferramenta não expôs identificador ou versão do modelo; não inferido.",
+      "providerRequestId": null,
+      "returnedArtifactFilename": "exec-96806afd-a67d-44b3-935b-20f7bd998ee8.png",
+      "returnedIdentifierType": "Nome de arquivo retornado; não é um request ID exposto pelo provedor.",
+      "origin": "geração externa na CLI",
+      "startedAtUtc": "2026-10-21 01:04:32 UTC",
+      "finishedAtUtc": "2026-10-21 01:05:00 UTC",
+      "promptPath": "docs/visual/gpt-images-v11/01-equipe-r03-estilizada.txt",
+      "submittedPrompt": "AETHERFORGE / G01-R03 — ART-DIRECTION CORRECTION AFTER USER REVIEW\n\nCreate an ORIGINAL TWO-DIMENSIONAL PAINTED CHARACTER DESIGN SHEET for an adult industrial fantasy game. Exactly three full-body characters, left to right: railway Gunslinger, Boiler Guard, Ether Alchemist. The user liked the character identities and warm palette of the previous iteration but rejected its excessively realistic, generic AI-polished finish. REBUILD THE DRAWING LANGUAGE, do not simply add a paint filter to realistic people.\n\nVISUAL LANGUAGE — this is the central requirement:\nDeliberate adult caricature and economical shape design. Angular asymmetrical faces built from a handful of planar shapes, prominent noses, tired eyes indicated by a few dark strokes, simplified mouths, heavy hands and practical boots. Unequal, intentionally designed proportions: the narrow wiry inspector, the compressed broad guard with a small head and massive trapezius, the sloping triangular medic. Convincing weight without naturalistic anatomical rendering. Faces have character through strong silhouettes and drawn marks, never through pores or photographic skin shading.\nPaint with broad opaque gouache-like shapes and selective dry-brush edges, with a few scratchy charcoal contour accents. Strong local color blocks; two or three clear value masses per material. Deep simple shadow shapes. Allow rough lost edges and visible confident directional strokes. Maintain volume through plane changes rather than smooth gradients. Clothing folds are FEW, large and structural. Every belt, plate and accessory must earn its place. Large quiet surfaces dominate. Only a handful of deliberately placed scuffs on the whole shield; avoid repeated rust scratches, micro-rivets, fabric grain, leather pores or procedural-looking dirt. No photorealism, no realistic oil-portrait faces, no CGI lighting, no glossy 3D render, no photographic texture, no cinematic rim light, no depth of field, no volumetric fog, no airbrushed skin, no digital concept-art polish everywhere. Also no chibi, no cute cartoon, no toy anatomy, no procedural maquette or blocky low-poly shapes. A serious artist-designed game cast with simplified, expressive painted form, rather than a film costume sheet.\n\nWORLD AND COLOR:\nBrumaferrea is a mournful terrestrial industrial fantasy city with repaired work equipment and worn Art Deco institutional forms. Original Aetherforge, no recognizable franchise characters. Warm palette accepted by the user: archive putty #BFB49E, soot #241F1A, tobacco #40332B, oxblood #6C3A32, aged brass #B99B63, linen #E4D8B7, one tiny muted jade #97A581. Keep distinct OXBLOOD enamel and LINEN shapes against soot, not uniform sepia mud. Brass is a few dull accents, not gold trim on everything. Quiet near-flat warm putty background, only minimal grounding shadow, no decorative arches or mottled gritty background. No blue/teal dominant field, cyan glow or neon.\n\nLEFT — PISTOLEIRO, THE RAILWAY INSPECTOR:\nAdult woman with short cropped dark hair, a long angular tired face and wiry silhouette. Narrow tobacco coat divided into TWO long simple panels, large uninterrupted color areas, one ivory diagonal inspection sash. Hold a practical roughly horizontal pressure rifle, wood stock, dark barrel, ONE stepped brass receiver, with hands making readable functional contact. A few broad cloth folds and ONE utility pouch, minimal buckles. Burdened reserved working stance, not pin-up or heroic fashion pose.\n\nCENTER — GUARDA DA CALDEIRA, THE DOORKEEPER:\nOlder human worker, squat broad silhouette with exaggerated trapezius, compact angular protective helmet and clearly exposed stern human face, large simple hands and heavy boots. Soot working armor with ONE broad oxblood breastplate; low-profile FLAT RECTANGULAR pressure pack seen at the shoulder edge, never cylindrical tanks. Short maintenance hammer in one hand; large beveled RECTANGULAR shield in the other with exactly ONE worn ochre VERTICAL STRIPE. Slab has parallel long sides, not kite/coffin shape. Design in a few decisive masses, no stacks of tiny plates, hoses or decorative buckles. Sturdy asymmetric weight bearing. No diving helmet, porthole, drill or medieval heraldry.\n\nRIGHT — ALQUIMISTA DO ETER, THE FIELD MEDIC:\nAdult, visibly mature tired kind angular face, never a child. Pale linen hood and cape form ONE strong triangular silhouette, dark warm-gray work trousers. One plain canvas medical satchel. Exactly ONE SMALL muted jade capsule integrated with a COMPACT brass hand applicator held in both hands. No other vials, no giant syringe, no medical icon or cross. Few broad folds, spare seams. Leaning thoughtful stance with strong clear negative spaces.\n\nKeep exactly these three subjects, separated, no duplicates or background people. Entire heads, boots, rifle and shield inside the image with generous paper margins. Landscape sheet, preferably 16:9 at supported native resolution; do not stretch any figure. Moderate variation in posture, never a parade of identical poses. The original split-arch motif may appear as one small rough stepped seam on one piece, not as a repeated logo. NO text, handwriting, labels, numbers, logos, signature, ornamental border, UI panels or extra equipment studies. Produce a genuine GPT Images painted drawing, not an illustration composed locally from prior art.",
+      "attachedImagePaths": [],
+      "transparentBackground": false,
+      "path": "assets/concepts/brass-v11-gpt/generated/01-equipe-r03-estilizada.png",
+      "chosen": true,
+      "selectionStatus": "candidata de direção após crítica do usuário; aprovação pendente",
+      "inspection": {
+        "performed": true,
+        "method": "Saída vista na conversa e cópia QA local aberta integralmente com view_image.",
+        "observations": "Três adultos inteiros; formas angulares, pinceladas amplas, menor microdetalhe, materiais em massas de cor quente. Escudo retangular com faixa ocre única, pack plano, rifle de madeira e cápsula única preservados.",
+        "issuesAtThisVersion": [
+          "Margem superior curta no capacete e capuz, sem corte; ainda há desgaste pintado distribuído; pega do escudo oculta. Não é validação 3D."
+        ]
+      },
+      "processing": "Cópia binária do PNG nativo; QA recodificada separadamente, sem retoque local.",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "byteLength": 2198182,
+      "sha256": "8b61644a9ff87ac0abb7d22eb7765831a591235fa51a9297c38ca9db3a9cd754",
+      "promptFileSha256": "016006fddb9502f356d356ff5298a96235146f12c80b35e381da2823f403f4b2",
+      "submittedPromptUtf8Sha256": "9a14c0ea49ae4b6c1806745fd320387aeb7f0554f5d558f266b6fc045ac31d52"
+    }
+  ],
+  "selections": [
+    {
+      "job": "G01",
+      "path": "assets/concepts/brass-v11-gpt/generated/01-equipe-r03-estilizada.png",
+      "status": "gerado e inspecionado; candidata estilizada, aprovação pendente",
+      "observations": "Três adultos inteiros; formas angulares, pinceladas amplas, menor microdetalhe, materiais em massas de cor quente. Escudo retangular com faixa ocre única, pack plano, rifle de madeira e cápsula única preservados.",
+      "limitations": "Margem superior curta no capacete e capuz, sem corte; ainda há desgaste pintado distribuído; pega do escudo oculta. Não é validação 3D.",
+      "userApproval": "pendente",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "sha256": "8b61644a9ff87ac0abb7d22eb7765831a591235fa51a9297c38ca9db3a9cd754",
+      "canvasAssetId": "v11-gpt-equipe-r03-estilizada"
+    },
+    {
+      "job": "G02",
+      "path": "assets/concepts/brass-v11-gpt/generated/02-bestiario-1-r02.png",
+      "status": "gerado e inspecionado",
+      "observations": "Rato baixo/horizontal com poucos depósitos; Saqueador com gancho assimétrico; Drone em sino suspenso com dois rotores e lente inferior.",
+      "limitations": "Rato tem menor área pintada pela silhueta baixa. Rotor direito e bigodes ficam próximos à borda, mas dentro; revisão não equivale a margem generosa em todos os pontos. Engenharia interna dos rotores não validada.",
+      "userApproval": "pendente",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "sha256": "0dafaf18c696c8c3f6c46297cbcefeb5f84e7ea39330e5b3f77d2965b2159f96"
+    },
+    {
+      "job": "G03",
+      "path": "assets/concepts/brass-v11-gpt/generated/03-bestiario-2.png",
+      "status": "gerado e inspecionado",
+      "observations": "Sentinela larga/baixa, com venezianas e punhos; Vigia vertical de porcelana com três apoios legíveis; Capataz largo com braço-martelo e fornalha pequena.",
+      "limitations": "Capataz ocupa mais área editorial que os outros; margem lateral esquerda da Sentinela é curta, sem corte. Articulações e colisões só foram avaliadas visualmente. Não há rig ou teste em miniatura.",
+      "userApproval": "pendente",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "sha256": "66f61a6712f13ba569b4eaf54f5a6641a295a0751070fd5af435fb2f5d59b148"
+    }
+  ],
+  "canvasValidation": {
+    "status": "passed-local-validation",
+    "checkedAtUtc": "2026-10-21T01:06:42.751791+00:00",
+    "editorCanvasCheckAvailable": false,
+    "boardId": "ab163f7a-13a0-4f45-b5c5-ba7638f4083d",
+    "addedAssetId": "v11-gpt-equipe-r03-estilizada",
+    "checks": [
+      "JSON sem chaves duplicadas",
+      "schemas locais index/assets/board",
+      "IDs e referências",
+      "caminhos locais",
+      "nós e assets anteriores preservados",
+      "index sem alteração"
+    ],
+    "nodeCountBefore": 46,
+    "nodeCountAfter": 47,
+    "assetCountBefore": 46,
+    "assetCountAfter": 47,
+    "files": {
+      "canvas/index.json": {
+        "beforeSha256": "a5e8590c9e80c454508a3184ea902d967bd592fa3f80d03bfdd3443bb5e2e083",
+        "afterSha256": "a5e8590c9e80c454508a3184ea902d967bd592fa3f80d03bfdd3443bb5e2e083"
+      },
+      "canvas/assets.json": {
+        "beforeSha256": "e18b4bdf3d56b3b49f1a5f7082f484d93670bded4846672172fd0066754319ba",
+        "afterSha256": "2143cae41228b0e83f63e0ffc9d7be6c6dcac7b7b2b55cdcf07b87cb7932a1c7"
+      },
+      "canvas/boards/ab163f7a-13a0-4f45-b5c5-ba7638f4083d.json": {
+        "beforeSha256": "a5b80d0edd4587ed02fce80ac60df4ddc5251182084acfa7942600b3f5a02b7e",
+        "afterSha256": "6b89a3c8765c10ec920d33079871eec9e11307bf56214c219c657404b0f035e6"
+      }
+    }
+  },
+  "runtimeChanged": false,
+  "reviewFeedback": {
+    "verbatim": "as imagens estao boas mas estao realistas demais, dando a cara de AI Slop",
+    "action": "G01-r03 gerada com linguagem estilizada; bestiários ainda aguardam revisão estética.",
+    "callLimitReached": true,
+    "nextGenerationRequiresUserDirection": true
+  },
+  "previousCanvasValidations": [
+    {
+      "status": "passed-local-validation",
+      "checkedAtUtc": "2026-10-21T00:59:38.773215+00:00",
+      "editorCanvasCheckAvailable": false,
+      "checks": [
+        "JSON sem chaves duplicadas",
+        "schemas locais index/assets/board",
+        "IDs únicos",
+        "referências de nós/assets/documentos e edges",
+        "todos os caminhos locais existentes",
+        "nós e assets anteriores preservados",
+        "index sem alteração",
+        "PNG e dimensões reais",
+        "hashes dos prompts e imagens"
+      ],
+      "boardId": "ab163f7a-13a0-4f45-b5c5-ba7638f4083d",
+      "nodeCountBefore": 43,
+      "nodeCountAfter": 46,
+      "assetCountBefore": 43,
+      "assetCountAfter": 46,
+      "files": {
+        "canvas/index.json": {
+          "beforeSha256": "a5e8590c9e80c454508a3184ea902d967bd592fa3f80d03bfdd3443bb5e2e083",
+          "afterSha256": "a5e8590c9e80c454508a3184ea902d967bd592fa3f80d03bfdd3443bb5e2e083"
+        },
+        "canvas/assets.json": {
+          "beforeSha256": "bbf50db2422853787123a1ab960ce3616dc378ddc3df15e387322fef41e52a31",
+          "afterSha256": "e18b4bdf3d56b3b49f1a5f7082f484d93670bded4846672172fd0066754319ba"
+        },
+        "canvas/boards/ab163f7a-13a0-4f45-b5c5-ba7638f4083d.json": {
+          "beforeSha256": "012f0e1b24e640df697c719a3b7d9d2cdb47a241ea641393a0132ce2178046e6",
+          "afterSha256": "a5b80d0edd4587ed02fce80ac60df4ddc5251182084acfa7942600b3f5a02b7e"
+        }
+      }
+    }
+  ]
+}

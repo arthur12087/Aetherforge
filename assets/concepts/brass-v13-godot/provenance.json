@@ -1,0 +1,34 @@
+[
+    {
+        "path":  "assets/concepts/brass-v13-godot/compact.png",
+        "source":  "artifacts/studio-godot/qa/compact.png",
+        "sha256":  "4d6398c51932664b449adc56162b97b3a5215a35aefa15ca85c525cf54677333",
+        "width":  1000,
+        "height":  320,
+        "origin":  "Godot 4.7.2 .NET runtime viewport capture; no image generation, crop or upscale"
+    },
+    {
+        "path":  "assets/concepts/brass-v13-godot/march.png",
+        "source":  "artifacts/studio-godot/qa/march.png",
+        "sha256":  "f20e876139c297ab4d137e738fb64b1c2c9ed4d6b08d9d3730ac1a00e32bb5e1",
+        "width":  1160,
+        "height":  880,
+        "origin":  "Godot 4.7.2 .NET runtime viewport capture; no image generation, crop or upscale"
+    },
+    {
+        "path":  "assets/concepts/brass-v13-godot/boss.png",
+        "source":  "artifacts/studio-godot/qa/boss.png",
+        "sha256":  "687f916a72db6516e069de784a21e55a895614c655f698c1d27cef9b8a02a511",
+        "width":  1160,
+        "height":  880,
+        "origin":  "Godot 4.7.2 .NET runtime viewport capture; no image generation, crop or upscale"
+    },
+    {
+        "path":  "assets/concepts/brass-v13-godot/complete.png",
+        "source":  "artifacts/studio-godot/qa/complete.png",
+        "sha256":  "9ab6c2626566dadbfb27103bd00537eff838ab0bded13ef0b8e1a0c7e07c2cde",
+        "width":  1160,
+        "height":  880,
+        "origin":  "Godot 4.7.2 .NET runtime viewport capture; no image generation, crop or upscale"
+    }
+]

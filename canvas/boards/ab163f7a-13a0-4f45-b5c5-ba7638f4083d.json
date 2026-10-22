@@ -1,0 +1,1135 @@
+{
+  "version": 1,
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "nodes": [
+    {
+      "id": "v8-direcao",
+      "type": "document",
+      "data": {
+        "documentId": "direcao-idle-v8",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v8-base-v7"
+          },
+          {
+            "type": "node",
+            "nodeId": "v8-prancha-a"
+          },
+          {
+            "type": "node",
+            "nodeId": "v8-prancha-b"
+          },
+          {
+            "type": "node",
+            "nodeId": "v8-prancha-c"
+          },
+          {
+            "type": "node",
+            "nodeId": "v8-menus"
+          }
+        ]
+      },
+      "title": "Direção do diretor · Aetherforge v8",
+      "description": "Brief comparativo: preservar a essência Taskbar Hero, adaptar ao 3D steampunk e separar três linguagens visuais. Propostas, não mudança de GDD."
+    },
+    {
+      "id": "v8-base-v7",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-ref-v7",
+        "mediaType": "image"
+      },
+      "title": "BASE · organização v7",
+      "description": "Referência de layout inspecionada: três janelas independentes e arena pequena acima da barra. A v8 preserva essa gramática, mas abandona o acabamento medieval pixelado."
+    },
+    {
+      "id": "v8-base-equipe",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-ref-equipe",
+        "mediaType": "image"
+      },
+      "title": "BASE · identidade da equipe 3D",
+      "description": "Referência conceitual da equipe e dos módulos. As três propostas mantêm funções e identificadores, não o acabamento low-poly literal."
+    },
+    {
+      "id": "v8-pesquisa-a",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-ref-dishonored",
+        "mediaType": "image"
+      },
+      "title": "PESQUISA · Dishonored",
+      "description": "Fonte de estudo de terceiros, não asset de produção."
+    },
+    {
+      "id": "v8-pesquisa-b",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-ref-bioshock",
+        "mediaType": "image"
+      },
+      "title": "PESQUISA · BioShock",
+      "description": "Fonte de estudo de terceiros, não asset de produção."
+    },
+    {
+      "id": "v8-pesquisa-c",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-ref-frostpunk",
+        "mediaType": "image"
+      },
+      "title": "PESQUISA · Frostpunk",
+      "description": "Fonte de estudo de terceiros, não asset de produção."
+    },
+    {
+      "id": "v8-atlas-a",
+      "type": "image",
+      "data": {
+        "prompt": "Create a professional AAA art-director concept atlas for AETHERFORGE, an original dark steampunk fantasy idle RPG that lives above a PC taskbar. This is a SOURCE ART ATLAS, not a UI screenshot, not a poster. STRICT ATLAS GEOMETRY for later cropping: a 16:9 image, divided into a TOP BAND exactly 62 percent of total image height and a BOTTOM BAND exactly 38 percent. No gutters, no lettering anywhere. Top band: LEFT 42 percent of image width is ONE large full-body portrait of the Boiler Guard, centered with head and boots safely inside that rectangle, neutral charcoal studio background. RIGHT 58 percent of image width is a strict 3-column by 2-row grid of SIX isolated equipment objects, evenly centered in each of the six cells, neutral charcoal backgrounds: top row rectangular steel shield with one worn ochre vertical stripe, pressure chest armor, long wood-and-steel rifle; bottom row canvas medical satchel with single restrained ether vial, brass pressure regulator, small rough ether crystal. Objects have generous padding for square crops, no dividers or labels. Bottom band: ONE unbroken panoramic shallow 3D side-view combat corridor, full image width, a separate diorama with its own iron walkway floor and dim background. EXACTLY THREE adult heroes on the LEFT HALF facing right: cream-canvas hooded Ether Alchemist at x18%, narrow blue-grey-coated rifle Gunslinger at x32%, rectangular-shield Boiler Guard at x46%. EXACTLY TWO mechanical enemies on the RIGHT HALF facing left, at x68% and x82%: thin hooked scavenger and squat pressure sentry. Full bodies and shadows inside band, feet at 90 percent of band height, actor heights about 55 percent of band height. Clear spacing, simple restrained healing gesture and one tiny muzzle flash, no huge magic trails. ART DIRECTION A: Dishonored-inspired sculpted angular planes, adult expressive imperfect human faces, long severe working coats, chunky hands and equipment, matte oil-painted 3D materials, coherent deliberately stylized game-ready volumes, NOT photorealistic cosplay, NOT a flat 2D illustration. An oppressive Victorian industrial service gallery in Brumaférrea, pale cold harbor light, charcoal iron, desaturated blue cloth, bone-grey canvas, worn brass, one dull red institutional seal on a wall. Strong silhouette value separation, restrained warmth. Main guard: same identity in portrait and arena, adult exhausted human beneath angular helmet, broad shoulders, rectangular shield, pressure reservoir, grounded asymmetrical weight-bearing stance, no diving helmet, no skull mask, no superhero. Use the supplied Aetherforge kit to preserve class identities but upgrade its shape design beyond crude triangulation. Supplied Dishonored image is influence for sculpted shapes and values, do not copy its characters, interface, weapons or architecture literally. No brand logos, no text, no numbers, no UI frames, no medieval swords, no chibi, no ornate gear wallpaper, no neon, no airborne fog hiding feet. Polished evocative concept art with efficient large forms readable at tiny scale.",
+        "model": {
+          "provider": "codex-cli",
+          "id": "codex-image"
+        },
+        "resolution": "2K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "v8-ref-equipe"
+          },
+          {
+            "type": "library",
+            "assetId": "v8-ref-dishonored"
+          }
+        ]
+      },
+      "title": "PENDENTE A · prompt de nova arte 3D",
+      "description": "Geração tentada, sem imagem produzida: sandbox Windows bloqueado por permissões de leitura de :root. Prompt preservado para futura tentativa. A prancha de menus usa as bases v6 existentes, não o resultado deste nó."
+    },
+    {
+      "id": "v8-atlas-b",
+      "type": "image",
+      "data": {
+        "prompt": "Create a professional AAA art-director concept atlas for AETHERFORGE, an original dark steampunk fantasy idle RPG that lives above a PC taskbar. This is a SOURCE ART ATLAS, not a UI screenshot, not a poster. STRICT ATLAS GEOMETRY for later cropping: a 16:9 image, divided into a TOP BAND exactly 62 percent of total image height and a BOTTOM BAND exactly 38 percent. No gutters, no lettering anywhere. Top band: LEFT 42 percent of image width is ONE large full-body portrait of the Boiler Guard, centered with head and boots safely inside that rectangle, neutral deep petroleum studio background. RIGHT 58 percent of image width is a strict 3-column by 2-row grid of SIX isolated equipment objects, evenly centered in each of the six cells, neutral deep petroleum backgrounds: top row rectangular steel shield with one worn ochre vertical stripe, pressure chest armor, long wood-and-steel rifle; bottom row canvas medical satchel with single restrained ether vial, brass pressure regulator, small rough ether crystal. Objects have generous padding for square crops, no dividers or labels. Bottom band: ONE unbroken panoramic shallow 3D side-view combat corridor, full image width, a separate diorama with its own iron walkway floor and dim background. EXACTLY THREE adult heroes on the LEFT HALF facing right: cream-canvas hooded Ether Alchemist at x18%, narrow blue-grey-coated rifle Gunslinger at x32%, rectangular-shield Boiler Guard at x46%. EXACTLY TWO mechanical enemies on the RIGHT HALF facing left, at x68% and x82%: thin hooked scavenger and squat pressure sentry. Full bodies and shadows inside band, feet at 90 percent of band height, actor heights about 55 percent of band height. Clear spacing, simple restrained healing gesture and one tiny muzzle flash, no huge magic trails. ART DIRECTION B: BioShock-inspired failed industrial utopia and mature Art Deco design, stepped silhouettes, disciplined vertical ribs, petrol-blue enamel and aged brass, thick glass, ivory canvas, oxblood seals, warm amber practical lighting against shadowy teal masonry. Detailed high-quality stylized 3D game render, matte painterly material breakup, sculpted purposeful adult characters and readable masses, not a photograph. The underground gallery belongs to Aetherforge's terrestrial industrial city Brumaférrea, with restrained Art Deco architectural inserts and a single broken institutional lamp; NOT underwater Rapture, no water windows. Main guard: same identity in portrait and arena, exhausted adult HUMAN face under a compact angular protective helmet, rectangular shield and heavy pressure work armor with a small practical gauge and one functional hose, grounded asymmetrical stance. NOT a Big Daddy, no spherical diving helmet, no porthole face, no drill, no copied diving suit. Supplied Aetherforge kit establishes original team identities; supplied BioShock image is only a material and graphic-rhythm influence, do not reproduce its posters, logos or characters. Original tools and machines with purpose; luxury is worn and mournful, never glossy gold fantasy. No text, no numbers, no UI frames, no logos, no chibi, no steampunk top hats, no medieval fantasy swords, no neon ether coating, no unnecessary gears, no smoke hiding actors. Highly polished concept art, economically simplified for a miniature 3D stage.",
+        "model": {
+          "provider": "codex-cli",
+          "id": "codex-image"
+        },
+        "resolution": "2K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "v8-ref-equipe"
+          },
+          {
+            "type": "library",
+            "assetId": "v8-ref-bioshock"
+          }
+        ]
+      },
+      "title": "PENDENTE B · prompt de nova arte 3D",
+      "description": "Prompt de atlas Art Déco preservado, sem resultado gerado. A geração do ambiente está bloqueada por permissões do sandbox Windows. A prancha de menus usa arte v6 reaproveitada; não é resultado deste nó."
+    },
+    {
+      "id": "v8-atlas-c",
+      "type": "image",
+      "data": {
+        "prompt": "Create a professional AAA art-director concept atlas for AETHERFORGE, an original dark steampunk fantasy idle RPG that lives above a PC taskbar. This is a SOURCE ART ATLAS, not a UI screenshot, not a poster. STRICT ATLAS GEOMETRY for later cropping: a 16:9 image, divided into a TOP BAND exactly 62 percent of total image height and a BOTTOM BAND exactly 38 percent. No gutters, no lettering anywhere. Top band: LEFT 42 percent of image width is ONE large full-body portrait of the Boiler Guard, centered with head and boots safely inside that rectangle, neutral blue-grey studio background. RIGHT 58 percent of image width is a strict 3-column by 2-row grid of SIX isolated equipment objects, evenly centered in each of the six cells, neutral blue-grey backgrounds: top row rectangular steel shield with one worn ochre vertical stripe, pressure chest armor, long wood-and-steel rifle; bottom row canvas medical satchel with single restrained ether vial, brass pressure regulator, small rough ether crystal. Objects have generous padding for square crops, no dividers or labels. Bottom band: ONE unbroken panoramic shallow 3D side-view combat corridor, full image width, a separate diorama with its own iron walkway floor and dim background. EXACTLY THREE adult heroes on the LEFT HALF facing right: cream-canvas hooded Ether Alchemist at x18%, narrow blue-grey-coated rifle Gunslinger at x32%, rectangular-shield Boiler Guard at x46%. EXACTLY TWO mechanical enemies on the RIGHT HALF facing left, at x68% and x82%: thin hooked scavenger and squat pressure sentry. Full bodies and shadows inside band, feet at 90 percent of band height, actor heights about 55 percent of band height. Clear spacing, simple restrained healing gesture and one tiny muzzle flash, no huge magic trails. ART DIRECTION C: Frostpunk-inspired human vulnerability against oppressive industry, believable adult workwear layered with repaired wool, canvas, soot-dark steel and leather. Ice-blue desaturated ambient lighting, restrained amber heat from a small wall boiler, a little frost and condensation at the edges of abandoned service pipes, but NO giant snowstorm. This is still the underground Galerias da Caldeira of Brumaférrea, not an arctic city. Original 3D stylized game characters rendered with strong sculptural volumes and careful tactile material separation, mournful severe art direction, neither low-poly toys nor photorealistic cinematic actors. Main guard: same identity in portrait and arena, tired adult human face under compact protective helmet with scarf, broad working armor, rectangular shield with one worn ochre stripe, pressure reservoir with small warm slit, grounded weight-bearing posture, no glowing armor. Healer's pale hood and satchel separate from the gunslinger's dark coat and the guard's steel block. Background has one abandoned trolley and one tiny warmth source, otherwise broad quiet masses. Study supplied Frostpunk reference only for cold/warm value relationship and scale of humans versus machines; do NOT copy generator tower, radial city, UI, logos or characters. Supplied Aetherforge kit establishes the original class identities. No text, no numbers, no UI frames, no logos, no chibi, no medieval swords, no excessive frost concealing silhouettes, no cyan magic flood, no gratuitous gears. High-quality art-director concept with deliberate large readable shapes appropriate for a miniature 3D stage.",
+        "model": {
+          "provider": "codex-cli",
+          "id": "codex-image"
+        },
+        "resolution": "2K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "v8-ref-equipe"
+          },
+          {
+            "type": "library",
+            "assetId": "v8-ref-frostpunk"
+          }
+        ]
+      },
+      "title": "PENDENTE C · prompt de nova arte 3D",
+      "description": "Prompt de atlas de sobrevivência industrial preservado, sem resultado gerado. A geração do ambiente está bloqueada por permissões do sandbox Windows. A prancha de menus usa arte v6 reaproveitada; não é resultado deste nó."
+    },
+    {
+      "id": "v8-prancha-a",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-final-a",
+        "mediaType": "image"
+      },
+      "title": "PRANCHA A · Fuligem & Decreto",
+      "description": "ESTUDO DE MENUS · Dishonored. Placas recortadas, seleção em tinta clara e Libre Caslon Text + Jost. Organização compacta v7, três integrantes e arena junto à barra. Composição nova sobre arte v6 reaproveitada; não é pintura nova, modelo 3D ou captura de runtime."
+    },
+    {
+      "id": "v8-prancha-b",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-final-b",
+        "mediaType": "image"
+      },
+      "title": "BASE ESCOLHIDA B · A Promessa do Latão",
+      "description": "ESTUDO DE MENUS · BioShock. Chassi escalonado, encaixes circulares e Limelight + Jost. Mesma estrutura e dados da proposta A. Composição nova sobre arte v6 reaproveitada; a diferença de modelagem 3D continua proposta no prompt pendente."
+    },
+    {
+      "id": "v8-prancha-c",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-final-c",
+        "mediaType": "image"
+      },
+      "title": "PRANCHA C · O Último Turno",
+      "description": "ESTUDO DE MENUS · Frostpunk. Placas frias, níveis, nós e Bodoni Moda + Source Sans 3. Mesma estrutura e dados das outras propostas. Composição nova sobre arte v6 reaproveitada, sem modelo 3D ou desempenho validado."
+    },
+    {
+      "id": "v8-menus",
+      "type": "document",
+      "data": {
+        "documentId": "pesquisa-menus-v8",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v8-menu-dish-1"
+          },
+          {
+            "type": "node",
+            "nodeId": "v8-menu-dish-2"
+          },
+          {
+            "type": "node",
+            "nodeId": "v8-menu-bio-1"
+          },
+          {
+            "type": "node",
+            "nodeId": "v8-menu-frost-1"
+          },
+          {
+            "type": "node",
+            "nodeId": "v8-menu-frost-2"
+          }
+        ]
+      },
+      "title": "PESQUISA · menus dos três jogos",
+      "description": "Capturas observadas, fontes, o que adaptar e o que evitar. O usuário pediu explicitamente referências dos menus, além de personagens e cenários."
+    },
+    {
+      "id": "v8-menus-painel",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-menu-overview",
+        "mediaType": "image"
+      },
+      "title": "PAINEL · comparação dos menus de referência",
+      "description": "Cinco capturas com critérios de adaptação. Pesquisa de terceiros, não arte do Aetherforge. Fontes e direitos registrados no documento de pesquisa."
+    },
+    {
+      "id": "v8-menu-dish-1",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-menu-dish-poderes",
+        "mediaType": "image"
+      },
+      "title": "MENU · Dishonored / poderes",
+      "description": "Observar recortes das placas, ícones em silhueta, título e detalhe de seleção. Etiquetas verdes são anotações do catálogo GameFontLibrary, não UI do jogo."
+    },
+    {
+      "id": "v8-menu-dish-2",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-menu-dish-principal",
+        "mediaType": "image"
+      },
+      "title": "MENU · Dishonored / principal",
+      "description": "Observar contraste entre título, marca e opções. Captura anotada por GameFontLibrary. Material de estudo com direitos dos titulares."
+    },
+    {
+      "id": "v8-menu-bio-1",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-menu-bio-plasmids",
+        "mediaType": "image"
+      },
+      "title": "MENU · BioShock / plasmídeos",
+      "description": "Primeiro jogo, captura em francês. Observar encaixes circulares, chassi Art Déco, categorias e painel de descrição. Não copiar a máquina ou o mascote."
+    },
+    {
+      "id": "v8-menu-frost-1",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-menu-frost-leis",
+        "mediaType": "image"
+      },
+      "title": "MENU · Frostpunk / Livro de Leis",
+      "description": "Observar nós, conexões e disponibilidade por estados dos aros. Não importar as mecânicas de leis para o GDD do Aetherforge."
+    },
+    {
+      "id": "v8-menu-frost-2",
+      "type": "asset",
+      "data": {
+        "assetId": "v8-menu-frost-tech",
+        "mediaType": "image"
+      },
+      "title": "MENU · Frostpunk / tecnologia",
+      "description": "Observar categorias, coluna lateral de níveis, faixas horizontais e seleção. Pesquisa de aparência e hierarquia, sem criar sistema de temperatura no Aetherforge."
+    },
+    {
+      "id": "v9-herois-geracao",
+      "type": "image",
+      "data": {
+        "prompt": "Professional game art director character lineup for AETHERFORGE, original dark steampunk fantasy MMORPG and taskbar idle RPG. The user selected the BioShock-inspired visual direction B: The Brass Promise. CREATE ENTIRELY NEW ORIGINAL CHARACTER DESIGNS, not a recolor of the supplied older kit. 16:9 production concept sheet with three clear equally spaced FULL BODY adult characters on a quiet deep petroleum studio background, head and boots inside frame, enough margins. NO TEXT OR LETTERING. High quality stylized 3D game character look, sculptural planar shapes, tactile matte workwear, expressive mature imperfect faces, broad material masses readable at 64 pixels. Each character has a dominant geometric silhouette and work-story. LEFT: female GUNSLINGER, a former railway inspector in a narrow asymmetrical petrol-blue split coat with diagonal ivory inspection sash, exposed tired face, cropped dark hair, a wood-stock industrial pressure rifle with thick stepped brass chamber, no top hat, no pinup pose. Horizontal weapon and long coat establish narrow diagonal silhouette. CENTER: male BOILER GUARD, older worker in a broad trapezoid pressure-work cuirass, black steel and faded teal enamel with worn brass seams, low asymmetrical weight-bearing stance, exhausted human face visible beneath compact squared industrial helmet. A large RECTANGULAR shield with one chipped ochre vertical stripe and an original SPLIT-ARCH enamel emblem, plus a short industrial hammer. One flat rear pressure pack, no round diving helmet, no porthole face, no drill. RIGHT: adult ETHER ALCHEMIST, a medical field technician with tired kind face partly framed by an ivory canvas hood and tall angular collar, a large folded-triangle medical cape, petrol-blue work trousers, a single compact jade-glass ether cartridge connected to a brass hand applicator, practical canvas satchel, ivory/green material hierarchy. No child, no Little Sister, no oversized syringe, no glowing bottles everywhere. Art Deco is in stepped armor seams, enamel plaques and split arch ribs, not random cogs. Relation of once-luxurious institutional design to mournful industrial repair, patched wool, oxidized brass, cold ambient light with isolated amber glints, restrained ether. Original fictional Brumaferrea terrestrial industrial city, NOT underwater Rapture. Avoid photoreal cosplay, cartoon toys, chibi, masks from Bioshock, recognizable franchise silhouettes, superheroes, generic leather adventurers, shiny gold armor, noise everywhere. Supplied B mockup establishes palette only; older Aetherforge kit establishes the three roles and shield identity only, not their final shape. Deliver beautiful new character concepts with a coherent shared manufacturer language and strongly different silhouettes.",
+        "model": {
+          "provider": "codex-cli",
+          "id": "codex-image"
+        },
+        "resolution": "2K",
+        "aspectRatio": "16:9",
+        "images": [
+          {
+            "type": "library",
+            "assetId": "v8-final-b"
+          },
+          {
+            "type": "library",
+            "assetId": "v8-ref-equipe"
+          }
+        ]
+      },
+      "title": "PENDENTE · pintura dos heróis v9",
+      "description": "Chamada de geração tentada nesta rodada, sem imagem produzida: erro de permissões do sandbox Windows. Prompt preservado. As pranchas v9 entregues usam novos estudos volumétricos locais, não o resultado deste nó nem os personagens v6."
+    },
+    {
+      "id": "v9-direcao",
+      "type": "document",
+      "data": {
+        "documentId": "promessa-latao-v9",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v8-prancha-b"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-equipe-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-bestiario-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-menus-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-assinatura-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-pesquisa"
+          }
+        ]
+      },
+      "title": "DIREÇÃO ESCOLHIDA · B / A Promessa do Latão v9",
+      "description": "Escolha explícita do usuário pela B. Define o Arco Partido, os três heróis, seis inimigos e três instrumentos de menu. Novos estudos v9 ainda sujeitos à escolha do usuário; não são arte final ou alteração do runtime."
+    },
+    {
+      "id": "v9-equipe-prancha",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-equipe",
+        "mediaType": "image"
+      },
+      "title": "HISTÓRICO V9 · maquetes da equipe / não pintura GPT",
+      "description": "Novos estudos volumétricos originais, não recolorações da v6. Propostas de aparência para Guarda, Pistoleiro e Alquimista. Maquetes locais com anatomia e materiais simplificados; sem rig, pintura final ou aprovação automática de personagem."
+    },
+    {
+      "id": "v9-bestiario-prancha",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-bestiario",
+        "mediaType": "image"
+      },
+      "title": "HISTÓRICO V9 · maquetes do bestiário / não pintura GPT",
+      "description": "Seis maquetes originais: Rato, Saqueador, Sentinela, Drone, Vigia e Capataz. Silhueta e função antes do detalhe. Aparência proposta, sem novas regras ou inimigos implementados."
+    },
+    {
+      "id": "v9-menus-prancha",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-menus",
+        "mediaType": "image"
+      },
+      "title": "HISTÓRICO V9 · menus com fundo petróleo anterior",
+      "description": "Mockup estático original: Mesa de Regulagem, Estojo de Expedição e Telégrafo de Rotas. Gavetas, medalhões autorais, porcelana e bilhetes. Mantém janelas independentes e arena compacta. Fontes reais, sem assets de BioShock recortados."
+    },
+    {
+      "id": "v9-assinatura-prancha",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-assinatura",
+        "mediaType": "image"
+      },
+      "title": "V9 · IDENTIDADE / O Arco Partido",
+      "description": "Assinatura autoral em personagens e menus: símbolo, ícones de ação, estados de gaveta, paleta e prova reduzida. Não é emblema de BioShock nem promessa de interface final validada."
+    },
+    {
+      "id": "v9-pesquisa",
+      "type": "document",
+      "data": {
+        "documentId": "pesquisa-bioshock-v9",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v9-ref-chassi"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-ref-icons"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-ref-instrumentos"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-ref-personagens"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-ref-frasco"
+          },
+          {
+            "type": "node",
+            "nodeId": "v9-pesquisa-prancha"
+          }
+        ]
+      },
+      "title": "V9 · PESQUISA BIOSHOCK / artistas, menus e personagens",
+      "description": "Fontes primárias de Shelby Tang e Robb Waters, observações das cinco imagens inspecionadas e limites de adaptação. Direitos dos titulares; pesquisa, não licença para runtime."
+    },
+    {
+      "id": "v9-pesquisa-prancha",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-pesquisa-painel",
+        "mediaType": "image"
+      },
+      "title": "V9 · PAINEL / pesquisa de BioShock",
+      "description": "Cinco imagens dos portfólios com créditos e princípios de adaptação. Não são imagens do Aetherforge."
+    },
+    {
+      "id": "v9-ref-chassi",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-ref-gene-bank",
+        "mediaType": "image"
+      },
+      "title": "REF BIO · Gene Bank / Shelby Tang",
+      "description": "Prancha de UI de The Collection. Estudar espessura, encaixes e superfície calma de texto; não recortar ou copiar a moldura."
+    },
+    {
+      "id": "v9-ref-icons",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-ref-plasmideos",
+        "mediaType": "image"
+      },
+      "title": "REF BIO · ícones como pequenas cenas",
+      "description": "Portfólio de Shelby Tang. Estudar gesto e massas gráficas; não copiar ícones ou personagens publicitários."
+    },
+    {
+      "id": "v9-ref-instrumentos",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-ref-hud",
+        "mediaType": "image"
+      },
+      "title": "REF BIO · HUD e instrumentos",
+      "description": "Portfólio de Shelby Tang. Objetos de formas diferentes compartilham materialidade. Não é licença de importação para nosso jogo."
+    },
+    {
+      "id": "v9-ref-personagens",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-ref-cidadaos",
+        "mediaType": "image"
+      },
+      "title": "REF BIO · cidadãos / Robb Waters",
+      "description": "Roupa, profissão, gesto e assimetria antes de deformação. Não transplantar Splicers, ADAM ou máscaras de baile."
+    },
+    {
+      "id": "v9-ref-frasco",
+      "type": "asset",
+      "data": {
+        "assetId": "v9-ref-produto",
+        "mediaType": "image"
+      },
+      "title": "REF BIO · desenho de produto / Robb Waters",
+      "description": "Estudar conteúdo, pega e proteção. A proposta de cartucho do Alquimista é original, sem copiar este frasco, o rosto ou sua identidade."
+    },
+    {
+      "id": "v10-equipe-gpt",
+      "type": "image",
+      "data": {
+        "prompt": "Create a beautiful professional hand-painted character CONCEPT ART lineup for AETHERFORGE, an original mournful industrial steampunk fantasy RPG. Three NEW original full-body adult expedition members, equally spaced, head to boots entirely visible, anatomically credible weight-bearing poses and expressive mature imperfect human faces. This is polished evocative production illustration with painterly edges, intentional design, believable material thickness and strong readable large shapes, NOT a low-poly render, NOT primitive geometry, NOT a procedural maquette, NOT toy proportions, NOT photoreal cosplay. Quiet matte warm smoke-brown and putty-gray paper studio background, soft grounded shadows, NO BLUE OR TEAL background, no cyan/gold gradient, no glowing vignette. Palette: soot charcoal, tobacco brown, oxidized iron, oxblood enamel, old linen, muted ochre and aged brass. Only a single very small jade ether accent on the healer. Study the mature occupational silhouettes, industrial repair and failed Art Deco institutional design of BioShock and BioShock 2, but make original terrestrial Brumaferrea characters, not underwater Rapture and no recognizable franchise characters. LEFT: the GUNSLINGER, an adult woman railway inspector with cropped dark hair, a tired exposed face, a narrow long tobacco-brown coat split into two large panels and an ivory diagonal inspection sash; holds a practical horizontal wood-stock pressure rifle with one thick stepped brass receiver, no random gears. CENTER: the BOILER GUARD, older broad-shouldered worker, visible worn human face below a compact angular protective helmet, grounded asymmetrical burdened stance; soot-black pressure work armor, dark oxblood enamel breastplate, flat rear pressure pack and short maintenance hammer; large RECTANGULAR SHIELD with ONE chipped ochre vertical stripe, no circular diving face, no portholes, no drill. Shield is a practical beveled rectangular slab, not a coffin or medieval heraldic kite. RIGHT: the ETHER ALCHEMIST, adult field medic with an exhausted kind face framed by a weathered old-linen hood, folded triangular canvas cape, dark warm-gray work trousers, one canvas medical satchel and ONE small jade cartridge feeding a compact brass hand applicator, not a giant syringe. Restrained original split-arch workshop motif on at most one plaque per character. Art Deco is in stepped seams, enamel tags, careful rib rhythm and purposeful work tools, not luxury gold armor or ornamental gear wallpaper. Rich material distinctions: repaired cloth, scuffed leather, dull steel, rubbed brass only at contacts. Adult somber slightly sinister survival mood, no smiling superheroes, no chibi, no generic adventurer leather suits. Hands and tools make functional contact; clear separate limbs, no merged bodies or duplicate accessories. No lettering, labels, logos, numbers, UI or ornamental borders. No Big Daddy, Big Sister, Little Sister, Subject Delta, diving helmet, drill, bathysphere, masks or copied franchise weapons. Deliver three memorable painterly original character concepts, not recolors of prior blocky models.",
+        "model": {
+          "provider": "codex-cli",
+          "id": "codex-image"
+        },
+        "resolution": "2K",
+        "aspectRatio": "16:9",
+        "images": []
+      },
+      "title": "PENDENTE GPT · pintura da equipe v10",
+      "description": "Nova tentativa pelo canvas falhou antes de produzir imagem: sandbox Codex Windows exige leitura efetiva de :root. Tentativas diretas OpenAI/gpt-image-1 e gpt-image-1.5 retornaram modelo indisponível. Prompt de pintura preservado, sem maquete substituta. Nova paleta quente e referências BioShock 2."
+    },
+    {
+      "id": "v10-revisao",
+      "type": "document",
+      "data": {
+        "documentId": "revisao-latao-v10",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v10-cor-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-bio2-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-equipe-gpt"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-bestiario-1-gpt"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-bestiario-2-gpt"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-ref-sister"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-ref-crawler"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-ref-hand"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-ref-cinematic"
+          }
+        ]
+      },
+      "title": "V10 · NOVA COR / pinturas GPT pendentes",
+      "description": "Pedido atual: retirar azul/petróleo dominante, usar GPT Images para personagens e bestiário e incluir BioShock 2. Cor e pesquisa entregues; geração não concluída por erro da conexão local. Não substituir pintura por maquetes."
+    },
+    {
+      "id": "v10-cor-prancha",
+      "type": "asset",
+      "data": {
+        "assetId": "v10-menus-cor",
+        "mediaType": "image"
+      },
+      "title": "V10 · COR / papel, fuligem e vinho — sem azul dominante",
+      "description": "Prévia de cor inspecionada, não nova arte de personagens. Grandes fundos e chassis agora quentes; pinturas e arena identificadas como GPT pendente. Nenhuma maquete criada para substituir a geração solicitada."
+    },
+    {
+      "id": "v10-bio2-prancha",
+      "type": "asset",
+      "data": {
+        "assetId": "v10-bioshock2-painel",
+        "mediaType": "image"
+      },
+      "title": "V10 · PESQUISA / BioShock 2 por Colin Fix e James Ku",
+      "description": "Quatro imagens dos próprios artistas com análise de gesto, silhueta, equipamento e material. Referências, não personagens do Aetherforge nem assets autorizados para runtime."
+    },
+    {
+      "id": "v10-ref-sister",
+      "type": "asset",
+      "data": {
+        "assetId": "v10-ref-fix-sister",
+        "mediaType": "image"
+      },
+      "title": "REF BIO2 · conceito pintado / Colin Fix",
+      "description": "Big Sister, frente e costas. Observar função e hierarquia de equipamento, não copiar personagem ou capacete. Fonte e direitos no documento v10."
+    },
+    {
+      "id": "v10-ref-crawler",
+      "type": "asset",
+      "data": {
+        "assetId": "v10-ref-fix-crawler",
+        "mediaType": "image"
+      },
+      "title": "REF BIO2 · gesto e assimetria / Colin Fix",
+      "description": "Ceiling Crawler. Pesquisa de pose e distribuição de massas antes da textura; não copiar máscara ou deformação."
+    },
+    {
+      "id": "v10-ref-hand",
+      "type": "asset",
+      "data": {
+        "assetId": "v10-ref-fix-hand",
+        "mediaType": "image"
+      },
+      "title": "REF BIO2 · articulação e equipamento / Colin Fix",
+      "description": "Mão do jogador. Materialidade sóbria, proteção e desgaste de contato; não copiar a luva ou seus mecanismos."
+    },
+    {
+      "id": "v10-ref-cinematic",
+      "type": "asset",
+      "data": {
+        "assetId": "v10-ref-ku-cinematic",
+        "mediaType": "image"
+      },
+      "title": "REF BIO2 · materiais da cinemática / James Ku",
+      "description": "Render da cinemática, não asset de gameplay. Comparar tradução da pintura para volume, sem inferir orçamento ou rig do idle."
+    },
+    {
+      "id": "v10-bestiario-1-gpt",
+      "type": "image",
+      "data": {
+        "prompt": "Paint a professional production MONSTER CONCEPT lineup for AETHERFORGE, original mournful terrestrial industrial steampunk fantasy RPG. Exactly THREE entirely new and sharply distinct creatures/machines, side by side with clear separation, full bodies and all extremities inside frame on a quiet warm putty / smoke-brown paper background. NO blue or teal background, cyan-gold gradient, neon haze or glowing vignette. Painterly production illustration with believable volume, art-directed silhouettes and tactile material distinctions, not low-poly, not primitive maquettes, not toys, not a photograph. BioShock 2 is a reference for industrial repair, failed institutional work equipment and asymmetrical threatening gesture; do not copy any franchise character, weapon, diving helmet or bird mask. LEFT: SOOT RAT, a sinister real rodent-shaped low horizontal quadruped, soot-matted dark fur, pointed wedge snout, thin long curved tail, strong hind limbs with a small tense pre-leap posture and very few dull mineral ether deposits breaking the spine; NOT a cute rat, boar, hedgehog, cartoon mascot or rat in knight armor. CENTER: MECHANICAL SCAVENGER, a decommissioned salvage automaton, narrow bent ribbed torso under a short patched work apron of overlapping pressure plates, sloping head and one long curved workshop salvage hook, asymmetrical low carrying arm, angular functional limbs with believable joints and broad feet. Faded oxblood enamel, black iron, battered tobacco leather and restrained brass; unsettling former-worker gesture, not a masked human Splicer. RIGHT: PATROL DRONE, an inverted compact industrial warning bell body with two clearly readable lateral shrouded rotors and a single small downward lens, suspended above its ground shadow; silhouette broad and horizontal with a hanging center. Thick protective casings, dark iron and worn ochre labels without lettering, not a flying eye, cute robot or quadcopter. A single original interrupted workshop arch rib may occur on a casing. Palette soot charcoal, warm steel, tobacco brown, oxblood enamel, muted ochre and aged brass, only tiny jade ether where needed. Material wear localized to impacts and handling, quiet large surfaces, no gear wallpaper or excessive greebling. Clear functional contact of attachments, purposeful negative space, serious adult survival mood. Paint all three at comparable illustration prominence, not necessarily the same world scale. No letters, labels, captions, numbers, logos, UI or frames. Original high quality concept PAINTING, not a recolor of any prior blocky model.",
+        "model": {
+          "provider": "codex-cli",
+          "id": "codex-image"
+        },
+        "resolution": "2K",
+        "aspectRatio": "16:9",
+        "images": []
+      },
+      "title": "PENDENTE GPT · bestiário I / Rato, Saqueador e Drone",
+      "description": "Prompt de pintura conceitual solicitado pelo usuário. Sem resultado produzido. Nova paleta de papel/fuligem/tabaco/latão, sem azul dominante; BioShock 2 como referência de desenho, não personagens copiados."
+    },
+    {
+      "id": "v10-bestiario-2-gpt",
+      "type": "image",
+      "data": {
+        "prompt": "Create a professional hand-painted production ENEMY CONCEPT lineup for AETHERFORGE, a mournful original terrestrial industrial steampunk fantasy RPG. Exactly THREE new original machines, clearly separated side by side, entire bodies, supports and weapons within frame, quiet neutral warm putty and smoke-brown paper studio background. NO BLUE OR TEAL BACKGROUND, no teal-gold gradient, no glowing blue fog. Mature sinister character design with painterly edges, credible large sculptural masses and functional industrial articulation; NOT a low-poly render, procedural primitive maquette, shiny toy, cute robot or photoreal photograph. Use BioShock and BioShock 2 only as influences for the story of once-purposeful equipment, industrial repair and asymmetrical threats. Do not reproduce franchise characters, spherical diving helmets, portholed faces, drills, bird masks or franchise weapons. LEFT: STEAM SENTRY, a wide squat pressure-boiler torso, dark iron and faded oxblood enamel, deliberate horizontal pressure louvres, two short sturdy piston supports and heavy compact striking fists. Its broad low boiler mass differs clearly from a human guard and from the boss. No shield. CENTER: THE WATCHER, a narrow tall industrial inspection automaton with a vertical chipped porcelain head and a small dark sight slit, long thin mechanical column and THREE articulated supports forming a clear tripod. One quiet institutional plaque, no human diving helmet. Its unusually tall thin silhouette must remain legible at miniature scale, not another humanoid robot. RIGHT: IRON FOREMAN, a menacing walking industrial press, very broad torso and rail-like stepped shoulders, small signal head, one massive asymmetrical press-hammer arm and another compact manipulator, wide planted stance on short robust legs, a small warm furnace opening in the torso. Boss grows primarily in width, not an impossibly tall tower. The tool and body shape establish danger before ornament. Soot-black steel, tobacco work leather, worn oxblood enamel, chipped old-linen porcelain on the Watcher and restrained aged brass at contacts. Only a tiny solid amber glow inside the Foreman's small furnace, no orange fire everywhere. One simple original interrupted-arch manufacturer rib may unify the casings without plastering a logo on every surface. Large calm matte surfaces, wear at contact points, working joints and attachments, varied credible load-bearing poses. Rich original PAINTING with readable silhouette and material design, not a recolor of prior block models. No lettering, labels, numbers, logos, UI, borders, copied Big Daddies, Big Sisters or Rapture machines. Figures need not be at the same world scale; all three must be equally readable on the sheet.",
+        "model": {
+          "provider": "codex-cli",
+          "id": "codex-image"
+        },
+        "resolution": "2K",
+        "aspectRatio": "16:9",
+        "images": []
+      },
+      "title": "PENDENTE GPT · bestiário II / Sentinela, Vigia e Capataz",
+      "description": "Prompt preparado para pintura, sem resultado atribuído. Três silhuetas pesadas/verticais do bestiário existente. A conexão local precisa funcionar antes da geração; não chamar maquetes de resultado GPT."
+    },
+    {
+      "id": "v11-handoff-gpt",
+      "type": "document",
+      "data": {
+        "documentId": "handoff-gpt-images-v11",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v10-revisao"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-cor-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-bio2-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-equipe-gpt"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-bestiario-1-gpt"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-bestiario-2-gpt"
+          }
+        ]
+      },
+      "title": "HANDOFF CLI · executar GPT Images / equipe e bestiário v11",
+      "description": "Pacote solicitado pelo usuário para execução numa sessão CLI externa: três prompts completos, plano JSON, paleta quente aceita, referências BioShock 2, critérios de inspeção e importação segura. Não gera imagens nesta preparação nem substitui GPT por maquetes. Se a CLI também estiver bloqueada, informar sem alterar permissões globais."
+    },
+    {
+      "id": "v11-gpt-equipe",
+      "type": "asset",
+      "data": {
+        "assetId": "v11-gpt-equipe",
+        "mediaType": "image"
+      },
+      "title": "V11 · Equipe — conceito GPT gerado na CLI",
+      "description": "Pintura GPT Images gerada externamente na CLI e inspecionada; paleta quente v10. Guarda humano, escudo retangular com uma faixa ocre, pack plano; Pistoleiro com faixa diagonal e rifle; Alquimista adulto com uma cápsula no aplicador. Pack visto parcialmente por trás dos ombros; conexões internas e pega do escudo permanecem ocultas. Motivo Arco Partido ainda varia entre placas; alto número de fivelas/desgastes. Não há validação 3D. Aprovação do usuário pendente. Proveniência: assets/concepts/brass-v11-gpt/provenance.json. Não é asset pronto de runtime."
+    },
+    {
+      "id": "v11-gpt-bestiario-1",
+      "type": "asset",
+      "data": {
+        "assetId": "v11-gpt-bestiario-1",
+        "mediaType": "image"
+      },
+      "title": "V11 · Bestiário I — conceito GPT gerado na CLI",
+      "description": "Pintura GPT Images gerada externamente na CLI e inspecionada; paleta quente v10. Rato baixo/horizontal com poucos depósitos; Saqueador com gancho assimétrico; Drone em sino suspenso com dois rotores e lente inferior. Rato tem menor área pintada pela silhueta baixa. Rotor direito e bigodes ficam próximos à borda, mas dentro; revisão não equivale a margem generosa em todos os pontos. Engenharia interna dos rotores não validada. Aprovação do usuário pendente. Proveniência: assets/concepts/brass-v11-gpt/provenance.json. Não é asset pronto de runtime."
+    },
+    {
+      "id": "v11-gpt-bestiario-2",
+      "type": "asset",
+      "data": {
+        "assetId": "v11-gpt-bestiario-2",
+        "mediaType": "image"
+      },
+      "title": "V11 · Bestiário II — conceito GPT gerado na CLI",
+      "description": "Pintura GPT Images gerada externamente na CLI e inspecionada; paleta quente v10. Sentinela larga/baixa, com venezianas e punhos; Vigia vertical de porcelana com três apoios legíveis; Capataz largo com braço-martelo e fornalha pequena. Capataz ocupa mais área editorial que os outros; margem lateral esquerda da Sentinela é curta, sem corte. Articulações e colisões só foram avaliadas visualmente. Não há rig ou teste em miniatura. Aprovação do usuário pendente. Proveniência: assets/concepts/brass-v11-gpt/provenance.json. Não é asset pronto de runtime."
+    },
+    {
+      "id": "v11-gpt-equipe-r03-estilizada",
+      "type": "asset",
+      "data": {
+        "assetId": "v11-gpt-equipe-r03-estilizada",
+        "mediaType": "image"
+      },
+      "title": "V11 · Equipe R03 estilizada — conceito GPT gerado na CLI",
+      "description": "Nova candidata após o usuário considerar as pinturas anteriores realistas demais. Desenho angular, proporções expressivas, massas amplas de cor e menor microdetalhe; paleta quente v10. Três adultos inteiros com rifle, escudo retangular/faixa ocre e cápsula única. Margem superior curta; pega do escudo oculta. Aprovação do usuário pendente. Proveniência: assets/concepts/brass-v11-gpt/provenance.json. Estudo visual, não asset de runtime."
+    },
+    {
+      "id": "v12-gpt-equipe",
+      "type": "asset",
+      "data": {
+        "assetId": "v12-gpt-equipe",
+        "mediaType": "image"
+      },
+      "title": "V12 · Equipe — conceito GPT na CLI / inspiração BioShock 1–2",
+      "description": "Pintura original GPT Images gerada externamente na CLI e inspecionada. Revisão solicitada pelo usuário: caricatura, gesto profissional e equipamento Art Déco mais próximos das referências de conceito de BioShock 1/2; paleta quente v10 preservada. Aprovação artística pendente. Limitações: Desgaste e textura pintados ainda relativamente abundantes. Margem superior curta no capacete; sem corte. Aplicador mais comprido do que o ideal, mas com uma cápsula única e pega legível. Identidade masculina/bigode do Alquimista é proposta visual, não cânone aprovado. Proveniência: assets/concepts/brass-v12-gpt/provenance.json. Não é asset de runtime."
+    },
+    {
+      "id": "v12-gpt-bestiario-1",
+      "type": "asset",
+      "data": {
+        "assetId": "v12-gpt-bestiario-1",
+        "mediaType": "image"
+      },
+      "title": "V12 · Bestiário I — conceito GPT na CLI / inspiração BioShock 1–2",
+      "description": "Pintura original GPT Images gerada externamente na CLI e inspecionada. Revisão solicitada pelo usuário: caricatura, gesto profissional e equipamento Art Déco mais próximos das referências de conceito de BioShock 1/2; paleta quente v10 preservada. Aprovação artística pendente. Limitações: Rato ainda tem arco dorsal acentuado e menor área editorial. Há muito desgaste nas máquinas. Motivos claros do Drone são desenho do casco, sem texto legível identificado. Proveniência: assets/concepts/brass-v12-gpt/provenance.json. Não é asset de runtime."
+    },
+    {
+      "id": "v12-gpt-bestiario-2",
+      "type": "asset",
+      "data": {
+        "assetId": "v12-gpt-bestiario-2",
+        "mediaType": "image"
+      },
+      "title": "V12 · Bestiário II — conceito GPT na CLI / inspiração BioShock 1–2",
+      "description": "Pintura original GPT Images gerada externamente na CLI e inspecionada. Revisão solicitada pelo usuário: caricatura, gesto profissional e equipamento Art Déco mais próximos das referências de conceito de BioShock 1/2; paleta quente v10 preservada. Aprovação artística pendente. Limitações: Fenda do Vigia é vertical/âmbar, em vez da pequena fenda escura pedida. Capataz tem luz adicional na pequena cabeça/sinal superior e fornalha maior que a intenção mínima. Capataz ocupa maior área; margem esquerda da Sentinela curta, sem corte. Proveniência: assets/concepts/brass-v12-gpt/provenance.json. Não é asset de runtime."
+    },
+    {
+      "id": "v13-godot-entrega",
+      "type": "document",
+      "data": {
+        "documentId": "prototipo-godot-v13",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v12-gpt-equipe"
+          },
+          {
+            "type": "node",
+            "nodeId": "v12-gpt-bestiario-1"
+          },
+          {
+            "type": "node",
+            "nodeId": "v12-gpt-bestiario-2"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-cor-prancha"
+          },
+          {
+            "type": "node",
+            "nodeId": "v13-godot-compact"
+          },
+          {
+            "type": "node",
+            "nodeId": "v13-godot-march"
+          },
+          {
+            "type": "node",
+            "nodeId": "v13-godot-boss"
+          },
+          {
+            "type": "node",
+            "nodeId": "v13-godot-complete"
+          }
+        ]
+      },
+      "title": "GODOT · primeira fatia jogável / testes e abertura Studio",
+      "description": "Registro da implementação real com marcha, combate, menus e validação. Mantém v12 como base de trabalho, sem declarar a geometria técnica como arte final nem a conexão Studio como validada."
+    },
+    {
+      "id": "v13-godot-march",
+      "type": "asset",
+      "data": {
+        "assetId": "v13-godot-march",
+        "mediaType": "image"
+      },
+      "title": "GODOT · captura real — marcha / Overview",
+      "description": "Viewport real 1160 × 880: UI funcional e kit técnico 3D; não é uma nova pintura nem arte final de produção. Ver documento Godot para comandos e limites."
+    },
+    {
+      "id": "v13-godot-boss",
+      "type": "asset",
+      "data": {
+        "assetId": "v13-godot-boss",
+        "mediaType": "image"
+      },
+      "title": "GODOT · captura real — chefe / Fornalha",
+      "description": "Viewport real do quinto encontro, com barras de vida e modelos técnicos articulados. Não prova rig final, orçamento de performance ou conexão MCP/Studio."
+    },
+    {
+      "id": "v13-godot-complete",
+      "type": "asset",
+      "data": {
+        "assetId": "v13-godot-complete",
+        "mediaType": "image"
+      },
+      "title": "GODOT · captura real — fim da rota / cinco vitórias",
+      "description": "Viewport real da conclusão da rota finita; marcha de 108 unidades, sem economia persistente. Não é mockup ou pintura gerada."
+    },
+    {
+      "id": "v13-godot-compact",
+      "type": "asset",
+      "data": {
+        "assetId": "v13-godot-compact",
+        "mediaType": "image"
+      },
+      "title": "GODOT · captura real — palco compacto / 1000 × 320",
+      "description": "Modo normal, menus fechados ao iniciar para não roubar foco três vezes. Três instrumentos nativos independentes verificados no teste gráfico. Modelos/cenário técnicos, não arte final."
+    },
+    {
+      "id": "v14-ui-planejamento",
+      "type": "document",
+      "data": {
+        "documentId": "ui-v14-fontes-menus-hud",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v14-hud-diagnostico"
+          },
+          {
+            "type": "node",
+            "nodeId": "v13-godot-compact"
+          },
+          {
+            "type": "node",
+            "nodeId": "v13-godot-boss"
+          },
+          {
+            "type": "node",
+            "nodeId": "v10-cor-prancha"
+          }
+        ]
+      },
+      "title": "V14 · PLANO EXECUTADO / fontes, menus e HUD",
+      "description": "Planejamento original preservado, posteriormente autorizado e implementado. Limelight para identidade, Source Sans 3 funcional, HUD conciso e três instrumentos. Ver documento de entrega V14 e capturas reais para resultado, decisões e limites; aprovação artística final ainda com o usuário."
+    },
+    {
+      "id": "v14-hud-diagnostico",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-hud-diagnostico",
+        "mediaType": "image"
+      },
+      "title": "ANTES DA V14 · HUD enviado / diagnóstico",
+      "description": "Captura 520 × 177 enviada pelo usuário, inspecionada e preservada sem edição. Estado anterior à implementação V14: diagnóstico de nomes, contraste, barras e ruído visual; não é o novo HUD."
+    },
+    {
+      "id": "v14-ui-entrega",
+      "type": "document",
+      "data": {
+        "documentId": "ui-v14-entrega",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v14-ui-planejamento"
+          },
+          {
+            "type": "node",
+            "nodeId": "v13-godot-boss"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-typography"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-compact"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-combat"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-boss"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-status"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-hero"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-route"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-compact-150"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-status-150"
+          }
+        ]
+      },
+      "title": "GODOT V14 · UI implementada / capturas e testes",
+      "description": "Entrega real de fontes, HUD e três instrumentos. Registra decisões de integração, pesos nativos 400/600, três escalas, mouse Win32 automatizado/teclado Godot e regressões. Sem novas regras/pinturas; DPI físico, gamepad, benchmark e aprovação artística final não certificados."
+    },
+    {
+      "id": "v14-ui-typography",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-typography",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · prova de leitura / Jost × Source Sans 3",
+      "description": "Espécime nativo com textos/tamanhos iguais e pesos reais. Não é sessão de combate nem mockup pintado."
+    },
+    {
+      "id": "v14-ui-compact",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-compact",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · compacto / 1000 × 320",
+      "description": "Modo normal a 100%, indicadores dos três aliados e texto selecionado. Captura real, não arte final ou mockup."
+    },
+    {
+      "id": "v14-ui-combat",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-combat",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · combate / Overview",
+      "description": "Revisão dos instrumentos e palco em 1160 × 880. Conteúdo funcional rolável; não é o layout normal de janelas do desktop."
+    },
+    {
+      "id": "v14-ui-boss",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-boss",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · chefe / Fornalha",
+      "description": "Identificação dedicada do Capataz, HP e rota reais; modelos técnicos v13 preservados. Sem crop/upscale."
+    },
+    {
+      "id": "v14-ui-status",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-status",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · Status nativo",
+      "description": "Viewport do próprio instrumento, 380 × 620. Escudo ativo durante pausa, valores claros e ações fixas."
+    },
+    {
+      "id": "v14-ui-hero",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-hero",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · Herói nativo",
+      "description": "Retrato v12 e seletores reais; bolsa indisponível no miolo rolável. Não é nova pintura nem sistema de equipamento."
+    },
+    {
+      "id": "v14-ui-route",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-route",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · Expedição nativa",
+      "description": "Cinco trechos por forma/texto, topo escalonado e ações fixas. Captura do viewport nativo durante pausa."
+    },
+    {
+      "id": "v14-ui-compact-150",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-compact-150",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · compacto / UI 150%",
+      "description": "1000 × 320 reais, escala interna maior e faixa com três vidas. Não é upscale nem prova de DPI do Windows."
+    },
+    {
+      "id": "v14-ui-status-150",
+      "type": "asset",
+      "data": {
+        "assetId": "v14-ui-status-150",
+        "mediaType": "image"
+      },
+      "title": "GODOT V14 · Status / UI 150%",
+      "description": "570 × 664 reais nesta área útil. Ações acessíveis e corpo rolável; não implica três monitores/DPI físicos testados."
+    },
+    {
+      "id": "v15-ui-entrega",
+      "type": "document",
+      "data": {
+        "documentId": "ui-v15-componentes-microinteracoes",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v15-ui-diagnostico"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-pesquisa"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-propostas"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-status"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-status-150"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-status-damage"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-status-options"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-overview"
+          },
+          {
+            "type": "node",
+            "nodeId": "v14-ui-entrega"
+          }
+        ]
+      },
+      "title": "V15 · componentes com caráter / pesquisa e piloto implementado",
+      "description": "Pedido da captura marcada: três jogos pesquisados, três tratamentos e piloto A nativo. Placas, atributos, fichas, foco/clique, rastro de dano e redução de movimento. Registra automação/fixtures, 21 casos e regressões; sem trocar direção B ou regras. Aprovação visual final com o usuário."
+    },
+    {
+      "id": "v15-ui-pesquisa",
+      "type": "asset",
+      "data": {
+        "assetId": "v15-ui-pesquisa",
+        "mediaType": "image"
+      },
+      "title": "PESQUISA V15 · BioShock / Frostpunk / Darkest Dungeon II",
+      "description": "Três referências inspecionadas e creditadas. Pesquisa de terceiros, não assets Aetherforge ou medições de animação. Não reutilizar os recortes em runtime."
+    },
+    {
+      "id": "v15-ui-propostas",
+      "type": "asset",
+      "data": {
+        "assetId": "v15-ui-propostas",
+        "mediaType": "image"
+      },
+      "title": "PROPOSTAS V15 · três tratamentos / A recomendado",
+      "description": "Estudos estáticos com textos e valores demonstrativos iguais. A Mesa de regulagem inspira o piloto; B Ficha de campo/C Bancada de oficina não foram implementados como skins. Mantém direção quente B; não são as direções globais v8."
+    },
+    {
+      "id": "v15-ui-status",
+      "type": "asset",
+      "data": {
+        "assetId": "v15-ui-status",
+        "mediaType": "image"
+      },
+      "title": "GODOT V15 · Status real / 380 × 620",
+      "description": "Placa chanfrada, atributos encaixados e três fichas selecionáveis visíveis a 100%. Estados reais; sem corte/upscale. Não é mockup ou pintura."
+    },
+    {
+      "id": "v15-ui-status-150",
+      "type": "asset",
+      "data": {
+        "assetId": "v15-ui-status-150",
+        "mediaType": "image"
+      },
+      "title": "GODOT V15 · Status 150% / equipe por rolagem",
+      "description": "570 × 664 nativos: atributos legíveis e ações fixas. Fichas exigem rolagem nesta altura. Escala interna, não DPI físico ou upscale."
+    },
+    {
+      "id": "v15-ui-status-damage",
+      "type": "asset",
+      "data": {
+        "assetId": "v15-ui-status-damage",
+        "mediaType": "image"
+      },
+      "title": "GODOT V15 · vida real após dano / 173 de 180",
+      "description": "Rota observada e pausada para capturar; sem save editado. Rastro de perda limitado e pausa verificados em fixtures separadas. Captura estática não é medição temporal."
+    },
+    {
+      "id": "v15-ui-status-options",
+      "type": "asset",
+      "data": {
+        "assetId": "v15-ui-status-options",
+        "mediaType": "image"
+      },
+      "title": "GODOT V15 · reduzir movimento / opção real",
+      "description": "Corpo Status rolado até a nova preferência. Remove microtransições/caudas nesta execução; não afeta animação 3D/áudio. Opção testada por input automatizado."
+    },
+    {
+      "id": "v15-ui-overview",
+      "type": "asset",
+      "data": {
+        "assetId": "v15-ui-overview",
+        "mediaType": "image"
+      },
+      "title": "GODOT V15 · piloto em contexto / combate",
+      "description": "Overview real 1160 × 880 para revisão; não layout normal de desktop. Mesmas regras, formação, pinturas e modelos técnicos. Sem corte/upscale."
+    },
+    {
+      "id": "v15-ui-diagnostico",
+      "type": "asset",
+      "data": {
+        "assetId": "v15-ui-diagnostico",
+        "mediaType": "image"
+      },
+      "title": "ANTES DA V15 · componentes marcados pelo usuário",
+      "description": "Original marcado preservado sem edição. Diagnóstico da placa Status, atributos e equipe que motivou esta revisão; não representa o resultado V15."
+    }
+  ],
+  "edges": [],
+  "id": "ab163f7a-13a0-4f45-b5c5-ba7638f4083d"
+}

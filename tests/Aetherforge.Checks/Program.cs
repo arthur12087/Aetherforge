@@ -1,6 +1,9 @@
 using Aetherforge.Domain;
 using Aetherforge.Persistence;
 
+ExpeditionChecks.Run();
+Console.WriteLine("PASS: expedição local, marcha, cinco etapas, papéis, cura, escudo, pausa, recuo, derrota, determinismo e limites.");
+
 void Require(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }
 var team = StarterParty.Create();
 Require(team.Count == 3 && team.Select(x => x.Role).Distinct().Count() == 3, "Equipe precisa das três funções.");

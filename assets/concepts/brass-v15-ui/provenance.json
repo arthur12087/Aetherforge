@@ -1,0 +1,108 @@
+{
+    "version":  1,
+    "purpose":  "V15 research, alternatives and actual UI delivery evidence",
+    "direction":  "B / A Promessa do Latao, warm V10 palette; V12 characters retained",
+    "files":  [
+                  {
+                      "file":  "status-options.png",
+                      "source":  "artifacts/ui-v15/qa/components-native/status-options.png",
+                      "width":  380,
+                      "height":  620,
+                      "sha256":  "280B062800B7DB3EF93ADEB37017E09247019D0F723517CC7F4F00C25F597BB4",
+                      "method":  "byte-identical copy; no crop, stretch, upscale or image generation",
+                      "kind":  "Godot runtime viewport capture"
+                  },
+                  {
+                      "file":  "status.png",
+                      "source":  "artifacts/ui-v15/qa/native-menus/status.png",
+                      "width":  380,
+                      "height":  620,
+                      "sha256":  "5BEAEBA824A83AA8CC9C3A9A7CE9664ADA1350AB1BE42658617EB6C408BEEBB5",
+                      "method":  "byte-identical copy; no crop, stretch, upscale or image generation",
+                      "kind":  "Godot runtime viewport capture"
+                  },
+                  {
+                      "file":  "status-damage.png",
+                      "source":  "artifacts/ui-v15/qa/components-native/status-damage.png",
+                      "width":  380,
+                      "height":  620,
+                      "sha256":  "A744C9D567B9F01C4D271A697C927C131C5C9A792AD9A5AEA7F745913F69B0E8",
+                      "method":  "byte-identical copy; no crop, stretch, upscale or image generation",
+                      "kind":  "Godot runtime viewport capture"
+                  },
+                  {
+                      "file":  "overview.png",
+                      "source":  "artifacts/ui-v15/qa/combat.png",
+                      "width":  1160,
+                      "height":  880,
+                      "sha256":  "EBFC25456252B942C44048BFA28FA0984F9F072CC5C86FB6EDEC3B9825D57E6B",
+                      "method":  "byte-identical copy; no crop, stretch, upscale or image generation",
+                      "kind":  "Godot runtime viewport capture"
+                  },
+                  {
+                      "file":  "status-150.png",
+                      "source":  "artifacts/ui-v15/qa/native-menus-1-5/status.png",
+                      "width":  570,
+                      "height":  664,
+                      "sha256":  "2B16108AE6D32A6F9AD5167C74C65A2261A0E709587A73913BC92B925FFD6B5B",
+                      "method":  "byte-identical copy; no crop, stretch, upscale or image generation",
+                      "kind":  "Godot runtime viewport capture"
+                  },
+                  {
+                      "file":  "user-marked.png",
+                      "source":  ".data/agent-attachments/9e447e3b-6eed-45de-923b-7c8d8529c872/files/image.png",
+                      "width":  386,
+                      "height":  619,
+                      "sha256":  "5346B819D1C82109FDBBE535835238C02C20295038A5D5FD06AFD0C12C8480DE",
+                      "method":  "byte-identical copy; no crop, stretch, upscale or image generation",
+                      "kind":  "user diagnostic before V15"
+                  },
+                  {
+                      "file":  "propostas.png",
+                      "source":  "docs/visual/conceitos-v15/propostas.svg",
+                      "width":  1440,
+                      "height":  1160,
+                      "sha256":  "697D3E6360EBED11841FE4209FF81EB8B78B8D7D4BD7F20CA98DFE58FA8C8474",
+                      "method":  "original code-authored static SVG composition rasterized at native size; not AI generation or a runtime screenshot",
+                      "kind":  "three static UI alternatives; A is pilot, B/C not runtime skins"
+                  },
+                  {
+                      "file":  "pesquisa.png",
+                      "source":  "docs/visual/conceitos-v15/pesquisa.svg",
+                      "width":  1440,
+                      "height":  950,
+                      "sha256":  "9DEEC2AF57A696458183AE9F3717BDBF84AC47A814D3E4E2A0E87AE10F95ED0D",
+                      "method":  "original code-authored static SVG composition rasterized at native size; not AI generation or a runtime screenshot",
+                      "kind":  "third-party research compilation, credited and restricted to reference"
+                  }
+              ],
+    "references":  [
+                       {
+                           "title":  "BioShock The Collection / Shelby Tang",
+                           "url":  "https://www.shelbypeterson.com/bioshock-the-collection",
+                           "path":  "assets/concepts/brass-v9/references/shelby-gene-bank.png",
+                           "sha256":  "D3CD978E121D1577FB834D9C95EF885789E9F6258A3FBE07F0D4ABDB9F3A0EFC",
+                           "status":  "existing local original re-inspected; portfolio page fetched in current research; remaster UI authorship, not all original UI",
+                           "runtime":  false
+                       },
+                       {
+                           "title":  "Frostpunk / Interface In Game",
+                           "url":  "https://interfaceingame.com/screenshots/frostpunk-book-of-laws/",
+                           "path":  "assets/concepts/idle-v8/references/menus/frostpunk-livro-de-leis.jpg",
+                           "sha256":  "915430B0C3F33223D9B9653D5A115E6DC51425C89203E86EDA1BF557C6A064C8",
+                           "status":  "existing local original re-inspected; web search found catalog; direct page fetch timed out",
+                           "runtime":  false
+                       },
+                       {
+                           "title":  "Darkest Dungeon II / Red Hook / Fextralife guide",
+                           "url":  "https://darkestdungeon2.wiki.fextralife.com/New_Player_Help",
+                           "imageUrl":  "https://static0.fextralifeimages.com/file/darkestdungeon2/0/08/Quirks-darkest-dungeon-2-wiki-guide-300px-min.png",
+                           "path":  "assets/concepts/brass-v15-ui/references/darkest-dungeon2-hero-sheet.png",
+                           "sha256":  "555C3C38C45FF66B719F3A90FDFB2364982967B5F56751BB585C3DD020344164",
+                           "status":  "new download; inspected 300x168, not upscaled; limited evidence of layout, not typography/animation or latest-build UI",
+                           "runtime":  false
+                       }
+                   ],
+    "rights":  "Research images belong to their respective holders; not licensed client resources. V15 UI vector components and vital icon are project-original.",
+    "noAiImageGeneration":  true
+}
