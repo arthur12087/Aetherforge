@@ -30,13 +30,16 @@ public partial class ExpeditionStage : SubViewportContainer
         set { _selectedMemberIndex = Math.Clamp(value, 0, 2); if (_vitals != null) _vitals.SelectedMemberIndex = _selectedMemberIndex; }
     }
     private readonly ExpeditionActor[] _party = new ExpeditionActor[3];
-    private readonly PartyMember?[] _partyData = new PartyMember?[3];
     private readonly List<ExpeditionActor> _enemies = new();
     private readonly List<ExpeditionEnemy> _enemyData = new();
     private readonly List<Module> _modules = new();
     private readonly List<Effect> _effects = new();
-    private int _lastEvent, _encounterStage = -1;
-    private double _lastTime = -1, _encounterAt = double.NaN;
+    private int _lastEvent, _enemyEventFloor;
+    private double _lastTime = -1;
+    // DTO references are replaced by transactions. Only these logical epochs and the
+    // ordered (slot, Kind, Name) composition identify the actors owned by this stage.
+    private (string Session, long Attempt) _attempt;
+    private (string Session, long Attempt, int Stage, double At) _encounter;
     private float _cameraX;
     private bool _snapCamera = true, _resetRequested;
     private const float ModuleLength = 6;
@@ -156,19 +159,18 @@ public partial class ExpeditionStage : SubViewportContainer
     {
         var sim = _simulation;
         int maxId = sim.Events.Count == 0 ? 0 : sim.Events[sim.Events.Count - 1].Id;
-        bool replacedParty = false;
-        for (int i = 0; i < _partyData.Length; i++)
-            if (_partyData[i] != null && !ReferenceEquals(_partyData[i], sim.Party[i])) replacedParty = true;
-        if (_resetRequested || replacedParty || sim.Elapsed < _lastTime || maxId < _lastEvent)
+        if (_resetRequested || _attempt != (sim.SessionId, sim.AttemptId) || sim.Elapsed < _lastTime || maxId < _lastEvent)
         {
             ResetPresentation(); _resetRequested = false;
+            _attempt = (sim.SessionId, sim.AttemptId);
+            // A bind/reset samples the current state, never history from an older epoch.
+            _lastEvent = maxId;
         }
         float dt = _lastTime < 0 ? 0 : (float)Math.Max(0, sim.Elapsed - _lastTime);
         _lastTime = sim.Elapsed;
         SyncEnemies();
         for (int i = 0; i < _party.Length; i++)
         {
-            _partyData[i] = sim.Party[i];
             _party[i].Position = new Vector3((float)sim.Distance - i * 1.65f, 0, i * .12f);
         }
         for (int i = 0; i < _enemies.Count; i++)
@@ -205,8 +207,8 @@ public partial class ExpeditionStage : SubViewportContainer
         foreach (var actor in _party) actor.ResetPose();
         ClearEnemies();
         foreach (var fx in _effects) Retire(fx.Node);
-        _effects.Clear(); _lastEvent = 0; _lastTime = -1;
-        _encounterStage = -1; _encounterAt = double.NaN; _snapCamera = true;
+        _effects.Clear(); _lastEvent = _enemyEventFloor = 0; _lastTime = -1;
+        _encounter = default; _snapCamera = true;
         foreach (var module in _modules) module.Ordinal = int.MinValue;
     }
 
@@ -225,13 +227,25 @@ public partial class ExpeditionStage : SubViewportContainer
     private void SyncEnemies()
     {
         var sim = _simulation;
-        bool changed = _encounterStage != sim.StageIndex || _encounterAt != sim.EncounterAt || _enemyData.Count != sim.Enemies.Count;
+        var encounter = (sim.SessionId, sim.AttemptId, sim.StageIndex, sim.EncounterAt);
+        bool changed = _encounter != encounter || _enemyData.Count != sim.Enemies.Count;
         if (!changed)
             for (int i = 0; i < _enemyData.Count; i++)
-                if (!ReferenceEquals(_enemyData[i], sim.Enemies[i])) { changed = true; break; }
-        if (!changed) return;
+                if (_enemyData[i].Kind != sim.Enemies[i].Kind || _enemyData[i].Name != sim.Enemies[i].Name) { changed = true; break; }
+        if (!changed)
+        {
+            // Refresh mutable data without losing pose, death time or HUD identity.
+            for (int i = 0; i < _enemyData.Count; i++) _enemyData[i] = sim.Enemies[i];
+            return;
+        }
+        // A real composition replacement in the same encounter must not replay old hits.
+        if (_encounter == encounter)
+            _enemyEventFloor = sim.Events.Count == 0 ? 0 : sim.Events[^1].Id;
+        _vitals.ResetEnemyFeedback(_enemyEventFloor);
         ClearEnemies();
-        _encounterStage = sim.StageIndex; _encounterAt = sim.EncounterAt;
+        foreach (var fx in _effects) Retire(fx.Node);
+        _effects.Clear();
+        _encounter = encounter;
         for (int i = 0; i < sim.Enemies.Count; i++)
         {
             var actor = new ExpeditionActor { Name = "Enemy_" + i + "_" + sim.Enemies[i].Kind };
@@ -244,6 +258,8 @@ public partial class ExpeditionStage : SubViewportContainer
 
     private void Present(ExpeditionEvent e)
     {
+        // Retained events from the previous fight cannot target the next marching formation.
+        if ((e.Actor >= 3 || e.Target >= 3) && (_simulation.Phase == ExpeditionPhase.March || e.Id <= _enemyEventFloor)) return;
         var actor = Actor(e.Actor); var target = Actor(e.Target);
         switch (e.Kind)
         {

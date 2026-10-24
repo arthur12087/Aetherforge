@@ -22,7 +22,7 @@ public partial class ExpeditionVitals : Control
     private readonly ActorPlate[] _actors = new ActorPlate[ActorLimit];
     private readonly CombatNumber[] _numbers = new CombatNumber[NumberLimit];
     private readonly Rect2[] _occupied = new Rect2[ActorLimit * 2 + NumberLimit + 1];
-    private int _occupiedCount, _lastEvent, _hovered = -1, _boss = -1;
+    private int _occupiedCount, _lastEvent, _enemyEventFloor, _hovered = -1, _boss = -1;
     private int _nameSize, _dataSize, _numberSize;
     private float _scale;
     private Transform2D _toLocal;
@@ -41,7 +41,7 @@ public partial class ExpeditionVitals : Control
 
     private sealed class ActorPlate
     {
-        internal object Data = null!;
+        internal ulong Identity;
         internal string Name = "", ShortName = "", Stats = "", ShownName = "";
         internal float Health = -1, MaxHealth = -1;
         internal bool Projected, Visible, Enemy, Boss, Inspected, Shielded, ShowStats;
@@ -54,7 +54,7 @@ public partial class ExpeditionVitals : Control
     {
         internal bool Active, Heal, Visible;
         internal int Actor;
-        internal object Data = null!;
+        internal ulong Identity;
         internal double At;
         internal string Text = "";
         internal Vector2 Measure;
@@ -86,7 +86,15 @@ public partial class ExpeditionVitals : Control
     public void ResetFeedback()
     {
         foreach (var number in _numbers) if (number != null) number.Active = number.Visible = false;
+        foreach (var plate in _actors) if (plate != null) plate.Identity = 0;
+        _enemyEventFloor = 0;
         _lastEvent = _simulation == null || _simulation.Events.Count == 0 ? 0 : _simulation.Events[^1].Id;
+    }
+
+    internal void ResetEnemyFeedback(int eventFloor)
+    {
+        foreach (var number in _numbers) if (number != null && number.Actor >= 3) number.Active = number.Visible = false;
+        _enemyEventFloor = eventFloor;
     }
 
     /// <summary>No Advance and no engine-delta clock: all transients are aged by real Elapsed.</summary>
@@ -150,20 +158,24 @@ public partial class ExpeditionVitals : Control
         bool wasVisible = plate.Visible;
         var previousNameRect = plate.NameRect;
         plate.Visible = plate.Projected = false;
+        var previousIdentity = plate.Identity;
+        plate.Identity = 0;
         plate.NameRect = default; plate.ShownName = ""; plate.ShowStats = false;
         plate.Enemy = index >= 3;
         int enemy = index - 3;
         if (index < 3 ? index >= _party.Count : enemy >= Math.Min(_enemies.Count, _simulation.Enemies.Count)) return;
         var actor = index < 3 ? _party[index] : _enemies[enemy];
         if (!GodotObject.IsInstanceValid(actor)) return;
-        object data = index < 3 ? _simulation.Party[index] : _simulation.Enemies[enemy];
+        // Stage owns logical session/attempt/encounter/slot identity. Its actor survives
+        // DTO clones and is retired on a real reset or composition change.
+        plate.Identity = actor.GetInstanceId();
         string name = index < 3 ? _simulation.Party[index].Name : _simulation.Enemies[enemy].Name;
         float hp = index < 3 ? _simulation.Party[index].Health : _simulation.Enemies[enemy].Health;
         float max = index < 3 ? _simulation.Party[index].MaxHealth : _simulation.Enemies[enemy].MaxHealth;
         bool shielded = index == 0 && _simulation.ShieldRemaining > 0 && hp > 0;
-        if (!ReferenceEquals(plate.Data, data) || plate.Name != name)
+        if (previousIdentity != plate.Identity || plate.Name != name)
         {
-            plate.Data = data; plate.Name = name;
+            plate.Name = name;
             plate.ShortName = actor.Kind switch
             {
                 "guard" => "Guarda", "gunner" => "Pistoleiro", "healer" => "Alquimista",
@@ -213,7 +225,7 @@ public partial class ExpeditionVitals : Control
         {
             number.Visible = false;
             if (number.Active && (terminal || _simulation.Elapsed - number.At >= NumberLife ||
-                !ReferenceEquals(number.Data, _actors[number.Actor].Data))) number.Active = false;
+                number.Identity != _actors[number.Actor].Identity)) number.Active = false;
         }
         foreach (var e in _simulation.Events)
         {
@@ -222,7 +234,7 @@ public partial class ExpeditionVitals : Control
             if (terminal || e.Kind is not ("hurt" or "heal") || e.Amount <= 0 || !float.IsFinite(e.Amount) ||
                 e.Target < 0 || e.Target >= ActorLimit || e.At > _simulation.Elapsed || _simulation.Elapsed - e.At >= NumberLife) continue;
             // Old-encounter enemy feedback must not attach to a newly spawned actor with the same index.
-            if (e.Target >= 3 && e.At < _simulation.Elapsed - _simulation.PhaseTime) continue;
+            if (e.Target >= 3 && (_simulation.Phase == ExpeditionPhase.March || e.Id <= _enemyEventFloor || _actors[e.Target].Identity == 0)) continue;
             AddNumber(e);
         }
     }
@@ -243,7 +255,7 @@ public partial class ExpeditionVitals : Control
         }
         // Keep damage and healing separate; saturation replaces a same-kind item first.
         var slot = count >= 2 ? sameKind ?? sameActor! : free ?? oldest!;
-        slot.Active = true; slot.Actor = e.Target; slot.Data = _actors[e.Target].Data;
+        slot.Active = true; slot.Actor = e.Target; slot.Identity = _actors[e.Target].Identity;
         slot.Heal = heal; slot.At = e.At;
         slot.Text = (heal ? "+" : "−") + Math.Ceiling(e.Amount).ToString("0", CultureInfo.InvariantCulture);
         slot.Measure = Measure(slot.Text, _strong, _numberSize);

@@ -98,6 +98,11 @@ public partial class Main : Node
                 componentCheck.Bind(_expedition); AddChild(componentCheck);
             }
             var audio = new ExpeditionAudio(); audio.Bind(_expedition.Simulation); AddChild(audio);
+            if (_options.ContainsKey("presentation-check"))
+            {
+                var check = new ExpeditionPresentationCheck { EvidencePath = Option("ui-evidence", ""), CaptureDirectory = Option("ui-captures", ""), Fast = _options.ContainsKey("presentation-fast") };
+                check.Bind(_expedition); AddChild(check);
+            }
             if (_options.ContainsKey("layout-check") || _options.ContainsKey("expedition-smoke")) VerifyExpedition(_expedition);
             if (_options.ContainsKey("interaction-check"))
             {
