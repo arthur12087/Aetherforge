@@ -5,6 +5,7 @@ namespace Aetherforge.Domain;
 /// <summary>GDD 15.4: integer XP, linear thresholds and base-stat growth. No banked XP at cap.</summary>
 public sealed class CharacterProgression
 {
+    internal Action? BeforeMutation;
     public const int MaximumLevel = 20;
     public int Level { get; private set; } = 1;
     public int Experience { get; private set; }
@@ -17,6 +18,7 @@ public sealed class CharacterProgression
         if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount));
         int before = Level;
         int accepted = (int)Math.Min((long)amount, SpentExperience(MaximumLevel)-TotalExperience);
+        if (accepted>0) BeforeMutation?.Invoke();
         Experience += accepted;
         while (Level < MaximumLevel && Experience >= RequiredExperience)
         {
@@ -26,6 +28,9 @@ public sealed class CharacterProgression
         if (Level == MaximumLevel) Experience = 0;
         return Level-before;
     }
+
+    internal void CopyFrom(CharacterProgression source)
+    { Level=source.Level; Experience=source.Experience; }
 
     public float ScaleBase(float value, int percentPerLevel)
         => Level == 1 ? value : (float)Math.Floor((double)value * (100 + percentPerLevel * (Level-1)) / 100);

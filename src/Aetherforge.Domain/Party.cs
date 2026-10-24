@@ -14,10 +14,14 @@ public sealed class PartyMember
     public float BaseHealth { get; }
     public float BaseAttack { get; }
     public float BaseDefense { get; }
-    public float MaxHealth => Progression.ScaleBase(BaseHealth, 10);
-    public float Health { get; set; }
-    public float Attack => Progression.ScaleBase(BaseAttack, 6);
-    public float Defense => Progression.ScaleBase(BaseDefense, 5);
+    public ExpeditionLoadout Loadout { get; internal set; } = ExpeditionLoadout.Empty;
+    public EffectiveStats Stats => ExpeditionStats.Calculate(this);
+    public float MaxHealth => Stats.MaxHealth;
+    private float _health;
+    internal Action? BeforeMutation;
+    public float Health { get => _health; set { if (!_health.Equals(value)) BeforeMutation?.Invoke(); _health=value; } }
+    public float Attack => Stats.Attack;
+    public float Defense => Stats.Defense;
     public PartyMember(PartyRole role, string name, string model, float hp, float attack, float defense)
     {
         Role = role; Name = name; Model = model; BaseHealth = hp; Health = hp; BaseAttack = attack; BaseDefense = defense;
@@ -31,6 +35,17 @@ public sealed class PartyMember
         if (Health > 0) Health = Math.Min(MaxHealth, Health + MaxHealth-previousMaximum);
         return gained;
     }
+
+    internal PartyMember Clone()
+    {
+        var copy=new PartyMember(Role,Name,Model,BaseHealth,BaseAttack,BaseDefense);
+        copy.Progression.CopyFrom(Progression);
+        copy.Loadout=Loadout; copy.Health=Health;
+        return copy;
+    }
+
+    internal void CopyFrom(PartyMember source)
+    { Progression.CopyFrom(source.Progression); Loadout=source.Loadout; _health=source.Health; }
 }
 
 public static class StarterParty
