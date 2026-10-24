@@ -1,6 +1,20 @@
 # Aetherforge — primeira fatia Godot / A Promessa do Latão
 
-## Componentes e microinterações V15
+## Progressão V19 — interface atual
+
+A [V19](../visual/UI_Progressao_v19.md) continua o [Status de integrante V18](../visual/UI_Status_v18.md), com nível, barra de XP e atributos derivados do nível. Herói mostra recursos e bolsa 7×3 com loot recebido e inspecionável. Pausa/recuo/reinício ficam em Expedição; o Status conserva escudo e atalho para a rota.
+
+O reinício restaura a equipe e conserva o progresso desta execução. Fechar perde os ganhos: não há salvamento nem transferência desta rota para a API. Equipar e aplicar os bônus dos itens ainda não estão implementados. As seções V17 e anteriores abaixo são histórico, inclusive as menções à bolsa indisponível.
+
+## Dossiê de turno V17 — histórico
+
+Você escolheu **01 — Dossiê de turno** entre os estudos V16 e autorizou a implementação. A [entrega V17 no Canvas](../../canvas/documents/ui-v17-dossie-implementado.md) registra as novas janelas nativas: Status claro com uma régua de atributos e três fichas com retratos; Herói mais largo, retrato/bolsa lado a lado ou empilhados conforme a largura; Expedição como bilhete de cinco nós. O palco continua independente. Não são PNGs dos estudos usados como UI.
+
+Fontes reais 400/600, seleção compartilhada, ações fixas, rolagem, foco, movimento opcional e bolsa **7×3 indisponível** foram preservados. A 100%, os viewports nativos desta máquina mediram **380×620 / 588×620 / 398×620**; em 150%, a equipe e a terceira linha da bolsa pedem rolagem. O modo Overview é somente revisão, não o desktop normal ou garantia de encaixe em qualquer monitor.
+
+`Test-UiV17.ps1 -Screenshots` reutiliza os checks V14/V15 com saída separada em `artifacts/ui-v17/qa/` e acrescenta três revisões amplas: **24 casos**, todos passados, com stderr vazio. Build final sem avisos/erros; expedição completa, legados e integração passaram. Capturas selecionadas em `assets/concepts/brass-v17-dossie/`. Mouse Win32 automatizado, teclado Godot e fixtures não equivalem a uso humano, DPI físico, gamepad ou benchmark. Regras, API, persistência, palco/HUD e modelos não foram alterados.
+
+## Componentes e microinterações V15 — histórico
 
 A [entrega V15](../../canvas/documents/ui-v15-componentes-microinteracoes.md) acrescenta pesquisa visual de BioShock, Frostpunk e Darkest Dungeon II, três tratamentos estáticos e o piloto **Mesa de regulagem** implementado. Cabeçalhos agora têm placa chanfrada; atributos têm encaixes; fichas da equipe selecionam o mesmo integrante de Herói/palco. A 100%, três fichas cabem no Status 380×620; em 150%/altura curta, usar rolagem.
 
@@ -104,7 +118,7 @@ Skills do set instalado aproveitadas conforme o assunto: `godot-csharp`, `godot-
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Build.ps1
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test-UiV14.ps1 -Screenshots
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test-UiV17.ps1 -Screenshots
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test-Expedition.ps1 -Screenshots
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test-Integration.ps1

@@ -1,0 +1,154 @@
+{
+  "provider": "Interface In Game",
+  "references": [
+    {
+      "id": "nier-items",
+      "title": "NieR:Automata / Items",
+      "path": "assets/concepts/brass-v16-ficha/references/nier-items.jpg",
+      "pageUrl": "https://interfaceingame.com/screenshots/nierautomata-items/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/nierautomata/nierautomata-items.jpg",
+      "credit": "PlatinumGames / Square Enix",
+      "sha256": "3c0c8569f9efb6643cd8e35b2e6785cd4da603d2a8991b09166607fdd3cd349e",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "nier-hud",
+      "title": "NieR:Automata / HUD",
+      "path": "assets/concepts/brass-v16-ficha/references/nier-hud.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/nierautomata-dialoge-options-2/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/nierautomata/nierautomata-dialoge-options.png",
+      "credit": "PlatinumGames / Square Enix",
+      "sha256": "2a44081b536f704b382c555dfb79537c19768f3576c2ca09c0d2b5b6078f8ec9",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "rdr-stable",
+      "title": "Red Dead Redemption 2 / Stable",
+      "path": "assets/concepts/brass-v16-ficha/references/rdr-stable.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/red-dead-redemption-2-stable/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/red-dead-redemption-2/red-dead-redemption-2-stable.png",
+      "credit": "Rockstar Games",
+      "sha256": "6673929cf7724d9094501fae30123ac127e8e2b5c9a2427816133185b8f1f8c9",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "rdr-hud",
+      "title": "Red Dead Redemption 2 / HUD",
+      "path": "assets/concepts/brass-v16-ficha/references/rdr-hud.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/red-dead-redemption-2-hud/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/red-dead-redemption-2/red-dead-redemption-2-hud.png",
+      "credit": "Rockstar Games",
+      "sha256": "77aaa4b5eb4130b360b354f14563377b91c97b50ca4d8e99a30aea4f371c3f76",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "rdr-progress",
+      "title": "Red Dead Redemption 2 / Progress",
+      "path": "assets/concepts/brass-v16-ficha/references/rdr-progress.jpg",
+      "pageUrl": "https://interfaceingame.com/screenshots/red-dead-redemption-2-progress/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/red-dead-redemption-2/red-dead-redemption-2-progress.jpg",
+      "credit": "Rockstar Games",
+      "sha256": "4c3da6b562665b26f1c3284a196de8b35407df92e493e06bf474a2da82c425c2",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "outer-inventory",
+      "title": "The Outer Worlds / Inventory",
+      "path": "assets/concepts/brass-v16-ficha/references/outer-inventory.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/the-outer-worlds-inventory/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/the-outer-worlds/the-outer-worlds-inventory.png",
+      "credit": "Obsidian Entertainment / Private Division",
+      "sha256": "f8f3109a7322266535df50b6cebea00fdffc9515a7b845ea7ef87c0ccc24c9fd",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "outer-hud",
+      "title": "The Outer Worlds / HUD",
+      "path": "assets/concepts/brass-v16-ficha/references/outer-hud.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/the-outer-worlds-hud-2/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/the-outer-worlds/the-outer-worlds-hud-2.png",
+      "credit": "Obsidian Entertainment / Private Division",
+      "sha256": "da1453d6de53241612d28890b90b8e40b1b1cb0377e4b6ae22b8d94f036f99ec",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "dishonored-powers",
+      "title": "Dishonored 2 / Powers",
+      "path": "assets/concepts/brass-v16-ficha/references/dishonored-powers.jpg",
+      "pageUrl": "https://interfaceingame.com/screenshots/dishonored-2-powers/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/dishonored-2/dishonored-2-powers.jpg",
+      "credit": "Arkane Studios / Bethesda Softworks",
+      "sha256": "2ae20ea74b3c0f47981d72052997dac1a7bcea2d9148b4e7448877d1d53f86b6",
+      "dimensions": [
+        3840,
+        2160
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    }
+  ],
+  "dribbble": {
+    "search": "https://dribbble.com/search/game-ui",
+    "status": "Indexed title/author/description only; direct and embed HTTP 202 empty. Search provider later rate-limited. No visual verification.",
+    "shots": [
+      {
+        "title": "Steampunk UI elemtents",
+        "author": "Jeffrey Karl",
+        "url": "https://dribbble.com/shots/4566535-Steampunk-UI-elemtents"
+      },
+      {
+        "title": "MMORPG Mobile in Game Concept (Mini Study Case)",
+        "author": "BimGraph for Kretya Studio",
+        "url": "https://dribbble.com/shots/24766433-MMORPG-Mobile-in-Game-Concept-Mini-Study-Case"
+      },
+      {
+        "title": "Steampunk UI",
+        "author": "Meng To",
+        "url": "https://dribbble.com/shots/647020-Steampunk-UI"
+      }
+    ]
+  }
+}

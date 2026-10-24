@@ -1,0 +1,311 @@
+{
+  "root": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TaskbarHero",
+  "version": "1.3.0",
+  "files": [
+    {
+      "path": "baselib.dll",
+      "bytes": 239016,
+      "sha256": "5791a6519afaa9a9b31e9fff0a63c9435352e35b596d086e9c1a5c0538a89703"
+    },
+    {
+      "path": "cdn/live/files/00bbc5ccb539/AdBanner_E7Out_2610_EN.png",
+      "bytes": 33706,
+      "sha256": "00bbc5ccb539de41187c9cbf3c46c5abd1f9c368135069ad283ceacf0cb1df38"
+    },
+    {
+      "path": "cdn/live/files/5091e4527c6e/AdBanner_E7Wish_2610_Offline_EN.png",
+      "bytes": 35400,
+      "sha256": "5091e4527c6eb1118895d17235df48f041d5f630b0c360342fbe75e007471a0b"
+    },
+    {
+      "path": "cdn/live/files/91b6043c1067/AdBanner_Cozy_Offline.png",
+      "bytes": 3972,
+      "sha256": "91b6043c1067ba3caafaef2d73e9921b81bee3349de35bbbff276fa2a1f71869"
+    },
+    {
+      "path": "cdn/live/files/97812cd92e63/AdBanner_E7Wish_2610_EN.png",
+      "bytes": 33804,
+      "sha256": "97812cd92e6332718afeb558d7e2b772b84b859cb9ce074d325b6aca42fb3cb6"
+    },
+    {
+      "path": "cdn/live/files/c85e8824d4a4/AdBanner_E7Out_2610_Offline_EN.png",
+      "bytes": 35121,
+      "sha256": "c85e8824d4a404f63a882bd438d57df722c497051b82884a3aea7ad326d02f9c"
+    },
+    {
+      "path": "D3D12/D3D12Core.dll",
+      "bytes": 5908408,
+      "sha256": "31f364f2b3aa1753e7ba9ff912d0721c8f424be5fa14503efddafbb30c635d3b"
+    },
+    {
+      "path": "GameAssembly.dll",
+      "bytes": 111653376,
+      "sha256": "f09a3eb6dd3fcb14f9e9f612514d66b3b6d9007d4b90962436493f3f18c3089c"
+    },
+    {
+      "path": "TaskBarHero.exe",
+      "bytes": 672256,
+      "sha256": "f6b9b3eddae8dce1cff501aa389da6584bd58bf7c98a42ac02fb7bb3d77aab7f"
+    },
+    {
+      "path": "TaskBarHero_Data/app.info",
+      "bytes": 27,
+      "sha256": "07d0532c205b95bccfdb9d73ee2074436ba9ba8fc150d7e13c671029ae028ecd"
+    },
+    {
+      "path": "TaskBarHero_Data/boot.config",
+      "bytes": 182,
+      "sha256": "99845b3a83d69844005d175814673499b1d400043868767b1af7e8265168c82e"
+    },
+    {
+      "path": "TaskBarHero_Data/globalgamemanagers",
+      "bytes": 1178820,
+      "sha256": "9b0c8d02a06958b96f23be5d2503cbe35522adf0854fa505ebd08929b7e8c9f5"
+    },
+    {
+      "path": "TaskBarHero_Data/globalgamemanagers.assets",
+      "bytes": 1503852,
+      "sha256": "47dfff56834e0f554bb9fa0b266a778a06389166625e216d3dbcbf18cfe2cc42"
+    },
+    {
+      "path": "TaskBarHero_Data/globalgamemanagers.assets.resS",
+      "bytes": 3968528,
+      "sha256": "80bd715ba0eae6e78974596fa1394fd6242f5da6109acdda59fd931f0f0533db"
+    },
+    {
+      "path": "TaskBarHero_Data/il2cpp_data/Metadata/global-metadata.dat",
+      "bytes": 23036032,
+      "sha256": "85bf394366ce9c6c6969be9731131d5bc87c80bd94fbed3e54b8f50ca785e622"
+    },
+    {
+      "path": "TaskBarHero_Data/il2cpp_data/Resources/Backend.dll-resources.dat",
+      "bytes": 8306,
+      "sha256": "ad28f1659b4069c8e443d204eb0b72d2020eafacaedd3bc528e18a8c1d08875c"
+    },
+    {
+      "path": "TaskBarHero_Data/il2cpp_data/Resources/mscorlib.dll-resources.dat",
+      "bytes": 337563,
+      "sha256": "c5baa176a5b72cd545266340e42102d393a5e43d38c95796bc828918bb95277f"
+    },
+    {
+      "path": "TaskBarHero_Data/il2cpp_data/Resources/Newtonsoft.Json.dll-resources.dat",
+      "bytes": 900,
+      "sha256": "531de49e73ddea25554c9f656f54da2a665946f3fec57048e0cfe3b9e49b03f8"
+    },
+    {
+      "path": "TaskBarHero_Data/il2cpp_data/Resources/System.Data.dll-resources.dat",
+      "bytes": 93718,
+      "sha256": "98a7950ec6de3242c2e190dfa630188dfa32511a125542b94baa952d1c757d49"
+    },
+    {
+      "path": "TaskBarHero_Data/il2cpp_data/Resources/System.Drawing.dll-resources.dat",
+      "bytes": 25453,
+      "sha256": "7c33aa707bc3fdc83991b81a97d6fc622b140762a767300f08f616c2c0a91255"
+    },
+    {
+      "path": "TaskBarHero_Data/level0",
+      "bytes": 7661584,
+      "sha256": "da9e62b1a6984840f5ac2f056d5cad43142bf62e2bd6c0546f6decb17185c9c9"
+    },
+    {
+      "path": "TaskBarHero_Data/Plugins/Steamworks.NET.txt",
+      "bytes": 241,
+      "sha256": "60da9f94fd56b61f2ca839a5da16a552b9264f584137ebdc917709e33e059b46"
+    },
+    {
+      "path": "TaskBarHero_Data/Plugins/x86_64/lib_burst_generated.dll",
+      "bytes": 575488,
+      "sha256": "c3366201a599088060874f2de823bb6982640fd3061ed1e6e21db7a16c8c10fa"
+    },
+    {
+      "path": "TaskBarHero_Data/Plugins/x86_64/libonigwrap.dll",
+      "bytes": 551336,
+      "sha256": "6d539f2ad6e1b58d3c8836b9c3a1d50c97cbd7a6ca0c5de25d994a7c4b1ecf42"
+    },
+    {
+      "path": "TaskBarHero_Data/Plugins/x86_64/steam_api64.dll",
+      "bytes": 319584,
+      "sha256": "670d654aa3255c5061cf0236a1cdbb2f5076cbd5ae44f613b6f4921558e83e2d"
+    },
+    {
+      "path": "TaskBarHero_Data/Resources/unity default resources",
+      "bytes": 5858404,
+      "sha256": "2fab7b306cbac3d4d98bbfdfe8a9fd503a2013c4b2afbc719358e1613a527972"
+    },
+    {
+      "path": "TaskBarHero_Data/Resources/unity_builtin_extra",
+      "bytes": 368644,
+      "sha256": "d452fa9e73870c3175355d3fb096bdcbc044374ac0487b2beedc8e8f33cdcf81"
+    },
+    {
+      "path": "TaskBarHero_Data/resources.assets",
+      "bytes": 3288432,
+      "sha256": "7c27fc866fd1ead5c8cfeefb15cbe12e4803d96e67718f153470c02dafaedf47"
+    },
+    {
+      "path": "TaskBarHero_Data/resources.assets.resS",
+      "bytes": 4773312,
+      "sha256": "c96611ca2ec2ac6b8c9029f192c7f20254300917994462159c7d1e0ee043d224"
+    },
+    {
+      "path": "TaskBarHero_Data/resources.resource",
+      "bytes": 14688,
+      "sha256": "e5fd27ebea5de324a445aa42e32ad34e0cff005d17070e71967339ce7db534e1"
+    },
+    {
+      "path": "TaskBarHero_Data/RuntimeInitializeOnLoads.json",
+      "bytes": 27711,
+      "sha256": "2b7f482fb95d0f6b8726721a2502b26e47c56e764460b6c071eb520d493edbbc"
+    },
+    {
+      "path": "TaskBarHero_Data/ScriptingAssemblies.json",
+      "bytes": 5818,
+      "sha256": "48c3876197e69ab6b4abbeb3137585a8395b9cf7eed5372c84f0672da34313f3"
+    },
+    {
+      "path": "TaskBarHero_Data/sharedassets0.assets",
+      "bytes": 23661588,
+      "sha256": "ee1d04adcaeb073013f3dfb5640c1542da2d0734c03c18684246af45ef197f64"
+    },
+    {
+      "path": "TaskBarHero_Data/sharedassets0.assets.resS",
+      "bytes": 424748544,
+      "sha256": "104f005eae125c3adf6c0c22090fcfb9aef01611e23078fc4161dda9b725695e"
+    },
+    {
+      "path": "TaskBarHero_Data/sharedassets0.resource",
+      "bytes": 69405600,
+      "sha256": "db655ed7a760149dd35a7afee93850775939971be944d2e8d59e7f3d2278aaf2"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/AddressablesLink/link.xml",
+      "bytes": 2010,
+      "sha256": "7eb01e96ba72ed6b3a7d4c64e9ff0a4c9b3747d5cc0b2fadff82e5f799ef6890"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/catalog.bin",
+      "bytes": 20868,
+      "sha256": "899f69da2a78ba672313c9a731a04e0ba3dc41c9a5e82880e6d76f51491eb38c"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/catalog.hash",
+      "bytes": 32,
+      "sha256": "319d06aed4e35e16e14f1c61c40fa01eaab3d5ada9bdf4df43e2441963a8f61a"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/settings.json",
+      "bytes": 864,
+      "sha256": "4280eb829319f575cb1a6361b39702c0938f139123911d884bb59afa7f70fd90"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/79c301884ca17e4d1adba9ed6177b68f_monoscripts_fec00216a51d21040ae5e30c5b8fd8d3.bundle",
+      "bytes": 1715,
+      "sha256": "9159c57c3a01d65cd11de9ecc65b4c29c9df69cb5a3b292eedc562e310b2fbbf"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-assets-shared_assets_all.bundle",
+      "bytes": 37469,
+      "sha256": "3e18aec6f6bc1f75696315b0ba93fe8d62ac122453e78b32cbe9d2bd7e2b0bca"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-locales_assets_all.bundle",
+      "bytes": 3229,
+      "sha256": "b2b711ba682f1e4a7320032637c33aa90d1f22d55f370c9b3d4a0d3968f3ba0c"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-chinese(simplified)(zh-hans)_assets_all.bundle",
+      "bytes": 67553,
+      "sha256": "78ea3a3b04d2c11dec0b0cd2942ac5fb356d6e64b9131c4aedaf64d0635d2a17"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-chinese(traditional)(zh-hant)_assets_all.bundle",
+      "bytes": 66562,
+      "sha256": "1b8ed1244aafcd1dea4c5fda6a3210c9ac314b94d6ef7e72f9f6e59cbfc4721f"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+      "bytes": 70485,
+      "sha256": "693cd04097e5bb3bff2ea15efd8e4f9315a99c03e5f7fce4a5183030e4eff0db"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-french(france)(fr-fr)_assets_all.bundle",
+      "bytes": 73770,
+      "sha256": "2eca5619bf207eec366be4423108bfd53121fe9b17308a0dcd0aa6b85944ef9d"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-german(germany)(de-de)_assets_all.bundle",
+      "bytes": 74239,
+      "sha256": "2146acc0f31cc2d237448354267dfa823c3e3e4d597f0e37b531cdefb52b3b54"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-indonesian(indonesia)(id-id)_assets_all.bundle",
+      "bytes": 69719,
+      "sha256": "0eefa26b0b2e7b20b0ea04dae627997c8cd3addc968ae937f0478e2f04b00ecc"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-japanese(japan)(ja-jp)_assets_all.bundle",
+      "bytes": 73269,
+      "sha256": "5a7177dc136774ca5f0fa0cf50995f61a49fb27178f1936b3d82ec0fe2a347e2"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-korean(southkorea)(ko-kr)_assets_all.bundle",
+      "bytes": 67846,
+      "sha256": "ebbf563a3e0cf3aae039f54850f5ec8ecc909550f4e3fc21f769858642b10a66"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-polish(poland)(pl-pl)_assets_all.bundle",
+      "bytes": 75340,
+      "sha256": "1c2dbab0468879bbf5369c9ef2f670d7126a63a43f035288c4213066fd187ac7"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+      "bytes": 72265,
+      "sha256": "a956d8380374ddff5ef2d68c97bdd03a52b973839b748f42f552cb35380eded5"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-russian(russia)(ru-ru)_assets_all.bundle",
+      "bytes": 84147,
+      "sha256": "f14738a0cafd6814a408a2847f2dec69c70e023c54a1d7f5e86591fecf1e03b4"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-spanish(spain)(es-es)_assets_all.bundle",
+      "bytes": 72297,
+      "sha256": "a8c1f2ba0b9b18b728774e29dbe0911491bac3cfcf5a816374871c1c6d168587"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-thai(thailand)(th-th)_assets_all.bundle",
+      "bytes": 78732,
+      "sha256": "20801b466a3093264d98e6bd5bcbeba74832ca898373d1e769133328224e6c65"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-turkish(turkey)(tr-tr)_assets_all.bundle",
+      "bytes": 71699,
+      "sha256": "6392564ffd43514fb098756644210cfd9449ca3d43b3e43a0be78048c25b0987"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-ukrainian(ukraine)(uk-ua)_assets_all.bundle",
+      "bytes": 84071,
+      "sha256": "91f9ef96d64c46efffa987dbb23973dabd43fdcfc22e051a1b805f7b3dc39f5d"
+    },
+    {
+      "path": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-vietnamese(vietnam)(vi-vn)_assets_all_498cfa439e37ef5223a522284e32b8b0.bundle",
+      "bytes": 73370,
+      "sha256": "52e25c360ffb86d138c9d4e66f8d8771dff98160524f427550b4c9b385fae256"
+    },
+    {
+      "path": "UnityCrashHandler64.exe",
+      "bytes": 1612200,
+      "sha256": "badbb244f87c3f8c53b3904b3aa409b8debd4e2357f7740c63432895a61e42e4"
+    },
+    {
+      "path": "UnityPlayer.dll",
+      "bytes": 34106792,
+      "sha256": "1d546b1e762097fe15648497fcaef05f3d0785c5812c9e4d3f684711fd4dd909"
+    },
+    {
+      "path": "Version.txt",
+      "bytes": 5,
+      "sha256": "59296d23d623ce0adf7675d22156e83b1248c8508135a65dd8a9e38c497e94a8"
+    }
+  ]
+}

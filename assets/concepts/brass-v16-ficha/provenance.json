@@ -1,0 +1,318 @@
+{
+  "version": 1,
+  "kind": "Reference-only visual exploration; not Godot implementation",
+  "noAiImageGenerationThisRound": true,
+  "runtimeChanged": false,
+  "method": "Original SVG composition, native-pixel crops, restricted primitive replay into Canvas2D with embedded local fonts and decoded images. No compositor screenshots or nested whole-SVG image raster.",
+  "approval": "Awaiting user layout choice; 03 is assistant recommendation, not approval.",
+  "images": [
+    {
+      "path": "assets/concepts/brass-v16-ficha/01-dossie.png",
+      "dimensions": [
+        1500,
+        1250
+      ],
+      "sha256": "7942c4541bc205d6b867d572db38101a73c6949a130a0feee3eb74f10476bb82",
+      "kind": "original-static-layout-study",
+      "runtimeCapture": false
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/02-caderno.png",
+      "dimensions": [
+        1500,
+        1250
+      ],
+      "sha256": "b0eec383bcdac63006fec2d31a7e82c0f4221ddffe50f2538499966c902319cd",
+      "kind": "original-static-layout-study",
+      "runtimeCapture": false
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/03-trilho.png",
+      "dimensions": [
+        1500,
+        1250
+      ],
+      "sha256": "ed2c461cfb39829cd8b5e6d3b9e2e15004ca7401c2f000cd7ae58c5d01a0a242",
+      "kind": "original-static-layout-study",
+      "runtimeCapture": false
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/04-arquivo.png",
+      "dimensions": [
+        1500,
+        1250
+      ],
+      "sha256": "62ec5b00094930b8efb2bfbbae8510211df5a01ce0f495baf3870a549285e664",
+      "kind": "original-static-layout-study",
+      "runtimeCapture": false
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/comparacao.png",
+      "dimensions": [
+        2000,
+        1900
+      ],
+      "sha256": "7ab047960a7b2ecdb76b43a9e70b48eb1cbe2ecfaf6acdb2a9997d029c08b8b9",
+      "kind": "original-static-layout-study",
+      "runtimeCapture": false
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/pesquisa-menus.png",
+      "dimensions": [
+        1500,
+        1250
+      ],
+      "sha256": "cf38ed1302f0fd0c782988e282f355d9dfeb383ec086d5174958f4fbc2e34998",
+      "kind": "third-party-reference-composition",
+      "runtimeCapture": false
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/pesquisa-hud.png",
+      "dimensions": [
+        1500,
+        1250
+      ],
+      "sha256": "a3b0a420d30ce53a002253efaf3ef3e663235d6ec383fbacd881cfd297e6bce5",
+      "kind": "third-party-reference-composition",
+      "runtimeCapture": false
+    }
+  ],
+  "derived": [
+    {
+      "path": "assets/concepts/brass-v16-ficha/derived/guard.png",
+      "source": "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png",
+      "crop": [
+        555,
+        0,
+        565,
+        941
+      ],
+      "sha256": "07e1895ecaba127828c9ef63c49f38c439756b245d11e73aeb29d6a26eae5584",
+      "method": "System.Drawing native-pixel rectangular crop; no resizing, no source edit."
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/derived/guard-upper.png",
+      "source": "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png",
+      "crop": [
+        555,
+        0,
+        565,
+        750
+      ],
+      "sha256": "1fef66da6166b7c31df384671f85c3fa6d010ac97e49a1e03831b008d1f3d302",
+      "method": "System.Drawing native-pixel rectangular crop; no resizing, no source edit."
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/derived/guard-face.png",
+      "source": "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png",
+      "crop": [
+        650,
+        0,
+        410,
+        455
+      ],
+      "sha256": "febc12bc0b620084d3ca96c3e986e32ffa8d4cf84724aef9f435acdae1883621",
+      "method": "System.Drawing native-pixel rectangular crop; no resizing, no source edit."
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/derived/gunner-face.png",
+      "source": "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png",
+      "crop": [
+        130,
+        0,
+        350,
+        455
+      ],
+      "sha256": "0b72c0cc0dd0a4ce21e2a302bdc8683a19f3bcf81ba6b3083bcbf12ec28d175c",
+      "method": "System.Drawing native-pixel rectangular crop; no resizing, no source edit."
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/derived/healer-face.png",
+      "source": "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png",
+      "crop": [
+        1195,
+        0,
+        350,
+        455
+      ],
+      "sha256": "7e91f360d147af2fcb85415dac3749260434c5997d5c8045b519339751252979",
+      "method": "System.Drawing native-pixel rectangular crop; no resizing, no source edit."
+    },
+    {
+      "path": "assets/concepts/brass-v16-ficha/derived/stage.png",
+      "source": "assets/concepts/brass-v13-godot/compact.png",
+      "crop": [
+        0,
+        62,
+        1000,
+        210
+      ],
+      "sha256": "63ff6e1825151a860c66c303955ed04c01b2ffc9458ce57ba817b570e50abbbb",
+      "method": "System.Drawing native-pixel rectangular crop; no resizing, no source edit."
+    }
+  ],
+  "originals": [
+    {
+      "path": "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png",
+      "sha256": "43b59b500c329fc02f2fd1f712721cb66274187e69e00c250741d45df9312194",
+      "originalUnchangedFromHead": true
+    },
+    {
+      "path": "assets/concepts/brass-v13-godot/compact.png",
+      "sha256": "4d6398c51932664b449adc56162b97b3a5215a35aefa15ca85c525cf54677333",
+      "originalUnchangedFromHead": true
+    }
+  ],
+  "references": [
+    {
+      "id": "nier-items",
+      "title": "NieR:Automata / Items",
+      "path": "assets/concepts/brass-v16-ficha/references/nier-items.jpg",
+      "pageUrl": "https://interfaceingame.com/screenshots/nierautomata-items/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/nierautomata/nierautomata-items.jpg",
+      "credit": "PlatinumGames / Square Enix",
+      "sha256": "3c0c8569f9efb6643cd8e35b2e6785cd4da603d2a8991b09166607fdd3cd349e",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "nier-hud",
+      "title": "NieR:Automata / HUD",
+      "path": "assets/concepts/brass-v16-ficha/references/nier-hud.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/nierautomata-dialoge-options-2/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/nierautomata/nierautomata-dialoge-options.png",
+      "credit": "PlatinumGames / Square Enix",
+      "sha256": "2a44081b536f704b382c555dfb79537c19768f3576c2ca09c0d2b5b6078f8ec9",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "rdr-stable",
+      "title": "Red Dead Redemption 2 / Stable",
+      "path": "assets/concepts/brass-v16-ficha/references/rdr-stable.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/red-dead-redemption-2-stable/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/red-dead-redemption-2/red-dead-redemption-2-stable.png",
+      "credit": "Rockstar Games",
+      "sha256": "6673929cf7724d9094501fae30123ac127e8e2b5c9a2427816133185b8f1f8c9",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "rdr-hud",
+      "title": "Red Dead Redemption 2 / HUD",
+      "path": "assets/concepts/brass-v16-ficha/references/rdr-hud.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/red-dead-redemption-2-hud/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/red-dead-redemption-2/red-dead-redemption-2-hud.png",
+      "credit": "Rockstar Games",
+      "sha256": "77aaa4b5eb4130b360b354f14563377b91c97b50ca4d8e99a30aea4f371c3f76",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "rdr-progress",
+      "title": "Red Dead Redemption 2 / Progress",
+      "path": "assets/concepts/brass-v16-ficha/references/rdr-progress.jpg",
+      "pageUrl": "https://interfaceingame.com/screenshots/red-dead-redemption-2-progress/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/red-dead-redemption-2/red-dead-redemption-2-progress.jpg",
+      "credit": "Rockstar Games",
+      "sha256": "4c3da6b562665b26f1c3284a196de8b35407df92e493e06bf474a2da82c425c2",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "outer-inventory",
+      "title": "The Outer Worlds / Inventory",
+      "path": "assets/concepts/brass-v16-ficha/references/outer-inventory.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/the-outer-worlds-inventory/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/the-outer-worlds/the-outer-worlds-inventory.png",
+      "credit": "Obsidian Entertainment / Private Division",
+      "sha256": "f8f3109a7322266535df50b6cebea00fdffc9515a7b845ea7ef87c0ccc24c9fd",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "outer-hud",
+      "title": "The Outer Worlds / HUD",
+      "path": "assets/concepts/brass-v16-ficha/references/outer-hud.png",
+      "pageUrl": "https://interfaceingame.com/screenshots/the-outer-worlds-hud-2/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/the-outer-worlds/the-outer-worlds-hud-2.png",
+      "credit": "Obsidian Entertainment / Private Division",
+      "sha256": "da1453d6de53241612d28890b90b8e40b1b1cb0377e4b6ae22b8d94f036f99ec",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    },
+    {
+      "id": "dishonored-powers",
+      "title": "Dishonored 2 / Powers",
+      "path": "assets/concepts/brass-v16-ficha/references/dishonored-powers.jpg",
+      "pageUrl": "https://interfaceingame.com/screenshots/dishonored-2-powers/",
+      "imageUrl": "https://interfaceingame.com/wp-content/uploads/dishonored-2/dishonored-2-powers.jpg",
+      "credit": "Arkane Studios / Bethesda Softworks",
+      "sha256": "2ae20ea74b3c0f47981d72052997dac1a7bcea2d9148b4e7448877d1d53f86b6",
+      "dimensions": [
+        3840,
+        2160
+      ],
+      "visuallyInspected": true,
+      "originalUnedited": true,
+      "rights": "Third-party research only; no runtime license granted."
+    }
+  ],
+  "dribbble": {
+    "search": "https://dribbble.com/search/game-ui",
+    "status": "Indexed title/author/description only; direct and embed HTTP 202 empty. Search provider later rate-limited. No visual verification.",
+    "shots": [
+      {
+        "title": "Steampunk UI elemtents",
+        "author": "Jeffrey Karl",
+        "url": "https://dribbble.com/shots/4566535-Steampunk-UI-elemtents"
+      },
+      {
+        "title": "MMORPG Mobile in Game Concept (Mini Study Case)",
+        "author": "BimGraph for Kretya Studio",
+        "url": "https://dribbble.com/shots/24766433-MMORPG-Mobile-in-Game-Concept-Mini-Study-Case"
+      },
+      {
+        "title": "Steampunk UI",
+        "author": "Meng To",
+        "url": "https://dribbble.com/shots/647020-Steampunk-UI"
+      }
+    ]
+  },
+  "rights": "Third-party screenshots for research only. No license for runtime or commercial redistribution is asserted. Historical v12 art is reused reference, not newly generated in this round."
+}

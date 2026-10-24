@@ -10,6 +10,8 @@ Aplicação no M0: três personagens visíveis em uma faixa, inimigos à frente,
 
 ## Assets usados
 
+Em 23/10/2026 foi adicionado um [dossiê de engenharia reversa da instalação local do Taskbar Hero](referencias/taskbar-hero/README.md), com REA, estrutura do Status, catálogo de dados, arquitetura, limites e uma proposta de adaptação ao Aetherforge. A pesquisa examina recursos distribuídos; não adiciona arte ou código do jogo de referência ao runtime do protótipo.
+
 | Pacote | Autor | Origem | Licença | Uso |
 |---|---|---|---|---|
 | KayKit Character Pack Adventures 1.0 | Kay Lousberg | [Repositório oficial](https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0), commit `672074b73ba276876a19e8816ecdc5241817ab47` | CC0 1.0, licença preservada junto aos arquivos | Knight = tank, Rogue = DPS provisório, Mage = healer provisório; renders em oito direções |

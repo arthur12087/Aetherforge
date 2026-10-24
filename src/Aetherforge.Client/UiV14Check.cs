@@ -77,6 +77,27 @@ public partial class UiV14Check : Node
                 Require(scrolls.Length >= 1, "miolo rolavel ausente");
             }
             _checks.Add("cabecalhos/rodapes fixos, miolos rolaveis e acoes dentro das janelas");
+            Require(Descendants(_view).OfType<BrassDossier>().Count()==3, "tres instrumentos Dossie obrigatorios");
+            Require(!Descendants(_view).OfType<BrassDossierRuler>().Any() && !Descendants(_view).OfType<BrassStatSocket>().Any() && _view.StatusPanel.IsInsideTree(), "Status deve usar resumo/detalhe do integrante, sem regua ou sockets antigos");
+            var heroWindow=windows.First(w=>w.Name=="Instrument1");
+            var spread=Descendants(heroWindow).OfType<GridContainer>().First(g=>g.Name=="HeroDossierSpread");
+            Require(spread.Columns is 1 or 2, "adaptacao do Heroi invalida");
+            var originalHeroSize=heroWindow.Size;
+            var heroResizeColumnModes=new List<int>();
+            foreach(var (width, expected) in new[] { (BrassUi.S(588),2), (BrassUi.S(330),1) })
+            {
+                heroWindow.Size=new Vector2I(width, originalHeroSize.Y); await Frames(4);
+                Require(spread.Columns==expected, "Heroi nao alternou entre lado a lado e empilhado");
+                heroResizeColumnModes.Add(spread.Columns);
+            }
+            heroWindow.Size=originalHeroSize; await Frames(4);
+            var slots=Descendants(heroWindow).OfType<Button>().Where(b=>b.Name.ToString().StartsWith("LootSlot")).ToArray();
+            Require(slots.Length==21, "bolsa perdeu os 21 espacos");
+            var heroBody=Descendants(heroWindow).OfType<ScrollContainer>().Single();
+            var bodyRect=heroBody.GetGlobalRect();
+            float rightEdge=bodyRect.End.X-(heroBody.GetVScrollBar().Visible?heroBody.GetVScrollBar().Size.X:0);
+            Require(slots.All(b=>b.GetGlobalRect().Position.X>=bodyRect.Position.X-.5f && b.GetGlobalRect().End.X<=rightEdge+.5f), "bolsa cortada horizontalmente");
+            _checks.Add("V19: tres folhas, Status de integrante, Heroi responsivo e bolsa de 21 slots");
             var nativeIds = windows.Select(w => w.GetWindowId()).ToArray();
             if (DisplayServer.GetName() != "headless" && !_view.Overview)
             {
@@ -125,6 +146,7 @@ public partial class UiV14Check : Node
                 Require(_view.SelectedMemberIndex == memberIndex && _view.Stage.SelectedMemberIndex == memberIndex, "ficha Status nao sincronizou selecao");
                 var ally = _view.Simulation.Party[memberIndex];
                 Require(Math.Abs(slip.Meter.HealthRatio - ally.Health/ally.MaxHealth) < .001, "vida da ficha difere da regra");
+                Require(slip.PortraitView.Texture is AtlasTexture && slip.Meter.Compact, "ficha deve usar recorte v12 e barra editorial");
                 Require(slip.GetChildren().OfType<BrassButtonFeedback>().Count() == 1, "feedback duplicado na ficha");
                 Require(slip.GetChildren().OfType<BrassButtonFeedback>().Single().TransitionCount > 0, "input nao acionou feedback da ficha");
             }
@@ -134,6 +156,40 @@ public partial class UiV14Check : Node
             Require(BrassMotion.Reduced != reducedBefore && Descendants(status).OfType<BrassVitalMeter>().All(meter => !meter.HasTrail), "opcao reduzir movimento nao removeu transicoes");
             await Click(reduceMotion); Require(BrassMotion.Reduced == reducedBefore, "opcao nao restaurou movimento");
             _checks.Add("V15: fichas selecionam por mouse com feedback e vida real; opcao reduzir movimento liga/desliga por mouse");
+
+            Button StatusButton(string name) => Descendants(status).OfType<Button>().Single(button => button.Name == name);
+            Button RouteButton(string name) => Descendants(windows.Single(window=>window.Name=="Instrument2")).OfType<Button>().Single(button=>button.Name==name);
+            var previous = StatusButton("StatusPreviousMember"); var next = StatusButton("StatusNextMember");
+            await Click(previous); Require(_view.SelectedMemberIndex == 2, "anterior nao circulou do Guarda ao Alquimista");
+            await Click(next); Require(_view.SelectedMemberIndex == 0, "proximo nao circulou ao Guarda");
+            next.GrabFocus(); bool pausedBeforeNavigation = _view.Simulation.Paused;
+            await Key(status, Godot.Key.Space);
+            Require(_view.SelectedMemberIndex == 1 && _view.Simulation.Paused == pausedBeforeNavigation, "Espaco deve ativar seletor sem pausar a rota");
+            var panel = _view.StatusPanel;
+            var statusName = Descendants(status).OfType<Label>().Single(label => label.Name == "StatusMemberName");
+            Require(statusName.Text == _view.Simulation.Party[1].Name && panel.SelectedMember == _view.SelectedMemberIndex, "identidade do Status incoerente");
+            var portrait = Descendants(panel).OfType<TextureRect>().Single(texture => texture.Name == "StatusPortrait");
+            Require(portrait.Texture == panel.MemberRows[1].PortraitView.Texture, "retrato difere do integrante selecionado");
+            await Click(StatusButton("OpenStatusDetails")); Require(panel.DetailsVisible, "detalhes nao abriram");
+            var interval = StatusButton("StatusAttribute-interval").GetChildren().OfType<MarginContainer>().Single().GetChild<HBoxContainer>(0).GetChild<Label>(1);
+            Require(interval.Text == $"{_view.Simulation.GetAttackInterval(1):0.##} s", "intervalo nao veio da simulacao");
+            await Click(StatusButton("StatusAttribute-defense"));
+            Require(panel.SelectedAttribute == "defense" && panel.DetailsVisible, "atributo nao abriu explicacao");
+            var explanation = Descendants(panel).OfType<PanelContainer>().Single(p => p.Name == "StatusAttributeExplanation");
+            Require(explanation.Visible && Descendants(explanation).OfType<Label>().Any(label => label.Text.Contains($"{_view.Simulation.Party[1].Defense:0.#}")), "composicao nao corresponde ao Pistoleiro");
+            await Click(next); Require(panel.SelectedMember == 2 && panel.SelectedAttribute == "defense" && statusName.Text == _view.Simulation.Party[2].Name, "trocar integrante perdeu contexto do detalhe");
+            Require(Descendants(explanation).OfType<Label>().Any(label => label.Text.Contains($"{_view.Simulation.Party[2].Defense:0.#}")), "explicacao nao atualizou ao trocar integrante");
+            await Key(status, Godot.Key.Escape); Require(panel.DetailsVisible && panel.SelectedAttribute.Length == 0 && status.Visible, "Escape nao retornou do atributo aos detalhes");
+            await Key(status, Godot.Key.Escape); Require(!panel.DetailsVisible && status.Visible, "Escape nao retornou ao resumo");
+            var detailTrigger = StatusButton("OpenStatusDetails"); await Reveal(detailTrigger); detailTrigger.GrabFocus();
+            await Key(status, Godot.Key.Enter); Require(panel.DetailsVisible, "Enter nao abriu detalhes");
+            for (int i=0; i<8; i++)
+            {
+                await Key(status, Godot.Key.Tab);
+                Require(status.GuiGetFocusOwner() is Control focus && focus.IsVisibleInTree(), "Tab focou controle oculto");
+            }
+            await Click(StatusButton("BackStatusSummary")); Require(!panel.DetailsVisible, "botao voltar nao retornou ao resumo");
+            _checks.Add("V18: anterior/proximo circulam; Espaco/Enter ativam sem pausar; resumo/detalhe/atributo usam dados reais; Escape volta em camadas; Tab ignora ocultos");
             await Key(status, Godot.Key.Escape);
             Require(!status.Visible, "Escape nao fechou o instrumento");
             await Click(Find("Status")); Require(status.Visible, "reabertura por mouse falhou");
@@ -148,7 +204,7 @@ public partial class UiV14Check : Node
             _checks.Add("P na janela ativa escudo real");
             if (!string.IsNullOrEmpty(CaptureDirectory) && DisplayServer.GetName() != "headless")
             {
-                await Key(status, Godot.Key.Space);
+                await Click(RouteButton("RoutePause"));
                 Require(_view.Simulation.Paused, "pausa para captura falhou");
                 foreach (var body in Descendants(status).OfType<ScrollContainer>()) body.ScrollVertical = 0;
                 await Frames(3);
@@ -159,12 +215,27 @@ public partial class UiV14Check : Node
                     var name = window.Title.Contains("STATUS") ? "status" : window.Title.Contains("HERÓI") ? "hero" : "route";
                     Require(window.GetTexture().GetImage().SavePng(Path.Combine(CaptureDirectory, name + ".png")) == Error.Ok, "captura de menu falhou");
                 }
+                await Click(StatusButton("OpenStatusDetails"));
+                foreach (var body in Descendants(status).OfType<ScrollContainer>()) body.ScrollVertical = 0;
+                await Frames(3); await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                Require(status.GetTexture().GetImage().SavePng(Path.Combine(CaptureDirectory, "status-details.png")) == Error.Ok, "captura detalhes Status falhou");
+                await Click(StatusButton("StatusAttribute-dps"));
+                foreach (var body in Descendants(status).OfType<ScrollContainer>()) body.ScrollVertical = 0;
+                await Frames(3); await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                Require(status.GetTexture().GetImage().SavePng(Path.Combine(CaptureDirectory, "status-attribute.png")) == Error.Ok, "captura atributo Status falhou");
+                await Key(status, Godot.Key.Escape); await Key(status, Godot.Key.Escape);
                 Require(GetViewport().GetTexture().GetImage().SavePng(Path.Combine(CaptureDirectory, "input-stage.png")) == Error.Ok, "captura de palco falhou");
-                await Key(status, Godot.Key.Space);
+                foreach (var (selector, image) in new[] { ("CURA", "hero-healer"), ("DPS", "hero-gunner"), ("TANK", "hero-guard") })
+                {
+                    await Click(Find(selector));
+                    await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                    Require(heroWindow.GetTexture().GetImage().SavePng(Path.Combine(CaptureDirectory, image+".png"))==Error.Ok, "captura do integrante falhou");
+                }
+                await Click(RouteButton("RoutePause"));
             }
-            await Click(Descendants(status).OfType<Button>().First(b => b.Text == "Recuar"));
+            await Click(RouteButton("RouteRetreat"));
             Require(_view.Simulation.Phase == ExpeditionPhase.Retreated, "mouse nao recuou");
-            await Click(Descendants(status).OfType<Button>().First(b => b.Text == "Reiniciar" || b.Text.StartsWith("Reiniciar rota")));
+            await Click(RouteButton("ResetRoute"));
             Require(_view.Simulation.Phase == ExpeditionPhase.March && _view.Simulation.Victories == 0 && _view.Simulation.ShieldCooldown == 0, "mouse nao reiniciou");
             Require(_view.Stage.Hud.ActiveFeedbackCount == 0, "reset manteve numeros de combate antigos");
             Require(!Descendants(_view.Stage).OfType<Label3D>().Any(l => l.Name == "EventAmount"), "numero Label3D antigo ainda existe");
@@ -173,6 +244,7 @@ public partial class UiV14Check : Node
             var report = new { passed = true, scale = BrassUi.Scale, display = DisplayServer.GetName(), overview = _view.Overview,
                 inputMethod = _nativePointer ? "Win32 automated mouse with cursor restoration; Godot PushInput keyboard; not human physical input or direct Pressed" : "Godot Viewport.PushInput mouse/key; not direct Pressed or physical input",
                 fontFamily = "Source Sans 3", baseFaceMetadata = BrassUi.BodyFont.GetFontName(), actualWeights, digitWidths, nativeIds, checks = _checks,
+                dossier = new { heroSpreadColumns = spread.Columns, heroResizeColumnModes, statusPortraits = 3, sharedRulers = 0, bagCapacity = 21, ownedItems = _view.Simulation.Rewards.Inventory.Count },
                 windows = windows.Select(w => new { title = w.Title, x = w.Position.X, y = w.Position.Y, width = w.Size.X, height = w.Size.Y }).ToArray() };
             var json = JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true });
             if (!string.IsNullOrEmpty(EvidencePath)) { Directory.CreateDirectory(Path.GetDirectoryName(EvidencePath)!); File.WriteAllText(EvidencePath, json); }

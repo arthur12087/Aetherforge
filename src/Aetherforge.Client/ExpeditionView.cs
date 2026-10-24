@@ -21,23 +21,30 @@ public partial class ExpeditionView : Control
     public int InventoryColumns => _bag.Columns;
     public int MemberSelectorCount => _selectors.Length;
     public int RouteNodeCount => _route.StageCount;
+    public bool HeroUsesSpread => _heroSpread.Columns == 2;
+    public ExpeditionStatusPanel StatusPanel { get; private set; } = null!;
+    public ExpeditionLootView LootPanel { get; private set; } = null!;
 
     private readonly Window[] _menus = new Window[3];
     private readonly Button[] _launchers = new Button[3], _selectors = new Button[3];
     private readonly BrassPartyRow[] _statusMembers = new BrassPartyRow[3];
-    private readonly Label[] _stats = new Label[3];
     private bool _snapVitals = true;
     private readonly List<Button> _pauseButtons = new(), _retreatButtons = new();
     private readonly List<string> _recent = new();
     private GridContainer _bag = null!;
     private ExpeditionMenuRoute _route = null!;
-    private Label _selectedName = null!, _heroName = null!, _heroRole = null!, _shieldState = null!,
-        _healState = null!, _phase = null!, _ticket = null!, _journal = null!, _stageTitle = null!, _stageEvent = null!, _maxHealth = null!;
+    private Label _heroName = null!, _heroRole = null!, _shieldState = null!, _rewardNotice = null!, _routeRewards = null!,
+        _phase = null!, _ticket = null!, _journal = null!, _stageTitle = null!, _stageEvent = null!;
     private Button _shield = null!, _dockButton = null!, _detailsButton = null!;
     private TextureRect _portrait = null!;
-    private readonly AtlasTexture[] _portraits = new AtlasTexture[3];
+    private readonly AtlasTexture[] _portraits = new AtlasTexture[3], _faces = new AtlasTexture[3];
+    private GridContainer _heroSpread = null!;
+    private PanelContainer _heroFrame = null!;
+    private VBoxContainer _heroDetails = null!;
     private Control _menuSpace = null!;
     private int _selected, _lastEventId = -1;
+    private long _lastRewardId;
+    private double _rewardUntil;
     private double _refreshIn;
     private bool _headless, _docked = true, _ready;
     private readonly List<int> _openOrder = new();
@@ -57,9 +64,10 @@ public partial class ExpeditionView : Control
         BrassUi.FullRect(this);
         GetViewport().GuiEmbedSubwindows = Overview || _headless;
         BuildRoot();
-        BuildMenu(0, "STATUS", "Mesa de regulagem", BuildStatus);
-        BuildMenu(1, "HERÓI", "Estojo de expedição", BuildHero);
-        BuildMenu(2, "EXPEDIÇÃO", "Telégrafo de rotas", BuildRoute);
+        InitializePortraits();
+        BuildMenu(0, "STATUS", "01 / INTEGRANTE EM CAMPO", BuildStatus);
+        BuildMenu(1, "HERÓI", "02 / ESTOJO", BuildHero);
+        BuildMenu(2, "EXPEDIÇÃO", "03 / BILHETE DE ROTA", BuildRoute);
         _ready = true;
         if (!_headless) ConfigureRoot(true);
         else GetWindow().Size = Overview ? new Vector2I(1160, 880) : new Vector2I(1000, 320);
@@ -126,10 +134,12 @@ public partial class ExpeditionView : Control
         _stageEvent = BrassUi.Text("Equipe em marcha", 13, BrassUi.Paper);
         _stageEvent.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
         stageColumn.AddChild(_stageEvent);
+        _rewardNotice=BrassUi.Text("",13,BrassUi.Ether); _rewardNotice.Name="VictoryRewardNotice";
+        _rewardNotice.TextOverrunBehavior=TextServer.OverrunBehavior.TrimEllipsis; _rewardNotice.Visible=false; stageColumn.AddChild(_rewardNotice);
         var footer = new HFlowContainer(); _rootFooter = footer; column.AddChild(footer);
-        footer.AddChild(BrassUi.Text("Espaço: pausa   ·   P: escudo   ·   R: reiniciar", 13, Overview ? BrassUi.Tobacco : BrassUi.Paper));
+        footer.AddChild(BrassUi.Text("Espaço: ação / pausa   ·   P: escudo   ·   R: reiniciar", 13, Overview ? BrassUi.Tobacco : BrassUi.Paper));
         footer.AddChild(new Control { SizeFlagsHorizontal = SizeFlags.ExpandFill });
-        footer.AddChild(BrassUi.Text("LOCAL · sem API", 13, Overview ? BrassUi.Tobacco : BrassUi.Ether));
+        footer.AddChild(BrassUi.Text("SESSÃO LOCAL", 13, Overview ? BrassUi.Tobacco : BrassUi.Ether));
     }
 
     private static VBoxContainer Column(int gap = 8)
@@ -141,7 +151,7 @@ public partial class ExpeditionView : Control
 
     private static Label Heading(string text, int size = 18, Color? color = null)
     {
-        var label = BrassUi.Emphasis(text, size, color);
+        var label = BrassUi.Emphasis(text, size, color ?? BrassUi.Soot);
         label.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         label.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         return label;
@@ -162,45 +172,29 @@ public partial class ExpeditionView : Control
             Size = new Vector2I(S(380), S(620)), MinSize = new Vector2I(300, S(280)),
             Visible = false, Borderless = true, Transient = false, Exclusive = false,
             AlwaysOnTop = !Overview && !_headless && _docked,
-            Theme = Theme, WrapControls = false, GuiDisableInput = false, HandleInputLocally = true
+            Theme = BrassUi.CreateDossierTheme(), WrapControls = false, GuiDisableInput = false, HandleInputLocally = true
         };
         _menus[index] = window; AddChild(window);
         window.CloseRequested += () => SetMenuVisible(index, false);
         window.AddChild(new ExpeditionMenuInput { Handle = input => HandleKey(input, window, index) });
         // Chassis fills the viewport. Its minimum comes only from fixed header/footer;
         // the ScrollContainer deliberately contributes no vertical content minimum.
-        var chassis = new BrassChassis { Name = "InstrumentChassis", Instrument = index };
+        var chassis = new BrassDossier { Name = "InstrumentChassis" };
         window.AddChild(chassis); BrassUi.FullRect(chassis);
         var shell = Column(8); chassis.AddChild(shell);
-        var top = Column(index == 1 ? 4 : 2); top.Name = "FixedHeader"; shell.AddChild(top);
+        var top = Column(2); top.Name = "FixedHeader"; shell.AddChild(top);
         _menuHeaders[index] = top;
-        var crest = new HBoxContainer(); top.AddChild(crest);
-        if (index == 0)
-        {
-            crest.AddChild(BrassUi.Text("01 / STATUS", 13, BrassUi.Paper));
-            crest.AddChild(new BrassArch { CustomMinimumSize = new Vector2(S(34), S(18)), SizeFlagsHorizontal = SizeFlags.ExpandFill });
-        }
-        else if (index == 1)
-            crest.AddChild(new BrassArch { CustomMinimumSize = new Vector2(0, S(28)), SizeFlagsHorizontal = SizeFlags.ExpandFill });
-        else
-        {
-            var routeIcon = new TextureRect { Texture = BrassUi.Icon("route"), ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-                StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered, CustomMinimumSize = new Vector2(S(22), S(22)), MouseFilter = MouseFilterEnum.Ignore };
-            crest.AddChild(routeIcon);
-            crest.AddChild(BrassUi.Text("03 / ROTA DE CAÇA", 13, BrassUi.Paper));
-        }
-        var header = new HBoxContainer(); top.AddChild(header);
-        var plate = new BrassInstrumentPlate { Name = "EngravedTitle", SizeFlagsHorizontal = SizeFlags.ExpandFill, MouseFilter = MouseFilterEnum.Stop };
-        header.AddChild(plate);
-        var heading = BrassUi.Text(title, 24, BrassUi.Soot, true);
-        heading.HorizontalAlignment = index == 1 ? HorizontalAlignment.Center : HorizontalAlignment.Left;
-        plate.AddChild(heading);
+        top.AddChild(BrassUi.Text(subtitle, 13, BrassUi.Tobacco));
+        var plate = new PanelContainer { Name = "DossierHeading", MouseFilter = MouseFilterEnum.Stop };
+        var band = BrassUi.Box(index == 1 ? BrassUi.Linen : BrassUi.Wine, BrassUi.Tobacco, 0, 8, 0);
+        if (index == 1) band.BorderWidthBottom = S(1);
+        plate.AddThemeStyleboxOverride("panel", band); top.AddChild(plate);
+        var header = new HBoxContainer { MouseFilter = MouseFilterEnum.Pass }; plate.AddChild(header);
+        var heading = BrassUi.Text(index == 1 ? "Herói" : title, index == 1 ? 14 : 24, index == 1 ? BrassUi.Soot : BrassUi.Linen, index != 1);
+        heading.SizeFlagsHorizontal = SizeFlags.ExpandFill; header.AddChild(heading);
         var close = BrassUi.Button("×", () => SetMenuVisible(index, false));
         close.Name = "CloseInstrument" + index; _closeButtons[index] = close;
-        close.TooltipText = "Fechar menu · Escape"; BrassUi.Quiet(close);
-        // Keep the complete instrument title on its own plate at large text scales.
-        if (index == 2) crest.AddChild(new Control { SizeFlagsHorizontal = SizeFlags.ExpandFill });
-        crest.AddChild(close);
+        close.TooltipText = "Fechar menu · Escape"; BrassUi.DossierButton(close, index != 1); header.AddChild(close);
         bool dragging = false; Vector2I origin = default, mouseOrigin = default;
         plate.GuiInput += input =>
         {
@@ -215,8 +209,6 @@ public partial class ExpeditionView : Control
                 window.Position = ClampPosition(origin + mouse - mouseOrigin, window.Size, MenuBounds());
             }
         };
-        var caption = BrassUi.Text(subtitle, 13, BrassUi.Paper);
-        caption.HorizontalAlignment = index == 1 ? HorizontalAlignment.Center : HorizontalAlignment.Left; top.AddChild(caption);
         var scroll = new ScrollContainer
         {
             Name = "ScrollableBody", HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled,
@@ -244,88 +236,67 @@ public partial class ExpeditionView : Control
         WireFocus(window);
     }
 
+    private void InitializePortraits()
+    {
+        var source = GD.Load<Texture2D>("res://Assets/Brass/Portraits/equipe-v12.png");
+        Rect2[] full = { new(555, 0, 565, 941), new(0, 0, 555, 941), new(1120, 0, 552, 941) };
+        Rect2[] faces = { new(650, 0, 410, 455), new(130, 0, 350, 455), new(1195, 0, 350, 455) };
+        for (int i = 0; i < 3; i++)
+        {
+            _portraits[i] = new AtlasTexture { Atlas = source, Region = full[i], FilterClip = true };
+            _faces[i] = new AtlasTexture { Atlas = source, Region = faces[i], FilterClip = true };
+        }
+    }
+
     private void BuildStatus(VBoxContainer column, VBoxContainer footer)
     {
-        column.AddThemeConstantOverride("separation", S(6));
-        _selectedName = Heading(""); _selectedName.TooltipText = "Integrante selecionado · clique nas fichas da equipe ou nos seletores de Herói"; column.AddChild(_selectedName);
-        var stats = new HBoxContainer(); column.AddChild(stats);
-        string[] names = { "Vida", "Ataque", "Defesa" };
-        for (var i = 0; i < 3; i++)
-        {
-            var plate = new BrassStatSocket { Kind = i, Name = "StatSocket" + i, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsStretchRatio = 1 };
-            stats.AddChild(plate);
-            var box = Column(0); plate.AddChild(box);
-            var legend = new HBoxContainer { Alignment = BoxContainer.AlignmentMode.Center }; legend.AddThemeConstantOverride("separation", S(4)); box.AddChild(legend);
-            var icon = new TextureRect { Texture = BrassUi.Icon(i == 0 ? "vital" : i == 1 ? "rifle" : "shield"), Modulate = BrassUi.Soot,
-                CustomMinimumSize = new Vector2(S(14), S(14)), ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered, MouseFilter = MouseFilterEnum.Ignore };
-            legend.AddChild(icon);
-            var label = BrassUi.Text(names[i], 13, BrassUi.Soot); label.HorizontalAlignment = HorizontalAlignment.Center; legend.AddChild(label);
-            _stats[i] = BrassUi.Emphasis("", 28, BrassUi.Soot);
-            _stats[i].HorizontalAlignment = HorizontalAlignment.Center; box.AddChild(_stats[i]);
-            if (i == 0)
-            {
-                _maxHealth = BrassUi.Text("", 13, BrassUi.Soot);
-                _maxHealth.HorizontalAlignment = HorizontalAlignment.Center; box.AddChild(_maxHealth);
-            }
-        }
-        column.AddChild(Heading("Equipe", 16));
-        for (var i = 0; i < 3; i++)
-        {
-            int member = i;
-            var healthRow = new BrassPartyRow { Name = "SelectStatusMember" + i, MemberIndex = i, FocusMode = FocusModeEnum.All };
-            healthRow.Pressed += () => SelectMember(member);
-            _statusMembers[i] = healthRow; column.AddChild(healthRow);
-        }
-        column.AddChild(Heading("Apoio automático", 16));
-        _healState = BrassUi.Wrap("", 14, BrassUi.Paper); column.AddChild(_healState);
-        column.AddChild(BrassUi.Wrap("Aliados vivos atacam automaticamente. O Guarda recebe a maioria dos golpes comuns.", 14, BrassUi.Paper));
-        var reduce = new CheckButton { Name = "ReduceUiMotion", Text = "Reduzir movimento da UI", ButtonPressed = BrassMotion.Reduced, FocusMode = FocusModeEnum.All };
-        reduce.TooltipText = "Remove as transições decorativas de foco/clique e o rastro de vida. Estados, valores e foco continuam imediatos. Não altera combate, animação 3D ou áudio.";
-        reduce.Toggled += value => BrassMotion.Reduced = value; column.AddChild(reduce);
+        StatusPanel = new ExpeditionStatusPanel();
+        StatusPanel.Bind(Simulation, _faces, SelectMember);
+        column.AddChild(StatusPanel);
+        for (int i=0; i<3; i++) _statusMembers[i] = StatusPanel.MemberRows[i];
+        StatusPanel.NavigationChanged += () => WireFocus(_menus[0]);
         var protection = new PanelContainer();
-        protection.AddThemeStyleboxOverride("panel", BrassUi.Box(BrassUi.Soot, BrassUi.Soot, 0, 6, 6)); footer.AddChild(protection);
+        protection.AddThemeStyleboxOverride("panel", BrassUi.Box(BrassUi.Linen, BrassUi.Paper, 0, 0, 2)); footer.AddChild(protection);
         var protectionColumn = Column(2); protection.AddChild(protectionColumn);
-        _shield = BrassUi.Button("Escudo de Pressão", ActivateShield); _shield.Name = "PressureShield";
+        var shortcuts=new HBoxContainer(); protectionColumn.AddChild(shortcuts);
+        _shield = BrassUi.Button("Escudo · P", ActivateShield); _shield.Name = "PressureShield";
         _shield.TooltipText = "P · Protege o Guarda durante o combate, reduzindo o dano recebido. Não concede imunidade. A pausa congela a duração e a recarga.";
-        SetIcon(_shield, "shield"); BrassUi.Primary(_shield); protectionColumn.AddChild(_shield);
-        _shieldState = BrassUi.Wrap("", 14); protectionColumn.AddChild(_shieldState);
-        AddActions(footer, false);
+        SetIcon(_shield, "shield"); BrassUi.DossierButton(_shield, true); _shield.SizeFlagsHorizontal=SizeFlags.ExpandFill; shortcuts.AddChild(_shield);
+        var routeShortcut=BrassUi.Button("Expedição",()=>SetMenuVisible(2,true)); routeShortcut.Name="StatusRouteActions";
+        routeShortcut.TooltipText="Pausar, recuar ou reiniciar a rota"; BrassUi.DossierButton(routeShortcut); shortcuts.AddChild(routeShortcut);
+        _shieldState = BrassUi.Wrap("", 14, BrassUi.Soot); protectionColumn.AddChild(_shieldState);
     }
 
     private void BuildHero(VBoxContainer column, VBoxContainer footer)
     {
-        var source = GD.Load<Texture2D>("res://Assets/Brass/Portraits/equipe-v12.png");
-        _portraits[0] = new AtlasTexture { Atlas = source, Region = new Rect2(555, 0, 565, 941), FilterClip = true };
-        _portraits[1] = new AtlasTexture { Atlas = source, Region = new Rect2(0, 0, 555, 941), FilterClip = true };
-        _portraits[2] = new AtlasTexture { Atlas = source, Region = new Rect2(1120, 0, 552, 941), FilterClip = true };
-        var frame = new BrassPortraitFrame { CustomMinimumSize = new Vector2(0, S(220)) };
-        column.AddChild(frame);
+        _heroSpread = new GridContainer { Name = "HeroDossierSpread", Columns = 1, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        _heroSpread.AddThemeConstantOverride("h_separation", S(16)); column.AddChild(_heroSpread);
+        var portraitColumn = Column(6); _heroSpread.AddChild(portraitColumn);
+        var frame = new PanelContainer { Name = "HeroPortraitFrame", CustomMinimumSize = new Vector2(0, S(260)), MouseFilter = MouseFilterEnum.Ignore };
+        frame.AddThemeStyleboxOverride("panel", BrassUi.Box(BrassUi.Paper, BrassUi.Paper, 0)); _heroFrame = frame;
+        portraitColumn.AddChild(frame);
+        portraitColumn.AddChild(BrassUi.Wrap("Retrato v12 · arte de referência", 13, BrassUi.Tobacco));
+        var details = Column(8); details.Name = "HeroDossierDetails"; _heroDetails = details; _heroSpread.AddChild(details);
+        void AdaptSpread()
+        {
+            bool sideBySide = column.Size.X >= S(480);
+            _heroSpread.Columns = sideBySide ? 2 : 1;
+            // Resize artwork, not text: preserve the whole figure where body height permits.
+            float artHeight = sideBySide ? Math.Clamp(_menuScrolls[1].Size.Y-S(32), S(200), S(380)) : S(260);
+            frame.CustomMinimumSize = new Vector2(sideBySide ? S(160) : 0, artHeight);
+            details.CustomMinimumSize = new Vector2(sideBySide ? S(210) : 0, 0);
+        }
+        column.Resized += AdaptSpread;
+        _menuScrolls[1].Resized += AdaptSpread;
         _portrait = new TextureRect { ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered, MouseFilter = MouseFilterEnum.Ignore };
         frame.AddChild(_portrait);
-        _heroName = Heading("", 20); _heroName.HorizontalAlignment = HorizontalAlignment.Center; column.AddChild(_heroName);
-        _heroRole = BrassUi.Wrap("", 14, BrassUi.Paper); _heroRole.HorizontalAlignment = HorizontalAlignment.Center; column.AddChild(_heroRole);
-        column.AddChild(Heading("Bolsa", 16));
-        column.AddChild(BrassUi.Wrap("21 espaços indisponíveis. Equipamento fora desta fatia.", 14, BrassUi.Paper));
-        _bag = new GridContainer { Name = "EquipmentBag", Columns = 7 }; column.AddChild(_bag);
-        for (var i = 0; i < 21; i++)
-        {
-            var socket = new Button { Name = "UnavailableSlot" + i, Disabled = true, CustomMinimumSize = new Vector2(0, S(28)),
-                SizeFlagsHorizontal = SizeFlags.ExpandFill, TooltipText = "Indisponível · equipamento fora desta fatia", FocusMode = FocusModeEnum.None };
-            // Empty sockets must not inherit text-button padding: seven columns still
-            // fit an embedded instrument at 150%, without shrinking any text.
-            socket.AddThemeStyleboxOverride("disabled", BrassUi.Box(BrassUi.Soot, BrassUi.Tobacco, 0));
-            _bag.AddChild(socket);
-            var engraving = new BrassEmptySlot(); socket.AddChild(engraving); BrassUi.FullRect(engraving);
-        }
-        // Use actual available width (already in screen space), keeping all seven columns
-        // square without scaling the geometry a second time or imposing a wide minimum.
-        _bag.Resized += () =>
-        {
-            float side = Math.Max(1, (_bag.Size.X - 6 * _bag.GetThemeConstant("h_separation")) / 7);
-            foreach (Button socket in _bag.GetChildren())
-                if (Math.Abs(socket.CustomMinimumSize.Y - side) > 1) socket.CustomMinimumSize = new Vector2(0, side);
-        };
-        footer.AddChild(BrassUi.Wrap("Selecionar integrante · inspecionar no palco", 13, BrassUi.Paper));
+        _heroName = Heading("", 20); details.AddChild(_heroName);
+        _heroRole = BrassUi.Wrap("", 14, BrassUi.Tobacco); details.AddChild(_heroRole);
+        details.AddChild(new HSeparator());
+        details.AddChild(Heading("Ganhos da sessão",16));
+        LootPanel=new ExpeditionLootView(); LootPanel.Bind(Simulation); details.AddChild(LootPanel); _bag=LootPanel.Bag;
+        LootPanel.InventoryChanged+=()=>WireFocus(_menus[1]);
+        footer.AddChild(BrassUi.Wrap("Selecionar integrante · inspecionar no palco", 13, BrassUi.Tobacco));
         var selectors = new HBoxContainer(); footer.AddChild(selectors);
         var group = new ButtonGroup();
         int[] order = { 2, 1, 0 }; string[] labels = { "CURA", "DPS", "TANK" }, icons = { "heal", "rifle", "shield" };
@@ -336,7 +307,7 @@ public partial class ExpeditionView : Control
             button.Name = "SelectMember" + member;
             button.ToggleMode = true; button.ButtonGroup = group; button.SizeFlagsHorizontal = SizeFlags.ExpandFill;
             button.TooltipText = Simulation.Party[member].Name + " · atualizar retrato, Status e identificação no palco";
-            SetIcon(button, icons[i]); BrassUi.Quiet(button);
+            SetIcon(button, icons[i]); BrassUi.DossierButton(button);
             button.IconAlignment = HorizontalAlignment.Center;
             button.VerticalIconAlignment = VerticalAlignment.Top;
             button.CustomMinimumSize = new Vector2(0, S(64));
@@ -348,32 +319,33 @@ public partial class ExpeditionView : Control
     {
         column.AddChild(Heading("Galerias da Caldeira", 18));
         _route = new ExpeditionMenuRoute { Name = "FiveStageRoute" }; column.AddChild(_route);
-        var ticket = new PanelContainer(); ticket.AddThemeStyleboxOverride("panel", BrassUi.Box(BrassUi.Linen, BrassUi.Brass, 0, 10, 8)); column.AddChild(ticket);
+        var ticket = new PanelContainer(); ticket.AddThemeStyleboxOverride("panel", BrassUi.Box(BrassUi.Linen, BrassUi.Tobacco, 0, 0, 8)); column.AddChild(ticket);
         var ticketColumn = Column(4); ticket.AddChild(ticketColumn);
         _ticket = Heading("", 20, BrassUi.Soot); ticketColumn.AddChild(_ticket);
         _phase = BrassUi.Wrap("", 14, BrassUi.Soot); ticketColumn.AddChild(_phase);
         column.AddChild(Heading("Últimos acontecimentos", 16));
-        _journal = BrassUi.Wrap("A equipe inicia a marcha.", 14, BrassUi.Linen); column.AddChild(_journal);
+        _journal = BrassUi.Wrap("A equipe inicia a marcha.", 14, BrassUi.Tobacco); column.AddChild(_journal);
+        _routeRewards=BrassUi.Wrap("",14,BrassUi.Soot); _routeRewards.Name="RouteRewardSummary"; column.AddChild(_routeRewards);
         AddActions(footer, true);
     }
 
     private void AddActions(VBoxContainer column, bool primary)
     {
         var row = new HBoxContainer(); column.AddChild(row);
-        var pause = BrassUi.Button(primary ? "Pausar expedição" : "Pausar", ContinueOrPause);
+        var pause = BrassUi.Button("Pausar", ContinueOrPause);
         pause.Name = primary ? "RoutePause" : "StatusPause";
-        SetIcon(pause, "pause"); BrassUi.Quiet(pause);
+        SetIcon(pause, "pause"); BrassUi.DossierButton(pause, !primary);
         pause.SizeFlagsHorizontal = SizeFlags.ExpandFill; row.AddChild(pause); _pauseButtons.Add(pause);
-        if (!primary)
+        if (primary)
         {
             var reset = BrassUi.Button("Reiniciar", ResetSimulation); reset.Name = "ResetRoute";
-            reset.TooltipText = "Reiniciar rota · R"; BrassUi.Quiet(reset); row.AddChild(reset);
+            reset.TooltipText = "Nova tentativa · mantém nível, XP e ganhos desta sessão · R"; BrassUi.DossierButton(reset); row.AddChild(reset);
         }
         // Recuar is physically separated from the frequent pause action.
         var retreat = BrassUi.Button("Recuar", () => { Simulation.Retreat(); RefreshState(); });
         retreat.Name = primary ? "RouteRetreat" : "StatusRetreat";
         retreat.TooltipText = "Encerrar esta tentativa e retirar a equipe da rota.";
-        SetIcon(retreat, "return"); BrassUi.Quiet(retreat);
+        SetIcon(retreat, "return"); BrassUi.DossierButton(retreat);
         column.AddChild(retreat); _retreatButtons.Add(retreat);
     }
 
@@ -388,7 +360,7 @@ public partial class ExpeditionView : Control
 
     private static void WireFocus(Window window)
     {
-        var buttons = MenuFocusControls(window).ToArray();
+        var buttons = MenuFocusControls(window).Where(control => control.IsVisibleInTree() && !(control is BaseButton button && button.Disabled)).ToArray();
         for (var i = 0; i < buttons.Length; i++)
         {
             buttons[i].FocusNext = buttons[(i + 1) % buttons.Length].GetPath();
@@ -424,7 +396,8 @@ public partial class ExpeditionView : Control
     }
     private void ResetSimulation()
     {
-        Simulation.Reset(); _snapVitals = true; _lastEventId = -1; _recent.Clear(); RefreshState();
+        Simulation.RestartRoute(); _snapVitals = true; _lastEventId = -1; _recent.Clear();
+        _lastRewardId=Simulation.Rewards.LastReward?.Sequence??0; _rewardNotice.Visible=false; _rewardUntil=0; RefreshState();
     }
 
     private static void SetText(Label label, string text) { if (label.Text != text) label.Text = text; }
@@ -432,26 +405,17 @@ public partial class ExpeditionView : Control
     {
         if (!_ready) return;
         var member = Simulation.Party[_selected];
-        SetText(_selectedName, member.Name);
-        SetText(_stats[0], Math.Ceiling(member.Health).ToString("0"));
-        SetText(_maxHealth, $"/ {member.MaxHealth:0}");
-        SetText(_stats[1], member.Attack.ToString("0.#"));
-        SetText(_stats[2], member.Defense.ToString("0.#"));
-        for (var i = 0; i < 3; i++)
-        {
-            var ally = Simulation.Party[i];
-            _statusMembers[i].UpdateMember(ally.Name, ally.Health, ally.MaxHealth, i == _selected, Simulation.Paused, _snapVitals);
-        }
+        StatusPanel.UpdateState(_selected, _snapVitals);
         _snapVitals = false;
-        SetText(_heroName, member.Name);
+        SetText(_heroName, member.Name+$" · Nv. {member.Progression.Level}");
+        LootPanel.UpdateState();
         SetText(_heroRole, _selected == 0 ? "TANK · prioridade de proteção" : _selected == 1 ? "DPS · ataques automáticos" : "CURA · apoio automático condicional");
         _shield.Disabled = Simulation.Phase != ExpeditionPhase.Combat || Simulation.Paused || Simulation.Party[0].Health <= 0 || Simulation.ShieldCooldown > 0;
         SetText(_shieldState, Terminal ? "Indisponível · encerrada" : Simulation.Party[0].Health <= 0 ? "Indisponível · Guarda caído"
-            : Simulation.ShieldRemaining > 0 ? $"Protegido · {Simulation.ShieldRemaining:0.0} s"
+            : Simulation.ShieldRemaining > 0 ? $"Guarda protegido · {Simulation.ShieldRemaining:0.0} s"
             : Simulation.ShieldCooldown > 0 ? $"Recarga · {Simulation.ShieldCooldown:0.0} s"
             : Simulation.Paused ? "Pronto · retome para ativar"
             : Simulation.Phase == ExpeditionPhase.Combat ? "Pronto · ativar com P ou clique" : "Pronto · aguarda combate");
-        SetText(_healState, Terminal ? "Cura suspensa · tentativa encerrada." : Simulation.Party[2].Health <= 0 ? "Cura indisponível: Alquimista caído." : Simulation.HealCooldown > 0 ? $"Infusão automática · recarga {Simulation.HealCooldown:0.0} s" : "Infusão automática: cura feridos com o Alquimista vivo.");
         var phase = Simulation.Phase switch
         {
             ExpeditionPhase.March => "Em marcha", ExpeditionPhase.Combat => "Em combate",
@@ -464,21 +428,32 @@ public partial class ExpeditionView : Control
         _route.UpdateRoute(Simulation);
         SetText(_stageTitle, $"GALERIAS DA CALDEIRA   /   {Simulation.StageName.ToUpperInvariant()}   ·   {phase.ToUpperInvariant()}");
         SetText(_stageEvent, Simulation.LastEvent);
-        _pauseButtons[0].Text = Terminal ? "Encerrada" : Simulation.Paused ? "Continuar" : "Pausar";
-        _pauseButtons[0].Disabled = Terminal;
-        _pauseButtons[1].Text = Terminal ? "Reiniciar expedição" : Simulation.Paused ? "Continuar expedição" : "Pausar expedição";
+        _pauseButtons[0].Text = Terminal ? "Reiniciar rota" : Simulation.Paused ? "Continuar" : "Pausar";
         foreach (var button in _retreatButtons) button.Disabled = Terminal;
         foreach (var e in Simulation.Events)
         {
             if (e.Id <= _lastEventId) continue;
             _lastEventId = e.Id;
             // Combat impacts remain visible on stage; keep the journal readable instead of flooding attacks.
-            if (e.Kind is not ("phase" or "heal" or "shield" or "kill")) continue;
+            if (e.Kind is not ("phase" or "heal" or "shield" or "kill" or "reward" or "level" or "drop")) continue;
             var stamp = TimeSpan.FromSeconds(e.At);
             _recent.Add($"{(int)stamp.TotalMinutes:00}:{stamp.Seconds:00}  {e.Message}");
             if (_recent.Count > 3) _recent.RemoveAt(0);
         }
         SetText(_journal, _recent.Count == 0 ? "A equipe inicia a marcha." : string.Join("\n", _recent));
+        var rewards=Simulation.Rewards;
+        var latest=rewards.LastReward;
+        if(latest!=null && latest.Sequence>_lastRewardId)
+        {
+            _lastRewardId=latest.Sequence; _rewardUntil=Simulation.Elapsed+4;
+            string experience=latest.ExperienceGranted.All(x=>x==latest.ExperienceGranted[0])?$"+{latest.ExperienceGranted[0]} XP por integrante":"XP distribuída";
+            string levels=latest.LevelsGained.Any(x=>x>0)?" · NÍVEL AUMENTOU":"";
+            string item=latest.Drop!=null?" · "+latest.Drop.Name:"";
+            SetText(_rewardNotice,$"VITÓRIA · {experience} · +{latest.Coins} moedas · +{latest.Scrap} sucatas{levels}{item}");
+            _rewardNotice.TooltipText=_rewardNotice.Text;
+        }
+        _rewardNotice.Visible=latest!=null && Simulation.Elapsed<_rewardUntil;
+        SetText(_routeRewards,$"Ganhos da sessão\n{rewards.Coins} moedas · {rewards.Scrap} sucatas · {rewards.Components} componentes\n{rewards.Inventory.Count} itens na bolsa"+(rewards.PendingDrops.Count>0?$" · {rewards.PendingDrops.Count} pendentes":""));
     }
 
     private void SetMenuVisible(int index, bool visible, bool focus = true)
@@ -492,11 +467,13 @@ public partial class ExpeditionView : Control
         {
             _openOrder.Add(index);
             window.Position = ClampPosition(window.Position, window.Size, MenuBounds());
+            if (index == 0) { StatusPanel.ResetNavigation(); _menuScrolls[0].ScrollVertical = 0; }
+            WireFocus(window);
             if (focus && !_headless)
             {
                 // Explicit user-open only. Dock movement never raises this window or the stage.
                 window.GrabFocus();
-                var initial = index == 1 ? _selectors[_selected] : index == 0 && !_shield.Disabled ? _shield : _pauseButtons[index == 0 ? 0 : 1];
+                var initial = index == 1 ? _selectors[_selected] : index == 0 ? StatusPanel.InitialFocus : _pauseButtons[0];
                 if (initial.Disabled) initial = _closeButtons[index];
                 initial.GrabFocus();
             }
@@ -513,19 +490,22 @@ public partial class ExpeditionView : Control
         _launchers[index].SetPressedNoSignal(visible);
     }
 
-    // Capture shortcuts before focused Buttons consume Space as ui_accept.
+    // Focused controls retain Space as ui_accept; otherwise Space pauses the expedition.
     public override void _Input(InputEvent input) => HandleKey(input, GetViewport(), -1);
     private void HandleKey(InputEvent input, Viewport viewport, int menu)
     {
         if (input is not InputEventKey key || !key.Pressed || key.Echo || key.CtrlPressed || key.AltPressed || key.MetaPressed) return;
         switch (key.Keycode)
         {
-            case Key.Space: ContinueOrPause(); break;
+            case Key.Space:
+                if (viewport.GuiGetFocusOwner() is BaseButton focused && focused.IsVisibleInTree() && !focused.Disabled) return;
+                ContinueOrPause(); break;
             case Key.P: ActivateShield(); break;
             case Key.R: ResetSimulation(); break;
             case Key.Escape:
                 int close = menu >= 0 ? menu : _openOrder.Count > 0 ? _openOrder[^1] : -1;
                 if (close < 0) return; // Root quit belongs to Main.
+                if (close == 0 && StatusPanel.TryGoBack()) break;
                 SetMenuVisible(close, false); break;
             default: return;
         }
@@ -577,7 +557,7 @@ public partial class ExpeditionView : Control
                 float required = 0;
                 for (var i = 0; i < 3; i++)
                     required = Math.Max(required, _menuHeaders[i].GetCombinedMinimumSize().Y + _menuFooters[i].GetCombinedMinimumSize().Y);
-                required += S(27) + S(16) + S(40); // chassis margins, shell gaps, a readable body slice
+                required += S(27) + S(16) + S(180); // reserve identity and useful data, not just one line of body
                 // Estimate the regular composition even if its secondary copy is hidden.
                 // This avoids a resize/hide/show oscillation as the menu space grows.
                 float regularStage = _stagePanel.GetCombinedMinimumSize().Y + 180 - Stage.CustomMinimumSize.Y;
@@ -588,20 +568,25 @@ public partial class ExpeditionView : Control
                 _rootFooter.Visible = !tight;
                 Stage.CustomMinimumSize = new Vector2(0, tight ? 100 : 180);
             }
-            int width = Math.Max(300, Math.Min(350, (bounds.Size.X-64)/3));
+            int budget = bounds.Size.X - 64;
+            int statusWidth = Math.Max(300, (int)(budget * 380f/1366));
+            int routeWidth = Math.Max(300, (int)(budget * 398f/1366));
+            int[] widths = { statusWidth, Math.Max(300, budget-statusWidth-routeWidth), routeWidth };
             // Overview's reserved space is the actual gap between toolbar and stage,
             // rather than a guessed y/height which fails when the toolbar wraps.
             int top = Overview ? (int)_menuSpace.GlobalPosition.Y : 0;
             int available = Overview ? (int)_menuSpace.Size.Y : bounds.Size.Y - top;
             int height = Math.Max(280, Math.Min(S(620), available));
-            int gap = Math.Max(8, (bounds.Size.X-3*width)/4);
+            int gap = Math.Max(8, (bounds.Size.X-widths.Sum())/4);
+            int left = gap;
             for (var i = 0; i < 3; i++)
             {
                 // Embedded review keeps its three-column width at all text scales.
                 // Lowering the *window* minimum never scales down its fonts.
                 _menus[i].MinSize = new Vector2I(300, Math.Min(S(280), height));
-                _menus[i].Size = new Vector2I(width, height);
-                _menus[i].Position = ClampPosition(new Vector2I(gap+i*(width+gap), top), _menus[i].Size, bounds);
+                _menus[i].Size = new Vector2I(widths[i], height);
+                _menus[i].Position = ClampPosition(new Vector2I(left, top), _menus[i].Size, bounds);
+                left += widths[i]+gap;
             }
             _dockButton.Disabled = true; _dockButton.TooltipText = "Overview · instrumentos embutidos";
         }
@@ -611,7 +596,9 @@ public partial class ExpeditionView : Control
     private void ArrangeNativeMenus(Rect2I bounds)
     {
         // Share usable width before overlapping windows. Excess body content scrolls.
-        int width = Math.Min(Math.Min(S(380), Math.Max(350, (bounds.Size.X-24)/3)), bounds.Size.X);
+        int[] preferred = { S(380), S(588), S(398) }, minimum = { 350, 450, 350 };
+        float fit = Math.Min(1, (bounds.Size.X-24f)/preferred.Sum());
+        int[] widths = preferred.Select((w, i) => Math.Min(bounds.Size.X, Math.Max(minimum[i], (int)(w*fit)))).ToArray();
         int height = Math.Min(S(620), bounds.Size.Y-40);
         int required = 0;
         for (int i = 0; i < 3; i++)
@@ -621,13 +608,15 @@ public partial class ExpeditionView : Control
         int dockHeight = !Overview && !_headless ? GetWindow().Size.Y : 320;
         int aboveDock = bounds.Size.Y - dockHeight - 48;
         if (_docked && aboveDock >= required) height = Math.Min(height, aboveDock);
-        int total = 3*width+24;
+        int total = widths.Sum()+24;
+        int left = bounds.Position.X+(bounds.Size.X-total)/2;
         for (var i = 0; i < 3; i++)
         {
             int readableHeight = (int)Math.Ceiling(_menuHeaders[i].GetCombinedMinimumSize().Y + _menuFooters[i].GetCombinedMinimumSize().Y) + S(83);
-            _menus[i].MinSize = new Vector2I(Math.Min(width, Math.Max(300, S(250))), Math.Min(height, Math.Max(S(280), readableHeight)));
-            _menus[i].Size = new Vector2I(width, height);
-            _menus[i].Position = ClampPosition(new Vector2I(bounds.Position.X+(bounds.Size.X-total)/2+i*(width+12), bounds.Position.Y+24), _menus[i].Size, bounds);
+            _menus[i].MinSize = new Vector2I(Math.Min(widths[i], Math.Max(300, S(250))), Math.Min(height, Math.Max(S(280), readableHeight)));
+            _menus[i].Size = new Vector2I(widths[i], height);
+            _menus[i].Position = ClampPosition(new Vector2I(left, bounds.Position.Y+24), _menus[i].Size, bounds);
+            left += widths[i]+12;
         }
     }
 
@@ -646,6 +635,10 @@ public partial class ExpeditionView : Control
                 _menuScrolls[i].Size.Y < S(40))
                 throw new InvalidOperationException($"UI bounds {usableSize} scale {BrassUi.Scale}: instrument {i} clipped");
         }
+        var statusBody = _menuScrolls[0].GetGlobalRect();
+        float statusRight = statusBody.End.X-(_menuScrolls[0].GetVScrollBar().Visible ? _menuScrolls[0].GetVScrollBar().Size.X : 0);
+        if (_statusMembers.Any(row => row.GetGlobalRect().Position.X < statusBody.Position.X-.5f || row.GetGlobalRect().End.X > statusRight+.5f))
+            throw new InvalidOperationException($"UI bounds {usableSize} scale {BrassUi.Scale}: Status team clipped horizontally");
         ArrangeMenus();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -661,7 +654,7 @@ public partial class ExpeditionView : Control
         Require(Stage != null && Stage.IsInsideTree(), "palco não instanciado");
         Require(Simulation.Party.Count == 3, "equipe deve ter três integrantes");
         Require(_bag.Columns == 7 && _bag.GetChildCount() == 21, "bolsa deve ter sete colunas e três linhas");
-        Require(_bag.GetChildren().All(child => child is Button button && button.Disabled), "slots devem estar indisponíveis");
+        Require(_bag.GetChildren().Select((child,index)=>child is Button button && button.Disabled==(index>=Simulation.Rewards.Inventory.Count)).All(valid=>valid), "slots devem corresponder aos itens da bolsa");
         Require(_selectors.Length == 3 && _selectors.All(button => button != null && button.IsInsideTree()), "três seletores obrigatórios");
         Require(_selectors.Count(button => button.ButtonPressed) == 1 && _selectors[_selected].ButtonPressed, "seleção incoerente");
         Require(_route.StageCount == 5, "rota deve ter cinco etapas");
@@ -670,15 +663,17 @@ public partial class ExpeditionView : Control
         for (var i = 0; i < 3; i++)
             Require(!_menuScrolls[i].IsAncestorOf(_menuHeaders[i]) && !_menuScrolls[i].IsAncestorOf(_menuFooters[i]), "cabeçalho e ações devem ficar fora da rolagem");
         Require(_menus.All(window => window != null && window.IsInsideTree() && !window.Exclusive), "três janelas independentes obrigatórias");
-        Require(_statusMembers.All(row => row != null && row.Meter.IsInsideTree()), "fichas/barras de vida ausentes");
+        Require(_statusMembers.All(row => row != null && row.Meter.IsInsideTree() && row.PortraitView.Texture is AtlasTexture), "fichas/retratos/barras de vida ausentes");
+        Require(_heroFrame.IsInsideTree() && _heroDetails.IsInsideTree(), "dossiê do Herói ausente");
+        Require(_heroSpread.Columns is 1 or 2, "dossiê deve empilhar ou mostrar duas colunas");
         Require(_portrait.Texture is AtlasTexture atlas && atlas.Region.Size.Y == 941, "retrato deve usar a pintura v12");
-        Require(_pauseButtons.Count == 2 && _retreatButtons.Count == 2 && _shield != null, "ações ausentes");
+        Require(_pauseButtons.Count == 1 && _retreatButtons.Count == 1 && _shield != null, "ações de rota e escudo ausentes");
         Require(_menus.All(window => window.Size.X >= 300 && window.Size.Y >= 280), "instrumento abaixo do tamanho mínimo");
         if (!_headless)
         {
             var bounds = MenuBounds();
             Require(_menus.All(window => bounds.Encloses(new Rect2I(window.Position, window.Size))), "instrumento fora da área utilizável");
         }
-        GD.Print("EXPEDITION LAYOUT OK: 3 windows, 3 selectors, 7x3 unavailable slots, 5 route nodes, v12 atlas portraits");
+        GD.Print("EXPEDITION LAYOUT OK: 3 windows, 3 selectors, 7x3 session bag, 5 route nodes, v12 atlas portraits");
     }
 }

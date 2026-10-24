@@ -1,0 +1,184 @@
+{
+  "kind": "static-original-studies",
+  "runtimeChanged": false,
+  "scale": "Pranchas de revisão, não janelas medidas no Godot ou certificação de desktop/DPI.",
+  "palette": {
+    "paper": "#BFB49E",
+    "soot": "#241F1A",
+    "tobacco": "#40332B",
+    "wine": "#6C3A32",
+    "brass": "#B99B63",
+    "linen": "#E4D8B7",
+    "ether": "#97A581"
+  },
+  "sharedDemo": {
+    "selected": 0,
+    "partyHealth": [
+      138,
+      100,
+      110
+    ],
+    "partyMax": [
+      180,
+      100,
+      110
+    ],
+    "attack": 8,
+    "defense": 10,
+    "inventory": [
+      7,
+      3
+    ],
+    "stages": 5
+  },
+  "images": [
+    {
+      "name": "01-dossie",
+      "title": "Dossiê de turno",
+      "description": "Continuidade de B: Status editorial claro, Herói em estojo horizontal interno e rota em bilhete independente.",
+      "width": 1500,
+      "height": 1250,
+      "regions": [
+        {
+          "role": "Status",
+          "x": 48,
+          "y": 160,
+          "width": 362,
+          "height": 574
+        },
+        {
+          "role": "Herói",
+          "x": 438,
+          "y": 160,
+          "width": 588,
+          "height": 574
+        },
+        {
+          "role": "Expedição",
+          "x": 1054,
+          "y": 160,
+          "width": 398,
+          "height": 574
+        },
+        {
+          "role": "Palco de referência",
+          "x": 245,
+          "y": 762,
+          "width": 1000,
+          "height": 290
+        }
+      ]
+    },
+    {
+      "name": "02-caderno",
+      "title": "Caderno aberto",
+      "description": "Herói horizontal de duas páginas; Status estreito à margem e roteiro vertical. Três instrumentos separados.",
+      "width": 1500,
+      "height": 1250,
+      "regions": [
+        {
+          "role": "Status",
+          "x": 48,
+          "y": 162,
+          "width": 294,
+          "height": 684
+        },
+        {
+          "role": "Herói",
+          "x": 370,
+          "y": 162,
+          "width": 738,
+          "height": 420
+        },
+        {
+          "role": "Expedição",
+          "x": 1136,
+          "y": 162,
+          "width": 316,
+          "height": 684
+        },
+        {
+          "role": "Palco de referência",
+          "x": 370,
+          "y": 611,
+          "width": 738,
+          "height": 234.98
+        }
+      ]
+    },
+    {
+      "name": "03-trilho",
+      "title": "Trilho de comando",
+      "description": "Status horizontal com três integrantes; rota horizontal e Herói em ficha destacável. Maior mudança estrutural.",
+      "width": 1500,
+      "height": 1250,
+      "regions": [
+        {
+          "role": "Expedição",
+          "x": 48,
+          "y": 164,
+          "width": 1000,
+          "height": 129
+        },
+        {
+          "role": "Palco de referência",
+          "x": 48,
+          "y": 321,
+          "width": 1000,
+          "height": 290
+        },
+        {
+          "role": "Status",
+          "x": 48,
+          "y": 635,
+          "width": 1000,
+          "height": 271
+        },
+        {
+          "role": "Herói",
+          "x": 1076,
+          "y": 164,
+          "width": 376,
+          "height": 742
+        }
+      ]
+    },
+    {
+      "name": "04-arquivo",
+      "title": "Arquivo assimétrico",
+      "description": "Retrato dominante e área escura localizada, Status claro e bilhete da rota. Composição de inspeção.",
+      "width": 1500,
+      "height": 1250,
+      "regions": [
+        {
+          "role": "Status",
+          "x": 48,
+          "y": 162,
+          "width": 360,
+          "height": 598
+        },
+        {
+          "role": "Herói",
+          "x": 436,
+          "y": 162,
+          "width": 642,
+          "height": 598
+        },
+        {
+          "role": "Expedição",
+          "x": 1106,
+          "y": 162,
+          "width": 346,
+          "height": 732
+        },
+        {
+          "role": "Palco de referência",
+          "x": 48,
+          "y": 789,
+          "width": 1000,
+          "height": 290
+        }
+      ]
+    }
+  ]
+}

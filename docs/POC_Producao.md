@@ -20,6 +20,8 @@ Se TEC-02 falhar após ajustes, comparar shell WPF e medir de novo. Se NET-01 fa
 
 ## M1: idle jogável e regras verificáveis
 
+Avanço parcial em 23/10/2026: a [V19](visual/UI_Progressao_v19.md) implementa nível/XP até 20, crescimento de atributos e loot inspecionável na sessão da expedição técnica. IDL-02 ainda requer equipar os três slots, validar incompatibilidades e aplicar bônus. A rota mantém um encontro por etapa; IDL-03 e o M1 completo continuam pendentes.
+
 | ID | Tarefa | Depende de | Aceitação |
 |---|---|---|---|
 | IDL-01 | Implementar DPS, tank, healer e prioridades | TEC-01 | Tank atrai ataques comuns; drone pode focar healer; cura respeita energia e HP máximo |

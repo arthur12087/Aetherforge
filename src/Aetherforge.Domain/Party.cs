@@ -10,13 +10,26 @@ public sealed class PartyMember
     public PartyRole Role { get; }
     public string Name { get; }
     public string Model { get; }
-    public float MaxHealth { get; }
+    public CharacterProgression Progression { get; } = new CharacterProgression();
+    public float BaseHealth { get; }
+    public float BaseAttack { get; }
+    public float BaseDefense { get; }
+    public float MaxHealth => Progression.ScaleBase(BaseHealth, 10);
     public float Health { get; set; }
-    public float Attack { get; }
-    public float Defense { get; }
+    public float Attack => Progression.ScaleBase(BaseAttack, 6);
+    public float Defense => Progression.ScaleBase(BaseDefense, 5);
     public PartyMember(PartyRole role, string name, string model, float hp, float attack, float defense)
     {
-        Role = role; Name = name; Model = model; MaxHealth = hp; Health = hp; Attack = attack; Defense = defense;
+        Role = role; Name = name; Model = model; BaseHealth = hp; Health = hp; BaseAttack = attack; BaseDefense = defense;
+    }
+
+    public int GainExperience(int amount)
+    {
+        float previousMaximum = MaxHealth;
+        int gained = Progression.GainExperience(amount);
+        // Level growth preserves missing HP. Fallen members gain XP without reviving.
+        if (Health > 0) Health = Math.Min(MaxHealth, Health + MaxHealth-previousMaximum);
+        return gained;
     }
 }
 

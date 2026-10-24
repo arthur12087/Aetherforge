@@ -10,4 +10,12 @@
 
 V14 diferencia as silhuetas dos três chassis: mesa de topo reto e base técnica, estojo de coroa curva, telégrafo de cabeça escalonada. `BrassTypeProof` é um espécime nativo de Jost/Source Sans 3, com exemplos explicitamente demonstrativos; não representa uma sessão de jogo. Os tamanhos de prova 13/14/18/26 são pixels de tela, sem mudar a escala global. Inspeção binária local: as duas fontes cobrem os acentos e sinais usados; Jost oferece `tnum` em GSUB, solicitado nas variações pela tag numérica `0x746E756D`. Source Sans 3 não tem substituição `tnum` neste arquivo e seus dez dígitos possuem avanços hmtx iguais por padrão (472 unidades); não se solicita uma feature inexistente. Importação, coordenadas efetivas de peso, glifos portugueses e igualdade das larguras numéricas foram verificadas no Godot em 100/125/150%; a prova tipográfica e as capturas de runtime foram inspecionadas. Isso não certifica DPI físico ou acessibilidade.
 
+## V17 — Dossiê de turno / implementação do estudo 01
+
+O usuário escolheu o estudo próprio V16 **01 — Dossiê de turno**, superando a recomendação anterior pelo 03, e autorizou levá-lo ao Godot. `BrassDossier.cs` e `BrassDossierEmptySlot.cs` desenham a folha/régua e os espaços indisponíveis; `ExpeditionMenuRoute.cs` desenha conectores e marcadores. `BrassUi.CreateDossierTheme()` aplica o tema claro somente aos instrumentos e constrói dois SVGs autorais simples de checkbox em memória. Não são recortes das pranchas V16, imagens externas ou novo pacote de ícones.
+
+As fichas leves usam três `AtlasTexture` sobre a folha v12 existente: Guarda `(650,0,410,455)`, Pistoleiro `(130,0,350,455)`, Alquimista `(1195,0,350,455)`. Os retratos completos mantêm as regiões anteriores. Não foi criada/modificada a pintura, nem importada pesquisa NieR/RDR2/Dishonored/Outer Worlds para o cliente. Os textos e controles continuam nativos, com as mesmas fontes/licenças. A bolsa continua 7×3 indisponível.
+
+A entrega funcional e seus limites estão em [V17 no Canvas](../../../../canvas/documents/ui-v17-dossie-implementado.md). Capturas em `assets/concepts/brass-v17-dossie/` são evidências de runtime, não recursos de produção carregados pelo jogo. Chassis/placas/sockets V14/V15 descritos acima permanecem como histórico; os instrumentos atuais usam o Dossiê.
+
 Importações `.import`/UIDs são produzidas pelo Godot portátil durante a importação coordenada pelo orquestrador. Não há instalação, geração de nova pintura ou download neste pacote.

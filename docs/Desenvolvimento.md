@@ -12,13 +12,21 @@ Ordem de trabalho:
 4. Mineração, durabilidade, reparo e gerenciamento da equipe (IDL-04, IDL-05, UI-01).
 5. Evoluir salvamento e progresso offline depois de consolidar o ciclo jogável.
 
-Os critérios detalhados continuam no [backlog](POC_Producao.md). O M1 completo permanece pendente. Foi adicionada uma [primeira fatia de expedição Godot](studio-godot/README.md), autorizada à parte para validar marcha/cenário/combate/menus antes da progressão: cinco trechos e chefe, sem XP/economia/salvamento da nova rota. Ela não altera a ordem do restante do backlog nem substitui o protótipo integrado.
+Os critérios detalhados continuam no [backlog](POC_Producao.md). O M1 completo permanece pendente. Foi adicionada uma [primeira fatia de expedição Godot](studio-godot/README.md), autorizada à parte para validar marcha/cenário/combate/menus: cinco trechos e chefe. A V19 acrescenta XP e ganhos locais, ainda sem salvamento da nova rota. Ela não altera a ordem do restante do backlog nem substitui o protótipo integrado.
 
 Direção visual atual: personagens 3D com rig e animação em tempo real; o idle pode usar cenário 3D desde que leve. O [estudo v3](visual/Direcao_Artistica_v3.md) define linguagem e orçamento inicial. Validar um integrante e um trecho modular em ART-03/ART-04, mantendo o protótipo integrado existente até a migração passar nas verificações. Os sprites do M0 permanecem no modo Idle legado, não como alvo de produção. A entrada padrão agora abre a expedição com modelos procedurais articulados de protótipo, baseados em Brass v12 e na paleta quente aceita; ainda não são rigs/assets finais.
 
 A [UI V14 foi implementada na expedição](../canvas/documents/ui-v14-entrega.md): Source Sans 3/Limelight, HUD em tela e três instrumentos com conteúdo rolável e ações fixas. A escala interna 100/125/150% e as interações automatizadas passaram; DPI físico/multimonitor e acabamento artístico final continuam pendentes. **Prova de Fontes.cmd** abre o comparativo; `Run.ps1 -Mode Expedition -UiScale 1.25` amplia a UI. Não altera progressão, saves, API nem o M1 pendente.
 
 A [V15 detalha os componentes do Status e adiciona microinterações](../canvas/documents/ui-v15-componentes-microinteracoes.md): placa gravada, sockets de atributos e fichas de equipe selecionáveis, após pesquisa de três jogos e comparação de três tratamentos. Foco/clique têm transições curtas; a vida mostra rastro de perda sem atrasar o valor. **Reduzir movimento da UI** fica no corpo rolável do Status, por execução. Em 150% ou áreas curtas, as fichas podem exigir rolagem. Não altera regras, modelos ou progressão. `Test-UiV15.ps1 -Screenshots` verifica input e componentes com saída isolada em `artifacts/ui-v15/`.
+
+A [exploração V16 de layouts](../canvas/documents/ui-v16-layouts-exploratorios.md) registra a preferência pela **B — Ficha de campo** e quatro estruturas estáticas, com nova pesquisa de menus/HUD. Naquela rodada o runtime ainda era V15 A; os estudos permanecem como histórico. [Galeria comparativa](visual/conceitos-v16/index.html).
+
+Você escolheu **01 — Dossiê de turno**, agora [implementado no Godot como V17](../canvas/documents/ui-v17-dossie-implementado.md): Status editorial com régua compartilhada e retratos da equipe; Herói mais largo com retrato/bolsa lado a lado e empilhamento em largura curta; Expedição como bilhete de cinco etapas. Janelas continuam independentes, ações fixas e bolsa 7×3 indisponível. Fontes, seleção, microinterações e redução de movimento preservadas. A 150% nesta altura, equipe/bolsa exigem rolagem; não é encaixe universal nem teste de DPI físico. **24 casos UI**, build, expedição, legados e integração passaram, com capturas próprias em `artifacts/ui-v17/`. Regras, palco/HUD, modelos, saves e M1 pendente não mudaram.
+
+A [V18 implementa o Status de integrante](visual/UI_Status_v18.md), após aprovação da adaptação de Taskbar Hero: retrato e contexto compartilhados com Herói/palco, resumo com dados reais, atributos detalhados em grupos e explicação selecionável. Escape volta em camadas; Enter/Espaço ativam o controle focado. A antiga régua do Status cede lugar à lista compacta; Herói e Expedição conservam o desenho V17. O corpo rola quando necessário em 100/125/150%, com ações fixas. Não adiciona XP, pontos ou habilidades ainda inexistentes; cura, dano e escudo mantêm os valores anteriores, agora expostos pelo domínio para o detalhe. Evidências em `artifacts/ui-v18/qa/`; [pesquisa completa](referencias/taskbar-hero/README.md).
+
+A [V19 adiciona nível, XP e loot da sessão](visual/UI_Progressao_v19.md): barra real no Status, crescimento linear até nível 20, recompensas por vitória e bolsa com itens inspecionáveis no Herói. As ações de pausa/recuo/reinício ficam em Expedição, liberando espaço na ficha. Reiniciar conserva os ganhos; fechar o jogo os perde. Equipar e aplicar bônus, persistir e integrar esses itens continuam pendentes. É uma primeira parte de IDL-02, não o M1 completo.
 
 As outras telas estão propostas no [protótipo navegável do idle](visual/prototipo/index.html), com [mapa dos fluxos](visual/Fluxos_Idle_Prototipo.md). O estudo usa dados fictícios e ações de demonstração para revisar UI-01; inclui o resumo offline de UI-02 como prévia futura. Não implementa esses marcos no cliente Godot, nem altera a API ou o save.
 
@@ -71,9 +79,12 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-Integrati
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-Expedition.ps1 -Screenshots
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-UiV14.ps1 -Screenshots
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-UiV15.ps1 -Screenshots
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-UiV17.ps1 -Screenshots
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-UiV18.ps1 -Screenshots
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-UiV19.ps1 -Screenshots
 ```
 
-Os testes usam saves isolados em `artifacts/` e encerram seus processos no final. `-Screenshots` adiciona capturas e exige ambiente gráfico. Nas suítes V14/V15, também automatiza o mouse do Windows, mudando foco temporariamente e restaurando a posição do cursor; não usar durante outra interação manual no desktop. Para medir o idle, use `scripts/Measure-Idle.ps1`; a matriz de DPI, monitores e consumo continua pendente conforme o [relatório M0](Validacao_M0.md).
+Os testes usam saves isolados em `artifacts/` e encerram seus processos no final. `-Screenshots` adiciona capturas e exige ambiente gráfico. Nas suítes V14/V15/V17, também automatiza o mouse do Windows, mudando foco temporariamente e restaurando a posição do cursor; não usar durante outra interação manual no desktop. Para medir o idle, use `scripts/Measure-Idle.ps1`; a matriz de DPI, monitores e consumo continua pendente conforme o [relatório M0](Validacao_M0.md).
 
 O workflow do GitHub executa build e as duas verificações sem capturas em Windows. O setup usa as versões fixadas no projeto: SDK .NET 10.0.401 e Godot 4.7.2 .NET; cliente `net8.0`, backend `net10.0`, domínio `netstandard2.1`.
 

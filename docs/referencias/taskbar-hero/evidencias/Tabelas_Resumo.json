@@ -1,0 +1,2296 @@
+{
+  "evidence_id": "D01",
+  "extracted": "2026-10-23",
+  "parser": "UnityPy 1.24.2",
+  "scope": "shipped static resources; no game execution",
+  "table_count": 59,
+  "total_rows": 43952,
+  "tables": [
+    {
+      "name": "EventBannerInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2481,
+      "rowCount": 5,
+      "fields": [
+        "EventBannerKey",
+        "Location",
+        "Priority",
+        "StartDateUtc",
+        "EndDateUtc",
+        "IsEnabled",
+        "ImagePath",
+        "LinkUrl"
+      ],
+      "sha256_utf8_without_bom": "455ad836ac245f129e2b0a4c47425b12d4fd72d188a5360c1e9f1145f8551935",
+      "first_field_unique_count": 5,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "EventBannerKey": {
+          "min": 10001.0,
+          "max": 10005.0
+        },
+        "Priority": {
+          "min": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    {
+      "name": "BuffGroupInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2482,
+      "rowCount": 18,
+      "fields": [
+        "BuffGroupKey",
+        "BuffKeys"
+      ],
+      "sha256_utf8_without_bom": "54846aea0777ccf86bf1e7098f1e26c5ba55f41ff103eb4061e57d9be10c6632",
+      "first_field_unique_count": 17,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "BuffGroupKey": {
+          "min": 10501.0,
+          "max": 4610001.0
+        }
+      }
+    },
+    {
+      "name": "AttributeGroupInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2483,
+      "rowCount": 8,
+      "fields": [
+        "AttributeGroupKey",
+        "RequiredAllocatedPoint"
+      ],
+      "sha256_utf8_without_bom": "82ab5511431364601c0052042d37dac35b344abe00d4b0edd2f1d3dfb8fa5fc0",
+      "first_field_unique_count": 8,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "AttributeGroupKey": {
+          "min": 10001.0,
+          "max": 10008.0
+        },
+        "RequiredAllocatedPoint": {
+          "min": 0.0,
+          "max": 70.0
+        }
+      }
+    },
+    {
+      "name": "InventoryInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2484,
+      "rowCount": 260,
+      "fields": [
+        "Index",
+        "CostForUnlock"
+      ],
+      "sha256_utf8_without_bom": "e34b408c7e0f465c937c6877ebda1b9e968ff79d2158ac9f89fea71fccad64f6",
+      "first_field_unique_count": 260,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Index": {
+          "min": 0.0,
+          "max": 259.0
+        },
+        "CostForUnlock": {
+          "min": 0.0,
+          "max": 10240000.0
+        }
+      }
+    },
+    {
+      "name": "RuneLevelInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2485,
+      "rowCount": 858,
+      "fields": [
+        "LevelKey",
+        "Level",
+        "CostItemKey",
+        "CostValue",
+        "STATTYPE",
+        "Value"
+      ],
+      "sha256_utf8_without_bom": "0d64acbf9a8fe37485784079a30a2668e2b7dea85a898418e2582edc0ca7399f",
+      "first_field_unique_count": 253,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "LevelKey": {
+          "min": 1.0,
+          "max": 19020011.0
+        },
+        "Level": {
+          "min": 1.0,
+          "max": 10.0
+        },
+        "CostItemKey": {
+          "min": 100001.0,
+          "max": 100001.0
+        },
+        "CostValue": {
+          "min": 100.0,
+          "max": 1000000000.0
+        },
+        "Value": {
+          "min": 1.0,
+          "max": 50000.0
+        }
+      }
+    },
+    {
+      "name": "ReliquaryInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2486,
+      "rowCount": 382,
+      "fields": [
+        "ItemKey",
+        "ResonanceKeys",
+        "InherentPoolKey",
+        "InherentStatCount",
+        "SlotIndex"
+      ],
+      "sha256_utf8_without_bom": "785660205643d5d4d0aacbda47ad9e3456cfa4abf810d25edb1086e0a66250d9",
+      "first_field_unique_count": 382,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "ItemKey": {
+          "min": 790001.0,
+          "max": 799063.0
+        },
+        "ResonanceKeys": {
+          "min": 20101.0,
+          "max": 20520.0
+        },
+        "InherentPoolKey": {
+          "min": 1001.0,
+          "max": 1010.0
+        },
+        "InherentStatCount": {
+          "min": 1.0,
+          "max": 3.0
+        }
+      }
+    },
+    {
+      "name": "DropInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2487,
+      "rowCount": 20311,
+      "fields": [
+        "DropKey",
+        "DropType",
+        "REWARDTYPE",
+        "RewardKey",
+        "HeroKeyCondition",
+        "Weight",
+        "EventKey"
+      ],
+      "sha256_utf8_without_bom": "d1936727d66c28c95553427475774ddc04749ecfe511f1217af99eb5c952e6c9",
+      "first_field_unique_count": 380,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "DropKey": {
+          "min": 3111011.0,
+          "max": 9412011.0
+        },
+        "RewardKey": {
+          "min": 130001.0,
+          "max": 190190002.0
+        },
+        "HeroKeyCondition": {
+          "min": 0.0,
+          "max": 601.0
+        },
+        "Weight": {
+          "min": 0.0,
+          "max": 96656999.0
+        },
+        "EventKey": {
+          "min": 50001.0,
+          "max": 50001.0
+        }
+      }
+    },
+    {
+      "name": "StatViewInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2488,
+      "rowCount": 17,
+      "fields": [
+        "STATTYPE",
+        "SectionType",
+        "Order",
+        "IsShowStatus",
+        "IsShowZero"
+      ],
+      "sha256_utf8_without_bom": "0cf742dfb62e2928ae44d403a1bdd9fd00753d020a23dc96d4227b3c580073bf",
+      "first_field_unique_count": 17,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Order": {
+          "min": 0.0,
+          "max": 105.0
+        }
+      }
+    },
+    {
+      "name": "ItemTypeScaleInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2489,
+      "rowCount": 2,
+      "fields": [
+        "ItemType",
+        "AlchemyGoldScale",
+        "CubeExpScale",
+        "ContaminScale"
+      ],
+      "sha256_utf8_without_bom": "e58edc14b840a71a5179dd9049c451613aec19000b81f34f698e2ae1f8f372f5",
+      "first_field_unique_count": 2,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "AlchemyGoldScale": {
+          "min": 1000.0,
+          "max": 12000.0
+        },
+        "CubeExpScale": {
+          "min": 1000.0,
+          "max": 12000.0
+        },
+        "ContaminScale": {
+          "min": 1000.0,
+          "max": 1000.0
+        }
+      }
+    },
+    {
+      "name": "StageLevelInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2490,
+      "rowCount": 170,
+      "fields": [
+        "StageLevel",
+        "MonsterAtkDmgMultiplier",
+        "MonsterHpMultiplier",
+        "MonsterGoldMultiplier",
+        "MonsterExpMultiplier"
+      ],
+      "sha256_utf8_without_bom": "f0cb7f714f31e837fce23ff44cf0a180671808eaef78f985eafd45d5e05d7358",
+      "first_field_unique_count": 170,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StageLevel": {
+          "min": 1.0,
+          "max": 170.0
+        },
+        "MonsterAtkDmgMultiplier": {
+          "min": 100.0,
+          "max": 32396585.0
+        },
+        "MonsterHpMultiplier": {
+          "min": 100.0,
+          "max": 1320770.0
+        },
+        "MonsterGoldMultiplier": {
+          "min": 100.0,
+          "max": 134160.0
+        },
+        "MonsterExpMultiplier": {
+          "min": 100.0,
+          "max": 2672600.0
+        }
+      }
+    },
+    {
+      "name": "PcSkinInfo",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2491,
+      "rowCount": 100,
+      "fields": [
+        "PcSkinKey",
+        "PartsCategory",
+        "DecorableType",
+        "GroupKeys",
+        "Cost",
+        "HasUpperLayer",
+        "IsDefaultUnlocked",
+        "IconPath"
+      ],
+      "sha256_utf8_without_bom": "09e5a0685c0ffe2467cd940ee5ae25a3d9c9dde863f7f5604f73d16f93ba2f9b",
+      "first_field_unique_count": 100,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "PcSkinKey": {
+          "min": 10001.0,
+          "max": 25003.0
+        },
+        "Cost": {
+          "min": 0.0,
+          "max": 150.0
+        }
+      }
+    },
+    {
+      "name": "GearTypeInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2492,
+      "rowCount": 16,
+      "fields": [
+        "GearType",
+        "BaseStat1_STATTYPE",
+        "BaseStat1_MODTYPE",
+        "BaseStat2_STATTYPE",
+        "BaseStat2_MODTYPE"
+      ],
+      "sha256_utf8_without_bom": "21658d86f09cdd5e81387d123c320be8b42065851a975d48395078dc4530654b",
+      "first_field_unique_count": 16,
+      "malformed_rows": [],
+      "numeric_ranges": {}
+    },
+    {
+      "name": "PassiveSkillInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2493,
+      "rowCount": 108,
+      "fields": [
+        "PassiveSkillKey",
+        "SkillNameKey",
+        "STATTYPE",
+        "MODTYPE",
+        "Value"
+      ],
+      "sha256_utf8_without_bom": "46bf41a198ff326ab93b32e5a03b273ca359ca186dc795daf1d2c561af99ac46",
+      "first_field_unique_count": 108,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "PassiveSkillKey": {
+          "min": 101001.0,
+          "max": 601082.0
+        },
+        "Value": {
+          "min": 1.0,
+          "max": 200.0
+        }
+      }
+    },
+    {
+      "name": "StatModGroupInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2494,
+      "rowCount": 474,
+      "fields": [
+        "StatModGroupKey",
+        "GearGroup",
+        "StatModKey",
+        "MinTier",
+        "MaxTier"
+      ],
+      "sha256_utf8_without_bom": "835c0f5f876e45d4329ec45b88b92facca5641e7a5a18e11bccad4544d9b372f",
+      "first_field_unique_count": 79,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StatModGroupKey": {
+          "min": 1100011.0,
+          "max": 1390011.0
+        },
+        "StatModKey": {
+          "min": 100101.0,
+          "max": 105901.0
+        },
+        "MinTier": {
+          "min": 1.0,
+          "max": 10.0
+        },
+        "MaxTier": {
+          "min": 1.0,
+          "max": 10.0
+        }
+      }
+    },
+    {
+      "name": "StorageInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2495,
+      "rowCount": 101,
+      "fields": [
+        "Index",
+        "CostForUnlock"
+      ],
+      "sha256_utf8_without_bom": "4bca96a4e1ab224a302e12a794f9b7d9fb886c00ab6501ac090617ed7a67df84",
+      "first_field_unique_count": 101,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Index": {
+          "min": 0.0,
+          "max": 100.0
+        },
+        "CostForUnlock": {
+          "min": 0.0,
+          "max": 3100.0
+        }
+      }
+    },
+    {
+      "name": "ModRuleInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2496,
+      "rowCount": 80,
+      "fields": [
+        "ModName",
+        "StackRule",
+        "StackParam",
+        "IdentityParam",
+        "MainValueParam",
+        "StackLimit",
+        "ExclusiveGroup",
+        "Priority"
+      ],
+      "sha256_utf8_without_bom": "5ccac2d4baf99b70d58c5d513541511238ef95a8497b0e983b87ce9af77bf8da",
+      "first_field_unique_count": 80,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StackParam": {
+          "min": 0.0,
+          "max": 2.0
+        },
+        "IdentityParam": {
+          "min": 0.0,
+          "max": 1.0
+        },
+        "StackLimit": {
+          "min": 600.0,
+          "max": 1000.0
+        },
+        "Priority": {
+          "min": 1.0,
+          "max": 20.0
+        }
+      }
+    },
+    {
+      "name": "GearInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2497,
+      "rowCount": 5954,
+      "fields": [
+        "GearKey",
+        "BaseStat1_Value",
+        "BaseStat2_Value",
+        "InherentStat1_STATTYPE",
+        "InherentStat1_MODTYPE",
+        "InherentStat1_Value",
+        "InherentStat2_STATTYPE",
+        "InherentStat2_MODTYPE",
+        "InherentStat2_Value",
+        "InherentStat3_STATTYPE",
+        "InherentStat3_MODTYPE",
+        "InherentStat3_Value",
+        "UniqueModKey"
+      ],
+      "sha256_utf8_without_bom": "c8d75e6b7e4bc4e2682e14e31130903c250109287fa9188dd3b06c12d222cf31",
+      "first_field_unique_count": 5954,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "GearKey": {
+          "min": 300001.0,
+          "max": 639193.0
+        },
+        "BaseStat1_Value": {
+          "min": 0.0,
+          "max": 21862.0
+        },
+        "BaseStat2_Value": {
+          "min": 0.0,
+          "max": 180.0
+        },
+        "InherentStat1_Value": {
+          "min": 0.0,
+          "max": 12930.0
+        },
+        "InherentStat2_Value": {
+          "min": 0.0,
+          "max": 13992.0
+        },
+        "InherentStat3_Value": {
+          "min": 0.0,
+          "max": 12930.0
+        },
+        "UniqueModKey": {
+          "min": 0.0,
+          "max": 1001009.0
+        }
+      }
+    },
+    {
+      "name": "EventPeriodInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2498,
+      "rowCount": 1,
+      "fields": [
+        "EventKey",
+        "StartDateUtc",
+        "EndDateUtc",
+        "IsEnabled"
+      ],
+      "sha256_utf8_without_bom": "bf9296549b547eca6d06ce45908fdfe36bdaf822472d5930870fcf6ff3717349",
+      "first_field_unique_count": 1,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "EventKey": {
+          "min": 50001.0,
+          "max": 50001.0
+        }
+      }
+    },
+    {
+      "name": "StatPoolInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2499,
+      "rowCount": 90,
+      "fields": [
+        "StatPoolKey",
+        "STATTYPE",
+        "MODTYPE",
+        "MinValue",
+        "MaxValue",
+        "Interval",
+        "Weight"
+      ],
+      "sha256_utf8_without_bom": "b90054d5963bbb6386941788d28880c57365aa139081f9192817cf831341ad0d",
+      "first_field_unique_count": 10,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StatPoolKey": {
+          "min": 1001.0,
+          "max": 1010.0
+        },
+        "MinValue": {
+          "min": 4.0,
+          "max": 700.0
+        },
+        "MaxValue": {
+          "min": 8.0,
+          "max": 800.0
+        },
+        "Interval": {
+          "min": 1.0,
+          "max": 10.0
+        },
+        "Weight": {
+          "min": 100.0,
+          "max": 100.0
+        }
+      }
+    },
+    {
+      "name": "CubeLevelInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2500,
+      "rowCount": 100,
+      "fields": [
+        "Level",
+        "ExpForLevelUp"
+      ],
+      "sha256_utf8_without_bom": "0df6fae683ed0f6ffd294220947b570f8ac5b27d08d0a3a3969c679492391d25",
+      "first_field_unique_count": 100,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Level": {
+          "min": 1.0,
+          "max": 100.0
+        },
+        "ExpForLevelUp": {
+          "min": 15.0,
+          "max": 999999999.0
+        }
+      }
+    },
+    {
+      "name": "RelicInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2501,
+      "rowCount": 360,
+      "fields": [
+        "ItemKey",
+        "RelicType",
+        "InherentStatModKey",
+        "InherentStatTier",
+        "AdditionalMod"
+      ],
+      "sha256_utf8_without_bom": "2d79950d5909493d570d5a40237cd5c634a0493626593073e5ecb2288d05ffd2",
+      "first_field_unique_count": 360,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "ItemKey": {
+          "min": 710001.0,
+          "max": 759002.0
+        },
+        "InherentStatModKey": {
+          "min": 108001.0,
+          "max": 108036.0
+        },
+        "InherentStatTier": {
+          "min": 1.0,
+          "max": 10.0
+        }
+      }
+    },
+    {
+      "name": "AttunementCostInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2502,
+      "rowCount": 20,
+      "fields": [
+        "AttunementCostKey",
+        "PARTS",
+        "GRADE",
+        "BaseCost",
+        "CostIncrease",
+        "MaxCount"
+      ],
+      "sha256_utf8_without_bom": "eb9dda960b151a6d2adbaad4c3d60e9a956a2694b7f9c54f59579b8e3857cf83",
+      "first_field_unique_count": 20,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "AttunementCostKey": {
+          "min": 10101.0,
+          "max": 21001.0
+        },
+        "BaseCost": {
+          "min": 50.0,
+          "max": 12200000.0
+        },
+        "CostIncrease": {
+          "min": 60.0,
+          "max": 14640000.0
+        },
+        "MaxCount": {
+          "min": 19.0,
+          "max": 19.0
+        }
+      }
+    },
+    {
+      "name": "RuneInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2503,
+      "rowCount": 253,
+      "fields": [
+        "RuneKey",
+        "NameKey",
+        "MaxLevel",
+        "PrevNodeRequiredLevel",
+        "NextRuneKey",
+        "PreviewRuneKey",
+        "LevelDataKey",
+        "IconPath"
+      ],
+      "sha256_utf8_without_bom": "9d70b4af68b5770a9429c0af2c0a16ffc5e57ff0b83fe5a0397ea0e7477a9ac7",
+      "first_field_unique_count": 253,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "RuneKey": {
+          "min": 1.0,
+          "max": 19020011.0
+        },
+        "MaxLevel": {
+          "min": 1.0,
+          "max": 10.0
+        },
+        "PrevNodeRequiredLevel": {
+          "min": 1.0,
+          "max": 5.0
+        },
+        "LevelDataKey": {
+          "min": 1.0,
+          "max": 19020011.0
+        }
+      }
+    },
+    {
+      "name": "SynthesisRecipeInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2504,
+      "rowCount": 605,
+      "fields": [
+        "SynthesisRecipeKey",
+        "RecipeTier",
+        "MinMaterialTier",
+        "MinResultLevel",
+        "MaxResultLevel",
+        "ItemSynthesisType",
+        "GRADE",
+        "MaterialAmount",
+        "MinMaterialAverageLevel",
+        "LevelWeight1",
+        "LevelWeight2",
+        "LevelWeight3",
+        "LevelWeight4"
+      ],
+      "sha256_utf8_without_bom": "0b7d2d2eba5e62fe0a0f585eee94855f5ccff89d06ad83d923616dc2cc066dc6",
+      "first_field_unique_count": 605,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "SynthesisRecipeKey": {
+          "min": 10100110.0,
+          "max": 10501018.0
+        },
+        "RecipeTier": {
+          "min": 1.0,
+          "max": 9.0
+        },
+        "MinMaterialTier": {
+          "min": 1.0,
+          "max": 8.0
+        },
+        "MinResultLevel": {
+          "min": 1.0,
+          "max": 90.0
+        },
+        "MaxResultLevel": {
+          "min": 1.0,
+          "max": 90.0
+        },
+        "MaterialAmount": {
+          "min": 9.0,
+          "max": 9.0
+        },
+        "MinMaterialAverageLevel": {
+          "min": 0.0,
+          "max": 90.0
+        },
+        "LevelWeight1": {
+          "min": 50.0,
+          "max": 900.0
+        },
+        "LevelWeight2": {
+          "min": 0.0,
+          "max": 700.0
+        },
+        "LevelWeight3": {
+          "min": 0.0,
+          "max": 300.0
+        },
+        "LevelWeight4": {
+          "min": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    {
+      "name": "CurrencyInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2505,
+      "rowCount": 1,
+      "fields": [
+        "CurrencyKey",
+        "CurrencyNameStringKey",
+        "Description",
+        "InitialAmount",
+        "IconPath"
+      ],
+      "sha256_utf8_without_bom": "83e9eb90b10ba46813e7fd16ebb759f4035a3b97436f57abf4d18af49e5b5cee",
+      "first_field_unique_count": 1,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "CurrencyKey": {
+          "min": 100001.0,
+          "max": 100001.0
+        },
+        "InitialAmount": {
+          "min": 100.0,
+          "max": 100.0
+        }
+      }
+    },
+    {
+      "name": "GearTypeScaleInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2506,
+      "rowCount": 20,
+      "fields": [
+        "GearType",
+        "AlchemyGoldScale",
+        "CubeExpScale",
+        "ContaminScale"
+      ],
+      "sha256_utf8_without_bom": "107f38fe1076f662543b7bbba5c6929fbf32b3ccea7b6199718bb8b7028075ac",
+      "first_field_unique_count": 20,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "AlchemyGoldScale": {
+          "min": 700.0,
+          "max": 4000.0
+        },
+        "CubeExpScale": {
+          "min": 700.0,
+          "max": 4000.0
+        },
+        "ContaminScale": {
+          "min": 700.0,
+          "max": 4000.0
+        }
+      }
+    },
+    {
+      "name": "StageInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2507,
+      "rowCount": 192,
+      "fields": [
+        "StageKey",
+        "StageNameKey",
+        "PortalStageNameKey",
+        "STAGETYPE",
+        "STAGEDIFFICULITY",
+        "Act",
+        "StageNo",
+        "StageLevel",
+        "PrevStageKey",
+        "NextStageKey",
+        "WaveAmount",
+        "WaveMonsterAmount",
+        "Monsters",
+        "MonsterDropItemKey",
+        "MonsterDropItemRateM",
+        "BossDropItemKey",
+        "BossDropItemRateM",
+        "FirstClearDropKey",
+        "BossMonsterKey",
+        "BossDamageMultiplier",
+        "BossHpMultiplier",
+        "BossGoldMultiplier",
+        "BossExpMultiplier",
+        "BossScale",
+        "SoulstoneItemKey",
+        "SoulstoneAmount",
+        "IsDemo",
+        "BGMSoundKey",
+        "rewardString"
+      ],
+      "sha256_utf8_without_bom": "73b76cc9c68be2f20b14927a5bfdbc41795a4067eb5e5febc45594033e2d9d7b",
+      "first_field_unique_count": 192,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StageKey": {
+          "min": 1101.0,
+          "max": 201420.0
+        },
+        "Act": {
+          "min": 1.0,
+          "max": 23.0
+        },
+        "StageNo": {
+          "min": 1.0,
+          "max": 20.0
+        },
+        "StageLevel": {
+          "min": 1.0,
+          "max": 95.0
+        },
+        "PrevStageKey": {
+          "min": 2110.0,
+          "max": 4310.0
+        },
+        "NextStageKey": {
+          "min": 1102.0,
+          "max": 201420.0
+        },
+        "WaveAmount": {
+          "min": 10.0,
+          "max": 31.0
+        },
+        "WaveMonsterAmount": {
+          "min": 1.0,
+          "max": 24.0
+        },
+        "MonsterDropItemKey": {
+          "min": 910011.0,
+          "max": 940201.0
+        },
+        "MonsterDropItemRateM": {
+          "min": 600.0,
+          "max": 160000.0
+        },
+        "BossDropItemKey": {
+          "min": 920011.0,
+          "max": 941201.0
+        },
+        "BossDropItemRateM": {
+          "min": 20000.0,
+          "max": 1000000.0
+        },
+        "FirstClearDropKey": {
+          "min": 9200010.0,
+          "max": 9200520.0
+        },
+        "BossMonsterKey": {
+          "min": 10022.0,
+          "max": 5000102.0
+        },
+        "BossDamageMultiplier": {
+          "min": 2000.0,
+          "max": 3000.0
+        },
+        "BossHpMultiplier": {
+          "min": 3000.0,
+          "max": 6000.0
+        },
+        "BossGoldMultiplier": {
+          "min": 2000.0,
+          "max": 3000.0
+        },
+        "BossExpMultiplier": {
+          "min": 3000.0,
+          "max": 15000.0
+        },
+        "BossScale": {
+          "min": 3.0,
+          "max": 3.0
+        },
+        "SoulstoneItemKey": {
+          "min": 190001.0,
+          "max": 190104.0
+        },
+        "SoulstoneAmount": {
+          "min": 1.0,
+          "max": 1.0
+        },
+        "BGMSoundKey": {
+          "min": 11011.0,
+          "max": 13101.0
+        }
+      }
+    },
+    {
+      "name": "SkillInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2508,
+      "rowCount": 128,
+      "fields": [
+        "SkillKey",
+        "SkillNameKey",
+        "SkillDescriptionKey",
+        "ACTIVATIONTYPE",
+        "ActivationValue",
+        "SLOTTYPE",
+        "SkillTag",
+        "SkillBuffType",
+        "BuffGroupKey",
+        "Param1",
+        "Param2",
+        "Param3",
+        "Param4",
+        "Param5",
+        "Range",
+        "Order",
+        "DamageType",
+        "DamageDeliveryType",
+        "Value",
+        "SkillLevelKey",
+        "AnimClipPath1",
+        "AnimClipPath2",
+        "AnimClipPath3",
+        "AttributeKey",
+        "SoundKey"
+      ],
+      "sha256_utf8_without_bom": "b517c7d154ffa3506b7356d507d1783768bb1518289c31eb88e2c40ac3993082",
+      "first_field_unique_count": 128,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "SkillKey": {
+          "min": 10001.0,
+          "max": 50001031.0
+        },
+        "ActivationValue": {
+          "min": 0.0,
+          "max": 50.0
+        },
+        "BuffGroupKey": {
+          "min": 10501.0,
+          "max": 2209021.0
+        },
+        "Param1": {
+          "min": 2.0,
+          "max": 3500.0
+        },
+        "Param2": {
+          "min": 4.0,
+          "max": 500.0
+        },
+        "Param3": {
+          "min": 3.0,
+          "max": 200.0
+        },
+        "Param4": {
+          "min": 8.0,
+          "max": 8.0
+        },
+        "Param5": {
+          "min": 235.0,
+          "max": 235.0
+        },
+        "Range": {
+          "min": 120.0,
+          "max": 1650.0
+        },
+        "Order": {
+          "min": 200.0,
+          "max": 999.0
+        },
+        "Value": {
+          "min": 800.0,
+          "max": 2300.0
+        },
+        "SkillLevelKey": {
+          "min": 10101.0,
+          "max": 60601.0
+        },
+        "AttributeKey": {
+          "min": 101003.0,
+          "max": 601043.0
+        },
+        "SoundKey": {
+          "min": 1100011.0,
+          "max": 13090511.0
+        }
+      }
+    },
+    {
+      "name": "StatModInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2509,
+      "rowCount": 985,
+      "fields": [
+        "StatModKey",
+        "Tier",
+        "STATTYPE",
+        "MODTYPE",
+        "MinValue",
+        "MaxValue",
+        "Interval"
+      ],
+      "sha256_utf8_without_bom": "9618d3a7c81746c5ce66cd110c51d17733f814a593219c4f64e394c031dc3011",
+      "first_field_unique_count": 99,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StatModKey": {
+          "min": 100101.0,
+          "max": 108036.0
+        },
+        "Tier": {
+          "min": 1.0,
+          "max": 10.0
+        },
+        "MinValue": {
+          "min": 0.0,
+          "max": 5200.0
+        },
+        "MaxValue": {
+          "min": 0.0,
+          "max": 10000.0
+        },
+        "Interval": {
+          "min": 1.0,
+          "max": 10.0
+        }
+      }
+    },
+    {
+      "name": "StatusEffectInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2510,
+      "rowCount": 6,
+      "fields": [
+        "StatusEffectKey",
+        "StatusEffectType",
+        "Duration",
+        "BuffKeys",
+        "OverrideType",
+        "Param0",
+        "Param1",
+        "Param2",
+        "Param3"
+      ],
+      "sha256_utf8_without_bom": "e35943361cb2c5df608cf72a6e68f83ebb0accbbb86c5ec38426607a5c6c6aa5",
+      "first_field_unique_count": 6,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StatusEffectKey": {
+          "min": 101.0,
+          "max": 106.0
+        },
+        "Duration": {
+          "min": 150.0,
+          "max": 700.0
+        },
+        "Param0": {
+          "min": 30.0,
+          "max": 800.0
+        },
+        "Param1": {
+          "min": 2.0,
+          "max": 100.0
+        }
+      }
+    },
+    {
+      "name": "MaterialInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2511,
+      "rowCount": 189,
+      "fields": [
+        "ItemKey",
+        "MATERIALTYPE",
+        "StatModGroupKey",
+        "IsMaterialStashSlot"
+      ],
+      "sha256_utf8_without_bom": "be37a4eecdb08f8970a236c5189a66e9ea494b6ebd6295f84650d9f22b36085f",
+      "first_field_unique_count": 189,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "ItemKey": {
+          "min": 110001.0,
+          "max": 190104.0
+        },
+        "StatModGroupKey": {
+          "min": 1100011.0,
+          "max": 1390011.0
+        }
+      }
+    },
+    {
+      "name": "MonsterInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2512,
+      "rowCount": 81,
+      "fields": [
+        "MonsterKey",
+        "MonsterNameStringKey",
+        "MONSTERTYPE",
+        "RewardGold",
+        "RewardExp",
+        "SkillKey",
+        "AttackDamage",
+        "AttackSpeed",
+        "MaxLife",
+        "MovementSpeed",
+        "DeadSoundKey",
+        "PrefabPath",
+        "AnimatorPath"
+      ],
+      "sha256_utf8_without_bom": "bde456b3cc4c060ec9b122e653952dbd21094db266d7fe68adf5310435a45a72",
+      "first_field_unique_count": 81,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "MonsterKey": {
+          "min": 10011.0,
+          "max": 5000103.0
+        },
+        "RewardGold": {
+          "min": 0.0,
+          "max": 500.0
+        },
+        "RewardExp": {
+          "min": 0.0,
+          "max": 46.0
+        },
+        "AttackDamage": {
+          "min": 8.0,
+          "max": 406.0
+        },
+        "AttackSpeed": {
+          "min": 40.0,
+          "max": 260.0
+        },
+        "MaxLife": {
+          "min": 15.0,
+          "max": 1384500.0
+        },
+        "MovementSpeed": {
+          "min": 80.0,
+          "max": 570.0
+        },
+        "DeadSoundKey": {
+          "min": 21001111.0,
+          "max": 23011111.0
+        }
+      }
+    },
+    {
+      "name": "GradeInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2513,
+      "rowCount": 10,
+      "fields": [
+        "GRADE",
+        "Lower2GradeWeight",
+        "Lower1GradeWeight",
+        "SameGradeWeight",
+        "Higher1GradeWeight",
+        "Higher2GradeWeight",
+        "InherentSlotAmount",
+        "ExtraSlotAmount_Decoration",
+        "ExtraSlotAmount_Engraving",
+        "ExtraSlotAmount_Inscription",
+        "BaseAlchemyGold",
+        "BaseCubeExp",
+        "BaseContamin",
+        "BaseContamin_Material",
+        "SlotAmount_Reliquary",
+        "Relic_SameGradeWeight",
+        "Relic_Higher1GradeWeight",
+        "Relic_Higher2GradeWeight"
+      ],
+      "sha256_utf8_without_bom": "68bb9e39f7cd2497cb146805a660944acb694e85cdabe3de58065bb3b20d2194",
+      "first_field_unique_count": 10,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Lower2GradeWeight": {
+          "min": 0.0,
+          "max": 0.0
+        },
+        "Lower1GradeWeight": {
+          "min": 0.0,
+          "max": 0.0
+        },
+        "SameGradeWeight": {
+          "min": 0.0,
+          "max": 100000.0
+        },
+        "Higher1GradeWeight": {
+          "min": 0.0,
+          "max": 160400.0
+        },
+        "Higher2GradeWeight": {
+          "min": 0.0,
+          "max": 5000.0
+        },
+        "InherentSlotAmount": {
+          "min": 0.0,
+          "max": 3.0
+        },
+        "ExtraSlotAmount_Decoration": {
+          "min": 0.0,
+          "max": 2.0
+        },
+        "ExtraSlotAmount_Engraving": {
+          "min": 0.0,
+          "max": 2.0
+        },
+        "ExtraSlotAmount_Inscription": {
+          "min": 0.0,
+          "max": 2.0
+        },
+        "BaseAlchemyGold": {
+          "min": 10.0,
+          "max": 355607.0
+        },
+        "BaseCubeExp": {
+          "min": 2.0,
+          "max": 71089.0
+        },
+        "BaseContamin": {
+          "min": 1.0,
+          "max": 500.0
+        },
+        "BaseContamin_Material": {
+          "min": 2.0,
+          "max": 30.0
+        },
+        "SlotAmount_Reliquary": {
+          "min": 0.0,
+          "max": 8.0
+        },
+        "Relic_SameGradeWeight": {
+          "min": 0.0,
+          "max": 70000.0
+        },
+        "Relic_Higher1GradeWeight": {
+          "min": 0.0,
+          "max": 95000.0
+        },
+        "Relic_Higher2GradeWeight": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      }
+    },
+    {
+      "name": "SoundInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2514,
+      "rowCount": 324,
+      "fields": [
+        "SoundKey",
+        "SoundType",
+        "Volume",
+        "AudioClipPath"
+      ],
+      "sha256_utf8_without_bom": "6d44356aaf7b58093a63f6d7981328d5334b99ea2fdd8e424248cabe144e0d46",
+      "first_field_unique_count": 324,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "SoundKey": {
+          "min": 10001.0,
+          "max": 23090111.0
+        },
+        "Volume": {
+          "min": 15.0,
+          "max": 70.0
+        }
+      }
+    },
+    {
+      "name": "CommonStatModInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2515,
+      "rowCount": 12,
+      "fields": [
+        "CommonStatModKey",
+        "STATTYPE",
+        "MODTYPE",
+        "Value",
+        "MaxValue",
+        "Interval"
+      ],
+      "sha256_utf8_without_bom": "fa31eddde0d6d84de9736a23ce6429b4ef72dee29a84ed0a861495e302dbc568",
+      "first_field_unique_count": 12,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "CommonStatModKey": {
+          "min": 4510001.0,
+          "max": 4510012.0
+        },
+        "Value": {
+          "min": 1.0,
+          "max": 2000.0
+        },
+        "MaxValue": {
+          "min": 2.0,
+          "max": 200.0
+        },
+        "Interval": {
+          "min": 1.0,
+          "max": 1.0
+        }
+      }
+    },
+    {
+      "name": "StashInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2516,
+      "rowCount": 131,
+      "fields": [
+        "Index",
+        "CostForUnlock"
+      ],
+      "sha256_utf8_without_bom": "e70cc74903723a4be99acd013f4e3e16dee76b0a8a9d061efd70eb0e92760c21",
+      "first_field_unique_count": 131,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Index": {
+          "min": 0.0,
+          "max": 130.0
+        },
+        "CostForUnlock": {
+          "min": 0.0,
+          "max": 5120000.0
+        }
+      }
+    },
+    {
+      "name": "ItemInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2517,
+      "rowCount": 7031,
+      "fields": [
+        "ItemKey",
+        "ITEMTYPE",
+        "GRADE",
+        "CONTENTTYPE",
+        "PARTS",
+        "GEARTYPE",
+        "GearGroup",
+        "ItemSynthesisType",
+        "NameKey",
+        "DescriptionKey",
+        "GearKey",
+        "DropKey",
+        "DropCooldown",
+        "Level",
+        "ContaminOverride",
+        "MaxStack",
+        "IsSteamItem",
+        "IconPath",
+        "IsBucketBox",
+        "IsDeletedInServer",
+        "IsCanExchangeMarketable",
+        "IsTempMarketableFalse"
+      ],
+      "sha256_utf8_without_bom": "807cf09c6e7720960de2676597945fef9661a8c99ed1c9f38f21ad5b2f645045",
+      "first_field_unique_count": 7031,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "ItemKey": {
+          "min": 110001.0,
+          "max": 941201.0
+        },
+        "GearKey": {
+          "min": 300001.0,
+          "max": 639193.0
+        },
+        "DropKey": {
+          "min": 9100111.0,
+          "max": 9412011.0
+        },
+        "DropCooldown": {
+          "min": 3.0,
+          "max": 3600.0
+        },
+        "Level": {
+          "min": 1.0,
+          "max": 100.0
+        },
+        "ContaminOverride": {
+          "min": 4.0,
+          "max": 128.0
+        },
+        "MaxStack": {
+          "min": 5.0,
+          "max": 999.0
+        }
+      }
+    },
+    {
+      "name": "ItemGroupInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2518,
+      "rowCount": 2922,
+      "fields": [
+        "ItemGroupKey",
+        "GroupName",
+        "ItemKey"
+      ],
+      "sha256_utf8_without_bom": "b46eab076efd94121b15429bd9029ce3b6367191dacc921fa53277bdd0b79150",
+      "first_field_unique_count": 1264,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "ItemGroupKey": {
+          "min": 170500.0,
+          "max": 190190002.0
+        },
+        "ItemKey": {
+          "min": 110001.0,
+          "max": 799063.0
+        }
+      }
+    },
+    {
+      "name": "CubeRecipeInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2519,
+      "rowCount": 10,
+      "fields": [
+        "CubeKey",
+        "RECIPETYPE",
+        "Index",
+        "IsDefaultUnlocked",
+        "TooltipStringKey"
+      ],
+      "sha256_utf8_without_bom": "c613d3838e6496e8e9a72153b34b197a063e4664ef71acb7af5c2a85a0c189fc",
+      "first_field_unique_count": 10,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "CubeKey": {
+          "min": 100001.0,
+          "max": 900001.0
+        },
+        "Index": {
+          "min": 0.0,
+          "max": 9.0
+        }
+      }
+    },
+    {
+      "name": "HeroInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2520,
+      "rowCount": 6,
+      "fields": [
+        "HeroKey",
+        "HeroNameKey",
+        "DescriptionKey",
+        "ClassType",
+        "MainWeaponGearType",
+        "SubWeaponGearType",
+        "SkillKey",
+        "AttackDamage",
+        "AttackSpeed",
+        "CastSpeed",
+        "CriticalChance",
+        "CriticalDamage",
+        "MaxHp",
+        "Armor",
+        "CooldownReduction",
+        "MovementSpeed",
+        "UnlockCost",
+        "IsMeleeHero",
+        "IsAvailable",
+        "IsFirstAvailable",
+        "SelectSoundKey",
+        "DeadSoundKey",
+        "DLCAppId",
+        "DLCBitIndex",
+        "HasDLCDrop",
+        "IconPath",
+        "DeadIconPath",
+        "PrefabPath",
+        "AnimatorPath"
+      ],
+      "sha256_utf8_without_bom": "18a48d8edd0a4f25cc91e641dcba0bc434e6514403b847dbeb800aad58b2d847",
+      "first_field_unique_count": 6,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "HeroKey": {
+          "min": 101.0,
+          "max": 601.0
+        },
+        "SkillKey": {
+          "min": 10001.0,
+          "max": 60001.0
+        },
+        "AttackDamage": {
+          "min": 1.0,
+          "max": 2.0
+        },
+        "AttackSpeed": {
+          "min": 50.0,
+          "max": 100.0
+        },
+        "CastSpeed": {
+          "min": 100.0,
+          "max": 100.0
+        },
+        "CriticalChance": {
+          "min": 20.0,
+          "max": 50.0
+        },
+        "CriticalDamage": {
+          "min": 1400.0,
+          "max": 1800.0
+        },
+        "MaxHp": {
+          "min": 50.0,
+          "max": 130.0
+        },
+        "Armor": {
+          "min": 5.0,
+          "max": 45.0
+        },
+        "CooldownReduction": {
+          "min": 0.0,
+          "max": 0.0
+        },
+        "MovementSpeed": {
+          "min": 770.0,
+          "max": 950.0
+        },
+        "UnlockCost": {
+          "min": 500.0,
+          "max": 500.0
+        },
+        "SelectSoundKey": {
+          "min": 30501.0,
+          "max": 30506.0
+        },
+        "DeadSoundKey": {
+          "min": 2100011.0,
+          "max": 2300011.0
+        },
+        "DLCAppId": {
+          "min": 0.0,
+          "max": 4427430.0
+        },
+        "DLCBitIndex": {
+          "min": 0.0,
+          "max": 1.0
+        }
+      }
+    },
+    {
+      "name": "OfflineRewardInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2521,
+      "rowCount": 116,
+      "fields": [
+        "StageLevel",
+        "BaseGold",
+        "BaseExp",
+        "KillCount",
+        "ClearCount"
+      ],
+      "sha256_utf8_without_bom": "ea7c1e8408fa1e7f59bd6d772542a4f3fa7b99b553b1a9b9e43d04dc46a9b6d7",
+      "first_field_unique_count": 116,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StageLevel": {
+          "min": 1.0,
+          "max": 116.0
+        },
+        "BaseGold": {
+          "min": 1.0,
+          "max": 1110.0
+        },
+        "BaseExp": {
+          "min": 1.0,
+          "max": 21898.0
+        },
+        "KillCount": {
+          "min": 180.0,
+          "max": 6300.0
+        },
+        "ClearCount": {
+          "min": 10.0,
+          "max": 20.0
+        }
+      }
+    },
+    {
+      "name": "UniqueModInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2522,
+      "rowCount": 132,
+      "fields": [
+        "UniqueModKey",
+        "UniqueMod",
+        "Param1ExchangeType",
+        "Param1",
+        "Param1_Max",
+        "Param1_Interval",
+        "Param2ExchangeType",
+        "Param2",
+        "Param2_Max",
+        "Param2_Interval",
+        "Param3ExchangeType",
+        "Param3",
+        "Param3_Max",
+        "Param3_Interval",
+        "Param4ExchangeType",
+        "Param4",
+        "Param4_Max",
+        "Param4_Interval",
+        "Param5ExchangeType",
+        "Param5",
+        "Param5_Max",
+        "Param5_Interval"
+      ],
+      "sha256_utf8_without_bom": "a4df94594416f950e79cd2e6c849551e599b2cbf04977c2e7fe41245d355b871",
+      "first_field_unique_count": 132,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "UniqueModKey": {
+          "min": 10001.0,
+          "max": 1002041.0
+        },
+        "Param1_Max": {
+          "min": 2.0,
+          "max": 5000.0
+        },
+        "Param1_Interval": {
+          "min": 1.0,
+          "max": 100.0
+        },
+        "Param2_Max": {
+          "min": 500.0,
+          "max": 500.0
+        },
+        "Param2_Interval": {
+          "min": 10.0,
+          "max": 10.0
+        }
+      }
+    },
+    {
+      "name": "AttributeInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2523,
+      "rowCount": 132,
+      "fields": [
+        "AttributeKey",
+        "HeroKey",
+        "GroupKey",
+        "ATTRIBUTETYPE",
+        "Value",
+        "RequiredPoint",
+        "MaxLevel",
+        "AvailableDemo"
+      ],
+      "sha256_utf8_without_bom": "0b1378fccbc4b27f9dc2b4a038db56e2fb5d6a240973534288825b089f8757f6",
+      "first_field_unique_count": 132,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "AttributeKey": {
+          "min": 101001.0,
+          "max": 601072.0
+        },
+        "HeroKey": {
+          "min": 101.0,
+          "max": 601.0
+        },
+        "GroupKey": {
+          "min": 10001.0,
+          "max": 10008.0
+        },
+        "Value": {
+          "min": 10101.0,
+          "max": 601072.0
+        },
+        "RequiredPoint": {
+          "min": 1.0,
+          "max": 1.0
+        },
+        "MaxLevel": {
+          "min": 3.0,
+          "max": 10.0
+        }
+      }
+    },
+    {
+      "name": "TradingStashInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2524,
+      "rowCount": 10,
+      "fields": [
+        "Index",
+        "CostForUnlock"
+      ],
+      "sha256_utf8_without_bom": "5136c692404372167c92f2bad60d7e57ebff76382320ad94dd2fb600d6a2409a",
+      "first_field_unique_count": 10,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Index": {
+          "min": 0.0,
+          "max": 9.0
+        },
+        "CostForUnlock": {
+          "min": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    {
+      "name": "SkillLevelInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2525,
+      "rowCount": 360,
+      "fields": [
+        "SkillLevelKey",
+        "Level",
+        "Value"
+      ],
+      "sha256_utf8_without_bom": "63fe82819707e7b112f1a8f724dcacaf83b50395992d816e62a753a2c328bad2",
+      "first_field_unique_count": 36,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "SkillLevelKey": {
+          "min": 10101.0,
+          "max": 60601.0
+        },
+        "Level": {
+          "min": 1.0,
+          "max": 10.0
+        },
+        "Value": {
+          "min": 3.0,
+          "max": 9800.0
+        }
+      }
+    },
+    {
+      "name": "SkinInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2526,
+      "rowCount": 18,
+      "fields": [
+        "SkinKey",
+        "SetId",
+        "IsDefault",
+        "IsFree"
+      ],
+      "sha256_utf8_without_bom": "c3ed5e1c40936fca688922bd42a264802ba17feb8a9e28faa99e3f154e086441",
+      "first_field_unique_count": 18,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "SkinKey": {
+          "min": 25101001.0,
+          "max": 25601003.0
+        },
+        "SetId": {
+          "min": 25001002.0,
+          "max": 25001003.0
+        }
+      }
+    },
+    {
+      "name": "ExtractionCostInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2527,
+      "rowCount": 90,
+      "fields": [
+        "ExtractionKey",
+        "GearGroup",
+        "MATERIALTYPE",
+        "Tier",
+        "Cost"
+      ],
+      "sha256_utf8_without_bom": "ba951ed7a1590e3133cbf905ba3d565aca3d963a00b787d27d9e0bbd6c68c6a8",
+      "first_field_unique_count": 90,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "ExtractionKey": {
+          "min": 10101.0,
+          "max": 30310.0
+        },
+        "Tier": {
+          "min": 1.0,
+          "max": 10.0
+        },
+        "Cost": {
+          "min": 100.0,
+          "max": 200000.0
+        }
+      }
+    },
+    {
+      "name": "CraftingRecipeInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2528,
+      "rowCount": 63,
+      "fields": [
+        "CraftingRecipeKey",
+        "ItemCraftingType",
+        "RecipeTier",
+        "Material",
+        "MaterialIndex",
+        "DropKey"
+      ],
+      "sha256_utf8_without_bom": "62f8910157c25ba02e14e5c4d8d95d9debefc69cbbb6dc58cd5fcd4b8ec17d72",
+      "first_field_unique_count": 63,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "CraftingRecipeKey": {
+          "min": 6001001.0,
+          "max": 6009007.0
+        },
+        "RecipeTier": {
+          "min": 1.0,
+          "max": 9.0
+        },
+        "DropKey": {
+          "min": 3601001.0,
+          "max": 3609007.0
+        }
+      }
+    },
+    {
+      "name": "SynthesisDropInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2529,
+      "rowCount": 239,
+      "fields": [
+        "SynthesisDropKey",
+        "ItemLevel",
+        "RecipeTier",
+        "ItemSynthesisType",
+        "GRADE",
+        "DropKey"
+      ],
+      "sha256_utf8_without_bom": "b7a3708409f4f1a6192e58959d0d62ea249c5722b9c02186553ee6b6121d8916",
+      "first_field_unique_count": 239,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "SynthesisDropKey": {
+          "min": 10010001.0,
+          "max": 50100009.0
+        },
+        "ItemLevel": {
+          "min": 1.0,
+          "max": 90.0
+        },
+        "RecipeTier": {
+          "min": 1.0,
+          "max": 9.0
+        },
+        "DropKey": {
+          "min": 3111011.0,
+          "max": 3705110.0
+        }
+      }
+    },
+    {
+      "name": "PartyModInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2530,
+      "rowCount": 63,
+      "fields": [
+        "PartyModKey",
+        "PartyModType",
+        "PartyMod",
+        "Param1ExchangeType",
+        "Param1",
+        "Param1_Max",
+        "Param1_Interval",
+        "Param2ExchangeType",
+        "Param2",
+        "Param2_Max",
+        "Param2_Interval",
+        "Param3ExchangeType",
+        "Param3",
+        "Param3_Max",
+        "Param3_Interval",
+        "Param4ExchangeType",
+        "Param4",
+        "Param4_Max",
+        "Param4_Interval"
+      ],
+      "sha256_utf8_without_bom": "ddc78b87013e59437f52c062a5516cc44339214e50c0172fdf603a9822db72a5",
+      "first_field_unique_count": 63,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "PartyModKey": {
+          "min": 20101.0,
+          "max": 20520.0
+        },
+        "Param1": {
+          "min": 1.0,
+          "max": 1002041.0
+        },
+        "Param1_Max": {
+          "min": 80.0,
+          "max": 700.0
+        },
+        "Param1_Interval": {
+          "min": 10.0,
+          "max": 10.0
+        },
+        "Param2": {
+          "min": 1.0,
+          "max": 2000.0
+        },
+        "Param2_Max": {
+          "min": 1.0,
+          "max": 1000.0
+        },
+        "Param2_Interval": {
+          "min": 1.0,
+          "max": 10.0
+        },
+        "Param3": {
+          "min": 30.0,
+          "max": 60.0
+        },
+        "Param3_Max": {
+          "min": 50.0,
+          "max": 100.0
+        },
+        "Param3_Interval": {
+          "min": 1.0,
+          "max": 1.0
+        }
+      }
+    },
+    {
+      "name": "PetInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2531,
+      "rowCount": 10,
+      "fields": [
+        "PetKey",
+        "NameKey",
+        "DescriptionKey",
+        "StatDataKey",
+        "UnlockCondition",
+        "Param1",
+        "Param2",
+        "EventKey"
+      ],
+      "sha256_utf8_without_bom": "271d1100f9ecfe8d800fecd2045b744300214514ce32d6d2a15136ee5cdb83bf",
+      "first_field_unique_count": 10,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "PetKey": {
+          "min": 1001.0,
+          "max": 6003.0
+        },
+        "StatDataKey": {
+          "min": 1001.0,
+          "max": 6003.0
+        },
+        "Param1": {
+          "min": 10031.0,
+          "max": 5000103.0
+        },
+        "Param2": {
+          "min": 500.0,
+          "max": 5000.0
+        },
+        "EventKey": {
+          "min": 50001.0,
+          "max": 50001.0
+        }
+      }
+    },
+    {
+      "name": "PetStatInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2532,
+      "rowCount": 13,
+      "fields": [
+        "PetStatKey",
+        "STATTYPE",
+        "MODTYPE",
+        "Value"
+      ],
+      "sha256_utf8_without_bom": "7b82a0839c33df0099053c7f99165184cf265a5973c4145290249412f30f7c72",
+      "first_field_unique_count": 10,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "PetStatKey": {
+          "min": 1001.0,
+          "max": 6003.0
+        },
+        "Value": {
+          "min": 10.0,
+          "max": 200.0
+        }
+      }
+    },
+    {
+      "name": "ResonanceInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2533,
+      "rowCount": 63,
+      "fields": [
+        "ResonanceKey",
+        "Condition",
+        "PartyModKey"
+      ],
+      "sha256_utf8_without_bom": "baa05487adb9f08a53ca669936f635b725c2c1f596a8e15fb4d95caca65806f8",
+      "first_field_unique_count": 63,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "ResonanceKey": {
+          "min": 20101.0,
+          "max": 20520.0
+        },
+        "PartyModKey": {
+          "min": 20101.0,
+          "max": 20520.0
+        }
+      }
+    },
+    {
+      "name": "ItemLevelScaleInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2534,
+      "rowCount": 19,
+      "fields": [
+        "Level",
+        "AlchemyGoldScale",
+        "CubeExpScale",
+        "ContaminScale"
+      ],
+      "sha256_utf8_without_bom": "fd487ff432c078d110822e83611b4af3b2b9e1e7792d015dc140d23409013f84",
+      "first_field_unique_count": 19,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Level": {
+          "min": 1.0,
+          "max": 90.0
+        },
+        "AlchemyGoldScale": {
+          "min": 1000.0,
+          "max": 1227000.0
+        },
+        "CubeExpScale": {
+          "min": 1000.0,
+          "max": 3060000.0
+        },
+        "ContaminScale": {
+          "min": 1000.0,
+          "max": 1000.0
+        }
+      }
+    },
+    {
+      "name": "LevelInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2535,
+      "rowCount": 100,
+      "fields": [
+        "Level",
+        "ExpForLevelUp"
+      ],
+      "sha256_utf8_without_bom": "84215354686c5ceb8561c5a266af176d46cfa4af89b0698ca63f5cc2a7661509",
+      "first_field_unique_count": 100,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "Level": {
+          "min": 1.0,
+          "max": 100.0
+        },
+        "ExpForLevelUp": {
+          "min": 30.0,
+          "max": 1997771834.0
+        }
+      }
+    },
+    {
+      "name": "EventStageInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2536,
+      "rowCount": 3,
+      "fields": [
+        "StageKey",
+        "EventKey",
+        "UnlockStageKey",
+        "EntryTicketItemKey",
+        "EntryTicketAmount",
+        "MaxBoxDrop"
+      ],
+      "sha256_utf8_without_bom": "7cbf677df474206caee518ef099cba0ced50963b61fbad7d67c64b64a400ba18",
+      "first_field_unique_count": 3,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "StageKey": {
+          "min": 2901.0,
+          "max": 4901.0
+        },
+        "EventKey": {
+          "min": 50001.0,
+          "max": 50001.0
+        },
+        "UnlockStageKey": {
+          "min": 2310.0,
+          "max": 4310.0
+        },
+        "EntryTicketItemKey": {
+          "min": 170101.0,
+          "max": 170103.0
+        },
+        "EntryTicketAmount": {
+          "min": 1.0,
+          "max": 1.0
+        },
+        "MaxBoxDrop": {
+          "min": 10.0,
+          "max": 10.0
+        }
+      }
+    },
+    {
+      "name": "CubeSubRecipeInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2537,
+      "rowCount": 89,
+      "fields": [
+        "CubeSubRecipeKey",
+        "RECIPETYPE",
+        "RecipeTier",
+        "DefaultUnlockWhenMainRecipeOpen",
+        "UnlockCubeLevel",
+        "UnlockCost",
+        "Material",
+        "TriggerGoldCost",
+        "DropKey",
+        "SubRecipeNameStringKey"
+      ],
+      "sha256_utf8_without_bom": "4ef7e451237614d79e6c428ba8ef87f23dd084317ef4373e9fc89dbfa0d6c5e3",
+      "first_field_unique_count": 89,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "CubeSubRecipeKey": {
+          "min": 100011.0,
+          "max": 900011.0
+        },
+        "RecipeTier": {
+          "min": 1.0,
+          "max": 9.0
+        },
+        "UnlockCubeLevel": {
+          "min": 1.0,
+          "max": 90.0
+        },
+        "UnlockCost": {
+          "min": 0.0,
+          "max": 50000.0
+        },
+        "Material": {
+          "min": 1600011.0,
+          "max": 1621101.0
+        },
+        "TriggerGoldCost": {
+          "min": 10.0,
+          "max": 910.0
+        },
+        "DropKey": {
+          "min": 3700001.0,
+          "max": 3710003.0
+        }
+      }
+    },
+    {
+      "name": "BuffInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2538,
+      "rowCount": 31,
+      "fields": [
+        "BuffKey",
+        "BuffType",
+        "STATTYPE",
+        "MODTYPE",
+        "Value"
+      ],
+      "sha256_utf8_without_bom": "773652e5380e3035815acde22d7c98673df9353c01cfb3304e5459670972ad1f",
+      "first_field_unique_count": 31,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "BuffKey": {
+          "min": 1011.0,
+          "max": 22090211.0
+        },
+        "Value": {
+          "min": 20.0,
+          "max": 1000.0
+        }
+      }
+    },
+    {
+      "name": "PlagueIntensityInfoData",
+      "source": "TaskBarHero_Data/sharedassets0.assets",
+      "pathID": 2539,
+      "rowCount": 60,
+      "fields": [
+        "PlagueIntensity",
+        "STATTYPE",
+        "MODTYPE",
+        "Value"
+      ],
+      "sha256_utf8_without_bom": "a8429a9896eaffc046802fcb94b1ceefe8c52301eaef83ee2da548c09d2bedb4",
+      "first_field_unique_count": 20,
+      "malformed_rows": [],
+      "numeric_ranges": {
+        "PlagueIntensity": {
+          "min": 1.0,
+          "max": 20.0
+        },
+        "Value": {
+          "min": 50.0,
+          "max": 405000.0
+        }
+      }
+    }
+  ]
+}

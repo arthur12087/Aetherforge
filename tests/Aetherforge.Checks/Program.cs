@@ -2,6 +2,7 @@ using Aetherforge.Domain;
 using Aetherforge.Persistence;
 
 ExpeditionChecks.Run();
+ProgressionChecks.Run();
 Console.WriteLine("PASS: expedição local, marcha, cinco etapas, papéis, cura, escudo, pausa, recuo, derrota, determinismo e limites.");
 
 void Require(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }

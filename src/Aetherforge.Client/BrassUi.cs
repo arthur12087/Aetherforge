@@ -11,7 +11,8 @@ public static class BrassUi
 
     private static float _scale = 1;
     private static readonly Dictionary<float, Theme> Themes = new();
-    private static readonly Dictionary<(float Scale, bool Primary), StyleBoxFlat[]> ButtonStyles = new();
+    private static readonly Dictionary<(float Scale, bool Primary, bool Editorial), StyleBoxFlat[]> ButtonStyles = new();
+    private static readonly Dictionary<float, Theme> DossierThemes = new();
     private static readonly string[] ButtonStates = { "normal", "hover", "pressed", "hover_pressed", "disabled", "focus" };
 
     /// <summary>Set before constructing controls. Existing controls are not live-rescaled.</summary>
@@ -60,6 +61,35 @@ public static class BrassUi
         return theme;
     }
 
+    /// <summary>Paper instruments only; the compact stage and typography proof retain their own theme.</summary>
+    public static Theme CreateDossierTheme()
+    {
+        if (DossierThemes.TryGetValue(Scale, out var cached)) return cached;
+        var theme = (Theme)CreateTheme().Duplicate();
+        theme.SetColor("font_color", "Label", Soot);
+        theme.SetStylebox("panel", "PanelContainer", Box(Linen, Tobacco, 0));
+        var styles = Styles(false, true);
+        for (var i = 0; i < ButtonStates.Length; i++) theme.SetStylebox(ButtonStates[i], "Button", styles[i]);
+        foreach (var state in new[] { "font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color" })
+        {
+            theme.SetColor(state, "Button", Soot);
+            theme.SetColor(state, "CheckButton", Soot);
+        }
+        foreach (var state in ButtonStates)
+            theme.SetStylebox(state, "CheckButton", state == "focus" ? styles[5] : new StyleBoxEmpty { ContentMarginTop=S(4), ContentMarginBottom=S(4) });
+        theme.SetFont("font", "CheckButton", BodyFont);
+        theme.SetFontSize("font_size", "CheckButton", S(14));
+        foreach (bool active in new[] { false, true })
+        {
+            var image = new Image();
+            image.LoadSvgFromString("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\"><rect x=\"3\" y=\"3\" width=\"14\" height=\"14\" fill=\"#E4D8B7\" stroke=\"#40332B\"/>" +
+                (active ? "<path d=\"M6 10l3 3 5-6\" fill=\"none\" stroke=\"#6C3A32\" stroke-width=\"2\"/>" : "") + "</svg>", Scale);
+            theme.SetIcon(active ? "checked" : "unchecked", "CheckButton", ImageTexture.CreateFromImage(image));
+        }
+        DossierThemes.Add(Scale, theme);
+        return theme;
+    }
+
     public static StyleBoxFlat Box(Color fill, Color border, int width = 1, int horizontal = 0, int vertical = 0) => new()
     {
         BgColor = fill, BorderColor = border, BorderWidthLeft = S(width), BorderWidthRight = S(width),
@@ -103,15 +133,21 @@ public static class BrassUi
     public static void Primary(Button button) => ApplyButton(button, true);
     public static void Quiet(Button button) => ApplyButton(button, false);
 
-    private static void ApplyButton(Button button, bool primary)
+    public static void DossierButton(Button button, bool primary = false) => ApplyButton(button, primary, true);
+
+    private static void ApplyButton(Button button, bool primary, bool editorial = false)
     {
-        var styles = Styles(primary);
+        var styles = Styles(primary, editorial);
         for (var i = 0; i < ButtonStates.Length; i++) button.AddThemeStyleboxOverride(ButtonStates[i], styles[i]);
         button.AddThemeFontOverride("font", StrongFont);
         button.AddThemeFontSizeOverride("font_size", S(BrassTypography.BodySize));
         foreach (var state in new[] { "font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color" })
-            button.AddThemeColorOverride(state, Linen);
-        button.AddThemeColorOverride("font_disabled_color", Paper.Darkened(.28f));
+            button.AddThemeColorOverride(state, editorial && !primary ? Soot : Linen);
+        button.AddThemeColorOverride("font_disabled_color", editorial ? Tobacco : Paper.Darkened(.28f));
+        if (editorial)
+            foreach (var state in new[] { "icon_normal_color", "icon_hover_color", "icon_pressed_color", "icon_focus_color", "icon_hover_pressed_color" })
+                button.AddThemeColorOverride(state, primary ? Linen : Soot);
+        if (editorial) button.AddThemeColorOverride("icon_disabled_color", Tobacco);
         button.AddThemeConstantOverride("h_separation", S(8));
         button.AddThemeConstantOverride("icon_max_width", S(20));
         button.ExpandIcon = true;
@@ -120,24 +156,24 @@ public static class BrassUi
         // Style only: preserve callbacks, ToggleMode, ButtonPressed, Disabled and caller focus policy.
     }
 
-    private static StyleBoxFlat[] Styles(bool primary)
+    private static StyleBoxFlat[] Styles(bool primary, bool editorial = false)
     {
-        var key = (Scale, primary);
+        var key = (Scale, primary, editorial);
         if (ButtonStyles.TryGetValue(key, out var cached)) return cached;
-        var normal = Box(primary ? Wine : Soot, primary ? Brass : Tobacco.Lightened(.16f), 0, 12, 7);
+        var normal = Box(primary ? Wine : editorial ? Paper : Soot, primary ? Wine : editorial ? Tobacco : Tobacco.Lightened(.16f), 0, 12, 7);
         normal.BorderWidthLeft = primary ? S(3) : 0;
         normal.BorderWidthBottom = S(1);
-        var hover = Box(primary ? Wine.Lightened(.1f) : Tobacco.Lightened(.07f), Paper, 0, 12, 7);
+        var hover = Box(primary ? Wine.Lightened(.1f) : editorial ? Paper.Lightened(.08f) : Tobacco.Lightened(.07f), editorial ? Wine : Paper, 0, 12, 7);
         hover.BorderWidthBottom = S(2);
         hover.BorderWidthLeft = primary ? S(3) : 0;
-        var pressed = Box(Wine.Darkened(.12f), Linen, 0, 12, 7);
+        var pressed = Box(editorial && !primary ? Paper.Darkened(.08f) : Wine.Darkened(.12f), editorial ? Wine : Linen, 0, 12, 7);
         pressed.BorderWidthLeft = S(4); // A latched selector has a visible physical key.
         pressed.BorderWidthTop = S(2);
         var hoverPressed = (StyleBoxFlat)pressed.Duplicate();
-        hoverPressed.BgColor = Wine;
-        var disabled = Box(Soot.Lightened(.06f), Tobacco, 0, 12, 7);
+        hoverPressed.BgColor = editorial && !primary ? Paper : Wine;
+        var disabled = Box(editorial ? Paper : Soot.Lightened(.06f), Tobacco, 0, 12, 7);
         disabled.BorderWidthBottom = S(1);
-        var focus = Box(Colors.Transparent, Linen, 2);
+        var focus = Box(Colors.Transparent, editorial ? Wine : Linen, 2);
         focus.DrawCenter = false; // A complete outline appears independently of hover/selection.
         cached = new[] { normal, hover, pressed, hoverPressed, disabled, focus };
         ButtonStyles.Add(key, cached);

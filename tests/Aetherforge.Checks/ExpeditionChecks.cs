@@ -173,7 +173,7 @@ public static class ExpeditionChecks
             foreach (var ev in sim.Events.Where(e => e.Id > lastId))
             {
                 Require(ev.Id == lastId + 1 && ev.At >= lastAt && ev.At <= sim.Elapsed, "Monotonic event IDs and simulated timestamps.");
-                Require(new[] { "attack", "hurt", "heal", "shield", "kill", "phase" }.Contains(ev.Kind), "Contract event kind.");
+                Require(new[] { "attack", "hurt", "heal", "shield", "kill", "phase", "reward", "level", "drop" }.Contains(ev.Kind), "Contract event kind.");
                 Require(ev.Actor >= 0 && ev.Actor < 3 + sim.Enemies.Count && ev.Target >= 0 && ev.Target < 3 + sim.Enemies.Count, "Contract actor/target indices.");
                 Require(ev.Amount >= 0 && !float.IsNaN(ev.Amount), "Valid event amount.");
                 if (ev.Kind == "heal") { sawHeal = true; Require(ev.Actor == 2 && ev.Target < 3 && ev.Amount > 0, "Visible healer event."); }

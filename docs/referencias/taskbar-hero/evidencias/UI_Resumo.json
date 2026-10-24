@@ -1,0 +1,1721 @@
+{
+  "evidence_id": "U01",
+  "summary": {
+    "unitypy": "1.24.2",
+    "source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TaskbarHero\\TaskBarHero_Data\\level0",
+    "counts": {
+      "GameObject": 12698,
+      "Transform": 61,
+      "Camera": 1,
+      "BoxCollider2D": 1,
+      "AudioListener": 1,
+      "Animator": 48,
+      "RenderSettings": 1,
+      "LightmapSettings": 1,
+      "NavMeshSettings": 1,
+      "SortingGroup": 8,
+      "SpriteRenderer": 14,
+      "CanvasRenderer": 11243,
+      "Canvas": 9,
+      "RectTransform": 12637,
+      "CanvasGroup": 306,
+      "SpriteMask": 1,
+      "MonoBehaviour": 17972
+    },
+    "game_objects_decoded": 12698,
+    "transforms_decoded": 12698,
+    "full_component_decode_errors": 17874,
+    "monobehaviour_base_header_fallbacks": 17874,
+    "hierarchy_roots": [
+      "Canvas_FaddedUi",
+      "Canvas_FirstSetting",
+      "Canvas_LogUI",
+      "Canvas_Main",
+      "Canvas_MoveingSlot",
+      "Canvas_Popup",
+      "Canvas_QA",
+      "Canvas_Stage",
+      "Canvas_Tooltip",
+      "EventSystem",
+      "Main Camera (1)",
+      "Manager",
+      "UICheck_CameraFollower",
+      "World"
+    ],
+    "matching_objects": 4690,
+    "limitations": [
+      "Serialized scene state only; no runtime interaction",
+      "GameObject active_self is not effective visibility",
+      "Raw ASCII candidates are not decoded text or event bindings",
+      "Missing script fields must remain unknown"
+    ]
+  },
+  "nodes": [
+    {
+      "path_id": 8697,
+      "path": "Canvas_Main/Main/Center",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 318.0,
+          "y": 468.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "AlwaysVisibleOutline"
+      ]
+    },
+    {
+      "path_id": 11191,
+      "path": "Canvas_Main/Main/Center/BG_Blocked_Center",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 2.0,
+          "y": 2.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.5
+        },
+        "m_SizeDelta": {
+          "x": -159.0,
+          "y": -230.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "Image"
+      ]
+    },
+    {
+      "path_id": 3670,
+      "path": "Canvas_Main/Main/Center/Button_Close (1)",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": -27.200000762939453,
+          "y": -20.700000762939453
+        },
+        "m_SizeDelta": {
+          "x": 27.0,
+          "y": 30.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "Image",
+        "Button",
+        "TooltipTrigger",
+        "NormalButton"
+      ]
+    },
+    {
+      "path_id": 2316,
+      "path": "Canvas_Main/Main/Center/CenterToastMessagePos",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": -7.62939998821821e-06,
+          "y": 85.0
+        },
+        "m_SizeDelta": {
+          "x": 120.0,
+          "y": 25.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "ToastMessage"
+      ]
+    },
+    {
+      "path_id": 8165,
+      "path": "Canvas_Main/Main/Center/ItemEquipGuide",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 40.0,
+          "y": 40.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "TutorialObject"
+      ]
+    },
+    {
+      "path_id": 11148,
+      "path": "Canvas_Main/Main/Center/OfflineReward",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": -35.0
+        },
+        "m_SizeDelta": {
+          "x": 274.0,
+          "y": 334.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "Image",
+        "UI_OfflineReward"
+      ]
+    },
+    {
+      "path_id": 10879,
+      "path": "Canvas_Main/Main/Center/TutorialPopUp",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 200.0,
+          "y": 60.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "TutorialObjectPopUp"
+      ]
+    },
+    {
+      "path_id": 3054,
+      "path": "Canvas_Main/Main/Center/UI_Hero",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 234.0
+        },
+        "m_SizeDelta": {
+          "x": 318.0,
+          "y": 468.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UI_Hero",
+        "UI_Arrange",
+        "HeroRightTopButtonPanel",
+        "HeroArrowSwitchPanel",
+        "SDModelPreview",
+        "UI_PetArrange",
+        "PetModelPreview"
+      ]
+    },
+    {
+      "path_id": 9723,
+      "path": "Canvas_Main/Main/Center/UI_MailBox",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UiStateMachineBehaviour",
+        "UI_Mailbox"
+      ]
+    },
+    {
+      "path_id": 3431,
+      "path": "Canvas_Main/Main/Center/UI_Popup",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "bex"
+      ]
+    },
+    {
+      "path_id": 8793,
+      "path": "Canvas_Main/Main/Center/UI_Setting",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UI_Setting",
+        "UiStateMachineBehaviour"
+      ]
+    },
+    {
+      "path_id": 5812,
+      "path": "Canvas_Main/Main/Center/UI_Shop",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": -3.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": -6.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UI_Shop"
+      ]
+    },
+    {
+      "path_id": 1352,
+      "path": "Canvas_Main/Main/Center/UI_TradingStash",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 234.0
+        },
+        "m_SizeDelta": {
+          "x": 318.0,
+          "y": 468.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UI_TradingStash"
+      ]
+    },
+    {
+      "path_id": 9978,
+      "path": "Canvas_Main/Main/Left",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": -322.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 318.0,
+          "y": 468.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "AlwaysVisibleOutline"
+      ]
+    },
+    {
+      "path_id": 12306,
+      "path": "Canvas_Main/Main/Left/BG_Blocked_Left",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "Image"
+      ]
+    },
+    {
+      "path_id": 8716,
+      "path": "Canvas_Main/Main/Left/LeftToastMessagePos",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 85.0
+        },
+        "m_SizeDelta": {
+          "x": 120.0,
+          "y": 25.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "ToastMessage"
+      ]
+    },
+    {
+      "path_id": 11197,
+      "path": "Canvas_Main/Main/Left/UI_Stash_Remake",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UI_RemakeStash"
+      ]
+    },
+    {
+      "path_id": 10551,
+      "path": "Canvas_Main/Main/Left/UI_Status",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UI_Status",
+        "UiStateMachineBehaviour"
+      ]
+    },
+    {
+      "path_id": 10831,
+      "path": "Canvas_Main/Main/Left/UI_Status/BG _Decor",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 1.0
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": -78.0
+        },
+        "m_SizeDelta": {
+          "x": 306.0,
+          "y": 386.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 1.0
+        }
+      },
+      "scripts": [
+        "Image"
+      ]
+    },
+    {
+      "path_id": 1173,
+      "path": "Canvas_Main/Main/Left/UI_Status/Bottom Panel",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": -110.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": -220.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": []
+    },
+    {
+      "path_id": 8797,
+      "path": "Canvas_Main/Main/Left/UI_Status/Bottom Panel/Detailed Stats Panel",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.1953125,
+          "y": -5.6259765625
+        },
+        "m_SizeDelta": {
+          "x": -28.50779914855957,
+          "y": -11.251399993896484
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": []
+    },
+    {
+      "path_id": 11949,
+      "path": "Canvas_Main/Main/Left/UI_Status/Bottom Panel/Skill Panel",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": -1.4999990463256836,
+          "y": 5.0
+        },
+        "m_SizeDelta": {
+          "x": -19.000001907348633,
+          "y": -10.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": []
+    },
+    {
+      "path_id": 10845,
+      "path": "Canvas_Main/Main/Left/UI_Status/Button_Close",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": -28.600000381469727,
+          "y": -55.20000076293945
+        },
+        "m_SizeDelta": {
+          "x": 28.0,
+          "y": 28.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "Image",
+        "Button",
+        "TooltipTrigger",
+        "NormalButton"
+      ]
+    },
+    {
+      "path_id": 569,
+      "path": "Canvas_Main/Main/Left/UI_Status/SkillPoint Panel",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 1.0
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": -226.0
+        },
+        "m_SizeDelta": {
+          "x": 145.0,
+          "y": 21.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 1.0
+        }
+      },
+      "scripts": [
+        "HorizontalLayoutGroup",
+        "bfd"
+      ]
+    },
+    {
+      "path_id": 5241,
+      "path": "Canvas_Main/Main/Left/UI_Status/TeamStatsButton",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 1.0
+        },
+        "m_AnchorMax": {
+          "x": 0.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 36.0,
+          "y": -56.125
+        },
+        "m_SizeDelta": {
+          "x": 28.0,
+          "y": 28.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "Image",
+        "Button",
+        "NormalButton",
+        "TooltipTrigger"
+      ]
+    },
+    {
+      "path_id": 6379,
+      "path": "Canvas_Main/Main/Left/UI_Status/TeamStatus",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 81.30000305175781
+        },
+        "m_SizeDelta": {
+          "x": 234.5,
+          "y": 130.61300659179688
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "Image",
+        "TeamStatPanel"
+      ]
+    },
+    {
+      "path_id": 8571,
+      "path": "Canvas_Main/Main/Left/UI_Status/Top Panel",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 1.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": -76.0
+        },
+        "m_SizeDelta": {
+          "x": -16.0,
+          "y": 148.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 1.0
+        }
+      },
+      "scripts": []
+    },
+    {
+      "path_id": 3321,
+      "path": "Canvas_Main/Main/Left/UI_Status/Top Panel/StatusPanel",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": []
+    },
+    {
+      "path_id": 5463,
+      "path": "Canvas_Main/Main/Left/UI_Status/Top Panel/StatusPanel/Left Panel",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": -83.77799987792969,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 106.76000213623047,
+          "y": 117.05000305175781
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": []
+    },
+    {
+      "path_id": 4457,
+      "path": "Canvas_Main/Main/Left/UI_Status/Top Panel/StatusPanel/Right Panel",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 1.0
+        },
+        "m_AnchorMax": {
+          "x": 0.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 152.0,
+          "y": -80.0
+        },
+        "m_SizeDelta": {
+          "x": 264.0,
+          "y": 116.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": []
+    },
+    {
+      "path_id": 1705,
+      "path": "Canvas_Main/Main/Right",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 322.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 318.0,
+          "y": 468.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "AlwaysVisibleOutline"
+      ]
+    },
+    {
+      "path_id": 2877,
+      "path": "Canvas_Main/Main/Right/AutoFillSelectGuide",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": -194.0
+        },
+        "m_SizeDelta": {
+          "x": 100.0,
+          "y": 100.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "TutorialObject"
+      ]
+    },
+    {
+      "path_id": 10871,
+      "path": "Canvas_Main/Main/Right/BG_Blocked_Right",
+      "active_self": false,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "Image"
+      ]
+    },
+    {
+      "path_id": 8195,
+      "path": "Canvas_Main/Main/Right/RightToastMessagePos",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchorMax": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 85.0
+        },
+        "m_SizeDelta": {
+          "x": 120.0,
+          "y": 25.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "ToastMessage"
+      ]
+    },
+    {
+      "path_id": 9673,
+      "path": "Canvas_Main/Main/Right/UI_Portal",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UI_Portal"
+      ]
+    },
+    {
+      "path_id": 11328,
+      "path": "Canvas_Main/Main/Right/UI_RemakeCube",
+      "active_self": true,
+      "layout": {
+        "m_LocalRotation": {
+          "x": -0.0,
+          "y": -0.0,
+          "z": -0.0,
+          "w": 1.0
+        },
+        "m_LocalPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "m_LocalScale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "m_AnchorMin": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_AnchorMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "m_AnchoredPosition": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_SizeDelta": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "m_Pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "scripts": [
+        "UI_Cube",
+        "CubeSlotSetter",
+        "UiStateMachineBehaviour",
+        "CubeEffectController"
+      ]
+    }
+  ]
+}

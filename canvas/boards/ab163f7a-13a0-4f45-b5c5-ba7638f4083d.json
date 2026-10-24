@@ -1128,6 +1128,278 @@
       },
       "title": "ANTES DA V15 · componentes marcados pelo usuário",
       "description": "Original marcado preservado sem edição. Diagnóstico da placa Status, atributos e equipe que motivou esta revisão; não representa o resultado V15."
+    },
+    {
+      "id": "v17-ui-entrega",
+      "type": "document",
+      "data": {
+        "documentId": "ui-v17-dossie-implementado",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v17-ui-overview"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-status"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-hero"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-route"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-status-150"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-hero-125"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-hero-150"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-hero-healer"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-hero-stacked"
+          },
+          {
+            "type": "node",
+            "nodeId": "v17-ui-status-options"
+          },
+          {
+            "type": "node",
+            "nodeId": "v16-ui-dossie"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-entrega"
+          }
+        ]
+      },
+      "title": "V17 · Dossiê de turno escolhido / implementado no Godot",
+      "description": "O usuário escolheu o estudo 01 e autorizou implementá-lo, superando a recomendação anterior pelo 03. UI nativa: régua única, fichas com retratos, Herói responsivo e rota em bilhete. Dez capturas próprias, 24 casos UI e regressões passados. Escala interna e rolagem, não DPI físico, arte final ou M1 completo. Histórico V16/V15 preservado."
+    },
+    {
+      "id": "v17-ui-overview",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-overview",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · Dossiê / revisão ampla",
+      "description": "Captura real 1920×1080 a 100%. Mesmo estudo 01 agora funcional em Controls; não textura de prancha, desktop normal ou garantia de encaixe universal."
+    },
+    {
+      "id": "v17-ui-status",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-status",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · Status / régua e retratos",
+      "description": "380×620 nativos: atributos compartilhados e três linhas selecionáveis com retratos v12/HP real. Ações fixas; sem corte/upscale."
+    },
+    {
+      "id": "v17-ui-hero",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-hero",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · Herói / retrato e bolsa lado a lado",
+      "description": "588×620 nativos a 100%. Retrato proporcional, bolsa 7×3 indisponível, seletores fixos. Sem nova pintura ou equipamento funcional."
+    },
+    {
+      "id": "v17-ui-route",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-route",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · Expedição / bilhete de cinco nós",
+      "description": "398×620 nativos: formas/textos marcam estado verdadeiro da rota. Corpo rolável e ações fixas; sem progressão inventada."
+    },
+    {
+      "id": "v17-ui-status-150",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-status-150",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · Status 150% / equipe por rolagem",
+      "description": "570×664 reais: apenas a primeira ficha inteira inicialmente nesta altura. Demais integrantes por rolagem; escudo/ações fixos. Não DPI físico/upscale."
+    },
+    {
+      "id": "v17-ui-hero-125",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-hero-125",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · Herói 125% / duas colunas",
+      "description": "735×664 nativos, escala interna 1.25. Altura da arte adaptada sem reduzir fonte. Não é PNG ampliado ou teste de DPI físico."
+    },
+    {
+      "id": "v17-ui-hero-150",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-hero-150",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · Herói 150% / bolsa por rolagem",
+      "description": "882×664 nativos, escala interna 1.5. Terceira linha da bolsa fica abaixo da dobra; rolar sem corte horizontal. Seletores continuam fixos."
+    },
+    {
+      "id": "v17-ui-hero-healer",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-hero-healer",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · Alquimista selecionado",
+      "description": "588×620 reais, seleção automatizada atualiza retrato/papel. Mesma folha v12, nenhuma nova classe ou pintura."
+    },
+    {
+      "id": "v17-ui-hero-stacked",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-hero-stacked",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · revisão estreita / Herói empilhado",
+      "description": "Overview 1160×880 em combate, não desktop normal. Colunas empilhadas e corpo rolável em largura curta; palco técnico preservado."
+    },
+    {
+      "id": "v17-ui-status-options",
+      "type": "asset",
+      "data": {
+        "assetId": "v17-ui-status-options",
+        "mediaType": "image"
+      },
+      "title": "GODOT V17 · movimento reduzido / opção preservada",
+      "description": "Status real 380×620 rolado, após dano/pausa da rota. Preferência por execução remove só decoração UI, não áudio/3D. Input automatizado e fixtures distintos."
+    },
+    {
+      "id": "v16-ui-exploracao",
+      "type": "document",
+      "data": {
+        "documentId": "ui-v16-layouts-exploratorios",
+        "references": [
+          {
+            "type": "node",
+            "nodeId": "v16-ui-comparacao"
+          },
+          {
+            "type": "node",
+            "nodeId": "v16-ui-dossie"
+          },
+          {
+            "type": "node",
+            "nodeId": "v16-ui-caderno"
+          },
+          {
+            "type": "node",
+            "nodeId": "v16-ui-trilho"
+          },
+          {
+            "type": "node",
+            "nodeId": "v16-ui-arquivo"
+          },
+          {
+            "type": "node",
+            "nodeId": "v16-ui-pesquisa-menus"
+          },
+          {
+            "type": "node",
+            "nodeId": "v16-ui-pesquisa-hud"
+          },
+          {
+            "type": "node",
+            "nodeId": "v15-ui-entrega"
+          }
+        ]
+      },
+      "title": "V16 · quatro estruturas / pesquisa e exploração de layouts",
+      "description": "Preferência do usuário pela Ficha B, seguida de autorização para mais criatividade estrutural. Quatro estudos, oito capturas de referência e limites do Dribbble. Não muda o runtime V15 A nem escolhe automaticamente uma proposta."
+    },
+    {
+      "id": "v16-ui-comparacao",
+      "type": "asset",
+      "data": {
+        "assetId": "v16-ui-comparacao",
+        "mediaType": "image"
+      },
+      "title": "PROPOSTAS V16 · quatro estruturas, não quatro molduras",
+      "description": "Montagem reduzida. Abra as quatro pranchas individuais para leitura integral. Estudos estáticos com dados demonstrativos; não interface V16 funcionando."
+    },
+    {
+      "id": "v16-ui-dossie",
+      "type": "asset",
+      "data": {
+        "assetId": "v16-ui-dossie",
+        "mediaType": "image"
+      },
+      "title": "ESTUDO 01 · Dossiê de turno",
+      "description": "Evolução editorial da Ficha B; três instrumentos com funções e hierarquias próprias. Ainda ocupa altura. Não aplicado ao Godot."
+    },
+    {
+      "id": "v16-ui-caderno",
+      "type": "asset",
+      "data": {
+        "assetId": "v16-ui-caderno",
+        "mediaType": "image"
+      },
+      "title": "ESTUDO 02 · Caderno aberto",
+      "description": "Herói em duas páginas, Status estreito e rota lateral. Pede largura e futura política de empilhamento/rolagem; não prova ergonomia."
+    },
+    {
+      "id": "v16-ui-trilho",
+      "type": "asset",
+      "data": {
+        "assetId": "v16-ui-trilho",
+        "mediaType": "image"
+      },
+      "title": "ESTUDO 03 · Trilho de comando",
+      "description": "Equipe e ações horizontais, rota em linha e Herói destacável. Recomendação para próximo teste, não decisão do usuário ou implementação autorizada."
+    },
+    {
+      "id": "v16-ui-arquivo",
+      "type": "asset",
+      "data": {
+        "assetId": "v16-ui-arquivo",
+        "mediaType": "image"
+      },
+      "title": "ESTUDO 04 · Arquivo assimétrico",
+      "description": "Retrato protagonista, equipe clara e rota em bilhete; inspeção e não HUD permanente. Pintura v12 reutilizada sem deformação."
+    },
+    {
+      "id": "v16-ui-pesquisa-menus",
+      "type": "asset",
+      "data": {
+        "assetId": "v16-ui-pesquisa-menus",
+        "mediaType": "image"
+      },
+      "title": "PESQUISA V16 · menus / quatro jogos",
+      "description": "Imagens reais inspecionadas no Interface In Game; observações e créditos. Pesquisa de terceiros fora dos recursos do cliente."
+    },
+    {
+      "id": "v16-ui-pesquisa-hud",
+      "type": "asset",
+      "data": {
+        "assetId": "v16-ui-pesquisa-hud",
+        "mediaType": "image"
+      },
+      "title": "PESQUISA V16 · HUD / Dribbble não verificado visualmente",
+      "description": "Três capturas e recortes de HUD. Links Dribbble encontrados por busca, sem alegação de pixels vistos; acesso direto vazio. Não mede timings ou cria sistemas."
     }
   ],
   "edges": [],

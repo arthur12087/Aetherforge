@@ -12,20 +12,29 @@ public partial class ExpeditionMenuRoute : VBoxContainer
     public override void _Ready()
     {
         AddThemeConstantOverride("separation", BrassUi.S(6));
+        Resized += QueueRedraw;
         for (var i = 0; i < StageCount; i++)
         {
             var paper = new PanelContainer();
-            paper.AddThemeStyleboxOverride("panel", BrassUi.Box(BrassUi.Linen, BrassUi.Linen, 0, 8, 5));
+            paper.AddThemeStyleboxOverride("panel", BrassUi.Box(Colors.Transparent, Colors.Transparent, 0, 0, 5));
             AddChild(paper);
             var row = new HBoxContainer(); row.AddThemeConstantOverride("separation", BrassUi.S(10)); paper.AddChild(row);
-            _marks[i] = new ExpeditionMenuRouteMark { CustomMinimumSize = new Vector2(BrassUi.S(28), BrassUi.S(32)) };
+            _marks[i] = new ExpeditionMenuRouteMark { CustomMinimumSize = new Vector2(BrassUi.S(24), BrassUi.S(38)) };
             row.AddChild(_marks[i]);
             var labels = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
             labels.AddThemeConstantOverride("separation", 0); row.AddChild(labels);
-            var name = BrassUi.Emphasis($"{i + 1:00}  {Names[i]}", 16, BrassUi.Soot);
+            var name = BrassUi.Emphasis(Names[i], 18, BrassUi.Soot);
             name.AutowrapMode = TextServer.AutowrapMode.WordSmart; labels.AddChild(name);
             _states[i] = BrassUi.Wrap("Por alcançar", 13, BrassUi.Soot); labels.AddChild(_states[i]);
+            row.AddChild(BrassUi.Text($"{i+1:00}", 13, BrassUi.Tobacco));
         }
+    }
+
+    public override void _Notification(int what) { if (what == NotificationSortChildren) QueueRedraw(); }
+    public override void _Draw()
+    {
+        if (_marks[0] == null || _marks[4] == null) return;
+        DrawLine(_marks[0].GetGlobalRect().GetCenter()-GlobalPosition, _marks[4].GetGlobalRect().GetCenter()-GlobalPosition, BrassUi.Tobacco, BrassUi.Scale);
     }
 
     public void UpdateRoute(ExpeditionSimulation simulation)
@@ -52,7 +61,7 @@ public partial class ExpeditionMenuRoute : VBoxContainer
     }
 }
 
-/// <summary>Ring = future, checked square = complete, diamond = current, cross = stopped.</summary>
+/// <summary>Outline square = future, checked = complete, filled with inset = current, cross = stopped.</summary>
 public partial class ExpeditionMenuRouteMark : Control
 {
     private int _state = -1;
@@ -65,7 +74,7 @@ public partial class ExpeditionMenuRouteMark : Control
     public override void _Draw()
     {
         var center = Size / 2;
-        float radius = BrassUi.S(10), stroke = BrassUi.S(2);
+        float radius = BrassUi.S(7), stroke = BrassUi.S(2);
         if (_state == 1)
         {
             DrawRect(new Rect2(center - Vector2.One * radius, Vector2.One * radius * 2), BrassUi.Soot);
@@ -73,13 +82,19 @@ public partial class ExpeditionMenuRouteMark : Control
                 center + new Vector2(radius * .65f, -radius * .5f) }, BrassUi.Linen, stroke, true);
         }
         else if (_state == 2)
-            DrawColoredPolygon(new[] { center + new Vector2(0, -radius), center + new Vector2(radius, 0),
-                center + new Vector2(0, radius), center + new Vector2(-radius, 0) }, BrassUi.Wine);
+        {
+            DrawRect(new Rect2(center-Vector2.One*radius, Vector2.One*radius*2), BrassUi.Wine);
+            DrawRect(new Rect2(center-Vector2.One*radius*.4f, Vector2.One*radius*.8f), BrassUi.Linen);
+        }
         else if (_state == 3)
         {
             DrawLine(center - Vector2.One * radius, center + Vector2.One * radius, BrassUi.Soot, stroke, true);
             DrawLine(center + new Vector2(-radius, radius), center + new Vector2(radius, -radius), BrassUi.Soot, stroke, true);
         }
-        else DrawCircle(center, radius, BrassUi.Soot, false, stroke, true);
+        else
+        {
+            var r = new Rect2(center-Vector2.One*radius, Vector2.One*radius*2);
+            DrawRect(r, BrassUi.Linen); DrawRect(r, BrassUi.Tobacco, false, BrassUi.Scale);
+        }
     }
 }

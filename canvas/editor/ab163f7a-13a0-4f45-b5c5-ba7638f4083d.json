@@ -304,6 +304,82 @@
     "v15-ui-diagnostico": {
       "x": 16336,
       "y": 1056
+    },
+    "v17-ui-entrega": {
+      "x": 16896,
+      "y": 96
+    },
+    "v17-ui-overview": {
+      "x": 16896,
+      "y": 576
+    },
+    "v17-ui-status": {
+      "x": 16896,
+      "y": 1056
+    },
+    "v17-ui-hero": {
+      "x": 17456,
+      "y": 96
+    },
+    "v17-ui-route": {
+      "x": 17456,
+      "y": 576
+    },
+    "v17-ui-status-150": {
+      "x": 17456,
+      "y": 1056
+    },
+    "v17-ui-hero-125": {
+      "x": 18016,
+      "y": 96
+    },
+    "v17-ui-hero-150": {
+      "x": 18016,
+      "y": 576
+    },
+    "v17-ui-hero-healer": {
+      "x": 18016,
+      "y": 1056
+    },
+    "v17-ui-hero-stacked": {
+      "x": 18576,
+      "y": 96
+    },
+    "v17-ui-status-options": {
+      "x": 18576,
+      "y": 576
+    },
+    "v16-ui-exploracao": {
+      "x": 18576,
+      "y": 1056
+    },
+    "v16-ui-comparacao": {
+      "x": 19136,
+      "y": 96
+    },
+    "v16-ui-dossie": {
+      "x": 19136,
+      "y": 576
+    },
+    "v16-ui-caderno": {
+      "x": 19136,
+      "y": 1056
+    },
+    "v16-ui-trilho": {
+      "x": 19696,
+      "y": 96
+    },
+    "v16-ui-arquivo": {
+      "x": 19696,
+      "y": 576
+    },
+    "v16-ui-pesquisa-menus": {
+      "x": 19696,
+      "y": 1056
+    },
+    "v16-ui-pesquisa-hud": {
+      "x": 20256,
+      "y": 96
     }
   },
   "viewport": {

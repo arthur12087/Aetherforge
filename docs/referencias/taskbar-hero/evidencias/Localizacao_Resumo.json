@@ -1,0 +1,189 @@
+{
+  "evidence_id": "L01",
+  "scope": "StringTable and ItemTable: en-US and pt-BR; static artifact data",
+  "source_directory": "TaskBarHero_Data/StreamingAssets/aa/StandaloneWindows64",
+  "shared_tables": [
+    {
+      "source": "localization-assets-shared_assets_all.bundle",
+      "pathID": -1933338285342846232,
+      "name": "ItemTable Shared Data",
+      "key_count": 1504
+    },
+    {
+      "source": "localization-assets-shared_assets_all.bundle",
+      "pathID": 6792816966776794831,
+      "name": "StringTable Shared Data",
+      "key_count": 1732
+    }
+  ],
+  "locale_tables": [
+    {
+      "table": "ItemTable_en-US",
+      "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+      "pathID": -3122350057523193882,
+      "shared_source": "localization-assets-shared_assets_all.bundle",
+      "shared_pathID": -1933338285342846232,
+      "rowCount": 1504,
+      "missing_shared_keys": 0
+    },
+    {
+      "table": "StringTable_en-US",
+      "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+      "pathID": 7152259898081180557,
+      "shared_source": "localization-assets-shared_assets_all.bundle",
+      "shared_pathID": 6792816966776794831,
+      "rowCount": 1793,
+      "missing_shared_keys": 65
+    },
+    {
+      "table": "StringTable_pt-BR",
+      "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+      "pathID": 4428710360693310810,
+      "shared_source": "localization-assets-shared_assets_all.bundle",
+      "shared_pathID": 6792816966776794831,
+      "rowCount": 1775,
+      "missing_shared_keys": 47
+    },
+    {
+      "table": "ItemTable_pt-BR",
+      "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+      "pathID": 8769652279597820803,
+      "shared_source": "localization-assets-shared_assets_all.bundle",
+      "shared_pathID": -1933338285342846232,
+      "rowCount": 1508,
+      "missing_shared_keys": 4
+    }
+  ],
+  "selected_status_labels": {
+    "en-US": [
+      {
+        "key": "Status",
+        "text": "Status",
+        "entry_id": 15321506674753538,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      },
+      {
+        "key": "Status_RemainedSkillPoint",
+        "text": "Skill Points: {0}",
+        "entry_id": 15354645941960704,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      },
+      {
+        "key": "UI_Status_LevelUp",
+        "text": "Level Up",
+        "entry_id": 53000429666095104,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      },
+      {
+        "key": "UI_Status_Refund",
+        "text": "Refund",
+        "entry_id": 53000429666095105,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      },
+      {
+        "key": "UI_Status_Equip",
+        "text": "Equip",
+        "entry_id": 53000429666095106,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      },
+      {
+        "key": "UI_Status_Unequip",
+        "text": "Unequip",
+        "entry_id": 53010390748024832,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      },
+      {
+        "key": "UI_Status_RequiredPoints",
+        "text": "Required Points : {0}",
+        "entry_id": 53011597247959040,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      },
+      {
+        "key": "UI_Status_DetailedStats",
+        "text": "Detailed Stats",
+        "entry_id": 53214980084912128,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      },
+      {
+        "key": "NormalAttackDPS",
+        "text": "Basic Attack DPS",
+        "entry_id": 132723490192035840,
+        "source": "localization-string-tables-english(unitedstates)(en-us)_assets_all.bundle",
+        "pathID": 7152259898081180557
+      }
+    ],
+    "pt-BR": [
+      {
+        "key": "Status",
+        "text": "Status",
+        "entry_id": 15321506674753538,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      },
+      {
+        "key": "Status_RemainedSkillPoint",
+        "text": "Pontos de Habilidade: {0}",
+        "entry_id": 15354645941960704,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      },
+      {
+        "key": "UI_Status_LevelUp",
+        "text": "Subir de Nível",
+        "entry_id": 53000429666095104,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      },
+      {
+        "key": "UI_Status_Refund",
+        "text": "Reembolsar",
+        "entry_id": 53000429666095105,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      },
+      {
+        "key": "UI_Status_Equip",
+        "text": "Equipar",
+        "entry_id": 53000429666095106,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      },
+      {
+        "key": "UI_Status_Unequip",
+        "text": "Desequipar",
+        "entry_id": 53010390748024832,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      },
+      {
+        "key": "UI_Status_RequiredPoints",
+        "text": "Pontos Necessários : {0}",
+        "entry_id": 53011597247959040,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      },
+      {
+        "key": "UI_Status_DetailedStats",
+        "text": "Status Detalhados",
+        "entry_id": 53214980084912128,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      },
+      {
+        "key": "NormalAttackDPS",
+        "text": "DPS de Ataque Básico",
+        "entry_id": 132723490192035840,
+        "source": "localization-string-tables-portuguese(brazil)(pt-br)_assets_all.bundle",
+        "pathID": 4428710360693310810
+      }
+    ]
+  }
+}

@@ -38,13 +38,20 @@ public sealed class ExpeditionEvent
 }
 
 /// <summary>
-/// Local, deterministic route; no rewards or persistent state. Advance consumes all valid
+/// Local, deterministic route with session progression, but no persistent state. Advance consumes all valid
 /// time until a terminal state, in steps of at most 50 ms and at exact action boundaries.
 /// March speed is 2.4 units/s. Loot is a two-second rest, including treatment of living
 /// members by the living healer at its end. Reset starts a new session (including event IDs).
 /// </summary>
 public sealed class ExpeditionSimulation
 {
+    public const float InfusionAmount = 42;
+    public const double InfusionRecharge = 4;
+    public const float InfusionHealthThreshold = .72f;
+    public const float RestHealingFraction = .2f;
+    public const float ShieldDamageMultiplier = .35f;
+    public const double ShieldDuration = 4;
+    public const double ShieldRecharge = 12;
     private static readonly string[] StageNames = { "Entrada", "Trilhos", "Pressão", "Ninho", "Fornalha" };
     private static readonly double[] Legs = { 16, 22, 18, 24, 28 };
     private static readonly double[] HeroIntervals = { 1.6, 1.25, 2.4 };
@@ -66,6 +73,8 @@ public sealed class ExpeditionSimulation
     private int _nextEventId;
 
     public List<PartyMember> Party { get; } = StarterParty.Create();
+    public ExpeditionRewards Rewards { get; }
+    public float CurrentInfusionAmount => Party[2].Progression.ScaleBase(InfusionAmount, 8);
     public IReadOnlyList<ExpeditionEnemy> Enemies => _enemyView;
     public IReadOnlyList<ExpeditionEvent> Events => _eventView;
     public ExpeditionPhase Phase { get; private set; }
@@ -82,8 +91,16 @@ public sealed class ExpeditionSimulation
     public double HealCooldown => Math.Max(0, _healReadyAt - Elapsed);
     public string LastEvent { get; private set; } = "";
 
-    public ExpeditionSimulation()
+    /// <summary>Attack cadence used by this local route, in simulation seconds.</summary>
+    public double GetAttackInterval(int memberIndex)
     {
+        if (memberIndex < 0 || memberIndex >= HeroIntervals.Length) throw new ArgumentOutOfRangeException(nameof(memberIndex));
+        return HeroIntervals[memberIndex];
+    }
+
+    public ExpeditionSimulation(uint rewardSeed = ExpeditionRewards.DefaultSeed)
+    {
+        Rewards = new ExpeditionRewards(rewardSeed);
         _enemyView = _enemies.AsReadOnly();
         _eventView = _events.AsReadOnly();
         Reset();
@@ -93,6 +110,15 @@ public sealed class ExpeditionSimulation
     {
         Party.Clear();
         Party.AddRange(StarterParty.Create());
+        Rewards.Reset();
+        RestartRoute();
+    }
+
+    /// <summary>New route attempt in the same session: preserve XP, currency, loot and random state.</summary>
+    public void RestartRoute()
+    {
+        foreach (var member in Party) member.Health=member.MaxHealth;
+        Rewards.BeginAttempt();
         _events.Clear();
         _nextEventId = 0;
         StageIndex = Victories = 0;
@@ -148,15 +174,15 @@ public sealed class ExpeditionSimulation
     public bool ActivateShield()
     {
         if (Paused || Phase != ExpeditionPhase.Combat || Party[0].Health <= 0 || ShieldCooldown > 0) return false;
-        _shieldUntil = Elapsed + 4;
-        _shieldReadyAt = Elapsed + 12;
+        _shieldUntil = Elapsed + ShieldDuration;
+        _shieldReadyAt = Elapsed + ShieldRecharge;
         Emit("shield", 0, 0, 0, "Escudo de pressão: 65% de mitigação por 4s");
         return true;
     }
 
     public void Retreat()
     {
-        if (!Terminal) ChangePhase(ExpeditionPhase.Retreated, "Equipe recuou; sem recompensas");
+        if (!Terminal) ChangePhase(ExpeditionPhase.Retreated, "Equipe recuou; ganhos anteriores preservados");
     }
 
     private bool Terminal => Phase == ExpeditionPhase.Complete || Phase == ExpeditionPhase.Defeat || Phase == ExpeditionPhase.Retreated;
@@ -214,10 +240,22 @@ public sealed class ExpeditionSimulation
         if (FirstLivingEnemy() < 0)
         {
             Victories++;
+            var reward=Rewards.CreditVictory(StageIndex, Party);
+            if (reward != null)
+            {
+                bool sameExperience=true;
+                for (int i=1; i<Party.Count; i++)
+                    if (reward.ExperienceGranted[i]!=reward.ExperienceGranted[0]) sameExperience=false;
+                string experienceText=sameExperience ? reward.ExperienceGranted[0]+" XP por integrante" : "XP distribuída conforme o limite de cada integrante";
+                Emit("reward", 0, 0, reward.Coins, $"Vitória: {experienceText} · {reward.Coins} moedas · {reward.Scrap} sucatas");
+                for (int i=0; i<Party.Count; i++)
+                    if (reward.LevelsGained[i]>0) Emit("level", i, i, Party[i].Progression.Level, Party[i].Name+" alcançou o nível "+Party[i].Progression.Level);
+                if (reward.Drop != null) Emit("drop", 0, 0, 1, "Obtido: "+reward.Drop.Name);
+            }
             if (StageIndex == 4) ChangePhase(ExpeditionPhase.Complete, "Rota concluída; cinco encontros vencidos");
             else
             {
-                ChangePhase(ExpeditionPhase.Loot, "Encontro vencido; descanso de 2s, sem recompensas persistentes");
+                ChangePhase(ExpeditionPhase.Loot, "Encontro vencido; ganhos da sessão recebidos · descanso de 2s");
                 _phaseEndsAt = Elapsed + 2;
             }
             return;
@@ -236,7 +274,7 @@ public sealed class ExpeditionSimulation
             if (flank >= 0 && _enemySwings[actor] % 3 == 0 && Party[flank].Health > 0) target = flank;
             var member = Party[target];
             var damage = Math.Max(1, EnemyAttack(enemy.Kind) - member.Defense);
-            if (target == 0 && ShieldRemaining > 0) damage *= .35f;
+            if (target == 0 && ShieldRemaining > 0) damage *= ShieldDamageMultiplier;
             damage = Math.Min(member.Health, damage);
             Emit("attack", 3 + actor, target, damage, enemy.Name + " golpeia " + member.Name);
             member.Health = Math.Max(0, member.Health - damage);
@@ -252,8 +290,8 @@ public sealed class ExpeditionSimulation
             for (var i = 0; i < 3; i++)
                 if (Party[i].Health > 0 && Party[i].Health / Party[i].MaxHealth < lowest)
                 { target = i; lowest = Party[i].Health / Party[i].MaxHealth; }
-            Heal(target, 42, "Infusão Etérea");
-            _healReadyAt = Elapsed + 4;
+            Heal(target, CurrentInfusionAmount, "Infusão Etérea");
+            _healReadyAt = Elapsed + InfusionRecharge;
         }
     }
 
@@ -261,7 +299,7 @@ public sealed class ExpeditionSimulation
     {
         if (Party[2].Health <= 0) return false;
         for (var i = 0; i < 3; i++)
-            if (Party[i].Health > 0 && Party[i].Health <= Party[i].MaxHealth * .72f) return true;
+            if (Party[i].Health > 0 && Party[i].Health <= Party[i].MaxHealth * InfusionHealthThreshold) return true;
         return false;
     }
 
@@ -270,7 +308,7 @@ public sealed class ExpeditionSimulation
         if (Party[2].Health > 0)
             for (var i = 0; i < 3; i++)
                 if (Party[i].Health > 0 && Party[i].Health < Party[i].MaxHealth)
-                    Heal(i, Party[i].MaxHealth * .2f, "Tratamento após 2s de descanso");
+                    Heal(i, Party[i].MaxHealth * RestHealingFraction, "Tratamento após 2s de descanso");
         StageIndex++;
         BeginMarch();
     }

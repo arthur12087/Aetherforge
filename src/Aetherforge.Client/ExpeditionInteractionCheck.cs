@@ -54,7 +54,7 @@ public partial class ExpeditionInteractionCheck : Node
                 await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             Require(sim.Phase == ExpeditionPhase.Combat, "Não chegou ao primeiro encontro");
             // Refresh of cooldown labels is throttled by the view; callbacks are the proof.
-            var shield = buttons.First(b => b.Text.Contains("Escudo de Pressão"));
+            var shield = buttons.Single(b => b.Name == "PressureShield");
             shield.EmitSignal(Button.SignalName.Pressed);
             Require(sim.ShieldRemaining > 0 && sim.ShieldCooldown > 0, "Escudo da UI não chegou às regras");
             Find("Recuar").EmitSignal(Button.SignalName.Pressed);

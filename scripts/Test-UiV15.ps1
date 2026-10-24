@@ -1,9 +1,9 @@
-param([switch]$Screenshots)
+param([switch]$Screenshots, [string]$OutputDirectory = 'artifacts\ui-v15\qa')
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'Environment.ps1')
 # Shared input/layout suite also exercises the new Status member slips, with isolated V15 output.
-& (Join-Path $PSScriptRoot 'Test-UiV14.ps1') -Screenshots:$Screenshots -OutputDirectory 'artifacts\ui-v15\qa'
-$qa = Join-Path $projectRoot 'artifacts\ui-v15\qa'
+$qa = if ([IO.Path]::IsPathRooted($OutputDirectory)) { $OutputDirectory } else { Join-Path $projectRoot $OutputDirectory }
+& (Join-Path $PSScriptRoot 'Test-UiV14.ps1') -Screenshots:$Screenshots -OutputDirectory $qa
 $cases = @(
     @{ Name='components-1'; Scale='1'; Graphics=$false; Reduced=$false },
     @{ Name='components-125'; Scale='1.25'; Graphics=$false; Reduced=$false },

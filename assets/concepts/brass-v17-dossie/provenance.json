@@ -1,0 +1,454 @@
+{
+  "version": 1,
+  "title": "V17 — Dossiê de turno implementado no Godot",
+  "packagedAtUtc": "2026-10-23T03:40:09.027Z",
+  "choice": {
+    "selectedStudy": "V16 01 — Dossiê de turno",
+    "selectedBy": "user",
+    "userSelection": "gostei do primeiro",
+    "implementationAuthorized": true,
+    "supersedesRecommendation": "V16 03 — Trilho de comando",
+    "runtime": "V17 native Controls/Containers",
+    "implementedAppearanceAwaitingUserReview": true
+  },
+  "noNewAiImageGeneration": true,
+  "noNewWorkersOrStudioCalls": true,
+  "images": [
+    {
+      "id": "v17-ui-overview",
+      "file": "overview.png",
+      "source": "artifacts/ui-v17/qa/dossier-review-1/input-stage.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "709f0d10fc88a7b82c18d91bfa67d608005fadf8d2967ab00e4df4d9d1b38e65",
+      "bytes": 472801,
+      "description": "Captura real 1920×1080 em Overview 100%, com três instrumentos e palco separado. Retrato/bolsa em duas colunas. É arranjo de revisão, não desktop normal ou promessa de encaixe universal. Sem corte/upscale; proveniência adjacente.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-status",
+      "file": "status.png",
+      "source": "artifacts/ui-v17/qa/native-menus/status.png",
+      "width": 380,
+      "height": 620,
+      "sha256": "4529b64f5ec6a11e32b2d4c237fd57aec302c9d478b3b48506a42d855231309e",
+      "bytes": 46693,
+      "description": "Viewport nativo real 380×620 a 100%: régua única Vida/Ataque/Defesa, três fichas leves com retratos v12 e seleção compartilhada. Estados reais; ações fixas e corpo rolável. Não é mockup ou PNG de estudo como UI.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-hero",
+      "file": "hero.png",
+      "source": "artifacts/ui-v17/qa/native-menus/hero.png",
+      "width": 588,
+      "height": 620,
+      "sha256": "e66b1611530e0220ec55ae30a047e687c2a6dbcdb78311d1475542a490c7b027",
+      "bytes": 206674,
+      "description": "Viewport nativo real 588×620 a 100%. Retrato v12 proporcional, identidade/bolsa em duas colunas e seletores fixos. Bolsa 7×3 indisponível; sem equipamento ou progressão implementados. Cópia byte a byte da captura.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-route",
+      "file": "route.png",
+      "source": "artifacts/ui-v17/qa/native-menus/route.png",
+      "width": 398,
+      "height": 620,
+      "sha256": "eb2c655f0ce2a116421b5f14ce64b15cf2885cea784dc7980b05db41db493fce",
+      "bytes": 35520,
+      "description": "Viewport nativo real 398×620 a 100%: cinco etapas com linha contínua, marcadores por forma/texto e estado da simulação. Pausa/recuo fixos; bilhete/acontecimentos roláveis. Sem nova recompensa ou regra.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-status-150",
+      "file": "status-150.png",
+      "source": "artifacts/ui-v17/qa/native-menus-1-5/status.png",
+      "width": 570,
+      "height": 664,
+      "sha256": "01a561545372475a655f49fb6eb0d4b14ca1ae6b6c8129ddcdc2fb403d89876f",
+      "bytes": 47992,
+      "description": "Viewport nativo real 570×664 com UI interna 1.5, não upscale/DPI físico. Nesta altura só a primeira ficha aparece inteira inicialmente; demais integrantes por rolagem. Escudo e ações fixos. Três vidas continuam no HUD do palco.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-hero-125",
+      "file": "hero-125.png",
+      "source": "artifacts/ui-v17/qa/native-menus-1-25/hero.png",
+      "width": 735,
+      "height": 664,
+      "sha256": "7b25366d0758a1c8da3ae05d782474f9229308067647ec1196c89046ed95d6f6",
+      "bytes": 226037,
+      "description": "Viewport nativo real 735×664, UI interna 1.25. Retrato proporcional com altura adaptada e bolsa indisponível; ações/seletores fixos. Não é redimensionamento de PNG ou teste de DPI físico.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-hero-150",
+      "file": "hero-150.png",
+      "source": "artifacts/ui-v17/qa/native-menus-1-5/hero.png",
+      "width": 882,
+      "height": 664,
+      "sha256": "19f2fdcab24d20fe3abebe1513b1edaaaac3095dbcbdcb210e1fe2f24ea0e571",
+      "bytes": 187103,
+      "description": "Viewport nativo real 882×664, UI interna 1.5. Retrato/bolsa em duas colunas; terceira linha da bolsa fica abaixo da dobra e exige rolagem. Sem corte horizontal da grade. Não é encaixe sem rolar, upscale ou equipamento ativo.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-hero-healer",
+      "file": "hero-healer.png",
+      "source": "artifacts/ui-v17/qa/native-menus/hero-healer.png",
+      "width": 588,
+      "height": 620,
+      "sha256": "990061052e9c3f58814a98fe14e887fe29d1c32ad755a7abafaa7abe947f1c1a",
+      "bytes": 196019,
+      "description": "Viewport nativo real 588×620 a 100%, após seleção automatizada. Retrato e papel do Alquimista atualizados, usando a mesma folha própria v12; bolsa segue indisponível. Sem novo personagem ou arte gerada.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-hero-stacked",
+      "file": "hero-stacked.png",
+      "source": "artifacts/ui-v17/qa/combat.png",
+      "width": 1160,
+      "height": 880,
+      "sha256": "437c9f33ac7191ddbd155f8d99a2bdb97901e90df3b992f49a0fd7aa7c310520",
+      "bytes": 298510,
+      "description": "Captura real 1160×880 em combate: na largura estreita de revisão, retrato e bolsa empilham e o corpo rola. Não é desktop nativo normal ou promessa de bolsa toda visível. Palco/modelos/HUD técnicos preservados.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    },
+    {
+      "id": "v17-ui-status-options",
+      "file": "status-options.png",
+      "source": "artifacts/ui-v17/qa/components-native/status-options.png",
+      "width": 380,
+      "height": 620,
+      "sha256": "d9ec74f0e2e1dfe2d0affee2fe45e5e49b7aedd6034e25b7fadf7106eb3158a3",
+      "bytes": 49448,
+      "description": "Viewport nativo real 380×620, corpo Status rolado até preferência de movimento e apoio automático. Captura após dano real da rota e pausa de QA; preferência por execução não controla 3D/áudio. Input e fixtures registrados separadamente.",
+      "method": "Godot viewport PNG; byte-identical copy, no crop, rescale or composition"
+    }
+  ],
+  "reusedPainting": {
+    "source": "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png",
+    "runtime": "src/Aetherforge.Client/Assets/Brass/Portraits/equipe-v12.png",
+    "sha256": "43b59b500c329fc02f2fd1f712721cb66274187e69e00c250741d45df9312194",
+    "byteIdentical": true,
+    "fullPortraitRegionsUnchanged": true,
+    "faceRegions": {
+      "guard": [
+        650,
+        0,
+        410,
+        455
+      ],
+      "gunner": [
+        130,
+        0,
+        350,
+        455
+      ],
+      "healer": [
+        1195,
+        0,
+        350,
+        455
+      ]
+    }
+  },
+  "nativeEvidence": [
+    {
+      "source": "artifacts/ui-v17/qa/native-input.json",
+      "scale": 1,
+      "actualWeights": [
+        400,
+        600
+      ],
+      "dossier": {
+        "heroSpreadColumns": 2,
+        "heroResizeColumnModes": [
+          2,
+          1
+        ],
+        "statusPortraits": 3,
+        "sharedRulers": 1,
+        "unavailableSlots": 21
+      },
+      "windows": [
+        {
+          "title": "Aetherforge · STATUS",
+          "x": 585,
+          "y": 24,
+          "width": 380,
+          "height": 620
+        },
+        {
+          "title": "Aetherforge · HERÓI",
+          "x": 977,
+          "y": 24,
+          "width": 588,
+          "height": 620
+        },
+        {
+          "title": "Aetherforge · EXPEDIÇÃO",
+          "x": 1577,
+          "y": 24,
+          "width": 398,
+          "height": 620
+        }
+      ],
+      "nativeIds": [
+        1,
+        2,
+        3
+      ],
+      "inputMethod": "Win32 automated mouse with cursor restoration; Godot PushInput keyboard; not human physical input or direct Pressed"
+    },
+    {
+      "source": "artifacts/ui-v17/qa/native-input-1-25.json",
+      "scale": 1.25,
+      "actualWeights": [
+        400,
+        600
+      ],
+      "dossier": {
+        "heroSpreadColumns": 2,
+        "heroResizeColumnModes": [
+          2,
+          1
+        ],
+        "statusPortraits": 3,
+        "sharedRulers": 1,
+        "unavailableSlots": 21
+      },
+      "windows": [
+        {
+          "title": "Aetherforge · STATUS",
+          "x": 414,
+          "y": 24,
+          "width": 475,
+          "height": 664
+        },
+        {
+          "title": "Aetherforge · HERÓI",
+          "x": 901,
+          "y": 24,
+          "width": 735,
+          "height": 664
+        },
+        {
+          "title": "Aetherforge · EXPEDIÇÃO",
+          "x": 1648,
+          "y": 24,
+          "width": 498,
+          "height": 664
+        }
+      ],
+      "nativeIds": [
+        1,
+        2,
+        3
+      ],
+      "inputMethod": "Win32 automated mouse with cursor restoration; Godot PushInput keyboard; not human physical input or direct Pressed"
+    },
+    {
+      "source": "artifacts/ui-v17/qa/native-input-1-5.json",
+      "scale": 1.5,
+      "actualWeights": [
+        400,
+        600
+      ],
+      "dossier": {
+        "heroSpreadColumns": 2,
+        "heroResizeColumnModes": [
+          2,
+          1
+        ],
+        "statusPortraits": 3,
+        "sharedRulers": 1,
+        "unavailableSlots": 21
+      },
+      "windows": [
+        {
+          "title": "Aetherforge · STATUS",
+          "x": 243,
+          "y": 24,
+          "width": 570,
+          "height": 664
+        },
+        {
+          "title": "Aetherforge · HERÓI",
+          "x": 825,
+          "y": 24,
+          "width": 882,
+          "height": 664
+        },
+        {
+          "title": "Aetherforge · EXPEDIÇÃO",
+          "x": 1719,
+          "y": 24,
+          "width": 597,
+          "height": 664
+        }
+      ],
+      "nativeIds": [
+        1,
+        2,
+        3
+      ],
+      "inputMethod": "Win32 automated mouse with cursor restoration; Godot PushInput keyboard; not human physical input or direct Pressed"
+    }
+  ],
+  "checks": {
+    "scripts": [
+      "scripts/Build.ps1",
+      "scripts/Test-UiV17.ps1 -Screenshots",
+      "scripts/Test-Expedition.ps1 -Screenshots",
+      "scripts/Test.ps1",
+      "scripts/Test-Integration.ps1"
+    ],
+    "exitCodes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "logs": "artifacts/ui-v17/",
+    "uiPasses": [
+      "input-1",
+      "input-1-25",
+      "input-1-5",
+      "native-input",
+      "native-input-1-25",
+      "native-input-1-5",
+      "typography",
+      "compact",
+      "compact-125",
+      "compact-150",
+      "overview-150",
+      "combat",
+      "boss",
+      "detailed",
+      "complete",
+      "components-1",
+      "components-125",
+      "components-150",
+      "components-reduced",
+      "components-native",
+      "components-native-150",
+      "dossier-review-1",
+      "dossier-review-1-25",
+      "dossier-review-1-5"
+    ],
+    "stderrFiles": 24,
+    "allUiStderrEmpty": true,
+    "fontWeights": [
+      400,
+      600
+    ],
+    "sourceScopesUnchanged": [
+      "Domain",
+      "Api",
+      "Persistence",
+      "ExpeditionActor",
+      "ExpeditionStage",
+      "ExpeditionVitals"
+    ],
+    "unchanged": [
+      {
+        "path": "src/Aetherforge.Domain/Expedition.cs",
+        "sha256": "0a0d484438a2ebd17c1182fe5d1a30c578ed75915dd5576368e33ee02a6f6dc7",
+        "byteIdenticalToHead": true
+      },
+      {
+        "path": "src/Aetherforge.Client/ExpeditionActor.cs",
+        "sha256": "be30132ceb80edb5e6d5666e160275adc8a180188ed1d91a2f0ab8bf3ab1afa8",
+        "byteIdenticalToHead": true
+      },
+      {
+        "path": "src/Aetherforge.Client/ExpeditionStage.cs",
+        "sha256": "1999a0bd1258a3f71649c9a7d2687909c8557106b45db2a34569a422f057988f",
+        "byteIdenticalToHead": true
+      },
+      {
+        "path": "src/Aetherforge.Client/ExpeditionVitals.cs",
+        "sha256": "ae2b7aedfffad1ed3bf6bcef9209e7fd89fa6703c7869dc89b88efc09751805d",
+        "byteIdenticalToHead": true
+      }
+    ],
+    "route": {
+      "phase": "Complete",
+      "Victories": 5,
+      "Distance": 108,
+      "Elapsed": 137.45000000000005,
+      "kinds": [
+        "drone",
+        "foreman",
+        "rat",
+        "scavenger",
+        "sentry",
+        "watcher"
+      ],
+      "layout": true,
+      "march": true,
+      "combat": true,
+      "loot": true,
+      "healing": true,
+      "damage": true,
+      "distanceMovedInCombat": false,
+      "sceneTravel": 108,
+      "cameraTravel": 108.00000286102295,
+      "walkPose": true,
+      "attackPose": true,
+      "ui": {
+        "scale": 1,
+        "maxActiveFeedback": 4,
+        "maxFeedbackPerActor": 2,
+        "maxVisibleVitals": 5,
+        "maxVisibleNames": 2,
+        "damageNumber": true,
+        "healNumber": true,
+        "boundedFeedback": true
+      },
+      "party": [
+        {
+          "Name": "Guarda da Caldeira",
+          "Health": 108,
+          "MaxHealth": 180
+        },
+        {
+          "Name": "Pistoleiro",
+          "Health": 52,
+          "MaxHealth": 100
+        },
+        {
+          "Name": "Alquimista do Éter",
+          "Health": 110,
+          "MaxHealth": 110
+        }
+      ],
+      "passed": true
+    }
+  },
+  "boundaries": [
+    "Only ExpeditionView advances simulation",
+    "Internal UI scale 1..1.5, configured before construction; not physical Windows DPI",
+    "Overview is a review arrangement, not the normal native desktop",
+    "150% at captured height needs team/bag scrolling; no universal desktop fit",
+    "Native mouse is Win32 automation, keyboard is Godot PushInput; component fixtures deliberately emit signals",
+    "Not a human physical-input, gamepad, multimonitor, accessibility or performance certification",
+    "No manual save edits, new progression, functional equipment or final production art",
+    "No commit/push or Studio migration performed"
+  ],
+  "audit": {
+    "passed": true,
+    "images": 10,
+    "links": 40,
+    "uiCases": 24,
+    "emptyUiStderr": 24,
+    "unchangedFiles": 4,
+    "newCanvasNodes": 11,
+    "newAssets": 10,
+    "oldNodesAssetsPreserved": true,
+    "mainDocumentPreserved": true,
+    "originalV12Unchanged": true,
+    "routePassed": true
+  }
+}

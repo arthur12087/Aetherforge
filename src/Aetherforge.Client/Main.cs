@@ -68,7 +68,7 @@ public partial class Main : Node
             _expedition = new ExpeditionView { Overview = _options.ContainsKey("overview") || DisplayServer.GetName() == "headless" };
             AddChild(_expedition);
             _expedition.DetailedHud = _options.ContainsKey("hud-details");
-            if (_options.ContainsKey("ui-check"))
+            if (_options.ContainsKey("ui-check") || _options.ContainsKey("progression-check"))
             {
                 if (_options.TryGetValue("qa-size", out var qaSize))
                 {
@@ -76,8 +76,16 @@ public partial class Main : Node
                     if (dimensions.Length == 2 && int.TryParse(dimensions[0], out var width) && int.TryParse(dimensions[1], out var height))
                         GetWindow().Size = new Vector2I(Math.Clamp(width, 1000, 2560), Math.Clamp(height, 320, 1440));
                 }
-                var uiCheck = new UiV14Check { EvidencePath = Option("ui-evidence", ""), CaptureDirectory = Option("ui-captures", "") };
-                uiCheck.Bind(_expedition); AddChild(uiCheck);
+                if(_options.ContainsKey("ui-check"))
+                {
+                    var uiCheck = new UiV14Check { EvidencePath = Option("ui-evidence", ""), CaptureDirectory = Option("ui-captures", "") };
+                    uiCheck.Bind(_expedition); AddChild(uiCheck);
+                }
+                if(_options.ContainsKey("progression-check"))
+                {
+                    var progressionCheck=new UiV19Check { EvidencePath=Option("ui-evidence",""), CaptureDirectory=Option("ui-captures","") };
+                    progressionCheck.Bind(_expedition); AddChild(progressionCheck);
+                }
             }
             if (_options.ContainsKey("component-check"))
             {
@@ -90,7 +98,7 @@ public partial class Main : Node
             {
                 var interactionCheck = new ExpeditionInteractionCheck(); interactionCheck.Bind(_expedition); AddChild(interactionCheck);
             }
-            GD.Print($"EXPEDITION READY — Brass v12 / UI v15 / scale {BrassUi.Scale:0.##}; legacy modes unchanged");
+            GD.Print($"EXPEDITION READY — Brass v12 / UI v19 Progressão e loot da sessão / scale {BrassUi.Scale:0.##}; legacy modes unchanged");
             return;
         }
         if (_mode == "idle")

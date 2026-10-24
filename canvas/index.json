@@ -16,6 +16,8 @@
     { "id": "prototipo-godot-v13", "title": "Godot — primeira fatia jogável / A Promessa do Latão" },
     { "id": "ui-v14-fontes-menus-hud", "title": "V14 — plano de fontes, menus e HUD" },
     { "id": "ui-v14-entrega", "title": "V14 — fontes, menus e HUD implementados / capturas e testes" },
-    { "id": "ui-v15-componentes-microinteracoes", "title": "V15 — componentes com caráter / pesquisa, propostas e piloto" }
+    { "id": "ui-v15-componentes-microinteracoes", "title": "V15 — componentes com caráter / pesquisa, propostas e piloto" },
+    { "id": "ui-v16-layouts-exploratorios", "title": "V16 — quatro estruturas de interface / exploração de layouts" },
+    { "id": "ui-v17-dossie-implementado", "title": "V17 — Dossiê de turno implementado / capturas e verificação" }
   ]
 }
