@@ -9,7 +9,8 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-/// <summary>Opt-in isolated UI fixtures. Actual gestures use PushInput; reflection only seeds boundary data or delivers a stale callback.</summary>
+/// <summary>Opt-in isolated UI fixtures. Native Windows pointer / PushInput keyboard;
+/// reflection only seeds boundary data, inspects diagnostics or delivers a stale callback.</summary>
 public partial class EquipmentUiCheck : Node
 {
     public string EvidencePath {get;set;}="";
@@ -22,6 +23,35 @@ public partial class EquipmentUiCheck : Node
     [DllImport("user32.dll")] private static extern bool GetCursorPos(out Pointer point);
     [DllImport("user32.dll")] private static extern bool SetCursorPos(int x,int y);
     [DllImport("user32.dll")] private static extern void mouse_event(uint flags,uint dx,uint dy,uint data,UIntPtr extra);
+    [DllImport("user32.dll")] private static extern IntPtr GetForegroundWindow();
+    [DllImport("user32.dll")] private static extern IntPtr WindowFromPoint(Pointer point);
+    private sealed class Receipt { public int Down,Up,Applied; }
+    private readonly Dictionary<Button,Receipt> _receipts=new();
+    private readonly List<object> _trace=new();
+    private readonly HashSet<Button> _observed=new();
+    private readonly string _inputFault=OS.GetCmdlineUserArgs().FirstOrDefault(a=>a.StartsWith("--equipment-input-fault="))?.Split('=',2)[1]??"none";
+    private bool _faultInjected;
+    private void Trace(string stage,Button? button=null)
+    {
+        var window=button?.GetWindow()??_view.GetWindow();
+        Pointer cursor=default; if(_nativePointer)GetCursorPos(out cursor);
+        var entry=new {stage,ms=Time.GetTicksMsec(),frame=Engine.GetProcessFrames(),phase=_view.Simulation.Phase.ToString(),_view.Simulation.Paused,_view.Simulation.Elapsed,
+            page=DisplayedPage(),target=button?.Name.ToString(),visible=button?.IsVisibleInTree(),disabled=button?.Disabled,rect=button?.GetGlobalRect().ToString(),
+            window=window.Name.ToString(),position=window.Position.ToString(),size=window.Size.ToString(),focused=window.HasFocus(),
+            focus=window.GuiGetFocusOwner()?.Name.ToString(),hover=window.GuiGetHoveredControl()?.Name.ToString(),mouse=window.GetMousePosition().ToString(),
+            cursor=new {cursor.X,cursor.Y},foreground=_nativePointer?GetForegroundWindow().ToInt64():0,hit=_nativePointer?WindowFromPoint(cursor).ToInt64():0};
+        _trace.Add(entry); GD.Print("EQUIPMENT TRACE "+JsonSerializer.Serialize(entry));
+    }
+    private int DisplayedPage()=>(int)typeof(ExpeditionView).GetField("_equipmentPage",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(_view)!;
+    private void Observe(Button button)
+    {
+        if(!_observed.Add(button))return;
+        var receipt=new Receipt();_receipts.Add(button,receipt);
+        button.GuiInput+=input=>{if(input is InputEventMouseButton mouse && mouse.ButtonIndex==MouseButton.Left){if(mouse.Pressed)receipt.Down++;else receipt.Up++;Trace("received mouse "+mouse.Pressed,button);}};
+        button.ButtonDown+=()=>Trace("button down",button);
+        button.ButtonUp+=()=>Trace("button up",button);
+        button.Pressed+=()=>{receipt.Applied++;Trace("pressed",button);};
+    }
     private bool _nativePointer;
     private Pointer _originalPointer;
     public void Bind(ExpeditionView view)=>_view=view;
@@ -38,6 +68,7 @@ public partial class EquipmentUiCheck : Node
                 await Key(Button("OpenInstrument"+i),Godot.Key.Enter);
                 Require(Window(i).Visible,"U15 opener shows instrument "+i);
             }
+            if(_inputFault=="late-pause")await Until(()=>_view.Simulation.Phase==ExpeditionPhase.Combat,12000);
             await Click(Button("RoutePause"));
             var sim=_view.Simulation;
             Require(sim.Paused && sim.Phase==ExpeditionPhase.March,"initial fixture pause before combat");
@@ -69,6 +100,7 @@ public partial class EquipmentUiCheck : Node
             await Key(Button("ComparisonBack1"),Godot.Key.Escape);
             Require(Window(1).Visible && Button("EquipmentSlot1-Armor").HasFocus(),"U08 Escape one layer and equipped ID focus");
             await Click(Button("EquipmentSlot1-Armor"));
+            Require(DisplayedPage()==1 && Button("PreviewUnequip1").IsVisibleInTree() && !Button("PreviewUnequip1").Disabled,"slot activation opens removal page");
             await Click(Button("PreviewUnequip1"));
             Require(_view.DisplayedEquipmentPreview?.DefenseDelta==-2,"E01 unequip removes full bonus");
             await Click(Button("ConfirmEquipment1"));
@@ -82,6 +114,7 @@ public partial class EquipmentUiCheck : Node
             await Click(Button("SelectStatusMember0"));
             Require(_view.DisplayedEquipmentPreview?.BlockReason==ExpeditionCode.RoleMismatch && Button("ConfirmEquipment1").Disabled,"E05/E13 incompatible target retained");
             await Click(Button("SelectStatusMember1"));
+            await HeldContextGestures(weapon.Id);
             string before=State();
             typeof(ExpeditionView).GetMethod("ConfirmEquipment",BindingFlags.Instance|BindingFlags.NonPublic)!.Invoke(_view,new object[]{1,old});
             Require(State()==before && _view.EquipmentSelection.AppliedFeedbackCount==2,"E13 ABA stale callback cannot consume new preview");
@@ -232,11 +265,23 @@ public partial class EquipmentUiCheck : Node
                 Require((Math.Max(a,b)+.05)/(Math.Min(a,b)+.05)>=4.5,"U17 text contrast "+button.Name+" "+state);
             }
             var report=new {passed=true,scale=BrassUi.Scale,display=DisplayServer.GetName(),overview=_view.Overview,reducedMotion=BrassMotion.Reduced,viewport=_view.GetWindow().Size.ToString(),assertions=_assertions,checks=_checks,
-                input=_nativePointer?"Win32 automated pointer with cursor restoration; Viewport.PushInput keyboard; isolated fixture seeding":"Viewport.PushInput mouse/keyboard; isolated reflection seeding, stale callback injection",limitations="No physical keyboard/mouse, DPI, multimonitor or human comprehension certification"};
+                inputFault=_inputFault,trace=_trace,
+                input=_nativePointer?"Win32 automated pointer with native readiness and down/up/activation receipts; Viewport.PushInput keyboard; isolated fixture seeding":"Viewport.PushInput mouse/keyboard; isolated reflection seeding, stale callback injection",limitations="No physical keyboard/mouse, DPI, multimonitor or human comprehension certification"};
             if(EvidencePath.Length>0){Directory.CreateDirectory(Path.GetDirectoryName(EvidencePath)!);File.WriteAllText(EvidencePath,JsonSerializer.Serialize(report,new JsonSerializerOptions{WriteIndented=true}));}
             GD.Print("EQUIPMENT UI PASS "+JsonSerializer.Serialize(report)); GetTree().Quit(0);
         }
-        catch(Exception error){GD.PrintErr("EQUIPMENT UI FAIL: "+error);GetTree().Quit(1);}
+        catch(Exception error)
+        {
+            Trace("failure: "+error.Message);
+            if(EvidencePath.Length>0){Directory.CreateDirectory(Path.GetDirectoryName(EvidencePath)!);File.WriteAllText(EvidencePath,JsonSerializer.Serialize(new {passed=false,error=error.ToString(),trace=_trace},new JsonSerializerOptions{WriteIndented=true}));}
+            if(CaptureDirectory.Length>0 && DisplayServer.GetName()!="headless")
+            {
+                Directory.CreateDirectory(CaptureDirectory);
+                foreach(var window in Descendants(_view).OfType<Window>().Append(_view.GetWindow()).Where(w=>w.Visible))
+                    window.GetTexture().GetImage().SavePng(Path.Combine(CaptureDirectory,"failure-"+window.Name+".png"));
+            }
+            GD.PrintErr("EQUIPMENT UI FAIL: "+error);GetTree().Quit(1);
+        }
         finally {if(_nativePointer){mouse_event(0x0004,0,0,0,UIntPtr.Zero);SetCursorPos(_originalPointer.X,_originalPointer.Y);}}
     }
     private ExpeditionDrop Add(PartyRole role,LootSlot slot,LootRarity rarity=LootRarity.Common)
@@ -265,10 +310,12 @@ public partial class EquipmentUiCheck : Node
     private Window Window(int i)=>Descendants(_view).OfType<Window>().Single(w=>w.Name=="Instrument"+i);
     private async Task Key(Button button,Godot.Key key)
     {
+        Observe(button); Trace("key before "+key,button);
+        Require(!button.Disabled && button.IsVisibleInTree(),"enabled visible key input "+button.Name);
         if(!button.GetWindow().IsEmbedded() && DisplayServer.GetName()!="headless") {button.GetWindow().GrabFocus();await Frames(2);}
         button.GrabFocus(); await Frames(1); var window=button.GetWindow();
         window.PushInput(new InputEventKey{Keycode=key,Pressed=true,WindowId=window.GetWindowId()},true);
-        window.PushInput(new InputEventKey{Keycode=key,Pressed=false,WindowId=window.GetWindowId()},true); await Frames(3);
+        window.PushInput(new InputEventKey{Keycode=key,Pressed=false,WindowId=window.GetWindowId()},true); await Frames(3); Trace("key after "+key,button);
     }
     private async Task RootKey(Godot.Key key)
     {
@@ -276,6 +323,7 @@ public partial class EquipmentUiCheck : Node
     }
     private async Task Click(Button button)
     {
+        Observe(button); Trace("click before",button);
         Require(!button.Disabled && button.IsVisibleInTree(),"enabled visible input "+button.Name);
         if(!button.GetWindow().IsEmbedded() && DisplayServer.GetName()!="headless") {button.GetWindow().GrabFocus();await Frames(2);}
         for(Node? p=button.GetParent();p!=null && p is not Godot.Window;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(button);
@@ -284,13 +332,101 @@ public partial class EquipmentUiCheck : Node
         if(window.IsEmbedded()){point+=window.Position;window=_view.GetWindow();}
         if(_nativePointer)
         {
-            window.GrabFocus();var screen=window.Position+point;SetCursorPos((int)screen.X,(int)screen.Y);await Frames(2);
-            mouse_event(0x0002,0,0,0,UIntPtr.Zero);await Frames(1);mouse_event(0x0004,0,0,0,UIntPtr.Zero);await Frames(3);return;
+            await PrepareNativePointer(button);
+            var receipt=_receipts[button];int down=receipt.Down,up=receipt.Up,applied=receipt.Applied;
+            bool drop=!_faultInjected && ((_inputFault=="drop-pause" && button.Name=="RoutePause") || (_inputFault=="drop-slot" && button.Name=="EquipmentSlot1-Armor"));
+            if(drop){_faultInjected=true;Trace("injected missing native click",button);}
+            try
+            {
+                if(!drop)mouse_event(0x0002,0,0,0,UIntPtr.Zero);
+                await WaitInput(()=>receipt.Down==down+1,"native mouse-down delivered "+button.Name);
+            }
+            finally {mouse_event(0x0004,0,0,0,UIntPtr.Zero);}
+            await WaitInput(()=>receipt.Up==up+1 && receipt.Applied==applied+1,"native mouse-up and single activation delivered "+button.Name);
+            await Frames(3);Trace("click after",button);return;
         }
         if(_entered.Add(window) && window.GuiGetHoveredControl()==null)window.NotifyMouseEntered();
         window.PushInput(new InputEventMouseMotion{Position=point,GlobalPosition=point,WindowId=window.GetWindowId()},true);
         foreach(bool pressed in new[]{true,false})window.PushInput(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,ButtonMask=pressed?MouseButtonMask.Left:0,Pressed=pressed,WindowId=window.GetWindowId()},true);
         await Frames(3);
+    }
+    private async Task PrepareNativePointer(Button button)
+    {
+        var window=button.GetWindow();
+        var handle=new IntPtr(DisplayServer.WindowGetNativeHandle(DisplayServer.HandleType.WindowHandle,window.GetWindowId()));
+        ulong deadline=Time.GetTicksMsec()+1500;
+        do
+        {
+            window.GrabFocus();
+            var point=button.GetGlobalRect().GetCenter();var screen=window.Position+point;
+            Require(SetCursorPos((int)screen.X,(int)screen.Y),"native cursor move "+button.Name);
+            await Frames(2);
+            GetCursorPos(out var cursor);
+            // A pointer click may activate its window. Foreground equality is diagnostic,
+            // not a prerequisite; actual down/up receipts prove delivery after activation.
+            if(window.HasFocus() && WindowFromPoint(cursor)==handle &&
+                window.GuiGetHoveredControl()==button && point.DistanceTo(button.GetGlobalRect().GetCenter())<1 &&
+                new Rect2(Vector2.Zero,window.Size).HasPoint(point))
+            {Trace("native pointer ready hwnd="+handle.ToInt64(),button);return;}
+        }while(Time.GetTicksMsec()<deadline);
+        Trace("native pointer not ready hwnd="+handle.ToInt64(),button);
+        Require(false,"native pointer readiness "+button.Name);
+    }
+    private async Task WaitInput(Func<bool> received,string message)
+    {
+        ulong deadline=Time.GetTicksMsec()+1000;
+        while(!received() && Time.GetTicksMsec()<deadline)await Frames(1);
+        Require(received(),message);
+    }
+    private async Task<(Window window,Vector2 point)> HoldConfirm()
+    {
+        var button=Button("ConfirmEquipment1");Observe(button);
+        Require(!button.Disabled && button.IsVisibleInTree(),"held confirm available");
+        var window=button.GetWindow();var point=button.GetGlobalRect().GetCenter();
+        if(_nativePointer)
+        {
+            await PrepareNativePointer(button);int down=_receipts[button].Down;
+            mouse_event(0x0002,0,0,0,UIntPtr.Zero);
+            await WaitInput(()=>_receipts[button].Down==down+1,"held native mouse-down delivered");
+        }
+        else
+        {
+            if(window.IsEmbedded()){point+=window.Position;window=_view.GetWindow();}
+            if(_entered.Add(window) && window.GuiGetHoveredControl()==null)window.NotifyMouseEntered();
+            window.PushInput(new InputEventMouseMotion{Position=point,GlobalPosition=point,WindowId=window.GetWindowId()},true);
+            window.PushInput(new InputEventMouseButton{Position=point,GlobalPosition=point,ButtonIndex=MouseButton.Left,ButtonMask=MouseButtonMask.Left,Pressed=true,WindowId=window.GetWindowId()},true);
+        }
+        await Frames(2);Require(button.IsPressed(),"actual held confirm state");
+        return(window,point);
+    }
+    private async Task ReleaseObsolete((Window window,Vector2 point) held,string context)
+    {
+        string before=State();int cues=_view.EquipmentSelection.AppliedFeedbackCount;
+        if(_nativePointer)mouse_event(0x0004,0,0,0,UIntPtr.Zero);
+        else held.window.PushInput(new InputEventMouseButton{Position=held.point,GlobalPosition=held.point,ButtonIndex=MouseButton.Left,Pressed=false,WindowId=held.window.GetWindowId()},true);
+        await Frames(3);
+        Require(State()==before && _view.EquipmentSelection.AppliedFeedbackCount==cues,"obsolete release preserves state: "+context);
+        _checks.Add("press-context-release: "+context);Trace("obsolete release checked: "+context);
+    }
+    private async Task HeldContextGestures(string item)
+    {
+        var held=await HoldConfirm();
+        await Key(Button("SelectStatusMember0"),Godot.Key.Enter);await Key(Button("SelectStatusMember1"),Godot.Key.Enter);
+        await ReleaseObsolete(held,"ABA via Status while Hero held");
+        held=await HoldConfirm();
+        await Key(Button("ComparisonBack1"),Godot.Key.Escape);await Key(Button("CompareCandidate"),Godot.Key.Enter);
+        await ReleaseObsolete(held,"Escape and reopen");
+        held=await HoldConfirm();
+        await Key(Button("EquipmentSlot0-Weapon"),Godot.Key.Enter);
+        await ReleaseObsolete(held,"Status page replaces Hero");
+        await Key(Button("ComparisonBack0"),Godot.Key.Escape);await Inspect(item);await Click(Button("CompareCandidate"));
+        held=await HoldConfirm();
+        float hp=_view.Simulation.Party[1].Health;_view.Simulation.Party[1].Health=hp-1;ForceRefresh();await Frames(3);
+        await ReleaseObsolete(held,"HP revision fixture redraw");
+        _view.Simulation.Party[1].Health=hp;ForceRefresh();await Frames(3);
+        held=await HoldConfirm();
+        await Key(Button("EquipmentManagement0"),Godot.Key.Enter);await Key(Button("EquipmentManagement0"),Godot.Key.Enter);
+        await ReleaseObsolete(held,"finish and reactivate management");
     }
     private async Task Capture(string name)
     {
