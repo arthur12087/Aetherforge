@@ -42,10 +42,12 @@ Protótipo local 3D, independente da API, baseado na **Brass v12 GPT aceita como
 - Cinco trechos: Entrada, Trilhos, Pressão, Ninho e Fornalha. Seis tipos: Rato, Saqueador, Sentinela, Drone, Vigia e Capataz.
 - Formação: Alquimista atrás, Pistoleiro no meio, Guarda à frente; inimigos à direita. Ataques só de vivos, prioridade comum do tank, DPS, cura condicional e escudo manual com mitigação real.
 - Marcha/combate/descanso, vitória final, derrota, recuo, pausa e reinício. A rota é finita: o jogador reinicia após o fim.
-- Status, Herói e Expedição em três janelas independentes; retratos dos três integrantes usando a pintura v12; bolsa de **7 × 3** explicitamente indisponível nesta fatia; cinco nós de rota ligados ao estado real.
+- Status, Herói e Expedição em três janelas independentes; retratos dos três integrantes usando a pintura v12; bolsa de **7 × 3** com itens inspecionáveis desde a V19 e equipamento funcional na revisão `b18ef001`; cinco nós de rota ligados ao estado real. Herói/Status oferecem comparação, três slots por integrante e equipar/desequipar no gerenciamento permitido entre encontros. Ganhos/equipamento da sessão se perdem ao fechar; persistência da nova rota continua pendente. A bolsa indisponível pertence ao histórico V17.
 - Modelos 3D articulados técnicos, movimentos por pivôs/plantio de pés, recuo de rifle, golpes, infusão, impactos, números, barras de vida e queda. Áudio sintetizado original de passos, disparo, metal, cura e caldeira, sem samples de terceiros.
 
 ## Executar
+
+O [manifesto de assets da fatia](../implementation/equipment-assets-manifest.json) separa runtime, legado/prova e pesquisa para distribuição futura; a [conferência documental](../implementation/equipment-assets-review.md) registra hashes, uso e lacunas de aprovação/direitos. Não é um pacote de distribuição aprovado.
 
 Na raiz do repositório:
 

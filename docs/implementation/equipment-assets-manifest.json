@@ -1,0 +1,828 @@
+{
+  "schema_version": 1,
+  "issue": "GAMELAB-19",
+  "date": "2026-10-24",
+  "reference_commit": "b18ef0010b29edaf1c4b67f04823594283b9f12f",
+  "scope": "Manifesto documental de uso estático; proposta para distribuição futura, não pacote exportado nem liberação de direitos.",
+  "prior_inventory": {
+    "attachment_id": "01a16ccc-5939-77e9-9f7b-2489ba48b454",
+    "commit": "aca2d622ae590e0044a8e744f392fd6ed787161d"
+  },
+  "package_policy": {
+    "slice_media_group": "slice-runtime",
+    "conditional_groups": [
+      "legacy-runtime: somente se modos legados forem incluídos",
+      "legacy-source: somente se bake/fontes forem distribuídos",
+      "proof-only: somente se Prova de Fontes for incluída"
+    ],
+    "required_notices": "Incluir avisos correspondentes em arquivo legível no pacote final e manter cópias no repositório; importação não garante empacotamento de TXT.",
+    "exclude_by_default": [
+      "assets/concepts/**",
+      "assets/imported/**",
+      "docs/visual/**",
+      "docs/referencias/**",
+      "canvas/**"
+    ],
+    "exceptions": "Apenas cópias explicitamente listadas em slice-runtime são candidatas; fontes de pesquisa permanecem excluídas.",
+    "export_status": "Sem export_presets.cfg versionado; não foi exportado ou inspecionado PCK/ZIP. Dependências dinâmicas precisam de inclusão explícita/revisão no export futuro.",
+    "rights_status": "Retrato gerado e licença geral do projeto aguardam decisão de Arthur antes de distribuição."
+  },
+  "files": [
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Portraits/equipe-v12.png",
+      "sha256": "43b59b500c329fc02f2fd1f712721cb66274187e69e00c250741d45df9312194",
+      "bytes": 2323912,
+      "group": "slice-runtime",
+      "source": "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png",
+      "rights": "Geração registrada; termos/autorizações do uso das referências e decisão de distribuição dependem de Arthur. Não certificada para distribuição.",
+      "approval": "Brass v12 aceita como base em docs/studio-godot/CONTRATOS.md; não aprovação artística final.",
+      "use": [
+        "src/Aetherforge.Client/ExpeditionView.cs:243 InitializePortraits; Herói/Status via AtlasTexture"
+      ],
+      "derivation": "Cópia binária; recortes em memória, sem modificar o PNG.",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "generation": {
+        "tool": "image_gen.imagegen",
+        "provider": "OpenAI",
+        "family": "GPT Images",
+        "model": null,
+        "providerRequestId": null,
+        "startedAtUtc": "2026-10-21 01:10:30 UTC",
+        "finishedAtUtc": "2026-10-21 01:11:20 UTC",
+        "promptPath": "docs/visual/gpt-images-v12/01-equipe-r02.txt",
+        "attachedImages": [
+          {
+            "path": "assets/concepts/brass-v9/references/waters-cidadaos.jpg",
+            "sha256": "1b3b2f77f2f0bcd1737b4082a294233057441fa233dcef283c270429ce1acdcd"
+          },
+          {
+            "path": "assets/concepts/brass-v10/references/colin-fix-mao.jpg",
+            "sha256": "3bead2ed0a88afdfd2ce7bf518f27f326fb56cf47828c407539726c81be03330"
+          }
+        ],
+        "inspection": {
+          "performed": true,
+          "method": "Saída nativa inspecionada na conversa e prévia JPEG derivada aberta integralmente com view_image.",
+          "issuesAtThisVersion": [
+            "Desgaste e textura pintados ainda relativamente abundantes. Margem superior curta no capacete; sem corte. Aplicador mais comprido do que o ideal, mas com uma cápsula única e pega legível. Identidade masculina/bigode do Alquimista é proposta visual, não cânone aprovado."
+          ]
+        },
+        "evidence": "assets/concepts/brass-v12-gpt/provenance.json; docs/visual/gpt-images-v12/EXECUCAO.md",
+        "prompt_sha256": "5372e34163e7af2a32f926d3e8aac33e173d6627e90207688afd1595e93f7027"
+      },
+      "regions": {
+        "full_Guarda": [
+          555,
+          0,
+          565,
+          941
+        ],
+        "full_Pistoleiro": [
+          0,
+          0,
+          555,
+          941
+        ],
+        "full_Alquimista": [
+          1120,
+          0,
+          552,
+          941
+        ],
+        "face_Guarda": [
+          650,
+          0,
+          410,
+          455
+        ],
+        "face_Pistoleiro": [
+          130,
+          0,
+          350,
+          455
+        ],
+        "face_Alquimista": [
+          1195,
+          0,
+          350,
+          455
+        ]
+      }
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/shield.svg",
+      "sha256": "b392ebb881491d570b7ce983ede7a9a9818080ae21e4386b5a02192688777c52",
+      "bytes": 317,
+      "group": "slice-runtime",
+      "source": "src/Aetherforge.Client/Assets/Brass/PROVENANCE.md; desenho V14",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/ExpeditionView.cs:268 escudo manual; :306 seleção TANK",
+        "src/Aetherforge.Client/ExpeditionVitals.cs:80 função",
+        "src/Aetherforge.Client/ExpeditionLootView.cs:78 armadura ou arma do Guarda",
+        "src/Aetherforge.Client/BrassStatusComponents.cs:121 fallback de retrato"
+      ],
+      "derivation": "SVG autoral 24×24; carregado/cacheado por BrassIcons.Get. Sem geração IA registrada.",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/rifle.svg",
+      "sha256": "5f1dfa7840ca7d7eb3fd82d18752a72a2d54e70bde4ad9cb470ef449a516bb5a",
+      "bytes": 324,
+      "group": "slice-runtime",
+      "source": "src/Aetherforge.Client/Assets/Brass/PROVENANCE.md; desenho V14",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/ExpeditionView.cs:306 seleção DPS",
+        "src/Aetherforge.Client/ExpeditionVitals.cs:80 função",
+        "src/Aetherforge.Client/ExpeditionLootView.cs:78 arma DPS",
+        "src/Aetherforge.Client/BrassStatusComponents.cs:121 fallback"
+      ],
+      "derivation": "SVG autoral 24×24; carregado/cacheado por BrassIcons.Get. Sem geração IA registrada.",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/heal.svg",
+      "sha256": "94b5bfb91343b3a516da56a8ec601f25484b63ddebe7b003a4262b611b8e8aa7",
+      "bytes": 293,
+      "group": "slice-runtime",
+      "source": "src/Aetherforge.Client/Assets/Brass/PROVENANCE.md; desenho V14",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/ExpeditionView.cs:306 seleção CURA",
+        "src/Aetherforge.Client/ExpeditionVitals.cs:80 função",
+        "src/Aetherforge.Client/ExpeditionLootView.cs:78 foco",
+        "src/Aetherforge.Client/BrassStatusComponents.cs:121 fallback"
+      ],
+      "derivation": "SVG autoral 24×24; carregado/cacheado por BrassIcons.Get. Sem geração IA registrada.",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/pause.svg",
+      "sha256": "485ad2fb381ddc985c0e3d5729628de084d4759066a255070138fd43952e01df",
+      "bytes": 255,
+      "group": "slice-runtime",
+      "source": "src/Aetherforge.Client/Assets/Brass/PROVENANCE.md; desenho V14",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/ExpeditionView.cs:341 pausa"
+      ],
+      "derivation": "SVG autoral 24×24; carregado/cacheado por BrassIcons.Get. Sem geração IA registrada.",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/return.svg",
+      "sha256": "637feeecee66b588e018071116ed8c66a9a523d7f19a09b6f53d0b47ca6d8648",
+      "bytes": 288,
+      "group": "slice-runtime",
+      "source": "src/Aetherforge.Client/Assets/Brass/PROVENANCE.md; desenho V14",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/ExpeditionView.cs:352 recuo"
+      ],
+      "derivation": "SVG autoral 24×24; carregado/cacheado por BrassIcons.Get. Sem geração IA registrada.",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/vital.svg",
+      "sha256": "5b73944536d87af6c5fefde6f0c4ea30afe2ad12c7d3cef6a37632d6760188bc",
+      "bytes": 251,
+      "group": "slice-runtime",
+      "source": "src/Aetherforge.Client/Assets/Brass/PROVENANCE.md; desenho V15",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/ExpeditionLootView.cs:78 acessório"
+      ],
+      "derivation": "SVG autoral 24×24; carregado/cacheado por BrassIcons.Get. Sem geração IA registrada.",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/route.svg",
+      "sha256": "0031cb1dc5fed527b7ee18bb4cb5130ef788a9a1febd50622a754153f158f6e2",
+      "bytes": 266,
+      "group": "proof-only",
+      "source": "src/Aetherforge.Client/Assets/Brass/PROVENANCE.md; desenho V14",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/BrassTypeProof.cs:45 espécime; sem chamada encontrada na expedição atual"
+      ],
+      "derivation": "SVG autoral 24×24; carregado/cacheado por BrassIcons.Get. Sem geração IA registrada.",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/SourceSans3-Variable.ttf",
+      "sha256": "042fe2cc0b933e328410d7acbd0aa6a1873dca5aef81875f4bc214b08825c7b9",
+      "bytes": 646340,
+      "group": "slice-runtime",
+      "source": {
+        "path": "docs/visual/assets/fonts/v5/SourceSans3-Variable.ttf",
+        "url_recorded": "https://raw.githubusercontent.com/google/fonts/main/ofl/sourcesans3/SourceSans3%5Bwght%5D.ttf",
+        "acquired": "2026-10-14 conforme sources.json"
+      },
+      "rights": {
+        "license": "SIL OFL 1.1",
+        "notice": "src/Aetherforge.Client/Assets/Brass/Fonts/sourcesans3-OFL.txt",
+        "distribution": "Preservar copyright/OFL junto da fonte; não vender a fonte isoladamente; observar nomes reservados em derivados."
+      },
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/BrassTypography.cs:18-20 corpo 400/600 e display; :23 Weight permite Jost na prova A/B"
+      ],
+      "derivation": "Cópia binária da fonte versionada; variação wght em memória, sem alterar TTF."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/sourcesans3-OFL.txt",
+      "sha256": "09746787287a289323b0ec3cff4d1a4a801331b82b7207c1e186f5d26619a392",
+      "bytes": 4579,
+      "group": "required-notice",
+      "source": "docs/visual/assets/fonts/v5/sourcesans3-OFL.txt",
+      "rights": "SIL OFL 1.1; texto integral preservado",
+      "approval": "Aviso obrigatório da fonte correspondente.",
+      "use": [
+        "src/Aetherforge.Client/Assets/Brass/Fonts/SourceSans3-Variable.ttf"
+      ],
+      "derivation": "Cópia da licença versionada."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/Limelight-Regular.ttf",
+      "sha256": "f5bf8a9159adfc5b9c756c85d812a4fd1299b8916fefdf39ad4b24ade6d8d0cf",
+      "bytes": 132292,
+      "group": "slice-runtime",
+      "source": {
+        "path": "docs/visual/assets/fonts/v5/Limelight-Regular.ttf",
+        "url_recorded": "https://raw.githubusercontent.com/google/fonts/main/ofl/limelight/Limelight-Regular.ttf",
+        "acquired": "2026-10-14 conforme sources.json"
+      },
+      "rights": {
+        "license": "SIL OFL 1.1",
+        "notice": "src/Aetherforge.Client/Assets/Brass/Fonts/limelight-OFL.txt",
+        "distribution": "Preservar copyright/OFL junto da fonte; não vender a fonte isoladamente; observar nomes reservados em derivados."
+      },
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/BrassTypography.cs:18-20 corpo 400/600 e display; :23 Weight permite Jost na prova A/B"
+      ],
+      "derivation": "Cópia binária da fonte versionada; variação wght em memória, sem alterar TTF."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/limelight-OFL.txt",
+      "sha256": "aa00e7d0d369334c4f9e7b3abd2d8015c9503869fb1cf91de5418b04d30d872c",
+      "bytes": 4493,
+      "group": "required-notice",
+      "source": "docs/visual/assets/fonts/v5/limelight-OFL.txt",
+      "rights": "SIL OFL 1.1; texto integral preservado",
+      "approval": "Aviso obrigatório da fonte correspondente.",
+      "use": [
+        "src/Aetherforge.Client/Assets/Brass/Fonts/Limelight-Regular.ttf"
+      ],
+      "derivation": "Cópia da licença versionada."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/Jost-Variable.ttf",
+      "sha256": "6343b70971000b04c5d401c96ae08ce371086135e999d5e1e1413039c0213076",
+      "bytes": 134996,
+      "group": "proof-only",
+      "source": {
+        "path": "docs/visual/assets/fonts/v5/Jost-Variable.ttf",
+        "url_recorded": "https://raw.githubusercontent.com/google/fonts/main/ofl/jost/Jost%5Bwght%5D.ttf",
+        "acquired": "2026-10-14 conforme sources.json"
+      },
+      "rights": {
+        "license": "SIL OFL 1.1",
+        "notice": "src/Aetherforge.Client/Assets/Brass/Fonts/jost-OFL.txt",
+        "distribution": "Preservar copyright/OFL junto da fonte; não vender a fonte isoladamente; observar nomes reservados em derivados."
+      },
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "src/Aetherforge.Client/BrassTypography.cs:18-20 corpo 400/600 e display; :23 Weight permite Jost na prova A/B"
+      ],
+      "derivation": "Cópia binária da fonte versionada; variação wght em memória, sem alterar TTF."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/jost-OFL.txt",
+      "sha256": "13ab39f8a41a040f24348b09885c1c7e16b8ffb63ca89046630a9da65c35a276",
+      "bytes": 4477,
+      "group": "required-notice",
+      "source": "docs/visual/assets/fonts/v5/jost-OFL.txt",
+      "rights": "SIL OFL 1.1; texto integral preservado",
+      "approval": "Aviso obrigatório da fonte correspondente.",
+      "use": [
+        "src/Aetherforge.Client/Assets/Brass/Fonts/Jost-Variable.ttf"
+      ],
+      "derivation": "Cópia da licença versionada."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Knight.glb",
+      "sha256": "60428e3abc09ba83e595d256e3af8c5c976b46cdae599f0802fc82b4a3445168",
+      "bytes": 3659532,
+      "group": "legacy-source",
+      "source": {
+        "url_recorded": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0/tree/672074b73ba276876a19e8816ecdc5241817ab47",
+        "author": "Kay Lousberg",
+        "evidence": "scripts/Setup.ps1:20; docs/Referencias_M0.md"
+      },
+      "rights": {
+        "license": "CC0 1.0 conforme aviso local",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Placeholder legado preservado; não modelo final da expedição.",
+      "use": [
+        "src/Aetherforge.Client/SpriteBaker.cs:29 GLB; textura auxiliar do pacote, GLB também contém imagem embutida"
+      ],
+      "derivation": "Originais versionados; sem novo download/comparação com upstream nesta rodada."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Knight_knight_texture.png",
+      "sha256": "5d250ccc5da020e6126bfa3839f83bd9a465a951ed223e4d13c08b1925e154d4",
+      "bytes": 14172,
+      "group": "legacy-source",
+      "source": {
+        "url_recorded": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0/tree/672074b73ba276876a19e8816ecdc5241817ab47",
+        "author": "Kay Lousberg",
+        "evidence": "scripts/Setup.ps1:20; docs/Referencias_M0.md"
+      },
+      "rights": {
+        "license": "CC0 1.0 conforme aviso local",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Placeholder legado preservado; não modelo final da expedição.",
+      "use": [
+        "src/Aetherforge.Client/SpriteBaker.cs:29 GLB; textura auxiliar do pacote, GLB também contém imagem embutida"
+      ],
+      "derivation": "Originais versionados; sem novo download/comparação com upstream nesta rodada.",
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Generated/Knight.png",
+      "sha256": "537e1bbf39d3b955323d522e3b415fd43d5918ab763c5697452ead9e88771d37",
+      "bytes": 611393,
+      "group": "legacy-runtime",
+      "source": "src/Aetherforge.Client/Assets/Originals/KayKit/Knight.glb",
+      "rights": {
+        "license": "Derivado KayKit CC0 1.0",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Atlas técnico legado preservado.",
+      "use": [
+        "src/Aetherforge.Client/IdleView.cs:263 SpritePose; Main.cs usa SpriteFrame para mapa; Party.cs identifica modelos"
+      ],
+      "derivation": "SpriteBaker.cs: bake Godot, 8 direções × 3 poses × 4 frames; célula 128×144. Não regenerado nesta rodada.",
+      "dimensions": [
+        1536,
+        1152
+      ]
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Mage.glb",
+      "sha256": "cf898585da33fab50c724d31605fb931eb2912e6d2280092141e98ca81ad507d",
+      "bytes": 3589240,
+      "group": "legacy-source",
+      "source": {
+        "url_recorded": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0/tree/672074b73ba276876a19e8816ecdc5241817ab47",
+        "author": "Kay Lousberg",
+        "evidence": "scripts/Setup.ps1:20; docs/Referencias_M0.md"
+      },
+      "rights": {
+        "license": "CC0 1.0 conforme aviso local",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Placeholder legado preservado; não modelo final da expedição.",
+      "use": [
+        "src/Aetherforge.Client/SpriteBaker.cs:29 GLB; textura auxiliar do pacote, GLB também contém imagem embutida"
+      ],
+      "derivation": "Originais versionados; sem novo download/comparação com upstream nesta rodada."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Mage_mage_texture.png",
+      "sha256": "ea49f094b960402635fe51db9f1864960c97271b17f2e3554e5aca1b2bbba144",
+      "bytes": 16311,
+      "group": "legacy-source",
+      "source": {
+        "url_recorded": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0/tree/672074b73ba276876a19e8816ecdc5241817ab47",
+        "author": "Kay Lousberg",
+        "evidence": "scripts/Setup.ps1:20; docs/Referencias_M0.md"
+      },
+      "rights": {
+        "license": "CC0 1.0 conforme aviso local",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Placeholder legado preservado; não modelo final da expedição.",
+      "use": [
+        "src/Aetherforge.Client/SpriteBaker.cs:29 GLB; textura auxiliar do pacote, GLB também contém imagem embutida"
+      ],
+      "derivation": "Originais versionados; sem novo download/comparação com upstream nesta rodada.",
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Generated/Mage.png",
+      "sha256": "81b2ff0cfcc80762dd1c8e59675c11d2a740f3abd2333b4e3cad12d003d926b6",
+      "bytes": 674394,
+      "group": "legacy-runtime",
+      "source": "src/Aetherforge.Client/Assets/Originals/KayKit/Mage.glb",
+      "rights": {
+        "license": "Derivado KayKit CC0 1.0",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Atlas técnico legado preservado.",
+      "use": [
+        "src/Aetherforge.Client/IdleView.cs:263 SpritePose; Main.cs usa SpriteFrame para mapa; Party.cs identifica modelos"
+      ],
+      "derivation": "SpriteBaker.cs: bake Godot, 8 direções × 3 poses × 4 frames; célula 128×144. Não regenerado nesta rodada.",
+      "dimensions": [
+        1536,
+        1152
+      ]
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Rogue.glb",
+      "sha256": "e825437cd4d2ee9c1960b517a74a69101e33eb409ae7fa8cedc7134a998fbb7d",
+      "bytes": 3616284,
+      "group": "legacy-source",
+      "source": {
+        "url_recorded": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0/tree/672074b73ba276876a19e8816ecdc5241817ab47",
+        "author": "Kay Lousberg",
+        "evidence": "scripts/Setup.ps1:20; docs/Referencias_M0.md"
+      },
+      "rights": {
+        "license": "CC0 1.0 conforme aviso local",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Placeholder legado preservado; não modelo final da expedição.",
+      "use": [
+        "src/Aetherforge.Client/SpriteBaker.cs:29 GLB; textura auxiliar do pacote, GLB também contém imagem embutida"
+      ],
+      "derivation": "Originais versionados; sem novo download/comparação com upstream nesta rodada."
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Rogue_rogue_texture.png",
+      "sha256": "a4032e877c3b91939f5cdbb630349c1998fdbc3211bbd587c111125500fe4cc5",
+      "bytes": 16670,
+      "group": "legacy-source",
+      "source": {
+        "url_recorded": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0/tree/672074b73ba276876a19e8816ecdc5241817ab47",
+        "author": "Kay Lousberg",
+        "evidence": "scripts/Setup.ps1:20; docs/Referencias_M0.md"
+      },
+      "rights": {
+        "license": "CC0 1.0 conforme aviso local",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Placeholder legado preservado; não modelo final da expedição.",
+      "use": [
+        "src/Aetherforge.Client/SpriteBaker.cs:29 GLB; textura auxiliar do pacote, GLB também contém imagem embutida"
+      ],
+      "derivation": "Originais versionados; sem novo download/comparação com upstream nesta rodada.",
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Generated/Rogue.png",
+      "sha256": "bf629fcef8d2600d9e50c1bae6f8fb110e22718eefba5f92073dff827d9033ba",
+      "bytes": 382633,
+      "group": "legacy-runtime",
+      "source": "src/Aetherforge.Client/Assets/Originals/KayKit/Rogue.glb",
+      "rights": {
+        "license": "Derivado KayKit CC0 1.0",
+        "notice": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt"
+      },
+      "approval": "Atlas técnico legado preservado.",
+      "use": [
+        "src/Aetherforge.Client/IdleView.cs:263 SpritePose; Main.cs usa SpriteFrame para mapa; Party.cs identifica modelos"
+      ],
+      "derivation": "SpriteBaker.cs: bake Godot, 8 direções × 3 poses × 4 frames; célula 128×144. Não regenerado nesta rodada.",
+      "dimensions": [
+        1536,
+        1152
+      ]
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/LICENSE.txt",
+      "sha256": "efdd298aae817351e8939a4ea60600cf33aea87c1ce188e5710beff655c23173",
+      "bytes": 923,
+      "group": "required-notice",
+      "source": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0/tree/672074b73ba276876a19e8816ecdc5241817ab47",
+      "rights": "CC0 1.0; crédito Kay Lousberg preservado",
+      "approval": "Aviso legado preservado.",
+      "use": [
+        "src/Aetherforge.Client/Assets/Originals/KayKit/",
+        "src/Aetherforge.Client/Assets/Generated/"
+      ],
+      "derivation": "Texto integral versionado."
+    }
+  ],
+  "procedural": [
+    {
+      "path": "src/Aetherforge.Client/ExpeditionActor.cs",
+      "sha256": "be30132ceb80edb5e6d5666e160275adc8a180188ed1d91a2f0ab8bf3ab1afa8",
+      "bytes": 37643,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/ExpeditionActor.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Atores articulados e materiais por primitivas; referência de desenho v12, sem carga GLB."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/ExpeditionStage.cs",
+      "sha256": "1999a0bd1258a3f71649c9a7d2687909c8557106b45db2a34569a422f057988f",
+      "bytes": 27044,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/ExpeditionStage.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Cenário modular, luz e VFX por geometria/material."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/BrassUi.cs",
+      "sha256": "eb009b8a46db105221ca379a125661c1120a4db9994bcb6a4730b922c6b67088",
+      "bytes": 20752,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/BrassUi.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Tema, folhas, bordas e checkbox SVG em memória."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/BrassDossier.cs",
+      "sha256": "3b8fe2ab0c02a04b460eb36c86fa161287fc6346fc4c03cfa956d42aa2b8c17d",
+      "bytes": 1637,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/BrassDossier.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Dossiê em Controls/desenhos."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/BrassDossierEmptySlot.cs",
+      "sha256": "49cebd7f0c8b72b863ddde923b1ce3fa5fcd910ef8d2f5dee168b818575eabbd",
+      "bytes": 664,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/BrassDossierEmptySlot.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Gravação de espaço vazio; não significa bolsa inteira indisponível."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/BrassStatusComponents.cs",
+      "sha256": "29cf1598e0fb1bd1cc431c51d31d2a2b6760e68d251c1a3bd9eb96dc24d87e42",
+      "bytes": 9551,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/BrassStatusComponents.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Barras/seleção/fichas."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/ExpeditionMenuRoute.cs",
+      "sha256": "3c2f4260391d8a0d458665d073d9465db5db7683231e688bab456ea8e8c512ad",
+      "bytes": 4873,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/ExpeditionMenuRoute.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Conectores e marcadores de rota desenhados em código, sem route.svg."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/BrassMotion.cs",
+      "sha256": "b03b67767f589f1977159f9d324a97b3272d2d0d58f506319ca7b64de4203ec4",
+      "bytes": 3021,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/BrassMotion.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Movimento de UI."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/ExpeditionVitals.cs",
+      "sha256": "ae2b7aedfffad1ed3bf6bcef9209e7fd89fa6703c7869dc89b88efc09751805d",
+      "bytes": 23584,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/ExpeditionVitals.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Números de combate/barras."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    },
+    {
+      "path": "src/Aetherforge.Client/ExpeditionAudio.cs",
+      "sha256": "d3ac0902d03b466e648d0f22d2401bcdfa7b531e554c3293eb59be5076978cab",
+      "bytes": 4910,
+      "group": "runtime-procedural",
+      "source": "src/Aetherforge.Client/ExpeditionAudio.cs",
+      "rights": "Autoria do projeto declarada em Assets/Brass/PROVENANCE.md; sem licença geral do projeto. Não equivale a autorização pública de redistribuição de fontes.",
+      "approval": "Integrado como protótipo; revisão final pelo Director/Arthur pendente.",
+      "use": [
+        "Áudio sintetizado em memória: rifle, metal, heal, shield, step, steam, caldeira; sem arquivo sample externo."
+      ],
+      "derivation": "Recurso criado em memória pelo código; hash identifica a receita, não um arquivo exportado."
+    }
+  ],
+  "research_and_concepts": [
+    {
+      "path": "assets/concepts/brass-v9/references/waters-cidadaos.jpg",
+      "sha256": "1b3b2f77f2f0bcd1737b4082a294233057441fa233dcef283c270429ce1acdcd",
+      "bytes": 596610,
+      "group": "research-excluded",
+      "source": "Créditos/histórico em docs/visual/gpt-images-v12/EXECUCAO.md",
+      "rights": "Licença de redistribuição não demonstrada; crédito não constitui liberação.",
+      "approval": "Somente pesquisa anexada à geração.",
+      "use": [
+        "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png geração G01-r02; não há carga direta no cliente"
+      ],
+      "derivation": "Entrada de referência; não é recurso de runtime."
+    },
+    {
+      "path": "assets/concepts/brass-v10/references/colin-fix-mao.jpg",
+      "sha256": "3bead2ed0a88afdfd2ce7bf518f27f326fb56cf47828c407539726c81be03330",
+      "bytes": 105066,
+      "group": "research-excluded",
+      "source": "Créditos/histórico em docs/visual/gpt-images-v12/EXECUCAO.md",
+      "rights": "Licença de redistribuição não demonstrada; crédito não constitui liberação.",
+      "approval": "Somente pesquisa anexada à geração.",
+      "use": [
+        "assets/concepts/brass-v12-gpt/generated/01-equipe-r02.png geração G01-r02; não há carga direta no cliente"
+      ],
+      "derivation": "Entrada de referência; não é recurso de runtime."
+    },
+    {
+      "path": "assets/concepts/brass-v12-gpt/generated/02-bestiario-1.png",
+      "sha256": "47319a0d2459f02cedc724d5aefa1d8ae9169f53fcad5ce94716e8a36020dc3a",
+      "bytes": 2074661,
+      "group": "concept-excluded",
+      "source": "Proveniência adjacente e docs/studio-godot/CONTRATOS.md",
+      "rights": "Conceito do projeto com referências; não certificar direitos finais.",
+      "approval": "Base conceitual; não aprovação final de produção.",
+      "use": [
+        "Orientação de geometria/layout, sem carga raster no cliente."
+      ],
+      "derivation": "Não incluído como recurso de runtime.",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "path": "assets/concepts/brass-v12-gpt/generated/03-bestiario-2.png",
+      "sha256": "427bba5036c691b32436e88517d0a131fc35c6f691c09de96a846686656e3b9f",
+      "bytes": 2301805,
+      "group": "concept-excluded",
+      "source": "Proveniência adjacente e docs/studio-godot/CONTRATOS.md",
+      "rights": "Conceito do projeto com referências; não certificar direitos finais.",
+      "approval": "Base conceitual; não aprovação final de produção.",
+      "use": [
+        "Orientação de geometria/layout, sem carga raster no cliente."
+      ],
+      "derivation": "Não incluído como recurso de runtime.",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "path": "assets/concepts/brass-v10/01-menus-cor.png",
+      "sha256": "ff56101ddc89ca0a008ae56e1d029efd817b487e2f44bd228da2dc4cc41c7049",
+      "bytes": 491306,
+      "group": "concept-excluded",
+      "source": "Proveniência adjacente e docs/studio-godot/CONTRATOS.md",
+      "rights": "Conceito do projeto com referências; não certificar direitos finais.",
+      "approval": "Base conceitual; não aprovação final de produção.",
+      "use": [
+        "Orientação de geometria/layout, sem carga raster no cliente."
+      ],
+      "derivation": "Não incluído como recurso de runtime.",
+      "dimensions": [
+        2880,
+        1800
+      ]
+    }
+  ],
+  "import_metadata": [
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/Jost-Variable.ttf.import",
+      "sha256": "4f7bac8c2810f5a3da34f4e9268ef8d5d4a5b9c99dc05cf1de25a7b5131e8e84"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/Limelight-Regular.ttf.import",
+      "sha256": "830c96737ded9f881c07243fbe901c40c7879608fcf0b7164dde258a87fd4f66"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Fonts/SourceSans3-Variable.ttf.import",
+      "sha256": "9d9c8fa692042610c54aeb0d31b09d1884985127fc031682a180b1044c9a7c4e"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/heal.svg.import",
+      "sha256": "bfb42df7416414c64f93b9c27ad5fc54f9f24e0e41260a86c7b0a762dc12e660"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/pause.svg.import",
+      "sha256": "99cea7f5c6d1028126a5f8ce8f093756620882f8bbf7afd10830d15f121f62e7"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/return.svg.import",
+      "sha256": "03bcc7de0c1ec275b676406e22b2b0ed473a3492ee1a0d86ea47053c3e108601"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/rifle.svg.import",
+      "sha256": "3e2be1edd1a2f4909c75b8a2f769f912fc99a8bcc7c9e3321c4cbaecd6c37b47"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/route.svg.import",
+      "sha256": "b2fdc5780b7c343307e9fe4f9df50ad04f506b9b9dd76a1c4fb1f8b77dcfd8c2"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/shield.svg.import",
+      "sha256": "7c2406794d962fc0d78b9a888c9cb5067001ea9c57e7232ef61f6caee9315fb5"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Icons/vital.svg.import",
+      "sha256": "c5baa525dfa770548385956e38d68f0aeb41bed869211821ec698a9ad501fcf2"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Brass/Portraits/equipe-v12.png.import",
+      "sha256": "91c37ca65c3ba2413cf83a084f4a41e8dbb58bddef4f10b2aa9d53748ebe9283"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Generated/Knight.png.import",
+      "sha256": "5e5012acbd08b0c2b2636df3f61d846cf0905e0da8db8f2a8a2289e4836dea37"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Generated/Mage.png.import",
+      "sha256": "70530a0ebd7d62e74ff661dbeb7785952c9ea0c51be5d30d5d27a0e0e8701629"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Generated/Rogue.png.import",
+      "sha256": "5f27aeadfbf19c467c3cc7b94abf6c1e2cc4e65a46b02e3f4009c4eee58c70e1"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Knight.glb.import",
+      "sha256": "fcaefdb8f9c7b9acdd3375a44920433168a3c5bf4a7ecfe1d5f470cba20f236f"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Knight_knight_texture.png.import",
+      "sha256": "07cdbd5d2557fbf32c14a75dd6c24c07dc6f2124b0a1f69dbf489b8e621a229e"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Mage.glb.import",
+      "sha256": "3f49348be17f461d79a8fb6b49e3bcf8dd1e7be1698d536f9e875bd4b98afb19"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Mage_mage_texture.png.import",
+      "sha256": "5f5bc4f7c104dbe629734543a68c4700845ce030a95492d35ad3baaa15c3331d"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Rogue.glb.import",
+      "sha256": "999fac497c48c206aed946f0f377671a8e798e3df2fb9d7611a0c3ba8b37c610"
+    },
+    {
+      "path": "src/Aetherforge.Client/Assets/Originals/KayKit/Rogue_rogue_texture.png.import",
+      "sha256": "ce86ba5031406acc69bf327d6dc2fe1177848db85191af0586f15b722b63d356"
+    }
+  ],
+  "references": {
+    "provenance": "src/Aetherforge.Client/Assets/Brass/PROVENANCE.md",
+    "review": "docs/implementation/equipment-assets-review.md"
+  }
+}

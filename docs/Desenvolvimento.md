@@ -30,6 +30,10 @@ A [V19 adiciona nível, XP e loot da sessão](visual/UI_Progressao_v19.md): barr
 
 As outras telas estão propostas no [protótipo navegável do idle](visual/prototipo/index.html), com [mapa dos fluxos](visual/Fluxos_Idle_Prototipo.md). O estudo usa dados fictícios e ações de demonstração para revisar UI-01; inclui o resumo offline de UI-02 como prévia futura. Não implementa esses marcos no cliente Godot, nem altera a API ou o save.
 
+## Atualização de equipamento — 24/10/2026
+
+Os parágrafos V17–V19 acima registram as entregas de cada versão. Na revisão de referência `b18ef001`, a bolsa 7×3 está disponível e Herói/Status têm três slots por integrante, comparar, equipar/desequipar e atributos efetivos. A troca exige o gerenciamento permitido entre encontros; pausa em combate não libera troca. Equipamento e ganhos continuam voláteis, sem integração nova de save/API. Histórico e revisão: [handoff de equipamento](implementation/equipment-client-handoff.md). Uso, procedência e separação de pesquisa: [manifesto](implementation/equipment-assets-manifest.json) e [conferência](implementation/equipment-assets-review.md). A pilha de PRs permanece sujeita à integração pelo Director; esta atualização não afirma merge em main.
+
 ## Organização
 
 | Caminho | Conteúdo |

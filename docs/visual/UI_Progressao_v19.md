@@ -2,6 +2,8 @@
 
 Entrega de 23/10/2026, continuando a [adaptação de Taskbar Hero](../referencias/taskbar-hero/Adaptacao_Aetherforge.md) e o [Status V18](UI_Status_v18.md). Usa código, textos, ícones e regras próprios. A referência orienta a organização da ficha e da bolsa; os valores de progressão vêm do [GDD Aetherforge, seções 15.2 e 15.4](../GDD_Aetherforge.md).
 
+**Registro histórico da V19:** os limites de equipamento descritos abaixo correspondem a essa entrega. Na revisão posterior `b18ef001`, comparação/equipar/desequipar já funcionam em Herói/Status; veja o [handoff atual](../implementation/equipment-client-handoff.md). Ganhos continuam voláteis. O [manifesto de assets](../implementation/equipment-assets-manifest.json) registra uso e direitos sem alterar as evidências históricas desta página.
+
 ## Jogar e revisar
 
 Na raiz, executar `scripts/Build.ps1` e abrir **Jogar Expedicao.cmd**. **Revisar Expedicao.cmd** reúne os três instrumentos e o palco numa janela de revisão.
