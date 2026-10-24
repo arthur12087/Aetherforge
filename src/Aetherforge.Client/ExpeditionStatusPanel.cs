@@ -46,8 +46,8 @@ public partial class ExpeditionStatusPanel : VBoxContainer
         var heading = Stack(1); identity.AddChild(heading);
         _name = BrassUi.Emphasis("", 19, BrassUi.Soot); _name.Name = "StatusMemberName";
         _name.AutowrapMode = TextServer.AutowrapMode.WordSmart; heading.AddChild(_name);
-        _role = BrassUi.Text("", 13, BrassUi.Tobacco); heading.AddChild(_role);
-        _condition = BrassUi.Text("", 13, BrassUi.Soot); _condition.Name = "StatusMemberCondition"; heading.AddChild(_condition);
+        _role = BrassUi.Wrap("", 13, BrassUi.Tobacco); heading.AddChild(_role);
+        _condition = BrassUi.Wrap("", 13, BrassUi.Soot); _condition.Name = "StatusMemberCondition"; heading.AddChild(_condition);
         _experienceText=BrassUi.Wrap("", 13, BrassUi.Tobacco); _experienceText.Name="StatusExperienceText"; heading.AddChild(_experienceText);
         var arrows = Stack(2); arrows.SizeFlagsHorizontal = SizeFlags.ShrinkEnd; identity.AddChild(arrows);
         var previous = Action("‹", "StatusPreviousMember", () => _selectMember((SelectedMember+2)%3));

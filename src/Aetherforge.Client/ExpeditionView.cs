@@ -46,7 +46,7 @@ public partial class ExpeditionView : Control
     private long _lastRewardId;
     private double _rewardUntil;
     private double _refreshIn;
-    private bool _headless, _docked = true, _ready;
+    private bool _headless, _docked = true, _ready, _checkingMenuBounds;
     private readonly List<int> _openOrder = new();
     private readonly Control?[] _returnFocus = new Control?[3];
     private readonly Button[] _closeButtons = new Button[3];
@@ -563,7 +563,7 @@ public partial class ExpeditionView : Control
 
     private void ArrangeMenus()
     {
-        if (!_ready) return;
+        if (!_ready || _checkingMenuBounds) return;
         var bounds = MenuBounds();
         if (bounds.Size.X <= 0 || bounds.Size.Y <= 0) return;
         if (Overview || _headless)
@@ -642,22 +642,26 @@ public partial class ExpeditionView : Control
     public async Task VerifyMenuBounds(Vector2I usableSize)
     {
         var bounds = new Rect2I(Vector2I.Zero, usableSize);
-        ArrangeNativeMenus(bounds);
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        for (int i = 0; i < 3; i++)
+        _checkingMenuBounds=true;
+        try
         {
-            var local = new Rect2(Vector2.Zero, _menus[i].Size);
-            if (!bounds.Encloses(new Rect2I(_menus[i].Position, _menus[i].Size)) ||
-                !local.Encloses(_menuHeaders[i].GetGlobalRect()) || !local.Encloses(_menuFooters[i].GetGlobalRect()) ||
-                _menuScrolls[i].Size.Y < S(40))
-                throw new InvalidOperationException($"UI bounds {usableSize} scale {BrassUi.Scale}: instrument {i} clipped");
+            ArrangeNativeMenus(bounds);
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            for (int i = 0; i < 3; i++)
+            {
+                var local = new Rect2(Vector2.Zero, _menus[i].Size);
+                if (!bounds.Encloses(new Rect2I(_menus[i].Position, _menus[i].Size)) ||
+                    !local.Encloses(_menuHeaders[i].GetGlobalRect()) || !local.Encloses(_menuFooters[i].GetGlobalRect()) ||
+                    _menuScrolls[i].Size.Y < S(40))
+                    throw new InvalidOperationException($"UI bounds {usableSize} scale {BrassUi.Scale}: instrument {i} clipped; window {_menus[i].Position}/{_menus[i].Size}, header {_menuHeaders[i].GetGlobalRect()}, footer {_menuFooters[i].GetGlobalRect()}, body {_menuScrolls[i].Size}");
+            }
+            var statusBody = _menuScrolls[0].GetGlobalRect();
+            float statusRight = statusBody.End.X-(_menuScrolls[0].GetVScrollBar().Visible ? _menuScrolls[0].GetVScrollBar().Size.X : 0);
+            if (_statusMembers.Any(row => row.GetGlobalRect().Position.X < statusBody.Position.X-.5f || row.GetGlobalRect().End.X > statusRight+.5f))
+                throw new InvalidOperationException($"UI bounds {usableSize} scale {BrassUi.Scale}: Status team clipped horizontally");
         }
-        var statusBody = _menuScrolls[0].GetGlobalRect();
-        float statusRight = statusBody.End.X-(_menuScrolls[0].GetVScrollBar().Visible ? _menuScrolls[0].GetVScrollBar().Size.X : 0);
-        if (_statusMembers.Any(row => row.GetGlobalRect().Position.X < statusBody.Position.X-.5f || row.GetGlobalRect().End.X > statusRight+.5f))
-            throw new InvalidOperationException($"UI bounds {usableSize} scale {BrassUi.Scale}: Status team clipped horizontally");
-        ArrangeMenus();
+        finally { _checkingMenuBounds=false; ArrangeMenus(); }
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }

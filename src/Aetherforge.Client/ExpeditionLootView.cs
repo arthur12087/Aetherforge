@@ -57,6 +57,8 @@ public partial class ExpeditionLootView : VBoxContainer
     public void UpdateState(ExpeditionReadModel? view=null)
     {
         var rewards=view??_simulation.ReadView();
+        if(_session.Length>0 && _session!=rewards.SessionId)
+        { SelectedItemId=""; _inspectionEpoch++; InspectionChanged?.Invoke(); }
         Set(_balances,$"{rewards.Coins} moedas · {rewards.Scrap} sucatas\n{rewards.Components} componentes brutos");
         Set(_capacity,$"Bolsa · {rewards.Inventory.Count} / {ExpeditionRewards.InventoryCapacity}"+(rewards.PendingDrops.Count>0 ? $" · {rewards.PendingDrops.Count} itens pendentes, sem espaço" : ""));
         if(_renderedRevision==rewards.InventoryRevision && _session==rewards.SessionId) return;
@@ -68,7 +70,7 @@ public partial class ExpeditionLootView : VBoxContainer
             var button=_slots[i]; bool occupied=i<rewards.Inventory.Count;
             if(_inspectHandlers[i]!=null) { button.Pressed-=_inspectHandlers[i]; _inspectHandlers[i]=null; }
             button.Disabled=!occupied; button.FocusMode=occupied?FocusModeEnum.All:FocusModeEnum.None; _empty[i].Visible=!occupied;
-            if(!occupied) { button.Text=""; button.Icon=null; button.TooltipText="Espaço vazio"; continue; }
+            if(!occupied) { button.SetMeta("item_id",""); button.Text=""; button.Icon=null; button.TooltipText="Espaço vazio"; continue; }
             var item=rewards.Inventory[i];
             string id=item.Id; _inspectHandlers[i]=()=>Inspect(id); button.Pressed+=_inspectHandlers[i];
             button.SetMeta("item_id",id);

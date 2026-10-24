@@ -1,15 +1,15 @@
-param([switch]$Screenshots,[switch]$Native,[switch]$Reduced,[string]$Scale='1',[string]$Size='1920x1080')
+param([switch]$Screenshots,[switch]$Native,[switch]$Reduced,[string]$Scale='1',[string]$Size='1920x1080',[string]$OutputDirectory='artifacts/equipment-ui')
 $ErrorActionPreference='Stop'
 . (Join-Path $PSScriptRoot 'Environment.ps1')
-$qa=Join-Path $projectRoot 'artifacts\equipment-ui'
+$qa=Join-Path $projectRoot $OutputDirectory
 New-Item -ItemType Directory -Force $qa | Out-Null
 $name=($Size+'-'+$Scale+$(if($Native){'-native'}else{'-embedded'}))
 if($Reduced){$name+='-reduced'}
 $stdout=Join-Path $qa ($name+'.log'); $stderr=Join-Path $qa ($name+'.err.log')
 $arguments=@('--path',('"'+$clientDir+'"'))
 if(!$Screenshots){$arguments+='--headless'}
-$arguments+=@('--','--mode=expedition','--equipment-check',('--qa-size='+$Size),('--ui-scale='+$Scale),'--time-scale=8','--duration=2000',('"--ui-evidence='+(Join-Path $qa ($name+'.json'))+'"'))
-if(!$Native){$arguments+='--overview'}
+$arguments+=@('--','--mode=expedition','--equipment-check',('--ui-scale='+$Scale),'--time-scale=8','--duration=2000',('"--ui-evidence='+(Join-Path $qa ($name+'.json'))+'"'))
+if(!$Native){$arguments+=@('--overview',('--qa-size='+$Size))}
 if($Reduced){$arguments+='--reduce-ui-motion'}
 if($Screenshots){$arguments+=('"--ui-captures='+(Join-Path $qa $name)+'"')}
 $process=Start-Process -FilePath $godotRuntimeExe -ArgumentList $arguments -WorkingDirectory $projectRoot -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
