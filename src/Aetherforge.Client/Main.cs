@@ -68,7 +68,7 @@ public partial class Main : Node
             _expedition = new ExpeditionView { Overview = _options.ContainsKey("overview") || DisplayServer.GetName() == "headless" };
             AddChild(_expedition);
             _expedition.DetailedHud = _options.ContainsKey("hud-details");
-            if (_options.ContainsKey("ui-check") || _options.ContainsKey("progression-check"))
+            if (_options.ContainsKey("ui-check") || _options.ContainsKey("progression-check") || _options.ContainsKey("equipment-check"))
             {
                 if (_options.TryGetValue("qa-size", out var qaSize))
                 {
@@ -85,6 +85,11 @@ public partial class Main : Node
                 {
                     var progressionCheck=new UiV19Check { EvidencePath=Option("ui-evidence",""), CaptureDirectory=Option("ui-captures","") };
                     progressionCheck.Bind(_expedition); AddChild(progressionCheck);
+                }
+                if(_options.ContainsKey("equipment-check"))
+                {
+                    var equipmentCheck=new EquipmentUiCheck { EvidencePath=Option("ui-evidence",""), CaptureDirectory=Option("ui-captures","") };
+                    equipmentCheck.Bind(_expedition); AddChild(equipmentCheck);
                 }
             }
             if (_options.ContainsKey("component-check"))

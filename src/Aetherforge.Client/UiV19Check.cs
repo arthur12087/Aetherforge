@@ -48,7 +48,14 @@ public partial class UiV19Check : Node
             var detail=Descendants(hero).OfType<Label>().Single(l=>l.Name=="LootItemDetail");
             Require(detail.Text.Contains(firstItem.Name),"item description mismatch");
             var heroScroll=Descendants(hero).OfType<ScrollContainer>().First();
-            Require(heroScroll.GetGlobalRect().Grow(1).Encloses(detail.GetGlobalRect()),"selected item description not visible");
+            // Comparison now takes initial focus. In a short body its description may span
+            // more than one visible page; verify the whole label is reachable by scrolling.
+            heroScroll.EnsureControlVisible(detail); await Frames(2);
+            var bodyRect=heroScroll.GetGlobalRect(); var detailRect=detail.GetGlobalRect();
+            Require(bodyRect.Intersects(detailRect) && detailRect.Position.X>=bodyRect.Position.X && detailRect.End.X<=bodyRect.End.X,
+                "selected item description not reachable or clipped horizontally");
+            float contentBottom=detailRect.End.Y-bodyRect.Position.Y+heroScroll.ScrollVertical;
+            Require(contentBottom<=heroScroll.GetVScrollBar().MaxValue+1,"item description outside scroll range");
             var bagRect=_view.LootPanel.Bag.GetGlobalRect();
             var outside=Descendants(_view.LootPanel.Bag).OfType<Button>().Where(button=>!bagRect.Encloses(button.GetGlobalRect())).ToArray();
             Require(outside.Length==0,"loot slot outside grid "+bagRect+": "+string.Join("; ",outside.Select(button=>button.Name+" "+button.GetGlobalRect())));

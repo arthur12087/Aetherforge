@@ -263,3 +263,15 @@ Não há discrepância normativa identificada entre as portas aceitas e o fluxo 
 Mantidos fora do recorte: produção de assets, novas fontes/molduras, aparência 3D por peça, save real, progresso offline, novas ações de reset, transferência para API/legado, descarte/desmontagem, economia/rebalanceamento e suporte de dispositivo novo. Enquanto o save não existir, a informação de sessão é obrigatória. A hipótese de UX é permitir que o jogador identifique alvo, antecipe delta/HP, faça/cancele a troca e reconheça o efeito ao continuar; compreensão/erros/fricção devem ser observados em playtest, sem alegação de retenção demonstrada.
 
 Validação desta entrega: leitura dos contratos e fontes/captura histórica V19; correspondência documental dos 25 cenários; caminhos/links locais, identificação das portas/códigos, cálculo de contraste dos tokens e `git diff --check`. Conforme AGENTS.md, mudança só de Markdown não exige recompilação. Sem build, testes de gameplay, captura nova ou certificação de layout/input nesta rodada. A aceitação de GAMELAB-6 é revisão da especificação; implementação e QA integrado são etapas posteriores.
+
+## 12. Tradução de integração GAMELAB-8
+
+O texto acima conserva a especificação e sua proveniência documental. A implementação passa a usar as assinaturas publicadas em `c8fcff01f5c15390c2c190108cee73c888c753d8`, conforme tradução aceita pelo Director:
+
+- `Advance(double)` continua wrapper void; `AdvanceDetailed(double)` oferece resultados/eventos. O cliente não calcula tempo de gerenciamento.
+- `ComparisonQuery` fica em `EquipmentCommand.Query`. `preview.Confirm(operationId)` cria o envelope imutável; não se consulta novamente ao confirmar. Unequip usa candidata null e captura o ID equipado esperado.
+- `CommandResult.Original` é o recibo original imutável; `LatestReadModel` é o presente, inclusive em Replay. Apenas `Outcome == Applied` gera feedback, deduplicado por sessão/operação.
+- `IExpeditionCheckpointSink.Commit(snapshot)` confirma uma barreira em memória, com `Durability="Volatile"`. Nenhum adaptador de disco foi conectado.
+- `EffectiveStats.LevelAttack/LevelDefense/LevelHealth` já incluem a base. O ganho de nível apresentado é a diferença entre esse valor e a base.
+
+Fontes e protocolo de revisão: [integração cliente](equipment-client-handoff.md). A revisão técnica e o QA independente continuam etapas posteriores; o relatório de execução anexado à issue identifica o commit e os testes efetivamente realizados.

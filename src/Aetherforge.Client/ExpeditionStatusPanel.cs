@@ -149,37 +149,39 @@ public partial class ExpeditionStatusPanel : VBoxContainer
         if (!id.StartsWith("summary-")) { button.ToggleMode = true; _detailButtons[id] = button; }
     }
 
-    public void UpdateState(int selected, bool snap)
+    public void UpdateState(int selected, bool snap, ExpeditionReadModel? view=null)
     {
         bool changed = SelectedMember != selected;
         SelectedMember = selected;
-        var member = _simulation.Party[selected];
+        view??=_simulation.ReadView();
+        var member = view.Members[selected];
+        var stats=member.Stats;
         Set(_name, member.Name);
         Set(_role, member.Role switch { PartyRole.Tank => "TANK · proteção", PartyRole.Dps => "DPS · ataque", _ => "CURA · apoio" });
         string condition = member.Health <= 0 ? "Caído" : _simulation.Paused ? "Em pausa" : _simulation.Phase switch
         { ExpeditionPhase.March => "Em marcha", ExpeditionPhase.Combat => "Em combate", ExpeditionPhase.Loot => "Em descanso", _ => "Expedição encerrada" };
-        Set(_condition, condition + $" · {selected+1} / 3");
-        var progress=member.Progression;
-        Set(_experienceText,progress.Level==CharacterProgression.MaximumLevel ? $"NÍVEL {progress.Level} · MÁXIMO" : $"NÍVEL {progress.Level} · {progress.Experience} / {progress.RequiredExperience} XP");
-        _experience.MaxValue=progress.RequiredExperience>0?progress.RequiredExperience:1;
-        _experience.Value=progress.RequiredExperience>0?progress.Experience:1;
+        Set(_condition, "Selecionado · "+condition + $" · {selected+1} / 3");
+        int required=member.Level==CharacterProgression.MaximumLevel?0:60+30*(member.Level-1);
+        Set(_experienceText,required==0 ? $"NÍVEL {member.Level} · MÁXIMO" : $"NÍVEL {member.Level} · {member.Experience} / {required} XP");
+        _experience.MaxValue=required>0?required:1;
+        _experience.Value=required>0?member.Experience:1;
         _portrait.Texture = _faces[selected];
-        Set(_healthText, $"{Math.Ceiling(member.Health):0} / {member.MaxHealth:0} PV");
-        _health.Paused = _simulation.Paused; _health.SetHealth(member.Health, member.MaxHealth, snap || changed);
-        Value("attack", $"{member.Attack:0.#}"); Value("defense", $"{member.Defense:0.#}");
-        Value("experience",$"Nv. {progress.Level}");
+        Set(_healthText, $"{Math.Ceiling(member.Health):0} / {stats.MaxHealth:0} PV");
+        _health.Paused = view.Paused || view.Management==ExpeditionManagement.Active; _health.SetHealth(member.Health, stats.MaxHealth, snap || changed);
+        Value("attack", $"{stats.Attack:0.#}"); Value("defense", $"{stats.Defense:0.#}");
+        Value("experience",$"Nv. {member.Level}");
         Value("interval", $"{_simulation.GetAttackInterval(selected):0.##} s");
-        Value("dps", $"{member.Attack/_simulation.GetAttackInterval(selected):0.##} / s");
-        Value("max-health", $"{member.MaxHealth:0} PV");
+        Value("dps", $"{stats.Attack/_simulation.GetAttackInterval(selected):0.##} / s");
+        Value("max-health", $"{stats.MaxHealth:0} PV");
         Value("protection", selected==0 ? $"{(1-ExpeditionSimulation.ShieldDamageMultiplier)*100:0}%" : "Só o Guarda");
-        Value("infusion", selected==2 ? $"até {_simulation.CurrentInfusionAmount:0} PV" : "Recebe apoio");
-        Value("rest", $"até {member.MaxHealth*ExpeditionSimulation.RestHealingFraction:0} PV");
+        Value("infusion", selected==2 ? $"até {stats.InfusionPotential:0} PV" : "Recebe apoio");
+        Value("rest", $"até {stats.MaxHealth*ExpeditionSimulation.RestHealingFraction:0} PV");
         foreach (var pair in _detailButtons) pair.Value.SetPressedNoSignal(pair.Key == SelectedAttribute);
         if (SelectedAttribute.Length > 0) UpdateExplanation();
         for (int i=0; i<3; i++)
         {
-            var ally = _simulation.Party[i];
-            MemberRows[i].UpdateMember(ally.Name, ally.Health, ally.MaxHealth, i==selected, _simulation.Paused, snap);
+            var ally = view.Members[i];
+            MemberRows[i].UpdateMember(ally.Name, ally.Health, ally.Stats.MaxHealth, i==selected, view.Paused || view.Management==ExpeditionManagement.Active, snap);
         }
     }
     private static void Set(Label label, string text) { if (label.Text != text) label.Text = text; }
@@ -220,14 +222,15 @@ public partial class ExpeditionStatusPanel : VBoxContainer
     private void UpdateExplanation()
     {
         var member = _simulation.Party[SelectedMember];
+        var stats=_simulation.ReadView().Members[SelectedMember].Stats;
         var (title, text) = SelectedAttribute switch
         {
             "experience" => ("Nível e experiência",$"Nível {member.Progression.Level} de {CharacterProgression.MaximumLevel}. Cada vitória concede XP aos três integrantes, inclusive caídos. Próximo nível: 60 + 30 × (nível − 1). XP excedente avança níveis; no nível 20 não acumula. Reiniciar a rota mantém o progresso desta sessão."),
-            "attack" => ("Ataque", $"Base no nível 1: {member.BaseAttack:0.#}. Com progressão: {member.Attack:0.#} (+6% da base por nível, arredondado para baixo). Cada golpe causa ataque menos defesa do alvo, com mínimo de 1. Equipamento ainda não aplicado."),
-            "defense" => ("Defesa", $"Base no nível 1: {member.BaseDefense:0.#}. Com progressão: {member.Defense:0.#} (+5% da base por nível, arredondado para baixo). Subtraída do ataque inimigo, com dano mínimo de 1. O Escudo de Pressão reduz depois o dano recebido pelo Guarda."),
+            "attack" => ("Ataque", EquipmentPresentation.Composition(stats)+"\nAtaque menos defesa do alvo, com mínimo de 1 por golpe. Equipamento já incluído nos totais."),
+            "defense" => ("Defesa", EquipmentPresentation.Composition(stats)+"\nSubtraída do ataque inimigo, mínimo de 1. Escudo reduz depois o dano do Guarda."),
             "interval" => ("Intervalo de ataque", $"Um ataque a cada {_simulation.GetAttackInterval(SelectedMember):0.##} segundos de combate. A abertura do encontro tem um atraso próprio. Integrantes caídos não atacam; a pausa congela o tempo."),
             "dps" => ("DPS básico teórico", $"{member.Attack:0.#} de ataque ÷ {_simulation.GetAttackInterval(SelectedMember):0.##} s = {member.Attack/_simulation.GetAttackInterval(SelectedMember):0.##} por segundo. Estimativa antes da defesa do alvo, sem atraso inicial, cura ou interrupções. Não é dano medido."),
-            "max-health" => ("Vida máxima", $"Base no nível 1: {member.BaseHealth:0} PV. Com progressão: {member.MaxHealth:0} PV (+10% da base por nível, arredondado para baixo). Subir de nível preserva a vida faltante de quem está vivo; não ressuscita caídos."),
+            "max-health" => ("Vida máxima", EquipmentPresentation.Composition(stats)+"\nEquipar não cura; reduzir máximo limita HP absoluto. Subir de nível preserva vida faltante dos vivos; não ressuscita."),
             "protection" => ("Escudo de Pressão", $"Protege somente o Guarda vivo. Reduz {(1-ExpeditionSimulation.ShieldDamageMultiplier)*100:0}% do dano após a defesa durante {ExpeditionSimulation.ShieldDuration:0} s. Recarga de {ExpeditionSimulation.ShieldRecharge:0} s desde a ativação. Use P ou o botão no combate."),
             "infusion" => ("Infusão Etérea", $"Com o Alquimista vivo, cura até {_simulation.CurrentInfusionAmount:0} PV (+8% da base por nível) do aliado vivo com menor proporção de vida quando alguém chega a {ExpeditionSimulation.InfusionHealthThreshold*100:0}% ou menos. Recarga de {ExpeditionSimulation.InfusionRecharge:0} s. O ganho é limitado pela vida máxima."),
             _ => ("Cura no descanso", $"Após 2 s de descanso entre encontros, cada aliado vivo recupera até {ExpeditionSimulation.RestHealingFraction*100:0}% de sua vida máxima se o Alquimista estiver vivo. Para {member.Name}: até {member.MaxHealth*ExpeditionSimulation.RestHealingFraction:0} PV, limitado à vida faltante.")

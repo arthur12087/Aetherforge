@@ -68,6 +68,7 @@ public partial class ExpeditionView : Control
         BuildMenu(0, "STATUS", "01 / INTEGRANTE EM CAMPO", BuildStatus);
         BuildMenu(1, "HERÓI", "02 / ESTOJO", BuildHero);
         BuildMenu(2, "EXPEDIÇÃO", "03 / BILHETE DE ROTA", BuildRoute);
+        InitializeEquipment();
         _ready = true;
         if (!_headless) ConfigureRoot(true);
         else GetWindow().Size = Overview ? new Vector2I(1160, 880) : new Vector2I(1000, 320);
@@ -217,6 +218,7 @@ public partial class ExpeditionView : Control
             SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill
         };
         shell.AddChild(scroll); _menuScrolls[index] = scroll;
+        scroll.CustomMinimumSize=new Vector2(0,S(40));
         scroll.TooltipText = "Setas e Page Up / Page Down: rolar conteúdo. Tab: ações fixas.";
         scroll.GuiInput += input =>
         {
@@ -233,6 +235,8 @@ public partial class ExpeditionView : Control
         var content = Column(10); content.Name = "MenuContent"; scroll.AddChild(content);
         var footer = Column(6); footer.Name = "FixedFooter"; shell.AddChild(footer); _menuFooters[index] = footer;
         build(content, footer);
+        footer.MinimumSizeChanged+=()=>Callable.From(ArrangeMenus).CallDeferred();
+        top.MinimumSizeChanged+=()=>Callable.From(ArrangeMenus).CallDeferred();
         WireFocus(window);
     }
 
@@ -342,7 +346,7 @@ public partial class ExpeditionView : Control
             reset.TooltipText = "Nova tentativa · mantém nível, XP e ganhos desta sessão · R"; BrassUi.DossierButton(reset); row.AddChild(reset);
         }
         // Recuar is physically separated from the frequent pause action.
-        var retreat = BrassUi.Button("Recuar", () => { Simulation.Retreat(); RefreshState(); });
+        var retreat = BrassUi.Button("Recuar", () => ExecuteRoute(RouteAction.Retreat));
         retreat.Name = primary ? "RouteRetreat" : "StatusRetreat";
         retreat.TooltipText = "Encerrar esta tentativa e retirar a equipe da rota.";
         SetIcon(retreat, "return"); BrassUi.DossierButton(retreat);
@@ -381,6 +385,8 @@ public partial class ExpeditionView : Control
 
     private void SelectMember(int index)
     {
+        EquipmentSelection.Invalidate();
+        if (_equipmentPage>=0) _equipmentPages[_equipmentPage].Result=false;
         _selected = index;
         Stage.SelectedMemberIndex = index;
         for (var i = 0; i < 3; i++) _selectors[i].SetPressedNoSignal(i == index);
@@ -392,24 +398,27 @@ public partial class ExpeditionView : Control
     private void ContinueOrPause()
     {
         if (Terminal) ResetSimulation();
-        else { Simulation.Paused = !Simulation.Paused; RefreshState(); }
+        else if (Simulation.ReadView().Management != ExpeditionManagement.Active)
+            ExecuteRoute(RouteAction.SetPaused, !Simulation.ReadView().Paused);
     }
     private void ResetSimulation()
     {
-        Simulation.RestartRoute(); _snapVitals = true; _lastEventId = -1; _recent.Clear();
+        ExecuteRoute(RouteAction.RestartRoute); _snapVitals = true; _lastEventId = -1; _recent.Clear();
         _lastRewardId=Simulation.Rewards.LastReward?.Sequence??0; _rewardNotice.Visible=false; _rewardUntil=0; RefreshState();
     }
 
     private static void SetText(Label label, string text) { if (label.Text != text) label.Text = text; }
-    private void RefreshState()
+    private void RefreshState(ExpeditionReadModel? readModel=null)
     {
         if (!_ready) return;
-        var member = Simulation.Party[_selected];
-        StatusPanel.UpdateState(_selected, _snapVitals);
+        var view=readModel??Simulation.ReadView();
+        var member = view.Members[_selected];
+        StatusPanel.UpdateState(_selected, _snapVitals,view);
         _snapVitals = false;
-        SetText(_heroName, member.Name+$" · Nv. {member.Progression.Level}");
-        LootPanel.UpdateState();
-        SetText(_heroRole, _selected == 0 ? "TANK · prioridade de proteção" : _selected == 1 ? "DPS · ataques automáticos" : "CURA · apoio automático condicional");
+        SetText(_heroName, member.Name+$" · Nv. {member.Level}");
+        LootPanel.UpdateState(view);
+        RefreshEquipment(view);
+        SetText(_heroRole, "Selecionado · "+(_selected == 0 ? "TANK · prioridade de proteção" : _selected == 1 ? "DPS · ataques automáticos" : "CURA · apoio automático condicional"));
         _shield.Disabled = Simulation.Phase != ExpeditionPhase.Combat || Simulation.Paused || Simulation.Party[0].Health <= 0 || Simulation.ShieldCooldown > 0;
         SetText(_shieldState, Terminal ? "Indisponível · encerrada" : Simulation.Party[0].Health <= 0 ? "Indisponível · Guarda caído"
             : Simulation.ShieldRemaining > 0 ? $"Guarda protegido · {Simulation.ShieldRemaining:0.0} s"
@@ -456,34 +465,40 @@ public partial class ExpeditionView : Control
         SetText(_routeRewards,$"Ganhos da sessão\n{rewards.Coins} moedas · {rewards.Scrap} sucatas · {rewards.Components} componentes\n{rewards.Inventory.Count} itens na bolsa"+(rewards.PendingDrops.Count>0?$" · {rewards.PendingDrops.Count} pendentes":""));
     }
 
-    private void SetMenuVisible(int index, bool visible, bool focus = true)
+    private void SetMenuVisible(int index, bool visible, bool focus = true, Control? opener=null)
     {
         var window = _menus[index];
         if (window.Visible == visible) return;
         if (visible && focus)
-            _returnFocus[index] = GetViewport().GuiGetFocusOwner() ?? _launchers[index];
+            _returnFocus[index] = opener ?? GetViewport().GuiGetFocusOwner() ?? _launchers[index];
         window.Visible = visible; _openOrder.Remove(index);
+        if (!visible)
+        {
+            EquipmentSelection.Invalidate();
+            if (_equipmentPage==index) ShowEquipmentPage(index,false);
+            if (index==1) _bagReturn=-1;
+        }
         if (visible)
         {
             _openOrder.Add(index);
             window.Position = ClampPosition(window.Position, window.Size, MenuBounds());
             if (index == 0) { StatusPanel.ResetNavigation(); _menuScrolls[0].ScrollVertical = 0; }
             WireFocus(window);
-            if (focus && !_headless)
+            if (focus)
             {
                 // Explicit user-open only. Dock movement never raises this window or the stage.
-                window.GrabFocus();
+                if (!_headless) window.GrabFocus();
                 var initial = index == 1 ? _selectors[_selected] : index == 0 ? StatusPanel.InitialFocus : _pauseButtons[0];
                 if (initial.Disabled) initial = _closeButtons[index];
                 initial.GrabFocus();
             }
         }
-        else if (focus && !_headless)
+        else if (focus)
         {
             var previous = _returnFocus[index];
-            if (previous == null || !GodotObject.IsInstanceValid(previous) || !previous.IsInsideTree() || !previous.IsVisibleInTree())
+            if (previous == null || !GodotObject.IsInstanceValid(previous) || !previous.IsInsideTree() || !previous.IsVisibleInTree() || previous is BaseButton { Disabled:true })
                 previous = _launchers[index];
-            if (previous.GetViewport() is Window owner) owner.GrabFocus();
+            if (!_headless && previous.GetViewport() is Window owner) owner.GrabFocus();
             previous.GrabFocus();
             _returnFocus[index] = null;
         }
@@ -505,6 +520,7 @@ public partial class ExpeditionView : Control
             case Key.Escape:
                 int close = menu >= 0 ? menu : _openOrder.Count > 0 ? _openOrder[^1] : -1;
                 if (close < 0) return; // Root quit belongs to Main.
+                if (close < 2 && BackEquipment(close)) break;
                 if (close == 0 && StatusPanel.TryGoBack()) break;
                 SetMenuVisible(close, false); break;
             default: return;
@@ -576,7 +592,9 @@ public partial class ExpeditionView : Control
             // rather than a guessed y/height which fails when the toolbar wraps.
             int top = Overview ? (int)_menuSpace.GlobalPosition.Y : 0;
             int available = Overview ? (int)_menuSpace.Size.Y : bounds.Size.Y - top;
-            int height = Math.Max(280, Math.Min(S(620), available));
+            int fixedRequired=0;
+            for(int i=0;i<3;i++) fixedRequired=Math.Max(fixedRequired,(int)Math.Ceiling(_menuHeaders[i].GetCombinedMinimumSize().Y+_menuFooters[i].GetCombinedMinimumSize().Y)+S(100));
+            int height = Math.Min(bounds.Size.Y-top, Math.Max(fixedRequired,Math.Max(280, Math.Min(S(620), available))));
             int gap = Math.Max(8, (bounds.Size.X-widths.Sum())/4);
             int left = gap;
             for (var i = 0; i < 3; i++)
@@ -653,7 +671,7 @@ public partial class ExpeditionView : Control
         void Require(bool condition, string message) { if (!condition) throw new InvalidOperationException("Expedition layout: " + message); }
         Require(Stage != null && Stage.IsInsideTree(), "palco não instanciado");
         Require(Simulation.Party.Count == 3, "equipe deve ter três integrantes");
-        Require(_bag.Columns == 7 && _bag.GetChildCount() == 21, "bolsa deve ter sete colunas e três linhas");
+        Require(_bag.Columns is >=1 and <=7 && _bag.GetChildCount() == 21, "bolsa deve preservar 21 posições e refluir em área curta");
         Require(_bag.GetChildren().Select((child,index)=>child is Button button && button.Disabled==(index>=Simulation.Rewards.Inventory.Count)).All(valid=>valid), "slots devem corresponder aos itens da bolsa");
         Require(_selectors.Length == 3 && _selectors.All(button => button != null && button.IsInsideTree()), "três seletores obrigatórios");
         Require(_selectors.Count(button => button.ButtonPressed) == 1 && _selectors[_selected].ButtonPressed, "seleção incoerente");
