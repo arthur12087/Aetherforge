@@ -2,6 +2,7 @@ param([switch]$Screenshots,[switch]$ProgressionOnly)
 $ErrorActionPreference='Stop'
 . (Join-Path $PSScriptRoot 'Environment.ps1')
 $qa=Join-Path $projectRoot 'artifacts\ui-v19\qa'
+New-Item -ItemType Directory -Force $qa | Out-Null
 if(!$ProgressionOnly){ & (Join-Path $PSScriptRoot 'Test-UiV15.ps1') -OutputDirectory $qa }
 $cases=@(
     @{Name='progression-1';Scale='1';Graphics=$false;Size='1920x1080'},
