@@ -1,10 +1,10 @@
 # Aetherforge: backlog de produção da POC
 
-Referência: GDD v0.3 e Stack_Tecnologica.md. A base do M0 está implementada: ferramentas portáteis, domínio compartilhado, API, renders direcionais, idle animado e dois clientes com movimento autoritativo. A matriz completa de desktop permanece em validação. Os marcos M1 a M5 ainda não estão implementados. Evidências e pendências em [Validacao_M0.md](Validacao_M0.md).
+Referência: GDD v0.3 e Stack_Tecnologica.md. A base do M0 está implementada: ferramentas portáteis, domínio compartilhado, API, renders direcionais, idle animado e dois clientes com movimento autoritativo. A matriz completa de desktop permanece em validação. M1 tem avanços parciais na expedição V19; nenhum dos marcos M1–M5 está concluído. Evidências históricas do M0 em [Validacao_M0.md](Validacao_M0.md) e estado corrente em [Desenvolvimento.md](Desenvolvimento.md).
 
 **Prioridade atual (13/10/2026): desenvolver o idle primeiro.** Executar M1 antes de ampliar o MMORPG. Persistência e offline entram depois de consolidar o ciclo idle; os marcos de MMO e marketplace permanecem como planejamento futuro. [Ordem de trabalho atual](Desenvolvimento.md).
 
-**Direção visual atual:** modelos 3D animados em tempo real; cenário idle 3D leve. A prova de sprites de M0 é histórica. A migração visual entra em ART-03/ART-04 abaixo e ainda não foi implementada. [Estudo v3](visual/Direcao_Artistica_v3.md).
+**Apresentação atual:** a expedição V19 já tem personagens de geometria procedural articulada e cenário 3D modular. O idle com sprites do M0 permanece disponível como legado. ART-03/ART-04 ainda requerem rigs/assets finais e validação do orçamento em runtime; o protótipo 3D não conclui esses critérios. [Estudo v3 e orçamento inicial](visual/Direcao_Artistica_v3.md).
 
 ## M0: provar as escolhas técnicas
 
@@ -20,7 +20,7 @@ Se TEC-02 falhar após ajustes, comparar shell WPF e medir de novo. Se NET-01 fa
 
 ## M1: idle jogável e regras verificáveis
 
-Avanço parcial em 23/10/2026: a [V19](visual/UI_Progressao_v19.md) implementa nível/XP até 20, crescimento de atributos e loot inspecionável na sessão da expedição técnica. IDL-02 ainda requer equipar os três slots, validar incompatibilidades e aplicar bônus. A rota mantém um encontro por etapa; IDL-03 e o M1 completo continuam pendentes.
+Avanço parcial em 23/10/2026: a [V19](visual/UI_Progressao_v19.md) implementa nível/XP até 20, crescimento de atributos e bolsa 7×3 com loot inspecionável na sessão da expedição técnica. IDL-02 ainda requer equipar os três slots, validar incompatibilidades e aplicar bônus. Reiniciar conserva os ganhos; fechar perde tudo desta sessão. Essa rota não usa a API/save legado. A rota mantém um encontro por etapa; energia, mineração, durabilidade, reparos, IDL-03 completo e o M1 completo continuam pendentes. Salvamento/retomada e offline também não foram implementados para a V19.
 
 | ID | Tarefa | Depende de | Aceitação |
 |---|---|---|---|

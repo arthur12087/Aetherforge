@@ -48,11 +48,11 @@ A proposta não é oferecer dois jogos independentes ligados apenas por recompen
 
 ### 1.5 Assets da prova de conceito
 
-A POC pode usar assets prontos encontrados na internet para popular personagens, mapas, interface, efeitos e áudio. A prioridade é testar o gameplay e a integração, sem exigir arte autoral ou consistência visual final nessa fase. Esta autorização vale para a etapa de desenvolvimento; o levantamento e a importação ainda não foram executados.
+A POC pode usar assets prontos encontrados na internet para popular personagens, mapas, interface, efeitos e áudio. A prioridade é testar o gameplay e a integração, sem exigir arte autoral ou consistência visual final nessa fase. O legado já possui modelos KayKit e sprites derivados, com origem/licença em [Referencias_M0.md](Referencias_M0.md); o palco V19 usa geometria procedural articulada e recursos de UI próprios, descritos no [guia Godot](studio-godot/README.md).
 
 Preferir assets gratuitos com licença clara para uso no protótipo. Registrar origem, autor, licença e atribuição exigida num catálogo do projeto. Manter placeholders identificados e separar arquivos originais das adaptações, para facilitar a substituição pela direção steampunk final. Se algum asset exigir compra, escolher uma alternativa gratuita enquanto não houver orçamento definido.
 
-Mesmo com arte provisória, a próxima validação visual precisa usar personagens 3D com rig e animações, junto a um cenário 3D simples no idle. Modelos prontos licenciados podem validar o pipeline antes de produzir arte própria. O protótipo M0 ainda usa sprites; a migração permanece pendente e deve preservar sua integração e as regras compartilhadas.
+Mesmo com a apresentação 3D técnica já disponível na expedição V19, falta validar personagens com rig/animações e cenário de produção, incluindo desempenho. Modelos prontos licenciados podem validar esse pipeline antes de produzir arte própria. O modo Idle legado conserva os sprites M0 e sua integração; a geometria procedural V19 não equivale a rigs/assets finais.
 
 ## 2. Fantasia do jogador
 
@@ -633,7 +633,7 @@ Essa escolha prioriza mapas e personagens 3D, uma base de linguagem comum e cust
 
 Usar uma janela transparente sem bordas posicionada junto à barra de tarefas, com controles acessíveis e integração nativa quando necessário. Essa é a proposta técnica para a POC; não pressupõe que o Windows ofereça um espaço nativo para renderizar o jogo dentro da barra.
 
-As simulações e recompensas que alimentam a economia são autoritativas no servidor. Clientes mostram animações e enviam intenções, mas não definem drops, saldos, tempo offline ou propriedade. O núcleo de regras C# não depende de cenas Godot. A compatibilidade de framework entre clientes e serviços será fixada no teste técnico inicial.
+No alvo de produção, as simulações e recompensas que alimentam a economia serão autoritativas no servidor. Clientes mostrarão animações e enviarão intenções, sem definir drops, saldos, tempo offline ou propriedade. Hoje, a expedição V19 simula progressão/loot localmente, apenas na sessão, sem alimentar a API ou a economia legada. O núcleo de regras C# não depende de cenas Godot; usa `netstandard2.1`, compartilhado pelo cliente `net8.0` e serviços `net10.0`.
 
 Para a POC, manter serviços da conta em um monólito modular, banco único e processos de mapa separados. Redis, Kubernetes, divisão em microserviços e infraestrutura multirregional são opções de expansão condicionadas a medições. Economia global não exige colocar todos os jogadores em um único mapa ou servidor.
 
@@ -641,8 +641,10 @@ Para a POC, manter serviços da conta em um monólito modular, banco único e pr
 
 Os oito itens de design da versão 0.2 foram especificados nas seções 4.6 e 15, na planilha econômica e no backlog. A base do M0 já existe: cliente idle com combate animado, sprites em oito direções, cenário 3D, dois clientes conectados e compatibilidade da biblioteca C# com cliente e API. A apresentação deve mostrar movimento, ataques, projéteis, cura e impactos, conforme a referência adicional do usuário.
 
-Esse pipeline de sprites registra o estado do protótipo existente. A direção atual usa personagens e cenário 3D; validar primeiro um integrante com rig, depois o trecho de cenário e a equipe completa. A migração da apresentação ainda não foi implementada.
+O pipeline de sprites pertence ao legado preservado. A entrada padrão já abre a expedição 3D V19: marcha, cinco encontros com chefe, pausa, derrota, recuo e reinício, personagens procedurais articulados e cenário modular. A validação de rigs/assets finais, desempenho e DPI físico/multimonitor continua pendente.
 
-O próximo incremento é M1: implementar as regras completas da rota de caça, XP e equipamento, chefe e recuo. A matriz de DPI, monitores e comportamento do desktop continua necessária para fechar TEC-02. O combate local demonstrativo do M0 não implementa ainda a economia persistente ou o progresso offline.
+A [V19](visual/UI_Progressao_v19.md) já implementa nível/XP até 20, crescimento de atributos, recursos e bolsa 7×3 com loot inspecionável. Esses ganhos são da sessão: reiniciar a rota os conserva; fechar o jogo os perde. Equipar/desequipar, três slots funcionais e aplicação de bônus ainda não existem nessa rota. Ela tem um encontro por etapa, sem as cinco vitórias por etapa comum previstas para M1. Energia, mineração, durabilidade/reparos, rotas completas, salvamento/retomada e offline continuam pendentes; M1 permanece parcial.
+
+A [sequência de execução atual](Desenvolvimento.md) começa por regras/integridade e equipamento funcional na V19, seguida de salvamento/retomada e metas/excedentes. As regras de produto deste GDD são alvos; sua presença no documento não comprova implementação.
 
 Também foi implementado um teste de integração antecipado: a primeira vitória do idle concede uma Couraça de Latão incomum; o jogador envia o mesmo ID ao inventário compartilhado, equipa no MMO e reduz o dano de um canhão de teste de 20 para 17 por meio do bônus de defesa +3. O equipamento persiste após reinício. O [passo a passo](Teste_Equipamento.md) e o atalho `Testar Integração.cmd` permitem reproduzir esse ciclo. A conta local e o armazenamento JSON desse teste serão substituídos pelos serviços completos nas etapas seguintes.
