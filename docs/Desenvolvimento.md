@@ -4,17 +4,19 @@
 
 A partir de 13/10/2026, desenvolver o **idle primeiro**. O protótipo de MMO e a integração existente ficam preservados para retomada posterior. O GDD descreve a visão completa; nem tudo ali faz parte da próxima entrega.
 
-Ordem de trabalho:
+Sequência do roadmap aprovada em 24/10/2026, preservando Herói/Status e a integração legada:
 
-1. Combate idle verificável com tank, DPS e healer (IDL-01).
-2. Níveis, XP, equipamento e progressão (IDL-02).
-3. Rota de caça, etapas, chefe, derrota e recuo (IDL-03).
-4. Mineração, durabilidade, reparo e gerenciamento da equipe (IDL-04, IDL-05, UI-01).
-5. Evoluir salvamento e progresso offline depois de consolidar o ciclo jogável.
+1. Fechar regras de troca entre encontros, integridade dos itens e contrato técnico.
+2. Implementar equipamento funcional e comparação sobre a V19, com efeito em Status e combate.
+3. Salvar e retomar a sessão, preservando IDs, ganhos e compatibilidade com o legado.
+4. Definir metas, repetição da rota e gestão de itens excedentes; revisar economia antes de ativar durabilidade.
+5. Especificar habilidades/pontos e, após continuidade, repetição e economia, progresso offline.
 
-Os critérios detalhados continuam no [backlog](POC_Producao.md). O M1 completo permanece pendente. Foi adicionada uma [primeira fatia de expedição Godot](studio-godot/README.md), autorizada à parte para validar marcha/cenário/combate/menus: cinco trechos e chefe. A V19 acrescenta XP e ganhos locais, ainda sem salvamento da nova rota. Ela não altera a ordem do restante do backlog nem substitui o protótipo integrado.
+Essas etapas são trabalho a executar, não funcionalidades concluídas. Os critérios de produto M1–M5 continuam no [backlog](POC_Producao.md), incluindo energia, mineração, durabilidade e reparos. O M1 completo permanece pendente. A [primeira fatia de expedição Godot](studio-godot/README.md) já valida marcha/cenário/combate/menus, com cinco trechos e chefe. A V19 acrescenta XP e ganhos locais, ainda sem salvamento da nova rota nem integração com o save legado.
 
-Direção visual atual: personagens 3D com rig e animação em tempo real; o idle pode usar cenário 3D desde que leve. O [estudo v3](visual/Direcao_Artistica_v3.md) define linguagem e orçamento inicial. Validar um integrante e um trecho modular em ART-03/ART-04, mantendo o protótipo integrado existente até a migração passar nas verificações. Os sprites do M0 permanecem no modo Idle legado, não como alvo de produção. A entrada padrão agora abre a expedição com modelos procedurais articulados de protótipo, baseados em Brass v12 e na paleta quente aceita; ainda não são rigs/assets finais.
+A entrada padrão já abre a expedição 3D com modelos procedurais articulados de protótipo, baseados em Brass v12 e na paleta quente aceita. O alvo de produção continua sendo personagens com rig e animação em tempo real, com cenário 3D leve: ART-03/ART-04 ainda exigem validar um integrante final, um trecho modular e seu desempenho. O [estudo v3](visual/Direcao_Artistica_v3.md) registra a direção e o orçamento inicial, não uma medição do runtime atual. Os sprites do M0 permanecem no modo Idle legado; a V19 ainda não usa rigs/assets finais.
+
+Os registros V14–V18 abaixo são históricos: descrevem o que cada entrega continha, inclusive a bolsa indisponível antes da V19. O estado corrente de XP/loot está no parágrafo V19 e no [guia dessa versão](visual/UI_Progressao_v19.md).
 
 A [UI V14 foi implementada na expedição](../canvas/documents/ui-v14-entrega.md): Source Sans 3/Limelight, HUD em tela e três instrumentos com conteúdo rolável e ações fixas. A escala interna 100/125/150% e as interações automatizadas passaram; DPI físico/multimonitor e acabamento artístico final continuam pendentes. **Prova de Fontes.cmd** abre o comparativo; `Run.ps1 -Mode Expedition -UiScale 1.25` amplia a UI. Não altera progressão, saves, API nem o M1 pendente.
 
@@ -61,15 +63,22 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Build.ps1
 
 `-SkipAssets` usa os assets já versionados. Sem essa opção, o setup baixa novamente o pacote KayKit fixado e copia os modelos. `Build.ps1 -BakeSprites` regenera os atlas; não é necessário no primeiro clone quando os PNGs já estão presentes.
 
-Abra **Jogar Expedicao.cmd** para a nova fatia 3D local ou **Revisar Expedicao.cmd** para os três menus embutidos. **Abrir Godot.cmd** abre o editor .NET portátil. A preparação para mudar o tipo do projeto no OhMyGame, ainda não aplicada, está no [guia Studio Godot](studio-godot/README.md).
+Abra **Jogar Expedicao.cmd** para a expedição 3D local. O comando abaixo é equivalente: `Run.ps1` e `Main.cs` usam Expedition como padrão. Para revisão, use **Revisar Expedicao.cmd** ou o modo Overview:
 
-**Jogar Idle.cmd** mantém o fluxo legado. Para testar esse combate com recompensa persistida, rode a API em outro terminal antes de abrir o idle:
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Run.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Run.ps1 -Mode Expedition -Overview
+```
+
+A expedição V19 não exige API. **Abrir Godot.cmd** abre o editor .NET portátil. A preparação para mudar o tipo do projeto no OhMyGame, ainda não aplicada, está no [guia Studio Godot](studio-godot/README.md).
+
+**Jogar Idle.cmd** ou `Run.ps1 -Mode Idle` mantém o fluxo legado com sprites. Para testar esse combate com recompensa persistida, rode a API em outro terminal antes de abrir o idle:
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Run.ps1 -Mode Api
 ```
 
-Sem API, o idle exibe a animação local e não gera itens. O save da API fica em `data/integration-state.json`. Para continuar com o mesmo equipamento em outro PC, feche o idle e a API e copie esse arquivo separadamente para o mesmo caminho do clone. O Git não sincroniza saves; sem o arquivo, a API começa com um estado novo. Não copie os arquivos `.lock`.
+Sem API, o idle legado exibe a animação local e não gera itens. O save da API fica em `data/integration-state.json`. Para continuar com o mesmo equipamento legado em outro PC, feche os clientes e a API e copie esse arquivo separadamente para o mesmo caminho do clone. O Git não sincroniza saves; sem o arquivo, a API começa com um estado novo. Não copie os arquivos `.lock`. Esse save não contém XP, recursos, loot ou checkpoint da V19: reiniciar a rota preserva os ganhos da sessão, mas fechar o jogo os perde. Salvamento/retomada e offline são entregas futuras distintas.
 
 ## Verificações
 

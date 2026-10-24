@@ -4,7 +4,7 @@ Versão 0.3, 12 de outubro de 2026. A base técnica do M0 foi implementada com G
 
 Atualização de escopo em 13/10/2026: desenvolver o idle primeiro. A arquitetura abaixo preserva a visão completa; serviços de produção, MMORPG e marketplace serão retomados depois do ciclo idle. [Prioridades e ambiente de desenvolvimento](Desenvolvimento.md).
 
-Atualização visual na mesma data: personagens 3D com animação em tempo real nos dois clientes. O cenário idle também pode ser 3D, desde que leve. O pipeline de sprites do M0 permanece como implementação histórica enquanto se valida a migração. [Direção artística e orçamento inicial](visual/Direcao_Artistica_v3.md).
+Estado atual V19: a entrada padrão é a expedição local com geometria procedural articulada e cenário 3D modular. Nível/XP e loot inspecionável pertencem à sessão, sem equipamento funcional, salvamento/retomada, offline ou integração com a API. O pipeline de sprites permanece no idle legado; seu equipamento persistido usa JSON e uma conta local de teste. Rigs/assets finais e desempenho da nova apresentação continuam por validar. [Estado corrente e comandos](Desenvolvimento.md); [direção artística e orçamento inicial](visual/Direcao_Artistica_v3.md).
 
 ## Recomendação
 
@@ -24,7 +24,7 @@ Atualização visual na mesma data: personagens 3D com animação em tempo real 
 | Produção local | Git, solução .NET, testes do domínio, Docker Compose para serviços | Ambiente reproduzível; exportação Godot separada do processo de build da API |
 | Hospedagem do teste | Uma máquina Linux para API, PostgreSQL e processos de mapa | Controle de custo; esta configuração não é garantia de capacidade de produção |
 
-A versão exata de Godot e o target do cliente serão fixados após compilar/exportar em M0. Usar .NET 10 no backend não implica que o cliente Godot deva usar o mesmo target. A biblioteca de regras precisa funcionar nos dois. Não adotar APIs exclusivas do backend nessa biblioteca.
+O setup já fixa Godot 4.7.2 .NET e SDK .NET 10.0.401 (`scripts/Setup.ps1`, `global.json`); os projetos fixam cliente `net8.0`, API/persistência/checks `net10.0` e domínio `netstandard2.1`. A tabela acima descreve o alvo de arquitetura: PostgreSQL, EF Core/Npgsql, autenticação e serviços de produção continuam planejados. A exportação release ainda exige validação. A biblioteca de regras precisa continuar compatível com cliente e backend, sem APIs exclusivas do backend.
 
 ## Comparação das alternativas
 
