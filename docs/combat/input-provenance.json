@@ -1,0 +1,36 @@
+{
+    "base":  "e54971d616eac6900a218a4051f8dad4921daea8",
+    "origin":  "https://github.com/arthur12087/Aetherforge",
+    "c1":  {
+               "attachment":  "01a19e9a-8730-7523-9393-7e775445dcd0",
+               "sha256":  "a7f46f6587ee246affd38bcae4fe554f95d9d8232b6b3a771f3f54910bef7e08",
+               "author":  "Game Designer / GAMELAB-62 C1.1"
+           },
+    "c2":  {
+               "attachment":  "01a19eb6-5dee-7cf5-9232-025e78e1ca54",
+               "sha256":  "b1714cc8795ed58de515a97aab68aac4730ec27979075ee1bdfd2a0db317f4e6",
+               "author":  "Technical Lead / GAMELAB-63 C2.1"
+           },
+    "exactDocuments":  [
+                           {
+                               "file":  "combat-architecture-validation.txt",
+                               "sha256":  "914ff9c895dd7c2090a61defb41f401824b057ac1d1e9ccbc4137a668ff7a8a9"
+                           },
+                           {
+                               "file":  "combat-architecture.md",
+                               "sha256":  "169793a8852c91ea8210955fccff96249d2f3c47d3a1848bfa8c07146f5a84ea"
+                           },
+                           {
+                               "file":  "combat-blockout.md",
+                               "sha256":  "33648b187fc8f7fbe3560bafcaa281087d83a559c13a8a959fb4b95ee9b212d4"
+                           },
+                           {
+                               "file":  "combat-consistency.txt",
+                               "sha256":  "a2a1d04eaacfb8fb2d4208c15389107833f0b17b7d346835656f4f16b4dc2b98"
+                           },
+                           {
+                               "file":  "combat-rules.md",
+                               "sha256":  "ea36347ddd4039ae1e5aed50708678284eb2f330c6cac0c4d7eab1a5311ccf8e"
+                           }
+                       ]
+}

@@ -1,0 +1,103 @@
+C2.1 - verificacao documental (sem runtime/gameplay)
+Comando: python delivery/verify-c2.py --repo Aetherforge
+Base lida: 1fae8498af3ac7518fca4d11839366652e93250e
+PASS SHA-256 do ZIP C1.1 autenticado
+PASS CRC do ZIP C1.1
+PASS hash fonte C1: docs/combat/combat-rules.md
+PASS copia byte a byte C1 no pacote: docs/combat/combat-rules.md
+PASS hash fonte C1: docs/combat/combat-blockout.md
+PASS copia byte a byte C1 no pacote: docs/combat/combat-blockout.md
+PASS hash fonte C1: docs/combat/combat-consistency.txt
+PASS copia byte a byte C1 no pacote: docs/combat/combat-consistency.txt
+PASS hash fonte C1: verify-c1.py
+PASS copia byte a byte C1 no pacote: verify-c1.py
+PASS impacto/recuperacao de C2 correspondem a C1: Guarda basico
+PASS impacto/recuperacao de C2 correspondem a C1: DPS
+PASS impacto/recuperacao de C2 correspondem a C1: suporte
+PASS impacto/recuperacao de C2 correspondem a C1: cura
+PASS impacto/recuperacao de C2 correspondem a C1: rat
+PASS impacto/recuperacao de C2 correspondem a C1: scavenger
+PASS impacto/recuperacao de C2 correspondem a C1: sentry
+PASS impacto/recuperacao de C2 correspondem a C1: drone
+PASS impacto/recuperacao de C2 correspondem a C1: watcher
+PASS impacto/recuperacao de C2 correspondem a C1: foreman
+PASS impacto/recuperacao de C2 correspondem a C1: pesado
+PASS gargalo N: 0.70m de centros, menor que separacao 0.80m
+PASS custos macro N/S 25.6/28m
+PASS escudo no exemplo de dois pesados nao usa recarga antes da hora
+PASS fronteira semiaberta do escudo
+PASS retorno E4->E3 e piso E1
+PASS conta nominal ~20.94s, sem inferir duracao/vitoria real
+PASS 48 casos requeridos com IDs unicos; nao sao passes de runtime
+PASS UTF-8 sem caractere de substituicao: combat-architecture.md
+PASS referencia local: combat-architecture.md -> combat-rules.md
+PASS referencia local: combat-architecture.md -> combat-blockout.md
+PASS referencia local: combat-architecture.md -> combat-architecture-validation.txt
+PASS fences balanceados: combat-architecture.md
+PASS UTF-8 sem caractere de substituicao: combat-rules.md
+PASS referencia local: combat-rules.md -> combat-blockout.md
+PASS fences balanceados: combat-rules.md
+PASS UTF-8 sem caractere de substituicao: combat-blockout.md
+PASS referencia local: combat-blockout.md -> combat-rules.md
+PASS fences balanceados: combat-blockout.md
+PASS matriz distingue arquivos existentes e propostos
+PASS arquivo existente na base: src/Aetherforge.Domain/Expedition.cs
+PASS arquivo existente na base: src/Aetherforge.Domain/ExpeditionTransactions.cs
+PASS arquivo existente na base: src/Aetherforge.Domain/ExpeditionSnapshot.cs
+PASS arquivo existente na base: src/Aetherforge.Domain/ExpeditionCommands.cs
+PASS arquivo existente na base: src/Aetherforge.Domain/ExpeditionRewards.cs
+PASS arquivo existente na base: src/Aetherforge.Domain/Party.cs
+PASS arquivo existente na base: src/Aetherforge.Domain/Progression.cs
+PASS arquivo existente na base: src/Aetherforge.Domain/ExpeditionStats.cs
+PASS arquivo existente na base: src/Aetherforge.Domain/ExpeditionEquipment.cs
+PASS arquivo existente na base: src/Aetherforge.Client/ExpeditionView.cs
+PASS arquivo existente na base: src/Aetherforge.Client/Main.cs
+PASS arquivo existente na base: src/Aetherforge.Client/ExpeditionView.Equipment.cs
+PASS arquivo existente na base: src/Aetherforge.Client/EquipmentIntent.cs
+PASS arquivo existente na base: src/Aetherforge.Client/ExpeditionStage.cs
+PASS arquivo existente na base: src/Aetherforge.Client/ExpeditionActor.cs
+PASS arquivo existente na base: src/Aetherforge.Client/ExpeditionVitals.cs
+PASS arquivo existente na base: src/Aetherforge.Client/ExpeditionStatusPanel.cs
+PASS arquivo existente na base: src/Aetherforge.Client/BrassStatusComponents.cs
+PASS arquivo existente na base: src/Aetherforge.Client/ExpeditionAudio.cs
+PASS arquivo existente na base: src/Aetherforge.Client/ExpeditionPresentationCheck.cs
+PASS arquivo existente na base: src/Aetherforge.Client/EquipmentUiCheck.cs
+PASS arquivo existente na base: tests/Aetherforge.Checks/ExpeditionChecks.cs
+PASS arquivo existente na base: tests/Aetherforge.Checks/EquipmentChecks.cs
+PASS arquivo existente na base: tests/Aetherforge.Checks/ProgressionChecks.cs
+PASS arquivo existente na base: scripts/Test-Presentation.ps1
+PASS arquivo existente na base: scripts/Test-EquipmentUi.ps1
+PASS arquivo proposto ausente da base: src/Aetherforge.Domain/CombatContracts.cs
+PASS arquivo proposto ausente da base: src/Aetherforge.Domain/CombatTimeline.cs
+PASS arquivo proposto ausente da base: src/Aetherforge.Domain/CombatMap.cs
+PASS arquivo proposto ausente da base: src/Aetherforge.Domain/CombatNavigation.cs
+PASS arquivo proposto ausente da base: src/Aetherforge.Domain/CombatContinuity.cs
+PASS arquivo proposto ausente da base: src/Aetherforge.Client/CombatPresentationCoordinator.cs
+PASS arquivo proposto ausente da base: src/Aetherforge.Client/CombatVisualProfile.cs
+PASS arquivo proposto ausente da base: src/Aetherforge.Client/CombatGroupCamera.cs
+PASS arquivo proposto ausente da base: tests/Aetherforge.Checks/CombatTimelineChecks.cs
+PASS arquivo proposto ausente da base: tests/Aetherforge.Checks/CombatNavigationChecks.cs
+PASS arquivo proposto ausente da base: tests/Aetherforge.Checks/CombatContinuityChecks.cs
+PASS arquivo proposto ausente da base: scripts/Test-Combat.ps1
+PASS arquivo proposto ausente da base: docs/combat/combat-rules.md
+PASS arquivo proposto ausente da base: docs/combat/combat-blockout.md
+PASS arquivo proposto ausente da base: docs/combat/combat-architecture.md
+PASS ancestralidade base->head PR 5
+PASS metadados capturados PR 5: aberto/sem merge
+PASS ancestralidade base->head PR 4
+PASS metadados capturados PR 4: aberto/sem merge
+PASS ancestralidade base->head PR 3
+PASS metadados capturados PR 3: aberto/sem merge
+PASS ancestralidade base->head PR 2
+PASS metadados capturados PR 2: aberto/sem merge
+PASS main e ancestral da base integravel selecionada
+Evidencia C1 propria: python sources/C1.1/verify-c1.py, exit 0; N=97755/S=99891.
+Esse BFS nao implementa a grade A* de C2 nem comprova avoidance/liveness.
+Python emite aviso 'Failed to find real location' antes da saida; assercoes e exit 0 confirmados.
+Consultas GitHub via conector: gh ausente no PATH; sem merge/retarget/CI watch.
+Auxiliar Get-Date -AsUTC falhou no PS5.1; corrigido para DateTime.UtcNow; sem impacto em produto.
+Primeira validacao C2 encontrou linha mista E/N de Test-Combat.ps1; tabela dividida, sem relaxar o criterio.
+Revisao manual: regras C1, contratos de equipamento e gates 29/30 confrontados.
+Nao executados: build, gameplay, runtime grafico, benchmark, audio audivel ou playtest.
+A matriz de testes e criterio futuro, nao uma suite de combate implementada.
+Resultado: verificacoes documentais acima passaram.
