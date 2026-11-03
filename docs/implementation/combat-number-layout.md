@@ -22,6 +22,11 @@ A busca tenta oito faixas laterais, três superiores e três inferiores
 Os locais superiores/inferiores ficam fora da pilha da cabeça/HP/nome do próprio
 alvo. Esse detalhe evita que o feedback de um alvo vivo atravesse seu próprio HP;
 não muda a posição dos textos. Para alvos sem placa, o limite é a cabeça.
+As seis alternativas estacionárias limitam sua posição vertical à área segura,
+incluindo a margem U(3). Podem reduzir a folga preferida em relação à pilha
+de identificação, mas continuam rejeitando toda colisão com cabeças, HP, nomes,
+outras reservas e associação horizontal ambígua. Não movem a identificação nem
+limitam artificialmente uma trajetória animada que não cabe.
 
 Todos os candidatos usam o mesmo canal com margem de U(3) para validar e reservar.
 O canal cobre a caixa e toda a subida de U(14), ou somente a caixa no fallback
@@ -66,6 +71,10 @@ o primeiro encontro, idade/retângulos/reservas, pausa/retomada, queda e encontr
 seguinte. Inspeção automática muda seleção/hover/Detalhes e tamanho durante a
 pausa; compara HP/nomes com e sem números. Capturas do root e recortes do HUD
 incluem o Control; a textura isolada do SubViewport 3D não inclui os números.
+O assert de cobertura executa também antes de encerrar o primeiro encontro.
+A cura natural +36 do Guarda na transição é acompanhada até a expiração original
+de 0,65 s, exigindo visibilidade, identidade e At em cada amostra. O JSON
+`transitionHealing` registra também o frame expirado e as dimensões efetivas.
 
 Fixtures sintéticas de apresentação, identificadas separadamente no JSON,
 preparam dois canais livres: um segundo número existente ocupa o único canal de
@@ -78,6 +87,8 @@ natural nem testes de cálculo de dano.
 
 Casos de aceite: overview root1160×880/palco1114×180 e modo de barra nativo
 root1000×320/palco974×184, escala 1. O JSON sempre registra as dimensões efetivas.
+A notificação de recompensa reduz o palco da barra para 974×162: esse contorno
+também faz parte do aceite e é verificado pela cura na transição.
 `--overview` em 1000×320 é outra composição: produz palco954×100 e menus cobrem
 parte dele. Essa variante muito curta não passou no ensaio e não é apresentada
 como equivalente ao modo de barra; não se reformulou a UI para suportá-la.

@@ -23,6 +23,7 @@ public partial class ExpeditionNumberLayoutCheck : Node
     private const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
     private readonly List<object> _samples = new();
     private readonly List<string> _checks = new();
+    private readonly List<object> _transitionHealing = new();
     private readonly Stopwatch _wall = Stopwatch.StartNew();
     private int _assertions;
     private static object F(object obj, string name) => obj.GetType().GetField(name, Flags)!.GetValue(obj)!;
@@ -111,9 +112,11 @@ public partial class ExpeditionNumberLayoutCheck : Node
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); Step();
             var kill = Sim.Events.FirstOrDefault(e => e.Kind == "kill" && e.Target == 3);
             if (kill != null && firstAt < 0) firstAt = kill.At;
+            // The encounter change can itself emit allied healing. Validate that frame
+            // before retiring the old enemy-identity assertions.
+            CheckGeometry(true);
             if (Sim.StageIndex != 0) break;
             Require(ids.SequenceEqual(Enemies.Select(e => e.GetInstanceId())), "natural DTO clones preserve visual identity");
-            CheckGeometry(true);
             if (firstAt >= 0)
             {
                 double age = Sim.Elapsed - firstAt;
@@ -156,7 +159,47 @@ public partial class ExpeditionNumberLayoutCheck : Node
         Require(Sim.StageIndex == 1 && !ids.Intersect(Enemies.Select(e => e.GetInstanceId())).Any(), "next encounter replaces enemy identity");
         Require(!Numbers.Any(n => F<bool>(n, "Active") && F<int>(n, "Actor") >= 3), "old enemy number cannot reach next encounter");
         Sample("next-encounter"); await Capture("next-encounter");
+        await FollowTransitionHealing();
         _checks.Add("natural fixed 1/30 simulation with render: first rat -10, all active target coverage, pause/resume, fall and next encounter");
+    }
+
+    private async Task FollowTransitionHealing()
+    {
+        var heal = Sim.Events.LastOrDefault(e => e.Kind == "heal" && e.Target == 0);
+        Require(heal != null && heal.Amount == 36 && Math.Abs(Sim.Elapsed - heal.At) < .001,
+            "transition precondition: natural guard +36 emitted on encounter change");
+        ulong identity = F<ulong>(Plates[0], "Identity");
+        int visibleFrames = 0;
+        for (int tick = 0; tick < 24; tick++)
+        {
+            var number = Numbers.FirstOrDefault(n => F<bool>(n, "Active") && F<int>(n, "EventId") == heal!.Id);
+            double age = Sim.Elapsed - heal!.At;
+            bool visible = number != null && F<bool>(number, "Visible");
+            _transitionHealing.Add(new { heal.Id, heal.Target, heal.At, deadline = heal.At + .65, age,
+                elapsed = Sim.Elapsed, identity, sampledIdentity = F<ulong>(Plates[0], "Identity"),
+                active = number != null, visible, numberAt = number == null ? (double?)null : F<double>(number, "At"),
+                numberIdentity = number == null ? (ulong?)null : F<ulong>(number, "Identity"),
+                root = GetWindow().Size.ToString(), stage = Stage.Size.ToString(), hud = Hud.Size.ToString(),
+                rect = number == null ? null : R(F<Rect2>(number, "Rect")) });
+            Sample(age < .65 ? "transition-heal-active" : "transition-heal-expired");
+            CheckGeometry(true);
+            Require(F<ulong>(Plates[0], "Identity") == identity, "guard identity survives encounter transition");
+            if (age >= .65)
+            {
+                Require(number == null && visibleFrames >= 19, "transition healing expires at original .65s after visible lifetime");
+                await Capture("transition-heal-expired");
+                _checks.Add("natural transition guard +36 visible frames=" + visibleFrames + "; original At=" + heal.At.ToString("R", CultureInfo.InvariantCulture));
+                return;
+            }
+            Require(visible, "natural transition guard +36 is drawn throughout original lifetime");
+            Require(F<double>(number!, "At") == heal.At && F<ulong>(number!, "Identity") == identity &&
+                F<int>(number!, "Actor") == 0 && F<string>(number!, "Text") == "+36", "transition heal retains event time, target, identity and text");
+            if (visibleFrames == 0 || visibleFrames == 10 || age >= .6)
+                await Capture("transition-heal-" + visibleFrames);
+            visibleFrames++;
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); Step();
+        }
+        Require(false, "transition healing must expire within original deadline");
     }
 
     private async Task InspectPausedFeedback(object number)
@@ -219,6 +262,24 @@ public partial class ExpeditionNumberLayoutCheck : Node
     {
         ClearNumbers();
         var n = Numbers; double at = Sim.Elapsed - .1;
+        // A preferred top gap can miss the padded safe edge by a fraction of a pixel.
+        // Stationary candidates may fit that edge only if all protected regions survive.
+        Geometry(new Rect2(150, 45.5f, 30, 25), new Rect2(300, 100, 30, 25));
+        Seed(n[0], 0, 10000, at);
+        object[] candidateArgs = { n[0], 14, false, default(Rect2), default(Rect2), 0f, false };
+        Require((bool)Call(Hud, "NumberCandidateFits", candidateArgs)!, "stationary fallback fits padded upper edge");
+        var edge = (Rect2)candidateArgs[4];
+        Require(F<Rect2>(Hud, "_safe").Encloses(edge) && Math.Abs(edge.Position.Y - 6) < .001 &&
+            !edge.Intersects(F<Rect2>(Plates[0], "Head")), "edge fallback preserves safe margin and head");
+        candidateArgs[1] = 8;
+        Require(!(bool)Call(Hud, "NumberCandidateFits", candidateArgs)!, "moving candidate cannot borrow stationary edge clearance");
+        candidateArgs[1] = 14;
+        Blockers(new[] { new Rect2(140, 39, 70, 5) });
+        Require(!(bool)Call(Hud, "NumberCandidateFits", candidateArgs)!, "edge fallback still rejects protected reservations");
+        Blockers(Array.Empty<Rect2>());
+        Set(Hud, "_safe", new Rect2(6, 6, 388, 30));
+        Require(!(bool)Call(Hud, "NumberCandidateFits", candidateArgs)!, "too short safe area rejects edge fallback without invalid clamp");
+        ClearNumbers();
         // Two safe holes, A and B. Existing target's second occupies B; new target
         // has only B. All other space is explicitly unavailable in this geometry fixture.
         var blockers = new[] { new Rect2(6, 6, 388, 64), new Rect2(6, 121, 388, 73),
@@ -292,7 +353,7 @@ public partial class ExpeditionNumberLayoutCheck : Node
             if (EvidencePath.Length > 0)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(EvidencePath))!);
-                File.WriteAllText(EvidencePath, JsonSerializer.Serialize(new { passed, error, assertions = _assertions, checks = _checks,
+                File.WriteAllText(EvidencePath, JsonSerializer.Serialize(new { passed, error, assertions = _assertions, checks = _checks, transitionHealing = _transitionHealing,
                     method = "author fixed 1/30 simulation; graphical frames when non-headless; synthetic fixtures labeled separately; no human input or physical DPI validation",
                     engine = Engine.GetVersionInfo().ToString(), display = DisplayServer.GetName(), renderer = RenderingServer.GetCurrentRenderingMethod().ToString(),
                     wall = _wall.Elapsed.TotalSeconds, samples = _samples }, new JsonSerializerOptions { WriteIndented = true }));

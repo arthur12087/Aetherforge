@@ -464,6 +464,11 @@ public partial class ExpeditionVitals : Control
             if (actor.Visible) { top = Math.Min(top, actor.Rect.Position.Y); bottom = Math.Max(bottom, actor.Rect.End.Y); }
             if (actor.ShownName.Length > 0) { top = Math.Min(top, actor.NameRect.Position.Y); bottom = Math.Max(bottom, actor.NameRect.End.Y); }
             float y = local < 3 ? top - U(6) - size.Y - rise : bottom + U(6);
+            // The stationary fallback may use the remaining edge clearance instead of
+            // insisting on the preferred gap outside the whole identification stack.
+            // Only move the number; Fits still protects heads, HP/names and its margin.
+            if (candidate >= 14 && _safe.Size.Y >= size.Y + U(6))
+                y = Math.Clamp(y, _safe.Position.Y + U(3), _safe.End.Y - U(3) - size.Y);
             travel = new Rect2(x, y, size.X, size.Y + rise);
         }
         reservation = travel.Grow(U(3));
