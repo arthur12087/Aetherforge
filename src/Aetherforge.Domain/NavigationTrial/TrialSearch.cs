@@ -50,13 +50,13 @@ namespace Aetherforge.Domain.NavigationTrial
         // around a concave corner callers fall back to their shared route witnesses.
         public long DistanceCertificate(TrialPoint a,TrialPoint b,TrialBranch branch)
         {
-            if(!Map.Clear(a,450004)||!Map.Clear(b,450004))return long.MaxValue;
+            if(!Map.Clear(a)||!Map.Clear(b))return long.MaxValue;
             long best=long.MaxValue;
             var ac=Connect(a,branch).ToArray();var bc=Connect(b,branch).ToArray();
             foreach(int n in ac)foreach(int m in bc)
             {
                 var p=Point(n);var q=Point(m);long dx=q.X-p.X,dz=q.Z-p.Z;
-                if(!Map.Segment(a,p,450004)||!Map.Segment(q,b,450004))continue;
+                if(!Map.Segment(a,p)||!Map.Segment(q,b))continue;
                 long count=Math.Min(Math.Abs(dx),Math.Abs(dz))/100000;
                 var corner=new TrialPoint(p.X+Math.Sign(dx)*count*100000,p.Z+Math.Sign(dz)*count*100000);
                 var other=new TrialPoint(q.X-Math.Sign(dx)*count*100000,q.Z-Math.Sign(dz)*count*100000);
@@ -180,24 +180,50 @@ namespace Aetherforge.Domain.NavigationTrial
             Require(Enum.IsDefined(typeof(TrialSearchStatus),Status)&&Expansions==_closed.Count&&Expansions<=TrialGrid.Count&&Cost>=0);
             Require(_g.Count==_parent.Count&&_g.Count<=TrialGrid.Count&&_heap.Count<=TrialGrid.Count*8&&_goals.Count<=9);
             Require(_reserved.All(Point));
+            // Reconstruct the connectors, including area and reserved-disc filters.
+            var initial=new TrialSearch(grid,Start,Destination,Branch,RequestKey,_reserved,_area);
+            Require(_goals.Count==initial._goals.Count&&_goals.All(e=>initial._goals.TryGetValue(e.Key,out long cost)&&cost==e.Value));
             foreach(var e in _g)
             {
-                Require(grid.Allowed(e.Key,Branch)&&e.Value>=0&&e.Value<=1000000000000&&_parent.ContainsKey(e.Key));
+                Require(grid.Allowed(e.Key,Branch)&&InArea(TrialGrid.Point(e.Key))&&e.Value>=0&&e.Value<=1000000000000&&_parent.ContainsKey(e.Key));
                 int parent=_parent[e.Key];
-                Require(parent==-1||_g.ContainsKey(parent)&&_g[parent]<e.Value&&grid.Map.Segment(TrialGrid.Point(parent),TrialGrid.Point(e.Key)));
+                if(parent==-1)Require(initial._g.TryGetValue(e.Key,out long rootCost)&&rootCost==e.Value);
+                else Require(_closed.Contains(parent)&&_g.ContainsKey(parent)&&
+                    grid.Neighbours(parent,Branch).Any(n=>n.Node==e.Key&&_g[parent]+n.Cost==e.Value)&&
+                    Free(TrialGrid.Point(parent),TrialGrid.Point(e.Key)));
             }
-            foreach(int n in _closed)Require(_g.ContainsKey(n));
+            foreach(int n in _closed)
+            {
+                Require(_g.ContainsKey(n));
+                // Every expanded edge was relaxed. Missing work cannot become NoPath.
+                foreach(var next in grid.Neighbours(n,Branch))
+                    if(InArea(TrialGrid.Point(next.Node))&&Free(TrialGrid.Point(n),TrialGrid.Point(next.Node)))
+                        Require(_g.TryGetValue(next.Node,out long cost)&&cost<=_g[n]+next.Cost);
+            }
+            foreach(var root in initial._g)Require(_g.TryGetValue(root.Key,out long cost)&&cost<=root.Value);
             foreach(var e in _goals)Require(grid.Allowed(e.Key,Branch)&&e.Value>=0&&e.Value==TrialPoint.Length(TrialGrid.Point(e.Key),Destination)&&grid.Map.Segment(TrialGrid.Point(e.Key),Destination));
             for(int i=0;i<_heap.Count;i++)
             {
-                var e=_heap[i];Require(_g.ContainsKey(e.Node)&&e.G>=_g[e.Node]&&e.H==H(e.Node));
+                var e=_heap[i];Require(_g.ContainsKey(e.Node)&&e.G>=_g[e.Node]&&e.G<=1000000000000&&e.H==H(e.Node));
                 if(i>0)Require(!Before(e,_heap[(i-1)/2]));
             }
+            var queued=new HashSet<int>(_heap.Where(e=>!_closed.Contains(e.Node)&&e.G==_g[e.Node]).Select(e=>e.Node));
+            foreach(int n in _g.Keys)Require(_closed.Contains(n)||queued.Contains(n));
+            // Pending may legitimately have an empty heap after its last budgeted pop.
+            var best=_closed.Where(n=>_goals.ContainsKey(n)).OrderBy(n=>_g[n]+_goals[n]).ThenBy(n=>n).DefaultIfEmpty(-1).First();
+            Require(_best==best);
             Require(_best==-1?_bestCost==long.MaxValue:_closed.Contains(_best)&&_goals.ContainsKey(_best)&&_bestCost==_g[_best]+_goals[_best]);
+            Require(Status!=TrialSearchStatus.NoPath||_best==-1&&_heap.Count==0);
+            Require(Status!=TrialSearchStatus.Found||_best>=0&&(_heap.Count==0||_heap[0].G+_heap[0].H>_bestCost));
             Require(Status!=TrialSearchStatus.Found||Path.Count>0&&Path[0].Equals(Start)&&Path[Path.Count-1].Equals(Destination)&&Cost==_bestCost);
             Require(Status==TrialSearchStatus.Found||Path.Count==0);
             Require(Path.All(Point));
             for(int i=1;i<Path.Count;i++)Require(grid.Map.Segment(Path[i-1],Path[i])&&Free(Path[i-1],Path[i]));
+            if(Status==TrialSearchStatus.Found)
+            {
+                var expected=Clone();expected.Finish();
+                Require(Path.SequenceEqual(expected.Path));
+            }
         }
         public string Fingerprint => $"{RequestKey}:{Status}:{Expansions}:{_heap.Count}:{_closed.Count}:{_best}:{_bestCost}:"+
             string.Join(";",_heap.Select(e=>$"{e.Node},{e.G},{e.H}"))+"|"+string.Join(";",_g.OrderBy(e=>e.Key).Select(e=>$"{e.Key},{e.Value},{_parent[e.Key]}"));

@@ -9,6 +9,7 @@ void Check(bool value,string message){assertions++;if(!value)throw new Exception
 var watch=Stopwatch.StartNew();var map=new TrialMap();var grid=new TrialGrid(map);
 double construction=watch.Elapsed.TotalMilliseconds;
 var corrective=CorrectiveChecks.Run(grid,Check);
+var restore=RestoreChecks.Run(grid,Check);
 Check(map.Clear(TrialPoint.M(8,14)),"Union portal must remain open");
 Check(!map.Segment(TrialPoint.M(21,14),TrialPoint.M(33,14)),"Central machine blocks a segment with valid endpoints");
 Check(!map.Segment(TrialPoint.M(21,24),TrialPoint.M(33,24)),"Exterior cannot be crossed and re-entered");
@@ -110,7 +111,7 @@ var sliced=new TrialSimulation(calibratedGrid,TrialBranch.North);var slicedTimes
 while(!sliced.Complete&&sliced.Hold.Length==0&&slicedTicks++<3000){watch.Restart();sliced.Advance(50000);slicedTimes.Add(watch.Elapsed.TotalMilliseconds);}
 Check(sliced.Complete,"512-expansion alternative finishes without Pending timeout");
 var continuous=ContinuousChecks.Run(Check);
-var report=new{passed=true,assertions,corrective,continuous,constructionMs=construction,geometryHash=map.Hash,results,
+var report=new{passed=true,assertions,corrective,restore,continuous,constructionMs=construction,geometryHash=map.Hash,results,
     frontierMs=new{p50=Percentile(frontierMs,.5),p95=Percentile(frontierMs,.95),p99=Percentile(frontierMs,.99),max=frontierMs.Max()},
     cloneRestoreMs=cloneMs,geometryQueriesMs=Stats(queryMs),sweptDiscMs=Stats(sweptMs),warmSearchRounds512Ms=Stats(searchMs),pendingCloneRestoreMs=Stats(pendingCloneMs),
     budget512=new{cache="fresh grid (cold first traversal)",complete=sliced.Complete,sliced.TimeUs,frontierMs=Stats(slicedTimes)},

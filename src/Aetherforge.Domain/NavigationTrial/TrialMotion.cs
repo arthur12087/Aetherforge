@@ -45,7 +45,7 @@ namespace Aetherforge.Domain.NavigationTrial
         public int Recovery;
         public bool Reversing,ReplanTail,LeashReturning;
         public TrialSearch? Search;
-        public bool Arrived => Route.Count>0 && Index>=Route.Count;
+        public bool Arrived => Route.Count>0 && Index>=Route.Count && !ReplanTail;
         public long Duration => Route.Count>Index ? (TrialPoint.Length(Route[Index-1],Route[Index])*1000000+2799999)/2800000 : 0;
         public TrialRational At(long extra=0)
         {
@@ -106,6 +106,18 @@ namespace Aetherforge.Domain.NavigationTrial
         }
         private List<MotionSpan> _motion=new List<MotionSpan>();
         private long[,] _pairBounds=new long[3,3];
+        // Volatile certificates are issued only after a geometric witness or a
+        // Lipschitz carry. Immutable provenance binds each bound to its endpoints;
+        // a copied numeric cache alone is never a safety certificate.
+        private sealed class PairCertificate
+        {
+            internal readonly TrialRational A,B;
+            internal readonly long Bound;
+            internal PairCertificate(TrialRational a,TrialRational b,long bound){A=a;B=b;Bound=bound;}
+            private static bool Same(TrialRational a,TrialRational b)=>a.X*b.D==b.X*a.D&&a.Z*b.D==b.Z*a.D;
+            internal bool Matches(TrialRational a,TrialRational b,long bound)=>Bound==bound&&Same(A,a)&&Same(B,b);
+        }
+        private PairCertificate?[,] _pairCertificates=new PairCertificate?[3,3];
         public readonly TrialGrid Grid;
         public TrialBranch Branch { get; private set; }
         public TrialActor[] Actors { get; private set; }
@@ -150,6 +162,7 @@ namespace Aetherforge.Domain.NavigationTrial
         private void Request()
         {
             if(Complete)return;
+            foreach(var a in Actors)RequireRequestCapacity(a);
             foreach(var a in Actors)
             {
                 var goal=_stops[Phase];
@@ -158,7 +171,7 @@ namespace Aetherforge.Domain.NavigationTrial
             }
             foreach(var a in Actors)
             {
-                a.Search=new TrialSearch(Grid,a.Anchor,a.Goal,Branch,++a.RequestKey,Actors.Where(b=>b.Id<a.Id).Select(b=>b.Goal).ToArray());
+                a.Search=new TrialSearch(Grid,a.Anchor,a.Goal,Branch,NextRequest(a),Actors.Where(b=>b.Id<a.Id).Select(b=>b.Goal).ToArray());
                 a.Route.Clear();a.Index=1;a.SegmentUs=0;a.PendingSince=TimeUs;a.State="PathPending";
             }
         }
@@ -199,11 +212,11 @@ namespace Aetherforge.Domain.NavigationTrial
                 if(a.Search!=null&&a.Search.RequestKey!=a.RequestKey)
                 {
                     // Invalidation cancels before expansion/publication, including Found results.
-                    bool tail=a.ReplanTail&&a.Index<a.Route.Count;
+                    bool tail=a.ReplanTail&&a.Route.Count>0&&a.Index<=a.Route.Count;
                     a.Search=null;a.ReplanTail=false;
                     a.State=a.Route.Count>a.Index?"Moving":"RequestCancelled";
                     if(a.Route.Count==0)Replan(a,a.Anchor);
-                    else if(tail){Replan(a,a.Route[a.Index]);a.ReplanTail=true;}
+                    else if(tail){Replan(a,a.Route[Math.Min(a.Index,a.Route.Count-1)]);a.ReplanTail=true;}
                 }
             int idle=0;
             while(LastExpansions<Budget && idle<Actors.Length)
@@ -217,7 +230,7 @@ namespace Aetherforge.Domain.NavigationTrial
                 if(a.Search==null)continue;
                 if(a.Search.Status==TrialSearchStatus.Found && a.Route.Count==0)
                 {a.Route=new List<TrialPoint>(a.Search.Path);a.Index=1;a.SegmentUs=0;a.State="Moving";}
-                else if(a.Search.Status==TrialSearchStatus.Found && a.ReplanTail && a.Index<a.Route.Count)
+                else if(a.Search.Status==TrialSearchStatus.Found && a.ReplanTail && a.Index<=a.Route.Count)
                 {
                     a.Route=a.Route.Take(a.Index+1).Concat(a.Search.Path.Skip(1)).ToList();a.ReplanTail=false;
                 }
@@ -299,6 +312,7 @@ namespace Aetherforge.Domain.NavigationTrial
                 // Re-use a valid Lipschitz certificate until it approaches the ceiling.
                 // Geometry/path recertification is synchronous and creates no hidden search.
                 _pairBounds[i,j]=_pairBounds[j,i]=carried<7000000?carried:Math.Min(carried,FreshDistanceBound(Actors[i],Actors[j]));
+                _pairCertificates[i,j]=new PairCertificate(Actors[i].At(),Actors[j].At(),_pairBounds[i,j]);
             }
             _motion.Add(new MotionSpan{Start=TimeUs,Duration=us,From=starts,To=Actors.Select(a=>a.At()).ToArray()});
             if(_regrouping&&!Actors.Any(a=>a.Search?.Status==TrialSearchStatus.Pending))
@@ -323,7 +337,11 @@ namespace Aetherforge.Domain.NavigationTrial
             return Actors[actor].At();
         }
         public long DistanceBound(TrialActor a,TrialActor b)
-            => _pairBounds[a.Id,b.Id]<=8000000?_pairBounds[a.Id,b.Id]:FreshDistanceBound(a,b);
+        {
+            int i=Math.Min(a.Id,b.Id),j=Math.Max(a.Id,b.Id);
+            long bound=_pairBounds[i,j];
+            return bound<=8000000&&_pairCertificates[i,j]?.Matches(Actors[i].At(),Actors[j].At(),bound)==true?bound:FreshDistanceBound(a,b);
+        }
         private long FreshDistanceBound(TrialActor a,TrialActor b)
         {
             var p=a.At().Rounded;var q=b.At().Rounded;
@@ -369,8 +387,11 @@ namespace Aetherforge.Domain.NavigationTrial
         }
         private void Replan(TrialActor a,TrialPoint from)
         {
-            a.Search=new TrialSearch(Grid,from,a.Goal,Branch,++a.RequestKey,Actors.Where(b=>b.Id<a.Id).Select(b=>b.Goal).ToArray());a.PendingSince=TimeUs;
+            a.Search=new TrialSearch(Grid,from,a.Goal,Branch,NextRequest(a),Actors.Where(b=>b.Id<a.Id).Select(b=>b.Goal).ToArray());a.PendingSince=TimeUs;
         }
+        private static void RequireRequestCapacity(TrialActor a)
+        {if(a.RequestKey>=long.MaxValue-1)throw new InvalidOperationException("Navigation request identity exhausted");}
+        private static long NextRequest(TrialActor a){RequireRequestCapacity(a);return checked(++a.RequestKey);}
         public bool Resume()
         {
             if(Hold.Length==0)return false;
@@ -381,6 +402,7 @@ namespace Aetherforge.Domain.NavigationTrial
         }
         public TrialSimulation Checkpoint() {
             var c=(TrialSimulation)MemberwiseClone();c.Actors=Actors.Select(a=>a.Clone()).ToArray();c.Reservations=new List<int>(Reservations);c._stops=(TrialPoint[])_stops.Clone();c._pairBounds=(long[,])_pairBounds.Clone();c._originalGoals=(TrialPoint[])_originalGoals.Clone();
+            c._pairCertificates=(PairCertificate?[,])_pairCertificates.Clone();
             c._motion=_motion.Select(s=>new MotionSpan{Start=s.Start,Duration=s.Duration,From=(TrialRational[])s.From.Clone(),To=(TrialRational[])s.To.Clone()}).ToList();return c;
         }
         public static TrialSimulation Restore(TrialSimulation checkpoint,TrialGrid grid,long generation=1) {
@@ -400,6 +422,7 @@ namespace Aetherforge.Domain.NavigationTrial
             Require(Phase>=0&&Phase<=_stops.Length&&_stops.Length==10&&_stops.All(Point));
             Require(Actors.Length==3&&_cursor>=0&&_cursor<3&&Budget>=0&&Budget<=8192&&DelayedActor>=-1&&DelayedActor<3&&DelayUntilUs>=0);
             Require(_pairBounds.GetLength(0)==3&&_pairBounds.GetLength(1)==3);
+            Require(_pairCertificates.GetLength(0)==3&&_pairCertificates.GetLength(1)==3);
             Require(LeashedActor>=-1&&LeashedActor<3&&_regroupUs>=0&&_regroupUs<=8050000&&(_originalGoals.Length==0||_originalGoals.Length==3)&&_originalGoals.All(Point));
             Require(Reservations.Count<=3&&Reservations.Distinct().Count()==Reservations.Count&&Reservations.All(id=>id>=0&&id<3));
             Require(Reservations.Count==0?ReservationDirection==0:Branch==TrialBranch.North&&Math.Abs(ReservationDirection)==1);
@@ -407,7 +430,11 @@ namespace Aetherforge.Domain.NavigationTrial
             for(int i=0;i<3;i++)
             {
                 var a=Actors[i];
-                Require(a.Id==i&&a.RequestKey>0&&a.PendingSince>=0&&a.PendingSince<=TimeUs&&a.BlockedUs>=0&&a.WaitUs>=0&&a.Recovery>=0&&a.Recovery<=3);
+                Require(a.Id==i&&a.RequestKey>0&&a.RequestKey<long.MaxValue&&a.PendingSince>=0&&a.PendingSince<=TimeUs&&a.BlockedUs>=0&&a.WaitUs>=0&&a.Recovery>=0&&a.Recovery<=3);
+                Require(a.State=="PathPending"||a.State=="Moving"||a.State=="Arrived"||a.State=="RecoveryBacktrack"||a.State=="LeashReturned"||
+                    a.State=="RequestCancelled"||a.State=="NoPath"||a.State=="LeashWitness"||a.State=="ControlledDelay"||a.State=="Blocked"||
+                    a.State=="LeashReturning"||a.State=="ReservationWait"||a.State=="SeparationWait"||a.State=="CohesionWait"||
+                    a.State=="RecoveryReplan"||a.State=="RecoveryAlternative"||a.State=="RecoveryRegroup");
                 Require(a.Heading.X>=-62000000&&a.Heading.X<=62000000&&a.Heading.Z>=-28000000&&a.Heading.Z<=28000000);
                 Require(Point(a.Anchor)&&Point(a.Goal)&&Point(a.SafeAnchor)&&a.Index>=1&&a.Index<=Math.Max(1,a.Route.Count)&&a.SegmentUs>=0);
                 Require(a.Route.All(Point));
@@ -415,9 +442,19 @@ namespace Aetherforge.Domain.NavigationTrial
                 Require(a.Route.Count==0?a.SegmentUs==0:a.Anchor.Equals(a.Route[Math.Min(a.Index-1,a.Route.Count-1)]));
                 Require(a.Index<a.Route.Count?a.SegmentUs<=a.Duration:a.SegmentUs==0);
                 Require(!a.Reversing||a.Index<a.Route.Count);
+                Require(!a.ReplanTail||a.Search!=null&&a.Route.Count>0&&a.Index<=a.Route.Count&&a.Search.Start.Equals(a.Route[Math.Min(a.Index,a.Route.Count-1)]));
+                Require(a.Route.Count==0||a.Reversing||a.ReplanTail||a.Route[a.Route.Count-1].Equals(a.Goal));
+                Require(!a.Arrived||a.Anchor.Equals(a.Goal));
                 Require(Point(a.At().Rounded));
                 if(a.Search!=null)a.Search.Validate(Grid,Branch,a.RequestKey,a.Goal);
+                if(a.Search!=null&&a.Route.Count==0)Require(a.Search.Start.Equals(a.Anchor));
                 for(int j=0;j<3;j++)Require(_pairBounds[i,j]>=0&&_pairBounds[i,j]==_pairBounds[j,i]);
+                Require(_pairBounds[i,i]==0);
+                for(int j=i+1;j<3;j++)
+                {
+                    var certificate=_pairCertificates[i,j];
+                    Require(certificate==null?_pairBounds[i,j]==long.MaxValue:certificate.Matches(a.At(),Actors[j].At(),_pairBounds[i,j]));
+                }
                 for(int j=0;j<i;j++)Require(TrialRational.Swept(a.At(),a.At(),Actors[j].At(),Actors[j].At()));
             }
             if(Hold.Length==0&&LeashedActor<0)
