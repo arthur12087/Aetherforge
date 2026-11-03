@@ -21,7 +21,7 @@ jobs:
         run: .\scripts\Setup.ps1 -SkipAssets
       - name: Compilar e importar assets
         run: .\scripts\Build.ps1
-      - name: Verificar dominio, API e rede
+      - name: Verificar dominio, NavigationChecks, smoke headless, API e rede
         run: .\scripts\Test.ps1
       - name: Verificar integracao e persistencia
         run: .\scripts\Test-Integration.ps1
@@ -31,4 +31,12 @@ jobs:
         with:
           name: logs-windows
           path: artifacts/*.log
+          retention-days: 7
+      - name: Guardar evidencias de navegacao inclusive em falha
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: navigation-windows
+          path: artifacts/navigation/**
+          if-no-files-found: warn
           retention-days: 7

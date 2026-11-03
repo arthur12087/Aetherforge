@@ -2,8 +2,8 @@
 
 Cena explícita `src/Aetherforge.Client/NavigationTrial.tscn`, sobre
 `e54971d616eac6900a218a4051f8dad4921daea8` (PR #6 aberto). O PR do ensaio deve
-ter como base `agent/gameplay-engineer/c8761626ec35`; não main. Nenhum arquivo
-existente de produção foi alterado. `project.godot`, Main, Stage, Vitals, áudio,
+ter como base `agent/gameplay-engineer/c8761626ec35`; não main. O corretivo F1–F6
+altera o ensaio e inclui seus checks/smoke nos scripts e CI existentes. `project.godot`, Main, Stage, Vitals, áudio,
 equipamento, persistência e evidências anteriores permanecem intactos.
 
 Após `scripts/Setup.ps1 -SkipAssets` e `scripts/Build.ps1`, na raiz:
@@ -31,6 +31,21 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test-NavigationT
 Sem `-Screenshots`, executa o mesmo runner headless, sem prova gráfica.
 O check separado `tests/Aetherforge.NavigationChecks` mede geometria, cápsulas,
 busca, clone/restore e fronteiras reais; não invoca o BFS documental de C1.
+Desde o corretivo, `Build.ps1` compila o projeto e `Test.ps1` executa a suíte,
+smokes headless N/S e exige marcadores/JSONs. O CI guarda `artifacts/navigation/**`
+inclusive em falha. JSON `passed=false` e exit não zero são evidência de falha.
+`-Interpolated` usa o mesmo `PresentationPosition` interativo com passos sintéticos
+de 16.667 µs. Para quatro capturas gráficas, acrescentar essa opção aos comandos
+acima. A cena mede vértices reais dos meshes e quads de Label3D com margem de 4 px,
+incluindo yaw, pausa/resize, Tab/reset e restore; não mede pixels de glifos/leitura.
+
+Hold descarta somente o saldo do Advance que cruza a barreira, conservando resíduos
+de marcha/pausa. Reservas são confirmadas depois de aceitar a intenção; ocupantes,
+proximidade da entrada e espera determinam a ordem, nos sentidos leste e oeste.
+Pedidos antigos são cancelados antes da expansão/publicação, com nova busca quando
+necessária. Restore valida uma cópia completa antes de publicá-la. A ida/volta explícita
+dos checks é uma fixture, sem solver de recuperação geral automático.
+Matriz, evidências e limites atuais: `navigation-trial-corrective.md`.
 
 ### Implementação e provas
 
@@ -116,12 +131,10 @@ método e separa a jornada das fixtures de falha. Sem benchmark geral, sessão d
 
 ### Restante de C3
 
-Estimativa revisada de esforço após este ensaio, sujeita à revisão do Director:
-1–2 dias para fechar seleção de ramo/recuperação/primeiro contato e calibrar
-enquadramento curto; 3–5 dias para timeline espacial, ações/escudo/suporte,
-continuidade e coordenador visual; 1–2 dias para regressões dirigidas, evidências
-e correções do autor. Total indicativo **5–9 dias de engenharia**, sem espera de
-revisão, C4/C5, assets finais ou gates humanos. Os gargalos medidos são trabalho
+Referência provisória acolhida pelo Director após GAMELAB-69: **7–13 dias de
+engenharia** do restante, incluindo 3–6 dias de pré-requisitos, sujeita a nova
+estimativa após a revisão deste corretivo. Não é prazo comprometido do corretivo;
+exclui revisão/espera, C4/C5, assets finais e gates humanos. Os gargalos medidos são trabalho
 de busca frio e extensão vertical disponível em compacto, não HP/economia.
 
 O piloto fica para revisão na GAMELAB-64, que permanece in_progress. Não libera

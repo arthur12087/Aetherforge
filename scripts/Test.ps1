@@ -12,6 +12,8 @@ function Start-TestProcess([string]$Exe, [string[]]$Arguments, [string]$Name) {
 try {
     & $dotnetExe run --no-build --project (Join-Path $projectRoot 'tests\Aetherforge.Checks\Aetherforge.Checks.csproj')
     if ($LASTEXITCODE -ne 0) { throw 'Falha nos testes de dominio.' }
+    & "$PSScriptRoot\Test-NavigationTrial.ps1" -SkipBuild -OutputDirectory 'artifacts/navigation/north-headless'
+    & "$PSScriptRoot\Test-NavigationTrial.ps1" -SkipBuild -SkipChecks -South -Compact -OutputDirectory 'artifacts/navigation/south-headless'
     $testState=Join-Path $artifactDir ('m0-test-'+[Guid]::NewGuid().ToString('N')+'.json')
     $api = Start-TestProcess $dotnetExe @("`"$projectRoot\src\Aetherforge.Api\bin\Debug\net10.0\Aetherforge.Api.dll`"",'--listen=http://127.0.0.1:5084',"`"--state-file=$testState`"") 'api'
     $children += $api

@@ -39,7 +39,7 @@ namespace Aetherforge.Domain.NavigationTrial
         public int Id;
         public List<TrialPoint> Route=new List<TrialPoint>();
         public int Index=1;
-        public long SegmentUs, PendingSince, BlockedUs, RequestKey;
+        public long SegmentUs, PendingSince, BlockedUs, WaitUs, RequestKey;
         public TrialPoint Anchor,Goal,SafeAnchor,Heading=new TrialPoint(1000000,0);
         public string State="PathPending";
         public int Recovery;
@@ -169,6 +169,9 @@ namespace Aetherforge.Domain.NavigationTrial
             _inputUs=checked(_inputUs+elapsedUs);
             while(_inputUs>=50000 && Hold.Length==0&&!Complete)
             { _inputUs-=50000; Tick(); }
+            // Hold is a time barrier: no part of this call may become resume debt.
+            // Ordinary marching/paused checkpoints keep their legitimate sub-tick carry.
+            if(Hold.Length>0)_inputUs=0;
         }
         private void Tick()
         {
@@ -192,6 +195,16 @@ namespace Aetherforge.Domain.NavigationTrial
         private void SearchRound()
         {
             LastExpansions=0;
+            foreach(var a in Actors)
+                if(a.Search!=null&&a.Search.RequestKey!=a.RequestKey)
+                {
+                    // Invalidation cancels before expansion/publication, including Found results.
+                    bool tail=a.ReplanTail&&a.Index<a.Route.Count;
+                    a.Search=null;a.ReplanTail=false;
+                    a.State=a.Route.Count>a.Index?"Moving":"RequestCancelled";
+                    if(a.Route.Count==0)Replan(a,a.Anchor);
+                    else if(tail){Replan(a,a.Route[a.Index]);a.ReplanTail=true;}
+                }
             int idle=0;
             while(LastExpansions<Budget && idle<Actors.Length)
             {
@@ -202,7 +215,6 @@ namespace Aetherforge.Domain.NavigationTrial
             foreach(var a in Actors)
             {
                 if(a.Search==null)continue;
-                if(a.Search.RequestKey!=a.RequestKey)throw new InvalidOperationException("Stale route request");
                 if(a.Search.Status==TrialSearchStatus.Found && a.Route.Count==0)
                 {a.Route=new List<TrialPoint>(a.Search.Path);a.Index=1;a.SegmentUs=0;a.State="Moving";}
                 else if(a.Search.Status==TrialSearchStatus.Found && a.ReplanTail && a.Index<a.Route.Count)
@@ -220,8 +232,13 @@ namespace Aetherforge.Domain.NavigationTrial
             var ends=(TrialRational[])starts.Clone();
             var bounds=new long[3,3];
             for(int i=0;i<3;i++)for(int j=i+1;j<3;j++)bounds[i,j]=bounds[j,i]=DistanceBound(Actors[i],Actors[j]);
-            // Existing reservation always precedes new actors. Stable roles then EntityId.
-            var order=Actors.OrderBy(a=>Reservations.Contains(a.Id)?Reservations.IndexOf(a.Id):10+a.Id).ToArray();
+            // Committed tokens and physical occupants precede applicants. At an empty
+            // entrance use proximity; elsewhere waiting time precedes stable role/Id.
+            var order=Actors.OrderBy(a=>Reservations.Contains(a.Id)?0:InLane(starts[a.Id])?1:2)
+                .ThenBy(a=>Reservations.Contains(a.Id)?Reservations.IndexOf(a.Id):0)
+                .ThenBy(a=>InLane(starts[a.Id])?-Direction(a,starts[a.Id])*(long)(starts[a.Id].X/starts[a.Id].D):
+                    NearEntrance(a,starts[a.Id])?EntranceDistance(a,starts[a.Id]):long.MaxValue)
+                .ThenByDescending(a=>Math.Max(a.WaitUs,a.BlockedUs)).ThenBy(a=>a.Id).ToArray();
             foreach(var a in order)
             {
                 if(a.Route.Count<=a.Index)continue;
@@ -237,17 +254,27 @@ namespace Aetherforge.Domain.NavigationTrial
                     if(cost>6000000||p.X<_leashArea.X0+450004||p.X>_leashArea.X1-450004||p.Z<_leashArea.Z0+450004||p.Z>_leashArea.Z1-450004)
                     {a.LeashReturning=true;a.Reversing=true;a.State="LeashReturning";continue;}
                 }
-                bool entering=Branch==TrialBranch.North && to.X>=22500000*to.D && to.X<=31500000*to.D && to.Z>=20000000*to.D && to.Z<=21600000*to.D;
-                if(entering&&!Reservations.Contains(a.Id))
+                bool entering=Branch==TrialBranch.North&&(InLane(from)||InLane(to));
+                bool admit=entering&&!Reservations.Contains(a.Id);
+                int direction=Direction(a,from);
+                if(entering&&Reservations.Count>0)
                 {
-                    var previous=Reservations.Count>0?Actors[Reservations[Reservations.Count-1]].At():from;
-                    if(Reservations.Count>0 && previous.X*from.D-from.X*previous.D<900000*previous.D*from.D)
-                    {a.State="ReservationWait";continue;}
-                    Reservations.Add(a.Id);ReservationDirection=1;PeakReservations=Math.Max(PeakReservations,Reservations.Count);
+                    if(direction!=ReservationDirection)
+                    {a.State="ReservationWait";a.WaitUs+=us;continue;}
+                    int position=Reservations.IndexOf(a.Id);
+                    int ahead=admit?Reservations[Reservations.Count-1]:position>0?Reservations[position-1]:-1;
+                    if(ahead>=0)
+                    {
+                        var previous=admit?starts[ahead]:ends[ahead];
+                        var candidate=admit?from:to;
+                        long spacing=admit?900000:800000;
+                        if((admit||InLane(previous))&&direction*(previous.X*candidate.D-candidate.X*previous.D)<spacing*previous.D*candidate.D)
+                        {a.State="ReservationWait";a.WaitUs+=us;continue;}
+                    }
                 }
                 bool safe=true;
                 foreach(var b in Actors)if(a.Id!=b.Id && !TrialRational.Swept(from,to,starts[b.Id],ends[b.Id])){safe=false;break;}
-                if(!safe){a.State="SeparationWait";CollisionWaits++;Recover(a,us);continue;}
+                if(!safe){a.State="SeparationWait";a.WaitUs+=us;CollisionWaits++;Recover(a,us);continue;}
                 long travel=TrialPoint.Length(from.Rounded,to.Rounded)+4;
                 foreach(var b in Actors)if(a.Id!=b.Id)
                 {
@@ -256,12 +283,15 @@ namespace Aetherforge.Domain.NavigationTrial
                     long other=TrialPoint.Length(starts[b.Id].Rounded,ends[b.Id].Rounded)+4;
                     if(initial>8000000-travel-other){safe=false;break;}
                 }
-                if(!safe){a.State="CohesionWait";CohesionWaits++;continue;}
+                if(!safe){a.State="CohesionWait";a.WaitUs+=us;CohesionWaits++;continue;}
+                // Admission commits with the accepted intention, never with a rejected one.
+                if(admit){Reservations.Add(a.Id);ReservationDirection=direction;PeakReservations=Math.Max(PeakReservations,Reservations.Count);}
+                a.WaitUs=0;
                 ends[a.Id]=to;bool reverse=a.Reversing;a.Move(us);
                 if(reverse&&a.Route.Count==0&&!a.LeashReturning)Replan(a,a.Anchor);
             }
             // Tokens remain ordered until the LAST member leaves, including inter-stage checkpoints.
-            if(Reservations.Count>0 && Actors.All(a=>a.At().X>=31500000*a.At().D)) {Reservations.Clear();ReservationDirection=0;}
+            if(Reservations.Count>0 && Actors.All(a=>ReservationDirection>0?a.At().X>=31500000*a.At().D:a.At().X<=22500000*a.At().D)) {Reservations.Clear();ReservationDirection=0;}
             for(int i=0;i<3;i++)for(int j=i+1;j<3;j++)
             {
                 long motion=TrialPoint.Length(starts[i].Rounded,Actors[i].At().Rounded)+TrialPoint.Length(starts[j].Rounded,Actors[j].At().Rounded)+8;
@@ -274,6 +304,17 @@ namespace Aetherforge.Domain.NavigationTrial
             if(_regrouping&&!Actors.Any(a=>a.Search?.Status==TrialSearchStatus.Pending))
             {_regroupUs+=us;if(_regroupUs>=8000000)Hold="NavigationBlocked";}
         }
+        private static bool InLane(TrialRational p)=>p.X>=22500000*p.D&&p.X<=31500000*p.D&&p.Z>=20000000*p.D&&p.Z<=21600000*p.D;
+        private static int Direction(TrialActor a,TrialRational p)
+        {
+            long dx=a.Route.Count>a.Index?a.Route[a.Index].X-a.Route[a.Index-1].X:0;
+            int sign=Math.Sign(dx);
+            if(sign==0)sign=(a.Goal.X*p.D).CompareTo(p.X);
+            return (sign==0?1:sign)*(a.Reversing?-1:1);
+        }
+        private bool NearEntrance(TrialActor a,TrialRational p)=>Branch==TrialBranch.North&&p.Z>=20000000*p.D&&p.Z<=21600000*p.D&&
+            (InLane(p)||EntranceDistance(a,p)<=1000000);
+        private static long EntranceDistance(TrialActor a,TrialRational p)=>(long)BigInteger.Abs(p.X/p.D-(Direction(a,p)>0?22500000:31500000));
         public TrialRational PresentationPosition(int actor)
         {
             long at=TimeUs-50000+Math.Min(_inputUs,50000);
@@ -339,15 +380,58 @@ namespace Aetherforge.Domain.NavigationTrial
             return true;
         }
         public TrialSimulation Checkpoint() {
-            var c=(TrialSimulation)MemberwiseClone();c.Actors=Actors.Select(a=>a.Clone()).ToArray();c.Reservations=new List<int>(Reservations);c._stops=(TrialPoint[])_stops.Clone();c._pairBounds=(long[,])_pairBounds.Clone();c._originalGoals=(TrialPoint[])_originalGoals.Clone();return c;
+            var c=(TrialSimulation)MemberwiseClone();c.Actors=Actors.Select(a=>a.Clone()).ToArray();c.Reservations=new List<int>(Reservations);c._stops=(TrialPoint[])_stops.Clone();c._pairBounds=(long[,])_pairBounds.Clone();c._originalGoals=(TrialPoint[])_originalGoals.Clone();
+            c._motion=_motion.Select(s=>new MotionSpan{Start=s.Start,Duration=s.Duration,From=(TrialRational[])s.From.Clone(),To=(TrialRational[])s.To.Clone()}).ToList();return c;
         }
         public static TrialSimulation Restore(TrialSimulation checkpoint,TrialGrid grid,long generation=1) {
+            if(checkpoint==null||grid==null)throw new InvalidOperationException("Missing navigation checkpoint/graph");
             if(checkpoint.Grid.Map.Hash!=grid.Map.Hash || checkpoint.MapGeneration!=generation)throw new InvalidOperationException("Map generation/geometry mismatch");
             if(!ReferenceEquals(checkpoint.Grid,grid))throw new InvalidOperationException("Pilot restore requires the same immutable graph instance");
-            return checkpoint.Checkpoint();
+            // Validate a detached candidate in full before publishing any restored state.
+            var candidate=checkpoint.Checkpoint();candidate.Validate();return candidate;
+        }
+        private void Validate()
+        {
+            void Require(bool valid){if(!valid)throw new InvalidOperationException("Invalid navigation checkpoint");}
+            bool Point(TrialPoint p)=>p.X>=0&&p.X<=62000000&&p.Z>=0&&p.Z<=28000000&&Grid.Map.Clear(p);
+            Require(Enum.IsDefined(typeof(TrialBranch),Branch)&&MapGeneration>0&&TimeUs>=0&&TimeUs%50000==0&&_inputUs>=0&&(_inputUs<50000||Complete));
+            Require(Hold==""||Hold=="NavigationBlocked"||Hold=="NavigationBudgetExceeded");
+            Require(Hold.Length==0||_inputUs==0);
+            Require(Phase>=0&&Phase<=_stops.Length&&_stops.Length==10&&_stops.All(Point));
+            Require(Actors.Length==3&&_cursor>=0&&_cursor<3&&Budget>=0&&Budget<=8192&&DelayedActor>=-1&&DelayedActor<3&&DelayUntilUs>=0);
+            Require(_pairBounds.GetLength(0)==3&&_pairBounds.GetLength(1)==3);
+            Require(LeashedActor>=-1&&LeashedActor<3&&_regroupUs>=0&&_regroupUs<=8050000&&(_originalGoals.Length==0||_originalGoals.Length==3)&&_originalGoals.All(Point));
+            Require(Reservations.Count<=3&&Reservations.Distinct().Count()==Reservations.Count&&Reservations.All(id=>id>=0&&id<3));
+            Require(Reservations.Count==0?ReservationDirection==0:Branch==TrialBranch.North&&Math.Abs(ReservationDirection)==1);
+            Require(PeakReservations>=Reservations.Count&&PeakReservations<=3&&CohesionWaits>=0&&CollisionWaits>=0&&LastExpansions>=0&&LastExpansions<=8192);
+            for(int i=0;i<3;i++)
+            {
+                var a=Actors[i];
+                Require(a.Id==i&&a.RequestKey>0&&a.PendingSince>=0&&a.PendingSince<=TimeUs&&a.BlockedUs>=0&&a.WaitUs>=0&&a.Recovery>=0&&a.Recovery<=3);
+                Require(a.Heading.X>=-62000000&&a.Heading.X<=62000000&&a.Heading.Z>=-28000000&&a.Heading.Z<=28000000);
+                Require(Point(a.Anchor)&&Point(a.Goal)&&Point(a.SafeAnchor)&&a.Index>=1&&a.Index<=Math.Max(1,a.Route.Count)&&a.SegmentUs>=0);
+                Require(a.Route.All(Point));
+                for(int k=1;k<a.Route.Count;k++)Require(!a.Route[k-1].Equals(a.Route[k])&&Grid.Map.Segment(a.Route[k-1],a.Route[k]));
+                Require(a.Route.Count==0?a.SegmentUs==0:a.Anchor.Equals(a.Route[Math.Min(a.Index-1,a.Route.Count-1)]));
+                Require(a.Index<a.Route.Count?a.SegmentUs<=a.Duration:a.SegmentUs==0);
+                Require(!a.Reversing||a.Index<a.Route.Count);
+                Require(Point(a.At().Rounded));
+                if(a.Search!=null)a.Search.Validate(Grid,Branch,a.RequestKey,a.Goal);
+                for(int j=0;j<3;j++)Require(_pairBounds[i,j]>=0&&_pairBounds[i,j]==_pairBounds[j,i]);
+                for(int j=0;j<i;j++)Require(TrialRational.Swept(a.At(),a.At(),Actors[j].At(),Actors[j].At()));
+            }
+            if(Hold.Length==0&&LeashedActor<0)
+                for(int i=0;i<3;i++)for(int j=i+1;j<3;j++)Require(FreshDistanceBound(Actors[i],Actors[j])<=8000000);
+            for(int k=0;k<Reservations.Count;k++)
+            {
+                var a=Actors[Reservations[k]];
+                Require(ReservationDirection>0?a.At().X>=22500000*a.At().D:a.At().X<=31500000*a.At().D);
+                Require(!a.Reversing&&(!InLane(a.At())||a.Arrived||Direction(a,a.At())==ReservationDirection));
+                if(k>0){var ahead=Actors[Reservations[k-1]].At();var p=a.At();Require(!InLane(ahead)||!InLane(p)||ReservationDirection*(ahead.X*p.D-p.X*ahead.D)>=800000*ahead.D*p.D);}
+            }
         }
         public string Fingerprint => $"{Grid.Map.Hash}:{MapGeneration}:{TimeUs}:{_inputUs}:{Phase}:{Branch}:{Hold}:{Paused}:{_cursor}:{ReservationDirection}:{string.Join(",",Reservations)}:{Budget}:{Obstructed}:{_resumed}:{LeashedActor}:{_leashArea.Id}:{DelayedActor}:{DelayUntilUs}:"+
             $"{_regroupRequested}:{_regrouping}:{_resumeAfterRegroup}:{_regroupUs}:"+string.Join(";",_originalGoals)+":"+string.Join(",",_pairBounds.Cast<long>())+":"+string.Join("|",Actors.Select(a=>$"{a.Id}:{a.At()}:{a.Heading}:{a.Goal}:{a.SafeAnchor}:{a.Index}:{a.SegmentUs}:{a.PendingSince}:{a.RequestKey}:{a.State}:{a.BlockedUs}:{a.Recovery}:{a.Reversing}:{a.ReplanTail}:{a.LeashReturning}:"+
-                string.Join(";",a.Route)+":"+a.Search?.Fingerprint));
+                a.WaitUs+":"+string.Join(";",a.Route)+":"+a.Search?.Fingerprint));
     }
 }

@@ -96,7 +96,7 @@ namespace Aetherforge.Domain.NavigationTrial
         public TrialSearch(TrialGrid grid,TrialPoint start,TrialPoint destination,TrialBranch branch,long requestKey,TrialPoint[]? reserved=null,TrialRect? area=null)
         {
             Start=start; Destination=destination; Branch=branch; RequestKey=requestKey;
-            _reserved=reserved ?? Array.Empty<TrialPoint>();
+            _reserved=reserved==null?Array.Empty<TrialPoint>():(TrialPoint[])reserved.Clone();
             _area=area;
             if(!InArea(start)||!InArea(destination)){Status=TrialSearchStatus.NoPath;return;}
             foreach(int n in grid.Connect(destination,branch)) if(InArea(TrialGrid.Point(n))&&Free(destination,TrialGrid.Point(n))) _goals[n]=TrialPoint.Length(TrialGrid.Point(n),destination);
@@ -170,7 +170,34 @@ namespace Aetherforge.Domain.NavigationTrial
         public TrialSearch Clone() {
             var copy=(TrialSearch)MemberwiseClone();
             copy._heap=new List<Entry>(_heap);copy._g=new Dictionary<int,long>(_g);copy._parent=new Dictionary<int,int>(_parent);
-            copy._closed=new HashSet<int>(_closed);copy._goals=new Dictionary<int,long>(_goals);copy.Path=new List<TrialPoint>(Path);return copy;
+            copy._closed=new HashSet<int>(_closed);copy._goals=new Dictionary<int,long>(_goals);copy.Path=new List<TrialPoint>(Path);copy._reserved=(TrialPoint[])_reserved.Clone();return copy;
+        }
+        internal void Validate(TrialGrid grid,TrialBranch branch,long key,TrialPoint goal)
+        {
+            void Require(bool valid){if(!valid)throw new InvalidOperationException("Invalid navigation search checkpoint");}
+            bool Point(TrialPoint p)=>p.X>=0&&p.X<=62000000&&p.Z>=0&&p.Z<=28000000&&grid.Map.Clear(p);
+            Require(Branch==branch&&RequestKey==key&&Destination.Equals(goal)&&Point(Start)&&Point(Destination));
+            Require(Enum.IsDefined(typeof(TrialSearchStatus),Status)&&Expansions==_closed.Count&&Expansions<=TrialGrid.Count&&Cost>=0);
+            Require(_g.Count==_parent.Count&&_g.Count<=TrialGrid.Count&&_heap.Count<=TrialGrid.Count*8&&_goals.Count<=9);
+            Require(_reserved.All(Point));
+            foreach(var e in _g)
+            {
+                Require(grid.Allowed(e.Key,Branch)&&e.Value>=0&&e.Value<=1000000000000&&_parent.ContainsKey(e.Key));
+                int parent=_parent[e.Key];
+                Require(parent==-1||_g.ContainsKey(parent)&&_g[parent]<e.Value&&grid.Map.Segment(TrialGrid.Point(parent),TrialGrid.Point(e.Key)));
+            }
+            foreach(int n in _closed)Require(_g.ContainsKey(n));
+            foreach(var e in _goals)Require(grid.Allowed(e.Key,Branch)&&e.Value>=0&&e.Value==TrialPoint.Length(TrialGrid.Point(e.Key),Destination)&&grid.Map.Segment(TrialGrid.Point(e.Key),Destination));
+            for(int i=0;i<_heap.Count;i++)
+            {
+                var e=_heap[i];Require(_g.ContainsKey(e.Node)&&e.G>=_g[e.Node]&&e.H==H(e.Node));
+                if(i>0)Require(!Before(e,_heap[(i-1)/2]));
+            }
+            Require(_best==-1?_bestCost==long.MaxValue:_closed.Contains(_best)&&_goals.ContainsKey(_best)&&_bestCost==_g[_best]+_goals[_best]);
+            Require(Status!=TrialSearchStatus.Found||Path.Count>0&&Path[0].Equals(Start)&&Path[Path.Count-1].Equals(Destination)&&Cost==_bestCost);
+            Require(Status==TrialSearchStatus.Found||Path.Count==0);
+            Require(Path.All(Point));
+            for(int i=1;i<Path.Count;i++)Require(grid.Map.Segment(Path[i-1],Path[i])&&Free(Path[i-1],Path[i]));
         }
         public string Fingerprint => $"{RequestKey}:{Status}:{Expansions}:{_heap.Count}:{_closed.Count}:{_best}:{_bestCost}:"+
             string.Join(";",_heap.Select(e=>$"{e.Node},{e.G},{e.H}"))+"|"+string.Join(";",_g.OrderBy(e=>e.Key).Select(e=>$"{e.Key},{e.Value},{_parent[e.Key]}"));

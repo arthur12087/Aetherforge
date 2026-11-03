@@ -1,5 +1,10 @@
 ## Evidência do autor — C3-A, 03/11/2026
 
+Registro histórico do candidato `975d771`, rejeitado tecnicamente na GAMELAB-69.
+Os passes abaixo não eliminam F1–F6. O corretivo e a evidência atual estão em
+`navigation-trial-corrective.md`; as medições antigas por pontos não certificam
+quads completos nem substituem a instrumentação nova.
+
 Código executado: `e0e56f095281e7fc9bcb3083ab8d06fda2fc3acd`, descendente de
 `e54971d616eac6900a218a4051f8dad4921daea8`. Branch própria
 `agent/gameplay-engineer/08687138e308`; base do PR é a branch do PR #6 aberto.
