@@ -21,6 +21,8 @@ public partial class ExpeditionVitals : Control
     private readonly Texture2D[] _roles = new Texture2D[3];
     private readonly ActorPlate[] _actors = new ActorPlate[ActorLimit];
     private readonly CombatNumber[] _numbers = new CombatNumber[NumberLimit];
+    private readonly int[] _numberOrder = new int[NumberLimit];
+    private readonly bool[] _numberWasSafe = new bool[NumberLimit], _numberWasPrimary = new bool[NumberLimit], _numberCovered = new bool[ActorLimit];
     private readonly Rect2[] _occupied = new Rect2[ActorLimit * 2 + NumberLimit + 1];
     private int _occupiedCount, _lastEvent, _enemyEventFloor, _hovered = -1, _boss = -1;
     private int _nameSize, _dataSize, _numberSize;
@@ -53,12 +55,14 @@ public partial class ExpeditionVitals : Control
     private sealed class CombatNumber
     {
         internal bool Active, Heal, Visible;
-        internal int Actor;
+        internal int Actor, EventId, Candidate = -1, CoveragePass;
         internal ulong Identity;
         internal double At;
         internal string Text = "";
         internal Vector2 Measure;
-        internal Rect2 Rect;
+        internal Rect2 Rect, Travel, Reservation;
+        internal float Rise;
+        internal string Placement = "";
     }
 
     public void Bind(ExpeditionSimulation simulation, Camera3D camera, SubViewport viewport,
@@ -127,9 +131,9 @@ public partial class ExpeditionVitals : Control
         // Inspection/selection have priority over optional names of neighbours.
         if (_hovered >= 0) PlacePlate(_hovered);
         if (selected != _hovered) PlacePlate(selected);
-        PlaceNumbers();
-        // Optional neighbour names yield their space to real combat feedback.
+        // Identification is resolved before feedback, including optional neighbour names.
         for (int i = 0; i < ActorLimit; i++) if (i != selected && i != _hovered) PlacePlate(i);
+        PlaceNumbers();
         ActiveFeedbackCount = VisibleFeedbackCount = MaxFeedbackPerActor = VisibleVitalCount = VisibleAllyCount = VisibleNameCount = 0;
         VisibleDamage = VisibleHealing = false; Array.Clear(_feedbackPerActor);
         foreach (var number in _numbers)
@@ -256,7 +260,9 @@ public partial class ExpeditionVitals : Control
         // Keep damage and healing separate; saturation replaces a same-kind item first.
         var slot = count >= 2 ? sameKind ?? sameActor! : free ?? oldest!;
         slot.Active = true; slot.Actor = e.Target; slot.Identity = _actors[e.Target].Identity;
-        slot.Heal = heal; slot.At = e.At;
+        slot.Heal = heal; slot.At = e.At; slot.EventId = e.Id;
+        slot.Candidate = -1; slot.CoveragePass = 0; slot.Placement = "pending";
+        slot.Rect = slot.Travel = slot.Reservation = default; slot.Rise = 0;
         slot.Text = (heal ? "+" : "−") + Math.Ceiling(e.Amount).ToString("0", CultureInfo.InvariantCulture);
         slot.Measure = Measure(slot.Text, _strong, _numberSize);
     }
@@ -355,25 +361,133 @@ public partial class ExpeditionVitals : Control
 
     private void PlaceNumbers()
     {
-        foreach (var number in _numbers)
+        Array.Clear(_numberCovered);
+        int count = 0;
+        for (int i = 0; i < NumberLimit; i++)
         {
+            var number = _numbers[i];
             if (!number.Active) continue;
-            var actor = _actors[number.Actor];
-            if (!actor.Projected) continue;
-            var size = new Vector2(number.Measure.X + U(23), Line(_strong, _numberSize) + U(4));
-            float rise = U(14);
-            // Reserve the whole .65 s travel channel, so rising amounts never cross a plate/face.
-            for (int lane = 0; lane < 8; lane++)
+            _numberWasPrimary[i] = number.CoveragePass == 1;
+            number.Visible = false; number.CoveragePass = 0;
+            // This is a preview against identification only: no old second number reserves
+            // space before a new/pending target gets its first opportunity.
+            _numberWasSafe[i] = _actors[number.Actor].Projected && number.Candidate >= 0 &&
+                NumberCandidateFits(number, number.Candidate, true, out _, out _, out _, out _);
+            int at = count;
+            while (at > 0 && NumberComesBefore(i, _numberOrder[at - 1]))
             {
-                int side = ((lane % 2 == 0) == number.Heal) ? 1 : -1;
-                float x = side > 0 ? actor.Head.End.X + U(6) : actor.Head.Position.X - size.X - U(6);
-                float y = actor.Anchor.Y + U(5) + (lane / 2) * (size.Y + U(5));
-                var travel = new Rect2(x, y - rise, size.X, size.Y + rise);
-                if (!Fits(travel)) continue;
-                number.Rect = new Rect2(x, y - rise * (float)((_simulation.Elapsed - number.At) / NumberLife), size.X, size.Y);
-                number.Visible = true; Reserve(travel); break;
+                _numberOrder[at] = _numberOrder[at - 1]; at--;
             }
+            _numberOrder[at] = i; count++;
         }
+        // First offer coverage to EVERY eligible target (including previously pending ones).
+        // A valid second from the previous frame may yield to another target's only number.
+        for (int pass = 1; pass <= 2; pass++)
+            for (int i = 0; i < count; i++)
+            {
+                var number = _numbers[_numberOrder[i]];
+                if (number.Visible || (pass == 1 && _numberCovered[number.Actor])) continue;
+                if (TryPlaceNumber(number))
+                {
+                    number.CoveragePass = pass;
+                    _numberCovered[number.Actor] = true;
+                }
+            }
+    }
+
+    private bool NumberComesBefore(int left, int right)
+    {
+        bool primaryLeft = _numberWasSafe[left] && _numberWasPrimary[left];
+        bool primaryRight = _numberWasSafe[right] && _numberWasPrimary[right];
+        if (primaryLeft != primaryRight) return primaryLeft;
+        if (_numberWasSafe[left] != _numberWasSafe[right]) return _numberWasSafe[left];
+        var a = _numbers[left]; var b = _numbers[right];
+        int Priority(int actor) => actor == Math.Clamp(SelectedMemberIndex, 0, 2) ? -2 : actor == _hovered ? -1 : actor;
+        int priority = Priority(a.Actor).CompareTo(Priority(b.Actor));
+        if (priority != 0) return priority < 0;
+        if (a.At != b.At) return a.At < b.At;
+        if (a.EventId != b.EventId) return a.EventId < b.EventId;
+        return left < right;
+    }
+
+    private bool TryPlaceNumber(CombatNumber number)
+    {
+        if (!_actors[number.Actor].Projected)
+        {
+            number.Candidate = -1; number.Placement = "offscreen"; return false;
+        }
+        bool ambiguous = false;
+        int previous = number.Candidate;
+        if (previous >= 0 && Accept(previous, true)) return true;
+        for (int candidate = 0; candidate < 20; candidate++)
+            if (Accept(candidate, false)) return true;
+        number.Candidate = -1;
+        number.Placement = ambiguous ? "ambiguous-target" : "no-safe-space";
+        return false;
+
+        bool Accept(int candidate, bool keep)
+        {
+            if (!NumberCandidateFits(number, candidate, keep, out var travel, out var reservation, out var rise, out bool tie))
+            { ambiguous |= tie; return false; }
+            // Validate and reserve exactly the same padded channel. Do not Grow it again.
+            _occupied[_occupiedCount++] = reservation;
+            number.Travel = travel; number.Reservation = reservation; number.Rise = rise;
+            number.Candidate = candidate; number.Visible = true; number.Placement = "placed";
+            float age = Math.Clamp((float)((_simulation.Elapsed - number.At) / NumberLife), 0, 1);
+            number.Rect = new Rect2(travel.Position + Vector2.Down * (rise * (1 - age)),
+                new Vector2(travel.Size.X, travel.Size.Y - rise));
+            return true;
+        }
+    }
+
+    private bool NumberCandidateFits(CombatNumber number, int candidate, bool keep,
+        out Rect2 travel, out Rect2 reservation, out float rise, out bool ambiguous)
+    {
+        var actor = _actors[number.Actor];
+        var size = new Vector2(number.Measure.X + U(23), Line(_strong, _numberSize) + U(4));
+        rise = candidate < 14 ? U(14) : 0;
+        if (candidate < 8)
+        {
+            int side = ((candidate % 2 == 0) == number.Heal) ? 1 : -1;
+            float x = side > 0 ? actor.Head.End.X + U(6) : actor.Head.Position.X - size.X - U(6);
+            float y = actor.Anchor.Y + U(5) + (candidate / 2) * (size.Y + U(5));
+            travel = new Rect2(x, y - rise, size.X, size.Y + rise);
+        }
+        else
+        {
+            int local = (candidate - 8) % 6, offset = local % 3;
+            float dx = offset == 0 ? 0 : U(offset == 1 ? -12 : 12);
+            float x = actor.Head.GetCenter().X - size.X / 2 + dx;
+            // An alive target already has its own HP/name above the head. Start outside
+            // that attached stack, otherwise all three "above" candidates hit its HP.
+            float top = actor.Head.Position.Y, bottom = actor.Head.End.Y;
+            if (actor.Visible) { top = Math.Min(top, actor.Rect.Position.Y); bottom = Math.Max(bottom, actor.Rect.End.Y); }
+            if (actor.ShownName.Length > 0) { top = Math.Min(top, actor.NameRect.Position.Y); bottom = Math.Max(bottom, actor.NameRect.End.Y); }
+            float y = local < 3 ? top - U(6) - size.Y - rise : bottom + U(6);
+            travel = new Rect2(x, y, size.X, size.Y + rise);
+        }
+        reservation = travel.Grow(U(3));
+        ambiguous = false;
+        if (!Fits(reservation)) return false;
+        if (candidate >= 8 && !OwnsHorizontalBand(number.Actor, travel)) { ambiguous = true; return false; }
+        // No interpolation through protected regions when the actor/camera moves. If the
+        // swept envelope is blocked, search again and snap to a currently safe candidate.
+        return !keep || !number.Reservation.HasArea() || Fits(number.Reservation.Merge(reservation));
+    }
+
+    private bool OwnsHorizontalBand(int target, Rect2 rect)
+    {
+        var head = _actors[target].Head;
+        float overlap = Math.Max(0, Math.Min(rect.End.X, head.End.X) - Math.Max(rect.Position.X, head.Position.X));
+        if (overlap < rect.Size.X / 2) return false;
+        float center = rect.GetCenter().X, distance = Math.Abs(center - head.GetCenter().X);
+        for (int i = 0; i < ActorLimit; i++)
+        {
+            if (i == target || !_actors[i].Projected) continue;
+            // An equal abscissa or a distance tie is ambiguous, never broken by actor index.
+            if (Math.Abs(center - _actors[i].Head.GetCenter().X) <= distance + U(.01f)) return false;
+        }
+        return true;
     }
 
     public override void _Draw()

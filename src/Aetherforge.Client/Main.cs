@@ -68,7 +68,7 @@ public partial class Main : Node
             _expedition = new ExpeditionView { Overview = _options.ContainsKey("overview") || DisplayServer.GetName() == "headless" };
             AddChild(_expedition);
             _expedition.DetailedHud = _options.ContainsKey("hud-details");
-            if (_options.ContainsKey("ui-check") || _options.ContainsKey("progression-check") || _options.ContainsKey("equipment-check"))
+            if (_options.ContainsKey("ui-check") || _options.ContainsKey("progression-check") || _options.ContainsKey("equipment-check") || _options.ContainsKey("number-layout-check"))
             {
                 if (_options.TryGetValue("qa-size", out var qaSize))
                 {
@@ -101,6 +101,11 @@ public partial class Main : Node
             if (_options.ContainsKey("presentation-check"))
             {
                 var check = new ExpeditionPresentationCheck { EvidencePath = Option("ui-evidence", ""), CaptureDirectory = Option("ui-captures", ""), Fast = _options.ContainsKey("presentation-fast") };
+                check.Bind(_expedition); AddChild(check);
+            }
+            if (_options.ContainsKey("number-layout-check"))
+            {
+                var check = new ExpeditionNumberLayoutCheck { EvidencePath = Option("ui-evidence", ""), CaptureDirectory = Option("ui-captures", "") };
                 check.Bind(_expedition); AddChild(check);
             }
             if (_options.ContainsKey("layout-check") || _options.ContainsKey("expedition-smoke")) VerifyExpedition(_expedition);
