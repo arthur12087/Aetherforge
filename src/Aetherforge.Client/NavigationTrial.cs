@@ -165,6 +165,8 @@ public partial class NavigationTrial : Node
     private async Task FinishRun()
     {
         var journeyFrames=_frames.ToList();var journeyNavigation=_navigation.ToList();var journeyCamera=_cameraTimes.ToList();
+        if(_offscreenBodyFrames>0||_offscreenPlateFrames>0)
+            throw new InvalidOperationException($"Group framing clipped bodies={_offscreenBodyFrames}, plates={_offscreenPlateFrames}");
         _finishing=true;_checking=true;await Capture("complete");
         // Explicit fault fixtures, isolated from the normal two-contour journey.
         _model=new TrialSimulation(_grid,TrialBranch.North){Budget=1};_model.Advance(50000);

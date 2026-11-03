@@ -41,8 +41,8 @@ public sealed class TrialGroupCamera
         float width=_extent*Mathf.Min(1,floorRatio),depth=_extent/Mathf.Max(1,floorRatio);
         // Fit the projected silhouettes before optional lead/deadzone. Height projects
         // toward -Z on this fixed 55-degree camera; following feet alone clips heads.
-        float minX=points.Min(p=>p.X)-.35f,maxX=points.Max(p=>p.X)+.35f;
-        float minZ=points.Min(p=>p.Z)-1.4f/Mathf.Tan(Pitch),maxZ=points.Max(p=>p.Z);
+        float minX=points.Min(p=>p.X)-.8f,maxX=points.Max(p=>p.X)+.8f;
+        float minZ=points.Min(p=>p.Z)-1.8f/Mathf.Tan(Pitch)-.25f,maxZ=points.Max(p=>p.Z)+.25f;
         _focus.X=maxX-minX<=width?Mathf.Clamp(_focus.X,maxX-width/2,minX+width/2):(minX+maxX)/2;
         _focus.Z=maxZ-minZ<=depth?Mathf.Clamp(_focus.Z,maxZ-depth/2,minZ+depth/2):(minZ+maxZ)/2;
         _focus.X=Mathf.Clamp(_focus.X,width/2,62-width/2);_focus.Z=Mathf.Clamp(_focus.Z,depth/2,28-depth/2);
