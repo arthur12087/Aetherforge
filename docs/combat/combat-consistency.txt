@@ -1,0 +1,18 @@
+C1.1 — verificação estática independente (02/11/2026)
+Entrada: docs/combat/combat-blockout.md; retângulos extraídos da tabela.
+Método: união retangular, bordas externas, erosão por disco 0.45 m, grade 0.10 m, BFS de 4 vizinhos.
+Não executa Godot, navegação da engine, avoidance, combate ou playtest.
+PASS contorno N: todos os 8 POIs e 10 spawns conectados à entrada; 97755 nós alcançáveis.
+PASS contorno S: todos os 8 POIs e 10 spawns conectados à entrada; 99891 nós alcançáveis.
+PASS reta J0→R3: ponto médio (27,14) sólido; sem travessia pela máquina.
+PASS discos de reunião e posições de combate citadas livres; Capataz raio 0.55 + folga 0.10 cabe no spawn.
+PASS gargalo: faixa de centros N=0.70 m < 0.80 m; S=3.10 m. Macro caminhos 25.60/28.00 m.
+PASS escudo: cobertura semiaberta, expiração exata sem proteção; pesado espaçado 12/12.5/15 s permite recarga 12 s.
+PASS exemplos de alcance 1.50→2.10 e cura 5.80→6.20 cruzam limites declarados.
+PASS alvo móvel perde visão no canto: segmento em X=23 muda de Z=20.105 para 19.963 em 0.12 s; velocidade 2.50 m/s.
+PASS dano sustentado nominal no foreman≈20.06 HP/s, hipótese temporal não certificada.
+PASS duas referências Markdown locais, UTF-8 e cinco encontros declarados; retorno j=0→0,j=3→2.
+Revisão manual complementar: identidades/recibos, terminal/continuidade e equipamento confrontados com contratos.
+Tentativa inicial: asserções concluídas, mas saída do console CP1252 falhou em caractere Unicode; repetida com stdout UTF-8.
+Limites: grade discreta não mede rota contínua exata, câmera, animação, sobrevivência ou desempenho.
+Resultado: todas as asserções estáticas acima passaram. Build/checks de gameplay não executados (somente documentação).

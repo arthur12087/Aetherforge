@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 . "$PSScriptRoot\Environment.ps1"
 Push-Location $projectRoot
 try {
-    foreach ($project in @('src\Aetherforge.Client\Aetherforge.Client.csproj','src\Aetherforge.Api\Aetherforge.Api.csproj','tests\Aetherforge.Checks\Aetherforge.Checks.csproj')) {
+    foreach ($project in @('src\Aetherforge.Client\Aetherforge.Client.csproj','src\Aetherforge.Api\Aetherforge.Api.csproj','tests\Aetherforge.Checks\Aetherforge.Checks.csproj','tests\Aetherforge.NavigationChecks\Aetherforge.NavigationChecks.csproj')) {
         & $dotnetExe build $project --nologo
         if ($LASTEXITCODE -ne 0) { throw "Falha ao compilar $project" }
     }
