@@ -39,7 +39,7 @@ internal static class RestoreChecks
                 lengths.Add(d);check(d<=8,"F4 independent C path witness below cohesion ceiling");
             }
             var oracle=new RestoreOracle();Suffix(s,240,oracle);
-            evidence.Add(new{finding="F4-A-public",t,accepted=true,independentGridWitnessMetres=lengths,oracle.Spans,oracle.MinWall,oracle.MinDisc});
+            evidence.Add(new{finding="F4-A-public",t,accepted=true,independentGridWitnessMetres=lengths,oracle.Spans,oracle.MinWall,oracle.MinDisc,oracle.MaxCohesionWitness});
         }
         foreach(var branch in new[]{TrialBranch.North,TrialBranch.South})
         {
@@ -58,7 +58,7 @@ internal static class RestoreChecks
                 for(int i=0;i<3;i++)for(int j=i+1;j<3;j++)
                     check(s.DistanceBound(s.Actors[i],s.Actors[j])<=8000000,"F4 every carried cohesion certificate bounded");
             }
-            evidence.Add(new{finding="F4-A-all-natural",branch=branch.ToString(),snapshots,s.Complete,s.TimeUs,oracle.Spans,oracle.MinWall,oracle.MinDisc});
+            evidence.Add(new{finding="F4-A-all-natural",branch=branch.ToString(),snapshots,s.Complete,s.TimeUs,oracle.Spans,oracle.MinWall,oracle.MinDisc,oracle.MaxCohesionWitness});
         }
         TrialSimulation Fixture(params (decimal x,decimal z,decimal gx,decimal gz)[] paths)
         {
