@@ -51,13 +51,23 @@ public partial class NavigationTrial : Node
                 BackgroundColor=new Color(.06f,.075f,.095f),AmbientLightSource=Godot.Environment.AmbientSource.Color,AmbientLightColor=Colors.White,AmbientLightEnergy=.7f}});
             world.AddChild(new DirectionalLight3D{RotationDegrees=new Vector3(-65,-25,0),LightEnergy=1.2f});
             foreach(var r in _grid.Map.Floor)
-                Box(world,new Vector3((r.X0+r.X1)/2e6f,-.12f,(r.Z0+r.Z1)/2e6f),new Vector3((r.X1-r.X0)/1e6f,.2f,(r.Z1-r.Z0)/1e6f),new Color(.22f,.27f,.29f));
+                Box(world,new Vector3((r.X0+r.X1)/2e6f,-.12f,(r.Z0+r.Z1)/2e6f),new Vector3((r.X1-r.X0)/1e6f,.2f,(r.Z1-r.Z0)/1e6f),new Color(.24f,.23f,.21f));
+            // Presentation-only industrial plate seams. No physics bodies or new solids.
+            var seams=new ImmediateMesh();seams.SurfaceBegin(Mesh.PrimitiveType.Lines,Material(new Color(.12f,.13f,.13f)));
+            foreach(var r in _grid.Map.Floor)
+            {
+                for(long x=r.X0;x<=r.X1;x+=2000000){seams.SurfaceAddVertex(new Vector3(x/1e6f,0,r.Z0/1e6f));seams.SurfaceAddVertex(new Vector3(x/1e6f,0,r.Z1/1e6f));}
+                for(long z=r.Z0;z<=r.Z1;z+=2000000){seams.SurfaceAddVertex(new Vector3(r.X0/1e6f,0,z/1e6f));seams.SurfaceAddVertex(new Vector3(r.X1/1e6f,0,z/1e6f));}
+            }
+            seams.SurfaceEnd();world.AddChild(new MeshInstance3D{Mesh=seams});
             // Physical boundaries drawn from the same UNION catalog. Low translucent walls expose feet.
             foreach(var e in _grid.Map.Boundary)
                 Box(world,new Vector3((e.A.X+e.B.X)/2e6f,.2f,(e.A.Z+e.B.Z)/2e6f),
                     new Vector3(Mathf.Max(.07f,Mathf.Abs(e.A.X-e.B.X)/1e6f),.4f,Mathf.Max(.07f,Mathf.Abs(e.A.Z-e.B.Z)/1e6f)),new Color(.65f,.41f,.24f,.45f));
-            Box(world,new Vector3(27,.22f,14),new Vector3(8,.45f,12),new Color(.47f,.23f,.16f,.5f));
-            var colors=new[]{new Color(.35f,.7f,1),new Color(1,.67f,.3f),new Color(.4f,1,.65f)};
+            // Low casings preserve the exact blockout footprint and expose the actors' feet.
+            Box(world,new Vector3(27,.22f,14),new Vector3(8,.45f,12),new Color(.24f,.19f,.13f,.55f));
+            for(int i=0;i<4;i++)Box(world,new Vector3(24+i*2,.46f,14),new Vector3(.08f,.04f,11.8f),new Color(.55f,.36f,.16f,.6f));
+            var colors=new[]{new Color(.45f,.64f,.68f),new Color(.82f,.57f,.26f),new Color(.45f,.67f,.53f)};
             for(int i=0;i<3;i++)
             {
                 var pivot=new Node3D();world.AddChild(pivot);_actors[i]=pivot;

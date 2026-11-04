@@ -10,7 +10,8 @@ public sealed class TrialGroupCamera
     private Vector3 _focus;
     private float _extent=10;
     private bool _bound;
-    private const float Pitch=55*Mathf.Pi/180;
+    public const float Pitch=55*Mathf.Pi/180;
+    public const float Yaw=45*Mathf.Pi/180;
     public const float MarginPixels=4;
     private readonly List<(Node3D node,Vector3[] vertices,bool plate,int actor)> _geometry=new();
     public float Extent=>_extent;
@@ -24,6 +25,8 @@ public sealed class TrialGroupCamera
     public int QuadVertexCount { get; private set; }
     public int BindCount { get; private set; }
     public bool GeometryReady=>_geometry.Count>0;
+    public Vector3 Focus=>_focus;
+    public float RequiredExtent { get; private set; }
     public void Reset(){_bound=false;}
     public void Update(Camera3D camera,TrialSimulation model,Node3D[] actors,Vector2I viewport,double dt)
     {
@@ -32,7 +35,14 @@ public sealed class TrialGroupCamera
             var pending=new List<(Node3D node,Vector3[] vertices,bool plate,int actor)>();
             for(int i=0;i<actors.Length;i++)foreach(var child in actors[i].GetChildren())
             {
-                if(child is MeshInstance3D mesh)pending.Add((mesh,mesh.Mesh.GetFaces().Distinct().ToArray(),false,i));
+                // Eight corners enclose the COMPLETE mesh, including the rotating weapon.
+                // The directed check independently projects the actual triangle vertices.
+                if(child is MeshInstance3D mesh)
+                {
+                    var box=mesh.Mesh.GetAabb();var corners=new Vector3[8];
+                    for(int k=0;k<8;k++)corners[k]=box.Position+new Vector3((k&1)==0?0:box.Size.X,(k&2)==0?0:box.Size.Y,(k&4)==0?0:box.Size.Z);
+                    pending.Add((mesh,corners,false,i));
+                }
                 if(child is Label3D label)
                 {
                     var triangle=label.GenerateTriangleMesh();
@@ -42,12 +52,12 @@ public sealed class TrialGroupCamera
             }
             _geometry.AddRange(pending);
         }
-        camera.Rotation=new Vector3(-Pitch,0,0);
+        camera.Rotation=new Vector3(-Pitch,Yaw,0);
         var basis=camera.GlobalBasis;
         var vertices=_geometry.Select(g=>(g.plate,g.actor,points:g.vertices.Select(v=>g.plate?g.node.GlobalPosition+basis*v:g.node.GlobalTransform*v).ToArray())).ToArray();
         var all=vertices.SelectMany(g=>g.points).ToArray();
-        float minX=all.Min(p=>p.X),maxX=all.Max(p=>p.X);
-        float minZ=all.Min(p=>p.Z-p.Y/Mathf.Tan(Pitch)),maxZ=all.Max(p=>p.Z-p.Y/Mathf.Tan(Pitch));
+        float minU=all.Min(p=>basis.X.Dot(p)),maxU=all.Max(p=>basis.X.Dot(p));
+        float minV=all.Min(p=>basis.Y.Dot(p)),maxV=all.Max(p=>basis.Y.Dot(p));
         var positions=actors.Select(a=>a.GlobalPosition).ToArray();
         Vector3 center=new((positions.Min(p=>p.X)+positions.Max(p=>p.X))/2,0,(positions.Min(p=>p.Z)+positions.Max(p=>p.Z))/2);
         var objective=new Vector3(model.Actors[0].Goal.X/1e6f,0,model.Actors[0].Goal.Z/1e6f);
@@ -60,23 +70,33 @@ public sealed class TrialGroupCamera
                 _focus.Z+Mathf.Sign(center.Z-_focus.Z)*Mathf.Max(0,Mathf.Abs(center.Z-_focus.Z)-.75f));
             _focus=_focus.Lerp(desired,1-Mathf.Exp(-6*(float)dt));
         }
-        float aspect=viewport.X/(float)Math.Max(1,viewport.Y),ratio=aspect*Mathf.Sin(Pitch);
-        float widthRatio=Mathf.Min(1,ratio),depthRatio=1/Mathf.Max(1,ratio);
-        float fit=Mathf.Max((maxX-minX)/(widthRatio*(1-2*MarginPixels/viewport.X)),(maxZ-minZ)/(depthRatio*(1-2*MarginPixels/viewport.Y)));
-        float objectiveNeed=Mathf.Max(Mathf.Abs(objective.X-_focus.X)*2/widthRatio,Mathf.Abs(objective.Z-_focus.Z)*2/depthRatio);
-        float target=Mathf.Clamp(Mathf.Max(Mathf.Max(8,fit),objectiveNeed<=14?objectiveNeed:0),8,14);
+        float aspect=viewport.X/(float)Math.Max(1,viewport.Y);
+        // Ground frustum AABB per unit orthographic HEIGHT, valid at this yaw/pitch.
+        var groundForward=new Vector3(Mathf.Sin(Yaw),0,Mathf.Cos(Yaw));
+        float factor=Mathf.Max(aspect*Mathf.Abs(basis.X.X)+Mathf.Abs(groundForward.X)/Mathf.Sin(Pitch),
+            aspect*Mathf.Abs(basis.X.Z)+Mathf.Abs(groundForward.Z)/Mathf.Sin(Pitch));
+        float safeW=1-2*MarginPixels/viewport.X,safeH=1-2*MarginPixels/viewport.Y;
+        float fit=Mathf.Max((maxU-minU)/(aspect*safeW),(maxV-minV)/safeH)*factor;
+        RequiredExtent=fit;
+        float softFit=Mathf.Max((maxU-minU+3)/(aspect*safeW),(maxV-minV+3*Mathf.Sin(Pitch))/safeH)*factor;
+        float objectiveNeed=Mathf.Max(Mathf.Abs(basis.X.Dot(objective-_focus))*2/aspect,Mathf.Abs(basis.Y.Dot(objective-_focus))*2)*factor;
+        float target=Mathf.Clamp(Mathf.Max(Mathf.Max(8,softFit),objectiveNeed<=14?objectiveNeed:0),8,14);
         if(binding)_extent=target;
         else if(!model.Paused)_extent=Mathf.Lerp(_extent,target,1-Mathf.Exp(-4*(float)dt));
         // Safety takes effect immediately; discretionary zoom/follow remains smoothed.
         _extent=Mathf.Clamp(Mathf.Max(_extent,fit),8,14);
-        float width=_extent*widthRatio,depth=_extent*depthRatio;
-        float mx=width*MarginPixels/viewport.X,mz=depth*MarginPixels/viewport.Y;
-        float x0=maxX+mx-width/2,x1=minX-mx+width/2,z0=maxZ+mz-depth/2,z1=minZ-mz+depth/2;
-        _focus.X=x0<=x1?Mathf.Clamp(_focus.X,x0,x1):(minX+maxX)/2;
-        _focus.Z=z0<=z1?Mathf.Clamp(_focus.Z,z0,z1):(minZ+maxZ)/2;
-        _focus.X=Mathf.Clamp(_focus.X,width/2,62-width/2);_focus.Z=Mathf.Clamp(_focus.Z,depth/2,28-depth/2);
-        camera.Projection=Camera3D.ProjectionType.Orthogonal;camera.KeepAspect=Camera3D.KeepAspectEnum.Height;camera.Size=width/aspect;
-        camera.Position=_focus+new Vector3(0,Mathf.Sin(Pitch)*20,Mathf.Cos(Pitch)*20);
+        float height=_extent/factor,width=height*aspect;
+        float mu=width*MarginPixels/viewport.X,mv=height*MarginPixels/viewport.Y;
+        float u0=maxU+mu-width/2,u1=minU-mu+width/2,v0=maxV+mv-height/2,v1=minV-mv+height/2;
+        float u=u0<=u1?Mathf.Clamp(basis.X.Dot(_focus),u0,u1):(minU+maxU)/2;
+        float focusV=v0<=v1?Mathf.Clamp(basis.Y.Dot(_focus),v0,v1):(minV+maxV)/2;
+        // Invert the camera's two ground-plane axes. World X/Z bounds are not
+        // screen horizontal/vertical bounds once yaw is non-zero.
+        float determinant=basis.X.X*basis.Y.Z-basis.X.Z*basis.Y.X;
+        _focus=new Vector3((u*basis.Y.Z-basis.X.Z*focusV)/determinant,0,(basis.X.X*focusV-u*basis.Y.X)/determinant);
+        _focus.X=Mathf.Clamp(_focus.X,0,62);_focus.Z=Mathf.Clamp(_focus.Z,0,28);
+        camera.Projection=Camera3D.ProjectionType.Orthogonal;camera.KeepAspect=Camera3D.KeepAspectEnum.Height;camera.Size=height;
+        camera.Position=_focus+basis.Z*20;
         var bodies=new HashSet<int>();var plates=new HashSet<int>();MinBodyEdgePixels=float.MaxValue;MinQuadEdgePixels=float.MaxValue;BodyVertexCount=0;QuadVertexCount=0;
         foreach(var g in vertices)foreach(var v in g.points)
         {

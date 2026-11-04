@@ -19,6 +19,65 @@ Espaço pausa; C cria checkpoint volátil; R restaura; Tab reinicia o ensaio no
 outro contorno. Esses controles pertencem somente à janela da cena de ensaio.
 Não há dano, inimigos de produção, recompensa, save ou troca da entrada normal.
 
+### Incremento visual após 52267cb — referência elevada aprovada
+
+A câmera do ensaio usa projeção **ortográfica**, orientação fixa de **45° em
+planta e 55° de inclinação**. A direção vem do vídeo aprovado
+`Aetherforge-Gameplay-Ortografico-Kling4-v3.mp4` (anexo Multica
+`01a1a3ec-cc0c-7c6c-a8ce-cba7ff8c9193`, SHA256
+`7cb84f02fb52f4ad9303a44bc4339f8746e6c03e9d1cafd56f4e2983f8b9b2ce`).
+O vídeo orienta composição/leitura; seus ataques, números e animações não são
+regras ou evidências do jogo. Não houve nova geração paga ou assets finais.
+
+O enquadramento usa os eixos projetados da câmera e a pose já apresentada,
+incluindo orientação da arma. Oito cantos do AABB local de cada mesh contêm o
+corpo/arma completos; os quads gerados de Label3D reservam os indicadores. Uma
+checagem separada projeta os **vértices reais dos triângulos** e os quads, sem usar
+o predicado de fit da câmera como oráculo. A margem absoluta é 4 px; a margem
+preferida no chão é 1,5 m. O maior eixo do AABB do frustum no chão continua em
+8–14 m, calculado com a rotação diagonal. Se não couber, registrar falha e indicar
+o objetivo externo; não mover atores ou ampliar silenciosamente o teto.
+
+Zona de tolerância de 0,75 m e suavização exponencial 6/s mantêm acompanhamento
+estável; zoom usa 4/s, com correção imediata somente para proteger a geometria.
+Pausa conserva pose/foco; resize refaz o fit e restore/Tab reinicializam a câmera
+no estado apresentado. Sem alternar lado da vista nas curvas. O piso mantém a
+união C1; juntas de chapa, tons de ferro/fuligem e acabamentos de latão são apenas
+composição visual. Carcaças baixas/translúcidas conservam a leitura da máquina
+e dos portais. Nenhuma colisão, raio, destino, prioridade ou regra foi alterada.
+
+Comparação dirigida e vídeo **real de runtime em velocidade natural 1×**:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test-TrialCamera.ps1 -Before -OutputDirectory artifacts/camera/before-north
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test-TrialCamera.ps1 -OutputDirectory artifacts/camera/after-north
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Test-TrialCamera.ps1 -Natural -Video -OutputDirectory artifacts/camera/natural-north
+```
+
+Acrescentar `-South`/`-Compact` para repetir S/640×180. `-Before` extrai exatamente
+os dois arquivos de apresentação de 52267cb, compila com o mesmo check e restaura
+os bytes atuais em finally; não altera commits/branch. A comparação fixa usa o
+mesmo Advance/pose/viewport N/S. `-Natural` usa tempo monotônico real, com pausa
+de controle explicitada no JSON. O MP4 é capturado do framebuffer e reamostrado
+pelo relógio de parede a 20 FPS, sem aceleração, áudio ou quadros gerados por IA.
+Os resizes pausados são mostrados com letterbox no vídeo de tamanho fixo.
+É necessário ffmpeg no PATH somente para `-Video`.
+
+O viewport curto **640×180 permanece experimental**. `-Wide -Compact` executa
+o diagnóstico explícito em 976×180 e conserva as falhas, sem trocar sua dimensão
+por 640. A falha histórica de 976×180 continua registrada. Quads completos não
+certificam pixels de glifos, efeitos futuros, percepção humana ou DPI físico;
+tempos sintéticos não certificam FPS natural. Resultados desta rodada estão em
+`navigation-trial-camera.md` e no pacote anexado à GAMELAB-64.
+
+Para a futura fatia de combate, o adaptador de apresentação deverá oferecer os
+bounds da pose, arma, preparação/recuperação e reservas máximas de indicador
+antes do fit, com ameaça/objetivo opcionais quando couberem. A sequência continua
+**preparação → contato/chegada → HP/número/som/VFX → recuperação**, guiada pela
+resolução autoritativa. A câmera apenas enquadra essa apresentação; não dispara
+ou corrige impactos/HP. Stage/Vitals/HUD, combate e C3-B/C4/C5 continuam sujeitos
+aos gates próprios. A revisão71 no candidato52267cb não certifica este delta visual.
+
 Verificação reproduzível (o runner encerra e propaga falha):
 
 ```powershell
@@ -115,7 +174,7 @@ O ensaio torna explícitas estas diferenças que exigem revisão antes de C3-B:
 - Máscara de navegação do ensaio usa os três raios aliados de 0,35 m. A consulta
   geométrica aceita outros raios e há check de 0,65 m, mas a segunda máscara e
   navegação do Capataz não estão integradas.
-- Câmera ortográfica a 55°, zona de 0,75 m, lead até 1 m, suavização 6/s e zoom
+- Câmera ortográfica a 55°, yaw fixo de 45° no incremento visual, zona de 0,75 m, lead até 1 m, suavização 6/s e zoom
   4/s; maior extensão do chão limitada a 8–14 m. Usa viewport real e registra
   objetivos/placas fora do quadro. O ensaio de largura integral 976×180 falhou:
   cortava corpos nas curvas. A solução do piloto mantém 180 px de altura e usa
